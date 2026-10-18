@@ -166,7 +166,10 @@ def parse_alias(
             target_namespace=sanitized_module_name,
             target_name=actual_attribute_name,
             deprecation_warning=w,
-            line_comment="type: ignore " if sanitized_module_name.startswith(("gi.", "_thread")) else None,
+            line_comment=("type: ignore " if sanitized_module_name.startswith(("gi.", "_thread"))
+                          and (sanitized_module_name, actual_attribute_name) not in {
+                              ("gi._signalhelper", "Signal"), ("gi._gtktemplate", "Template"),
+                          } else None),
             alias_to="other_module",
         )
 

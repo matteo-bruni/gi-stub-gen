@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import typing
 
@@ -484,7 +485,7 @@ class Box(GObject.GBoxed, metaclass=GObject.GType):
             Initializes the given #graphene_box_t with the vertices of
         another #graphene_box_t.
         """
-    def init_from_points(self, points: list[Point3D]) -> Box:
+    def init_from_points(self, points: collections.abc.Sequence[Point3D]) -> Box:
         """
             Initializes the given #graphene_box_t with the given array
         of vertices.
@@ -497,7 +498,7 @@ class Box(GObject.GBoxed, metaclass=GObject.GType):
             Initializes the given #graphene_box_t with two vertices
         stored inside #graphene_vec3_t.
         """
-    def init_from_vectors(self, vectors: list[Vec3]) -> Box:
+    def init_from_vectors(self, vectors: collections.abc.Sequence[Vec3]) -> Box:
         """
             Initializes the given #graphene_box_t with the given array
         of vertices.
@@ -905,7 +906,7 @@ class Matrix(GObject.GBoxed, metaclass=GObject.GType):
         This function can be used to convert between an affine matrix type
         from other libraries and a #graphene_matrix_t.
         """
-    def init_from_float(self, v: list[float]) -> Matrix:
+    def init_from_float(self, v: collections.abc.Sequence[float]) -> Matrix:
         """
             Initializes a #graphene_matrix_t with the given array of floating
         point values.
@@ -1584,7 +1585,7 @@ class Quad(GObject.GBoxed, metaclass=GObject.GType):
         """
         Initializes a #graphene_quad_t with the given points.
         """
-    def init_from_points(self, points: list[Point]) -> Quad:
+    def init_from_points(self, points: collections.abc.Sequence[Point]) -> Quad:
         """
         Initializes a #graphene_quad_t using an array of points.
         """
@@ -2270,7 +2271,7 @@ class Sphere(GObject.GBoxed, metaclass=GObject.GType):
         """
         Initializes the given #graphene_sphere_t with the given `center` and `radius`.
         """
-    def init_from_points(self, points: list[Point3D], center: Point3D | None = None) -> Sphere:
+    def init_from_points(self, points: collections.abc.Sequence[Point3D], center: Point3D | None = None) -> Sphere:
         """
             Initializes the given #graphene_sphere_t using the given array
         of 3D coordinates so that the sphere includes them.
@@ -2278,7 +2279,7 @@ class Sphere(GObject.GBoxed, metaclass=GObject.GType):
         The center of the sphere can either be specified, or will be center
         of the 3D volume that encompasses all `points`.
         """
-    def init_from_vectors(self, vectors: list[Vec3], center: Point3D | None = None) -> Sphere:
+    def init_from_vectors(self, vectors: collections.abc.Sequence[Vec3], center: Point3D | None = None) -> Sphere:
         """
             Initializes the given #graphene_sphere_t using the given array
         of 3D coordinates so that the sphere includes them.
@@ -2403,7 +2404,9 @@ class Triangle(GObject.GBoxed, metaclass=GObject.GType):
         """
         Retrieves the three vertices of the given #graphene_triangle_t.
         """
-    def init_from_float(self, a: list[float], b: list[float], c: list[float]) -> Triangle:
+    def init_from_float(
+        self, a: collections.abc.Sequence[float], b: collections.abc.Sequence[float], c: collections.abc.Sequence[float]
+    ) -> Triangle:
         """
             Initializes a #graphene_triangle_t using the three given arrays
         of floating point values, each representing the coordinates of
@@ -2485,7 +2488,7 @@ class Vec2(GObject.GBoxed, metaclass=GObject.GType):
 
         This function can be called multiple times.
         """
-    def init_from_float(self, src: list[float]) -> Vec2:
+    def init_from_float(self, src: collections.abc.Sequence[float]) -> Vec2:
         """
         Initializes `v` with the contents of the given array.
         """
@@ -2663,7 +2666,7 @@ class Vec3(GObject.GBoxed, metaclass=GObject.GType):
 
         This function can be called multiple times.
         """
-    def init_from_float(self, src: list[float]) -> Vec3:
+    def init_from_float(self, src: collections.abc.Sequence[float]) -> Vec3:
         """
         Initializes a #graphene_vec3_t with the values from an array.
         """
@@ -2836,7 +2839,7 @@ class Vec4(GObject.GBoxed, metaclass=GObject.GType):
 
         This function can be called multiple times.
         """
-    def init_from_float(self, src: list[float]) -> Vec4:
+    def init_from_float(self, src: collections.abc.Sequence[float]) -> Vec4:
         """
         Initializes a #graphene_vec4_t with the values inside the given array.
         """

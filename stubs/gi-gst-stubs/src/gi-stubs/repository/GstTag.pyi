@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -37,8 +38,8 @@ def tag_check_language_code(
     ...
 
 def tag_freeform_string_to_utf8(
-    data: list[int],
-    env_vars: list[str],
+    data: collections.abc.Sequence[int],
+    env_vars: collections.abc.Sequence[str],
 ) -> str | None:
     """
     Convenience function to read a string with unknown character encoding. If
@@ -236,7 +237,7 @@ def tag_id3_genre_get(
     ...
 
 def tag_image_data_to_image_sample(
-    image_data: bytes,
+    image_data: collections.abc.Sequence[int],
     image_type: TagImageType,
 ) -> Gst.Sample | None:
     """
@@ -267,7 +268,7 @@ def tag_image_data_to_image_sample(
 
 def tag_list_add_id3_image(
     tag_list: Gst.TagList,
-    image_data: bytes,
+    image_data: collections.abc.Sequence[int],
     id3_picture_type: int,
 ) -> bool:
     """
@@ -308,8 +309,8 @@ def tag_list_from_id3v2_tag(
     ...
 
 def tag_list_from_vorbiscomment(
-    data: bytes,
-    id_data: bytes,
+    data: collections.abc.Sequence[int],
+    id_data: collections.abc.Sequence[int],
 ) -> tuple[Gst.TagList | None, str]:
     """
     Creates a new tag list that contains the information parsed out of a
@@ -319,7 +320,7 @@ def tag_list_from_vorbiscomment(
 
 def tag_list_from_vorbiscomment_buffer(
     buffer: Gst.Buffer,
-    id_data: bytes,
+    id_data: collections.abc.Sequence[int],
 ) -> tuple[Gst.TagList | None, str]:
     """
     Creates a new tag list that contains the information parsed out of a
@@ -336,7 +337,7 @@ def tag_list_from_xmp_buffer(
     ...
 
 def tag_list_new_from_id3v1(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> Gst.TagList | None:
     """
     Parses the data containing an ID3v1 tag and returns a GstTag.List from the
@@ -366,7 +367,7 @@ def tag_list_to_exif_buffer_with_tiff_header(
 
 def tag_list_to_vorbiscomment_buffer(
     list: Gst.TagList,
-    id_data: bytes,
+    id_data: collections.abc.Sequence[int],
     vendor_string: str | None = None,
 ) -> Gst.Buffer:
     """
@@ -377,7 +378,7 @@ def tag_list_to_vorbiscomment_buffer(
 def tag_list_to_xmp_buffer(
     list: Gst.TagList,
     read_only: bool,
-    schemas: list[str],
+    schemas: collections.abc.Sequence[str],
 ) -> Gst.Buffer | None:
     """
     Formats a taglist as a xmp packet using only the selected
@@ -704,6 +705,7 @@ class TagDemux(Gst.Element):
         buffer: Gst.Buffer,
         start_tag: bool,
         tag_size: int,
+        /,
     ) -> bool:
         """
         identify_tag(self, buffer:Gst.Buffer, start_tag:bool, tag_size:int) -> bool
@@ -712,6 +714,7 @@ class TagDemux(Gst.Element):
         self,
         start_tags: Gst.TagList,
         end_tags: Gst.TagList,
+        /,
     ) -> Gst.TagList:
         """
         merge_tags(self, start_tags:Gst.TagList, end_tags:Gst.TagList) -> Gst.TagList
@@ -722,6 +725,7 @@ class TagDemux(Gst.Element):
         start_tag: bool,
         tag_size: int,
         tags: Gst.TagList,
+        /,
     ) -> TagDemuxResult:
         """
         parse_tag(self, buffer:Gst.Buffer, start_tag:bool, tag_size:int, tags:Gst.TagList) -> GstTag.TagDemuxResult
@@ -874,6 +878,7 @@ class TagMux(Gst.Element):
     def do_render_end_tag(
         self,
         tag_list: Gst.TagList,
+        /,
     ) -> Gst.Buffer:
         """
         render_end_tag(self, tag_list:Gst.TagList) -> Gst.Buffer
@@ -881,6 +886,7 @@ class TagMux(Gst.Element):
     def do_render_start_tag(
         self,
         tag_list: Gst.TagList,
+        /,
     ) -> Gst.Buffer:
         """
         render_start_tag(self, tag_list:Gst.TagList) -> Gst.Buffer

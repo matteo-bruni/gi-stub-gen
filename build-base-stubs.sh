@@ -51,6 +51,8 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GModule:2.0 \
     gi \
     gi._gi \
+    gi._signalhelper \
+    gi.events \
     --pkg-name ${STUB_PACKAGE_NAME} \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
     --pkg-author "${STUB_AUTHOR_NAME}" \

@@ -657,7 +657,7 @@ def content_type_get_symbolic_icon(
 
 def content_type_guess(
     filename: str | None = None,
-    data: bytes | None = None,
+    data: collections.abc.Sequence[int] | None = None,
 ) -> tuple[str, bool]:
     """
     Guesses the content type based on example data. If the function is
@@ -717,7 +717,7 @@ def content_type_is_unknown(
     ...
 
 def content_type_set_mime_dirs(
-    dirs: list[str] | None = None,
+    dirs: collections.abc.Sequence[str] | None = None,
 ) -> None:
     """
     Set the list of directories used by GIO to load the MIME database.
@@ -846,7 +846,7 @@ def dbus_address_get_stream_sync(
     ...
 
 def dbus_annotation_info_lookup(
-    annotations: list[DBusAnnotationInfo] | None,
+    annotations: collections.abc.Sequence[DBusAnnotationInfo] | None,
     name: str,
 ) -> str | None:
     """
@@ -948,7 +948,7 @@ def dbus_error_register_error(
 def dbus_error_register_error_domain(
     error_domain_quark_name: str,
     quark_volatile: int,
-    entries: list[DBusErrorEntry],
+    entries: collections.abc.Sequence[DBusErrorEntry],
 ) -> None:
     """
     Helper function for associating a GError error domain with D-Bus error names.
@@ -990,7 +990,7 @@ def dbus_escape_object_path(
     ...
 
 def dbus_escape_object_path_bytestring(
-    bytes: bytes,
+    bytes: collections.abc.Sequence[int],
 ) -> str:
     """
     Escapes `bytes` for use in a D-Bus object path component.
@@ -1196,7 +1196,7 @@ def dtls_server_connection_new(
     ...
 
 def file_new_build_filenamev(
-    args: list[str],
+    args: collections.abc.Sequence[str],
 ) -> File:
     """
     Constructs a GFile from a vector of elements using the correct
@@ -1401,7 +1401,7 @@ def icon_new_for_string(
 @deprecated("deprecated")
 def initable_newv(
     object_type: GObject.GType,
-    parameters: list[GObject.Parameter],
+    parameters: collections.abc.Sequence[GObject.Parameter],
     cancellable: Cancellable | None = None,
 ) -> GObject.Object:
     """
@@ -1698,7 +1698,7 @@ def pollable_source_new_full(
 
 def pollable_stream_read(
     stream: InputStream,
-    buffer: bytes,
+    buffer: collections.abc.Sequence[int],
     blocking: bool,
     cancellable: Cancellable | None = None,
 ) -> int:
@@ -1717,7 +1717,7 @@ def pollable_stream_read(
 
 def pollable_stream_write(
     stream: OutputStream,
-    buffer: bytes,
+    buffer: collections.abc.Sequence[int],
     blocking: bool,
     cancellable: Cancellable | None = None,
 ) -> int:
@@ -1737,7 +1737,7 @@ def pollable_stream_write(
 
 def pollable_stream_write_all(
     stream: OutputStream,
-    buffer: bytes,
+    buffer: collections.abc.Sequence[int],
     blocking: bool,
     cancellable: Cancellable | None = None,
 ) -> tuple[bool, int]:
@@ -2792,7 +2792,7 @@ class DBusError(GObject.GEnum):
     def register_error(error_domain: int, error_code: int, dbus_error_name: str) -> bool: ...
     @staticmethod
     def register_error_domain(
-        error_domain_quark_name: str, quark_volatile: int, entries: list[DBusErrorEntry]
+        error_domain_quark_name: str, quark_volatile: int, entries: collections.abc.Sequence[DBusErrorEntry]
     ) -> None: ...
     @staticmethod
     def strip_remote_error(error: GLib.Error) -> bool: ...
@@ -5633,7 +5633,7 @@ class ActionMap(builtins.object):
 
         If no action of this name is in the map then nothing happens.
         """
-    def remove_action_entries(self, entries: list[ActionEntry]) -> None:
+    def remove_action_entries(self, entries: collections.abc.Sequence[ActionEntry]) -> None:
         """
             Remove actions from a GActionMap. This is meant as the reverse of
         `g_action_map_add_action_entries`.
@@ -6504,6 +6504,7 @@ class AppLaunchContext(GObject.Object):
         self,
         info: AppInfo,
         files: list[File],
+        /,
     ) -> str | None:
         """
         get_display(self, info:Gio.AppInfo, files:list) -> str or None
@@ -6512,6 +6513,7 @@ class AppLaunchContext(GObject.Object):
         self,
         info: AppInfo,
         files: list[File],
+        /,
     ) -> str | None:
         """
         get_startup_notify_id(self, info:Gio.AppInfo, files:list) -> str or None
@@ -6519,6 +6521,7 @@ class AppLaunchContext(GObject.Object):
     def do_launch_failed(
         self,
         startup_notify_id: str,
+        /,
     ) -> None:
         """
         launch_failed(self, startup_notify_id:str)
@@ -6527,6 +6530,7 @@ class AppLaunchContext(GObject.Object):
         self,
         info: AppInfo,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         launch_started(self, info:Gio.AppInfo, platform_data:GLib.Variant)
@@ -6535,6 +6539,7 @@ class AppLaunchContext(GObject.Object):
         self,
         info: AppInfo,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         launched(self, info:Gio.AppInfo, platform_data:GLib.Variant)
@@ -6885,7 +6890,7 @@ class Application(GObject.Object):
 
         See GOptionEntry for more documentation of the arguments.
         """
-    def add_main_option_entries(self, entries: list[GLib.OptionEntry]) -> None:
+    def add_main_option_entries(self, entries: collections.abc.Sequence[GLib.OptionEntry]) -> None:
         """
             Adds main option entries to be handled by `application`.
 
@@ -7151,7 +7156,7 @@ class Application(GObject.Object):
 
         The application must be registered before calling this function.
         """
-    def open(self, files: list[File], hint: str) -> None:
+    def open(self, files: collections.abc.Sequence[File], hint: str) -> None:
         """
             Opens the given files.
 
@@ -7431,6 +7436,7 @@ class Application(GObject.Object):
         """
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
@@ -7438,6 +7444,7 @@ class Application(GObject.Object):
     def do_add_platform_data(
         self,
         builder: GLib.VariantBuilder,
+        /,
     ) -> None:
         """
         add_platform_data(self, builder:GLib.VariantBuilder)
@@ -7445,6 +7452,7 @@ class Application(GObject.Object):
     def do_after_emit(
         self,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         after_emit(self, platform_data:GLib.Variant)
@@ -7452,6 +7460,7 @@ class Application(GObject.Object):
     def do_before_emit(
         self,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         before_emit(self, platform_data:GLib.Variant)
@@ -7459,6 +7468,7 @@ class Application(GObject.Object):
     def do_command_line(
         self,
         command_line: ApplicationCommandLine,
+        /,
     ) -> int:
         """
         command_line(self, command_line:Gio.ApplicationCommandLine) -> int
@@ -7467,6 +7477,7 @@ class Application(GObject.Object):
         self,
         connection: DBusConnection,
         object_path: str,
+        /,
     ) -> bool:
         """
         dbus_register(self, connection:Gio.DBusConnection, object_path:str) -> bool
@@ -7475,6 +7486,7 @@ class Application(GObject.Object):
         self,
         connection: DBusConnection,
         object_path: str,
+        /,
     ) -> None:
         """
         dbus_unregister(self, connection:Gio.DBusConnection, object_path:str)
@@ -7482,6 +7494,7 @@ class Application(GObject.Object):
     def do_handle_local_options(
         self,
         options: GLib.VariantDict,
+        /,
     ) -> int:
         """
         handle_local_options(self, options:GLib.VariantDict) -> int
@@ -7489,12 +7502,14 @@ class Application(GObject.Object):
     def do_local_command_line(
         self,
         arguments: list[str],
+        /,
     ) -> tuple[bool, list[str], int]:
         """
         local_command_line(self, arguments:list) -> bool, arguments:list, exit_status:int
         """
     def do_name_lost(
         self,
+        /,
     ) -> bool:
         """
         name_lost(self) -> bool
@@ -7503,30 +7518,35 @@ class Application(GObject.Object):
         self,
         files: list[File],
         hint: str,
+        /,
     ) -> None:
         """
         open(self, files:list, hint:str)
         """
     def do_quit_mainloop(
         self,
+        /,
     ) -> None:
         """
         quit_mainloop(self)
         """
     def do_run_mainloop(
         self,
+        /,
     ) -> None:
         """
         run_mainloop(self)
         """
     def do_shutdown(
         self,
+        /,
     ) -> None:
         """
         shutdown(self)
         """
     def do_startup(
         self,
+        /,
     ) -> None:
         """
         startup(self)
@@ -8342,12 +8362,14 @@ class ApplicationCommandLine(GObject.Object):
     # python methods (overrides?)
     def do_done(
         self,
+        /,
     ) -> None:
         """
         done(self)
         """
     def do_get_stdin(
         self,
+        /,
     ) -> InputStream | None:
         """
         get_stdin(self) -> Gio.InputStream or None
@@ -8355,6 +8377,7 @@ class ApplicationCommandLine(GObject.Object):
     def do_print_literal(
         self,
         message: str,
+        /,
     ) -> None:
         """
         print_literal(self, message:str)
@@ -8362,6 +8385,7 @@ class ApplicationCommandLine(GObject.Object):
     def do_printerr_literal(
         self,
         message: str,
+        /,
     ) -> None:
         """
         printerr_literal(self, message:str)
@@ -8916,7 +8940,7 @@ class BufferedInputStream(FilterInputStream):
         """
         Gets the size of the input buffer.
         """
-    def peek(self, buffer: bytes, offset: int) -> int:
+    def peek(self, buffer: collections.abc.Sequence[int], offset: int) -> int:
         """
             Peeks in the buffer, copying data of size `count` into `buffer`,
         offset `offset` bytes.
@@ -8955,6 +8979,7 @@ class BufferedInputStream(FilterInputStream):
         self,
         count: int,
         cancellable: Cancellable | None = None,
+        /,
     ) -> int:
         """
         fill(self, count:int, cancellable:Gio.Cancellable=None) -> int
@@ -8966,6 +8991,7 @@ class BufferedInputStream(FilterInputStream):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         fill_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -8973,6 +8999,7 @@ class BufferedInputStream(FilterInputStream):
     def do_fill_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> int:
         """
         fill_finish(self, result:Gio.AsyncResult) -> int
@@ -9462,6 +9489,7 @@ class Cancellable(GObject.Object):
     # python methods (overrides?)
     def do_cancelled(
         self,
+        /,
     ) -> None:
         """
         cancelled(self)
@@ -9630,7 +9658,9 @@ class Converter(builtins.object):
         """
         Initialize Converter object with properties.
         """
-    def convert(self, inbuf: bytes, outbuf: bytes, flags: ConverterFlags) -> tuple[ConverterResult, int, int]:
+    def convert(
+        self, inbuf: collections.abc.Sequence[int], outbuf: collections.abc.Sequence[int], flags: ConverterFlags
+    ) -> tuple[ConverterResult, int, int]:
         """
             This is the main operation used when converting data. It is to be called
         multiple times in a loop, and each time it will do some work, i.e.
@@ -10189,7 +10219,7 @@ class DBusAnnotationInfo(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Methods
     @staticmethod
-    def lookup(annotations: list[DBusAnnotationInfo] | None, name: str) -> str | None:
+    def lookup(annotations: collections.abc.Sequence[DBusAnnotationInfo] | None, name: str) -> str | None:
         """
             Looks up the value of an annotation.
 
@@ -11896,6 +11926,7 @@ class DBusInterfaceSkeleton(GObject.Object):
     # python methods (overrides?)
     def do_flush(
         self,
+        /,
     ) -> None:
         """
         flush(self)
@@ -11903,24 +11934,28 @@ class DBusInterfaceSkeleton(GObject.Object):
     def do_g_authorize_method(
         self,
         invocation: DBusMethodInvocation,
+        /,
     ) -> bool:
         """
         g_authorize_method(self, invocation:Gio.DBusMethodInvocation) -> bool
         """
     def do_get_info(
         self,
+        /,
     ) -> DBusInterfaceInfo:
         """
         get_info(self) -> Gio.DBusInterfaceInfo
         """
     def do_get_properties(
         self,
+        /,
     ) -> GLib.Variant:
         """
         get_properties(self) -> GLib.Variant
         """
     def do_get_vtable(
         self,
+        /,
     ) -> DBusInterfaceVTable:
         """
         get_vtable(self) -> Gio.DBusInterfaceVTable
@@ -12157,7 +12192,7 @@ class DBusMessage(GObject.Object):
         Initialize DBusMessage object with properties.
         """
     @staticmethod
-    def bytes_needed(blob: bytes) -> int:
+    def bytes_needed(blob: collections.abc.Sequence[int]) -> int:
         """
             Utility function to calculate how many bytes are needed to
         completely deserialize the D-Bus message stored at `blob`.
@@ -12395,7 +12430,7 @@ class DBusMessage(GObject.Object):
     @classmethod
     def new_from_blob(
         cls,
-        blob: list[int],
+        blob: collections.abc.Sequence[int],
         capabilities: DBusCapabilityFlags,
     ) -> DBusMessage:
         """
@@ -13174,6 +13209,7 @@ class DBusObjectManagerClient(GObject.Object):
         interface_proxy: DBusProxy,
         changed_properties: GLib.Variant,
         invalidated_properties: str,
+        /,
     ) -> None:
         """
         interface_proxy_properties_changed(self, object_proxy:Gio.DBusObjectProxy, interface_proxy:Gio.DBusProxy, changed_properties:GLib.Variant, invalidated_properties:str)
@@ -13185,6 +13221,7 @@ class DBusObjectManagerClient(GObject.Object):
         sender_name: str,
         signal_name: str,
         parameters: GLib.Variant,
+        /,
     ) -> None:
         """
         interface_proxy_signal(self, object_proxy:Gio.DBusObjectProxy, interface_proxy:Gio.DBusProxy, sender_name:str, signal_name:str, parameters:GLib.Variant)
@@ -13851,6 +13888,7 @@ class DBusObjectSkeleton(GObject.Object):
         self,
         interface_: DBusInterfaceSkeleton,
         invocation: DBusMethodInvocation,
+        /,
     ) -> bool:
         """
         authorize_method(self, interface_:Gio.DBusInterfaceSkeleton, invocation:Gio.DBusMethodInvocation) -> bool
@@ -14485,6 +14523,7 @@ class DBusProxy(GObject.Object):
         self,
         changed_properties: GLib.Variant,
         invalidated_properties: str,
+        /,
     ) -> None:
         """
         g_properties_changed(self, changed_properties:GLib.Variant, invalidated_properties:str)
@@ -14494,6 +14533,7 @@ class DBusProxy(GObject.Object):
         sender_name: str,
         signal_name: str,
         parameters: GLib.Variant,
+        /,
     ) -> None:
         """
         g_signal(self, sender_name:str, signal_name:str, parameters:GLib.Variant)
@@ -15671,7 +15711,11 @@ class DatagramBased(builtins.object):
         `g_cancellable_is_cancelled`.
         """
     def receive_messages(
-        self, messages: list[InputMessage], flags: int, timeout: int, cancellable: Cancellable | None = None
+        self,
+        messages: collections.abc.Sequence[InputMessage],
+        flags: int,
+        timeout: int,
+        cancellable: Cancellable | None = None,
     ) -> int:
         """
             Receive one or more data messages from `datagram_based` in one go.
@@ -15726,7 +15770,11 @@ class DatagramBased(builtins.object):
         other error.
         """
     def send_messages(
-        self, messages: list[OutputMessage], flags: int, timeout: int, cancellable: Cancellable | None = None
+        self,
+        messages: collections.abc.Sequence[OutputMessage],
+        flags: int,
+        timeout: int,
+        cancellable: Cancellable | None = None,
     ) -> int:
         """
             Send one or more data messages from `datagram_based` in one go.
@@ -16035,6 +16083,7 @@ class DebugControllerDBus(GObject.Object):
     def do_authorize(
         self,
         invocation: DBusMethodInvocation,
+        /,
     ) -> bool:
         """
         authorize(self, invocation:Gio.DBusMethodInvocation) -> bool
@@ -17151,7 +17200,7 @@ class DtlsConnection(builtins.object):
             Finish an asynchronous TLS handshake operation. See
         `g_dtls_connection_handshake` for more information.
         """
-    def set_advertised_protocols(self, protocols: list[str] | None = None) -> None:
+    def set_advertised_protocols(self, protocols: collections.abc.Sequence[str] | None = None) -> None:
         """
             Sets the list of application-layer protocols to advertise that the
         caller is willing to speak on this connection. The
@@ -19013,7 +19062,7 @@ class File(builtins.object):
         `g_file_move_async`.
         """
     @staticmethod
-    def new_build_filenamev(args: list[str]) -> File:
+    def new_build_filenamev(args: collections.abc.Sequence[str]) -> File:
         """
             Constructs a GFile from a vector of elements using the correct
         separator for filenames.
@@ -19616,7 +19665,7 @@ class File(builtins.object):
     ) -> None: ...
     def replace_contents(
         self,
-        contents: bytes,
+        contents: collections.abc.Sequence[int],
         etag: str | None,
         make_backup: bool,
         flags: FileCreateFlags,
@@ -19643,7 +19692,7 @@ class File(builtins.object):
     @typing.overload
     def replace_contents_async(
         self,
-        contents: bytes,
+        contents: collections.abc.Sequence[int],
         etag: str | None,
         make_backup: bool,
         flags: FileCreateFlags,
@@ -19673,7 +19722,7 @@ class File(builtins.object):
     @typing.overload
     def replace_contents_async(
         self,
-        contents: bytes,
+        contents: collections.abc.Sequence[int],
         etag: str | None,
         make_backup: bool,
         flags: FileCreateFlags,
@@ -19684,7 +19733,7 @@ class File(builtins.object):
     @typing.overload
     def replace_contents_async(
         self,
-        contents: bytes,
+        contents: collections.abc.Sequence[int],
         etag: str | None,
         make_backup: bool,
         flags: FileCreateFlags,
@@ -20665,6 +20714,7 @@ class FileEnumerator(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -20672,6 +20722,7 @@ class FileEnumerator(GObject.Object):
     def do_close_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -20679,6 +20730,7 @@ class FileEnumerator(GObject.Object):
     def do_close_fn(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
@@ -20686,6 +20738,7 @@ class FileEnumerator(GObject.Object):
     def do_next_file(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> FileInfo | None:
         """
         next_file(self, cancellable:Gio.Cancellable=None) -> Gio.FileInfo or None
@@ -20697,6 +20750,7 @@ class FileEnumerator(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         next_files_async(self, num_files:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -20704,6 +20758,7 @@ class FileEnumerator(GObject.Object):
     def do_next_files_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[FileInfo]:
         """
         next_files_finish(self, result:Gio.AsyncResult) -> list
@@ -20861,18 +20916,21 @@ class FileIOStream(IOStream):
     # python methods (overrides?)
     def do_can_seek(
         self,
+        /,
     ) -> bool:
         """
         can_seek(self) -> bool
         """
     def do_can_truncate(
         self,
+        /,
     ) -> bool:
         """
         can_truncate(self) -> bool
         """
     def do_get_etag(
         self,
+        /,
     ) -> str | None:
         """
         get_etag(self) -> str or None
@@ -20881,6 +20939,7 @@ class FileIOStream(IOStream):
         self,
         attributes: str,
         cancellable: Cancellable | None = None,
+        /,
     ) -> FileInfo:
         """
         query_info(self, attributes:str, cancellable:Gio.Cancellable=None) -> Gio.FileInfo
@@ -20892,6 +20951,7 @@ class FileIOStream(IOStream):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         query_info_async(self, attributes:str, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -20899,6 +20959,7 @@ class FileIOStream(IOStream):
     def do_query_info_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> FileInfo:
         """
         query_info_finish(self, result:Gio.AsyncResult) -> Gio.FileInfo
@@ -20908,12 +20969,14 @@ class FileIOStream(IOStream):
         offset: int,
         type: GLib.SeekType,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         seek(self, offset:int, type:GLib.SeekType, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_tell(
         self,
+        /,
     ) -> int:
         """
         tell(self) -> int
@@ -20922,6 +20985,7 @@ class FileIOStream(IOStream):
         self,
         size: int,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         truncate_fn(self, size:int, cancellable:Gio.Cancellable=None) -> bool
@@ -21965,7 +22029,7 @@ class FileInfo(GObject.Object):
             Sets the `attribute` to contain the given `attr_value`,
         if possible.
         """
-    def set_attribute_stringv(self, attribute: str, attr_value: list[str]) -> None:
+    def set_attribute_stringv(self, attribute: str, attr_value: collections.abc.Sequence[str]) -> None:
         """
             Sets the `attribute` to contain the given `attr_value`,
         if possible.
@@ -22176,6 +22240,7 @@ class FileInputStream(InputStream):
     # python methods (overrides?)
     def do_can_seek(
         self,
+        /,
     ) -> bool:
         """
         can_seek(self) -> bool
@@ -22184,6 +22249,7 @@ class FileInputStream(InputStream):
         self,
         attributes: str,
         cancellable: Cancellable | None = None,
+        /,
     ) -> FileInfo:
         """
         query_info(self, attributes:str, cancellable:Gio.Cancellable=None) -> Gio.FileInfo
@@ -22195,6 +22261,7 @@ class FileInputStream(InputStream):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         query_info_async(self, attributes:str, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -22202,6 +22269,7 @@ class FileInputStream(InputStream):
     def do_query_info_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> FileInfo:
         """
         query_info_finish(self, result:Gio.AsyncResult) -> Gio.FileInfo
@@ -22211,12 +22279,14 @@ class FileInputStream(InputStream):
         offset: int,
         type: GLib.SeekType,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         seek(self, offset:int, type:GLib.SeekType, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_tell(
         self,
+        /,
     ) -> int:
         """
         tell(self) -> int
@@ -22335,6 +22405,7 @@ class FileMonitor(GObject.Object):
     # python methods (overrides?)
     def do_cancel(
         self,
+        /,
     ) -> bool:
         """
         cancel(self) -> bool
@@ -22344,6 +22415,7 @@ class FileMonitor(GObject.Object):
         file: File,
         other_file: File,
         event_type: FileMonitorEvent,
+        /,
     ) -> None:
         """
         changed(self, file:Gio.File, other_file:Gio.File, event_type:Gio.FileMonitorEvent)
@@ -22528,18 +22600,21 @@ class FileOutputStream(OutputStream):
     # python methods (overrides?)
     def do_can_seek(
         self,
+        /,
     ) -> bool:
         """
         can_seek(self) -> bool
         """
     def do_can_truncate(
         self,
+        /,
     ) -> bool:
         """
         can_truncate(self) -> bool
         """
     def do_get_etag(
         self,
+        /,
     ) -> str | None:
         """
         get_etag(self) -> str or None
@@ -22548,6 +22623,7 @@ class FileOutputStream(OutputStream):
         self,
         attributes: str,
         cancellable: Cancellable | None = None,
+        /,
     ) -> FileInfo:
         """
         query_info(self, attributes:str, cancellable:Gio.Cancellable=None) -> Gio.FileInfo
@@ -22559,6 +22635,7 @@ class FileOutputStream(OutputStream):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         query_info_async(self, attributes:str, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -22566,6 +22643,7 @@ class FileOutputStream(OutputStream):
     def do_query_info_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> FileInfo:
         """
         query_info_finish(self, result:Gio.AsyncResult) -> Gio.FileInfo
@@ -22575,12 +22653,14 @@ class FileOutputStream(OutputStream):
         offset: int,
         type: GLib.SeekType,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         seek(self, offset:int, type:GLib.SeekType, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_tell(
         self,
+        /,
     ) -> int:
         """
         tell(self) -> int
@@ -22589,6 +22669,7 @@ class FileOutputStream(OutputStream):
         self,
         size: int,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         truncate_fn(self, size:int, cancellable:Gio.Cancellable=None) -> bool
@@ -22671,6 +22752,7 @@ class FilenameCompleter(GObject.Object):
     # python methods (overrides?)
     def do_got_completion_data(
         self,
+        /,
     ) -> None:
         """
         got_completion_data(self)
@@ -23365,6 +23447,7 @@ class IOStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -23372,6 +23455,7 @@ class IOStream(GObject.Object):
     def do_close_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -23379,18 +23463,21 @@ class IOStream(GObject.Object):
     def do_close_fn(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
         """
     def do_get_input_stream(
         self,
+        /,
     ) -> InputStream:
         """
         get_input_stream(self) -> Gio.InputStream
         """
     def do_get_output_stream(
         self,
+        /,
     ) -> OutputStream:
         """
         get_output_stream(self) -> Gio.OutputStream
@@ -23787,6 +23874,7 @@ class InetAddress(GObject.Object):
     # python methods (overrides?)
     def do_to_string(
         self,
+        /,
     ) -> str:
         """
         to_string(self) -> str
@@ -23807,7 +23895,7 @@ class InetAddress(GObject.Object):
     @classmethod
     def new_from_bytes(
         cls,
-        bytes: list[int],
+        bytes: collections.abc.Sequence[int],
         family: SocketFamily,
     ) -> InetAddress:
         """
@@ -24335,7 +24423,9 @@ class Initable(builtins.object):
     @deprecated("deprecated")
     @staticmethod
     def newv(
-        object_type: GObject.GType, parameters: list[GObject.Parameter], cancellable: Cancellable | None = None
+        object_type: GObject.GType,
+        parameters: collections.abc.Sequence[GObject.Parameter],
+        cancellable: Cancellable | None = None,
     ) -> GObject.Object:
         """
             Helper function for constructing GInitable object. This is
@@ -24783,6 +24873,7 @@ class InputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -24790,6 +24881,7 @@ class InputStream(GObject.Object):
     def do_close_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -24797,6 +24889,7 @@ class InputStream(GObject.Object):
     def do_close_fn(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
@@ -24807,6 +24900,7 @@ class InputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> list[int] | None:
         """
         read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list
@@ -24814,6 +24908,7 @@ class InputStream(GObject.Object):
     def do_read_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> int:
         """
         read_finish(self, result:Gio.AsyncResult) -> int
@@ -24823,6 +24918,7 @@ class InputStream(GObject.Object):
         buffer: typing.Any,
         count: int,
         cancellable: Cancellable | None = None,
+        /,
     ) -> int:
         """
         read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int
@@ -24831,6 +24927,7 @@ class InputStream(GObject.Object):
         self,
         count: int,
         cancellable: Cancellable | None = None,
+        /,
     ) -> int:
         """
         skip(self, count:int, cancellable:Gio.Cancellable=None) -> int
@@ -24842,6 +24939,7 @@ class InputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -24849,6 +24947,7 @@ class InputStream(GObject.Object):
     def do_skip_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> int:
         """
         skip_finish(self, result:Gio.AsyncResult) -> int
@@ -25192,7 +25291,7 @@ class ListStore[ObjectItemType: GObject.Object](GObject.Object):
         """
         Removes all items from `store`.
         """
-    def splice(self, position: int, n_removals: int, additions: list[GObject.Object]) -> None:
+    def splice(self, position: int, n_removals: int, additions: collections.abc.Sequence[GObject.Object]) -> None:
         """
             Changes `store` by removing `n_removals` items and adding `n_additions`
         items to it. `additions` must contain `n_additions` items of type
@@ -25408,7 +25507,7 @@ class MemoryInputStream(InputStream):
         """
         Appends `bytes` to data that can be read from the input stream.
         """
-    def add_data(self, data: bytes, destroy: GLib.DestroyNotify | None = None) -> None:
+    def add_data(self, data: collections.abc.Sequence[int], destroy: GLib.DestroyNotify | None = None) -> None:
         """
         Appends `data` to data that can be read from the input stream
         """
@@ -25440,7 +25539,7 @@ class MemoryInputStream(InputStream):
     @classmethod
     def new_from_data(
         cls,
-        data: list[int],
+        data: collections.abc.Sequence[int],
         destroy: collections.abc.Callable[[typing.Any], None] | None = None,
     ) -> MemoryInputStream:
         """
@@ -25978,6 +26077,7 @@ class MenuAttributeIter(GObject.Object):
     # python methods (overrides?)
     def do_get_next(
         self,
+        /,
     ) -> tuple[bool, str, GLib.Variant]:
         """
         get_next(self) -> bool, out_name:str, value:GLib.Variant
@@ -26364,6 +26464,7 @@ class MenuLinkIter(GObject.Object):
     # python methods (overrides?)
     def do_get_next(
         self,
+        /,
     ) -> tuple[bool, str, MenuModel]:
         """
         get_next(self) -> bool, out_link:str, value:Gio.MenuModel
@@ -26594,6 +26695,7 @@ class MenuModel(GObject.Object):
         item_index: int,
         attribute: str,
         expected_type: GLib.VariantType | None = None,
+        /,
     ) -> GLib.Variant | None:
         """
         get_item_attribute_value(self, item_index:int, attribute:str, expected_type:GLib.VariantType=None) -> GLib.Variant or None
@@ -26601,6 +26703,7 @@ class MenuModel(GObject.Object):
     def do_get_item_attributes(
         self,
         item_index: int,
+        /,
     ) -> dict[str, GLib.Variant]:
         """
         get_item_attributes(self, item_index:int) -> attributes:dict
@@ -26609,6 +26712,7 @@ class MenuModel(GObject.Object):
         self,
         item_index: int,
         link: str,
+        /,
     ) -> MenuModel | None:
         """
         get_item_link(self, item_index:int, link:str) -> Gio.MenuModel or None
@@ -26616,18 +26720,21 @@ class MenuModel(GObject.Object):
     def do_get_item_links(
         self,
         item_index: int,
+        /,
     ) -> dict[str, MenuModel]:
         """
         get_item_links(self, item_index:int) -> links:dict
         """
     def do_get_n_items(
         self,
+        /,
     ) -> int:
         """
         get_n_items(self) -> int
         """
     def do_is_mutable(
         self,
+        /,
     ) -> bool:
         """
         is_mutable(self) -> bool
@@ -26635,6 +26742,7 @@ class MenuModel(GObject.Object):
     def do_iterate_item_attributes(
         self,
         item_index: int,
+        /,
     ) -> MenuAttributeIter:
         """
         iterate_item_attributes(self, item_index:int) -> Gio.MenuAttributeIter
@@ -26642,6 +26750,7 @@ class MenuModel(GObject.Object):
     def do_iterate_item_links(
         self,
         item_index: int,
+        /,
     ) -> MenuLinkIter:
         """
         iterate_item_links(self, item_index:int) -> Gio.MenuLinkIter
@@ -27420,6 +27529,7 @@ class MountOperation(GObject.Object):
     # python methods (overrides?)
     def do_aborted(
         self,
+        /,
     ) -> None:
         """
         aborted(self)
@@ -27430,6 +27540,7 @@ class MountOperation(GObject.Object):
         default_user: str,
         default_domain: str,
         flags: AskPasswordFlags,
+        /,
     ) -> None:
         """
         ask_password(self, message:str, default_user:str, default_domain:str, flags:Gio.AskPasswordFlags)
@@ -27438,6 +27549,7 @@ class MountOperation(GObject.Object):
         self,
         message: str,
         choices: list[str],
+        /,
     ) -> None:
         """
         ask_question(self, message:str, choices:list)
@@ -27445,6 +27557,7 @@ class MountOperation(GObject.Object):
     def do_reply(
         self,
         result: MountOperationResult,
+        /,
     ) -> None:
         """
         reply(self, result:Gio.MountOperationResult)
@@ -27454,6 +27567,7 @@ class MountOperation(GObject.Object):
         message: str,
         processes: list[int],
         choices: list[str],
+        /,
     ) -> None:
         """
         show_processes(self, message:str, processes:list, choices:list)
@@ -27463,6 +27577,7 @@ class MountOperation(GObject.Object):
         message: str,
         time_left: int,
         bytes_left: int,
+        /,
     ) -> None:
         """
         show_unmount_progress(self, message:str, time_left:int, bytes_left:int)
@@ -28853,7 +28968,7 @@ class OutputStream(GObject.Object):
         """
         Finishes an asynchronous stream splice operation.
         """
-    def write(self, buffer: bytes, cancellable: Cancellable | None = None) -> int:
+    def write(self, buffer: collections.abc.Sequence[int], cancellable: Cancellable | None = None) -> int:
         """
             Tries to write `count` bytes from `buffer` into the stream. Will block
         during the operation.
@@ -28876,7 +28991,9 @@ class OutputStream(GObject.Object):
 
         On error -1 is returned and `error` is set accordingly.
         """
-    def write_all(self, buffer: bytes, cancellable: Cancellable | None = None) -> tuple[bool, int]:
+    def write_all(
+        self, buffer: collections.abc.Sequence[int], cancellable: Cancellable | None = None
+    ) -> tuple[bool, int]:
         """
             Tries to write `count` bytes from `buffer` into the stream. Will block
         during the operation.
@@ -28900,7 +29017,7 @@ class OutputStream(GObject.Object):
         """
     @typing.overload
     def write_all_async(
-        self, buffer: bytes, io_priority: int, cancellable: Cancellable | None = None
+        self, buffer: collections.abc.Sequence[int], io_priority: int, cancellable: Cancellable | None = None
     ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
@@ -28922,7 +29039,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def write_all_async(
         self,
-        buffer: bytes,
+        buffer: collections.abc.Sequence[int],
         io_priority: int,
         cancellable: Cancellable | None,
         callback: AsyncReadyCallback | None,
@@ -28931,7 +29048,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def write_all_async(
         self,
-        buffer: bytes,
+        buffer: collections.abc.Sequence[int],
         io_priority: int,
         cancellable: Cancellable | None = None,
         *,
@@ -28951,7 +29068,9 @@ class OutputStream(GObject.Object):
         `g_output_stream_write_async`.
         """
     @typing.overload
-    def write_async(self, buffer: bytes, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[int]:
+    def write_async(
+        self, buffer: collections.abc.Sequence[int], io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[int]:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
         the stream. When the operation is finished `callback` will be called.
@@ -28992,7 +29111,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def write_async(
         self,
-        buffer: bytes,
+        buffer: collections.abc.Sequence[int],
         io_priority: int,
         cancellable: Cancellable | None,
         callback: AsyncReadyCallback | None,
@@ -29001,7 +29120,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def write_async(
         self,
-        buffer: bytes,
+        buffer: collections.abc.Sequence[int],
         io_priority: int,
         cancellable: Cancellable | None = None,
         *,
@@ -29066,7 +29185,9 @@ class OutputStream(GObject.Object):
         """
         Finishes a stream write operation.
         """
-    def writev(self, vectors: list[OutputVector], cancellable: Cancellable | None = None) -> tuple[bool, int]:
+    def writev(
+        self, vectors: collections.abc.Sequence[OutputVector], cancellable: Cancellable | None = None
+    ) -> tuple[bool, int]:
         """
             Tries to write the bytes contained in the `n_vectors` `vectors` into the
         stream. Will block during the operation.
@@ -29092,7 +29213,9 @@ class OutputStream(GObject.Object):
         are exceeded. For example, when writing to a local file on UNIX platforms,
         the aggregate buffer size must not exceed G_MAXSSIZE bytes.
         """
-    def writev_all(self, vectors: list[OutputVector], cancellable: Cancellable | None = None) -> tuple[bool, int]:
+    def writev_all(
+        self, vectors: collections.abc.Sequence[OutputVector], cancellable: Cancellable | None = None
+    ) -> tuple[bool, int]:
         """
             Tries to write the bytes contained in the `n_vectors` `vectors` into the
         stream. Will block during the operation.
@@ -29119,7 +29242,7 @@ class OutputStream(GObject.Object):
         """
     @typing.overload
     def writev_all_async(
-        self, vectors: list[OutputVector], io_priority: int, cancellable: Cancellable | None = None
+        self, vectors: collections.abc.Sequence[OutputVector], io_priority: int, cancellable: Cancellable | None = None
     ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
@@ -29142,7 +29265,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def writev_all_async(
         self,
-        vectors: list[OutputVector],
+        vectors: collections.abc.Sequence[OutputVector],
         io_priority: int,
         cancellable: Cancellable | None,
         callback: AsyncReadyCallback | None,
@@ -29151,7 +29274,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def writev_all_async(
         self,
-        vectors: list[OutputVector],
+        vectors: collections.abc.Sequence[OutputVector],
         io_priority: int,
         cancellable: Cancellable | None = None,
         *,
@@ -29172,7 +29295,7 @@ class OutputStream(GObject.Object):
         """
     @typing.overload
     def writev_async(
-        self, vectors: list[OutputVector], io_priority: int, cancellable: Cancellable | None = None
+        self, vectors: collections.abc.Sequence[OutputVector], io_priority: int, cancellable: Cancellable | None = None
     ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
@@ -29209,7 +29332,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def writev_async(
         self,
-        vectors: list[OutputVector],
+        vectors: collections.abc.Sequence[OutputVector],
         io_priority: int,
         cancellable: Cancellable | None,
         callback: AsyncReadyCallback | None,
@@ -29218,7 +29341,7 @@ class OutputStream(GObject.Object):
     @typing.overload
     def writev_async(
         self,
-        vectors: list[OutputVector],
+        vectors: collections.abc.Sequence[OutputVector],
         io_priority: int,
         cancellable: Cancellable | None = None,
         *,
@@ -29236,6 +29359,7 @@ class OutputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29243,6 +29367,7 @@ class OutputStream(GObject.Object):
     def do_close_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -29250,6 +29375,7 @@ class OutputStream(GObject.Object):
     def do_close_fn(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
@@ -29257,6 +29383,7 @@ class OutputStream(GObject.Object):
     def do_flush(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         flush(self, cancellable:Gio.Cancellable=None) -> bool
@@ -29267,6 +29394,7 @@ class OutputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29274,6 +29402,7 @@ class OutputStream(GObject.Object):
     def do_flush_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         flush_finish(self, result:Gio.AsyncResult) -> bool
@@ -29283,6 +29412,7 @@ class OutputStream(GObject.Object):
         source: InputStream,
         flags: OutputStreamSpliceFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> int:
         """
         splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int
@@ -29295,6 +29425,7 @@ class OutputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29302,6 +29433,7 @@ class OutputStream(GObject.Object):
     def do_splice_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> int:
         """
         splice_finish(self, result:Gio.AsyncResult) -> int
@@ -29313,6 +29445,7 @@ class OutputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29320,6 +29453,7 @@ class OutputStream(GObject.Object):
     def do_write_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> int:
         """
         write_finish(self, result:Gio.AsyncResult) -> int
@@ -29328,6 +29462,7 @@ class OutputStream(GObject.Object):
         self,
         buffer: list[int] | None = None,
         cancellable: Cancellable | None = None,
+        /,
     ) -> int:
         """
         write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int
@@ -29339,6 +29474,7 @@ class OutputStream(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29346,6 +29482,7 @@ class OutputStream(GObject.Object):
     def do_writev_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> tuple[bool, int]:
         """
         writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int
@@ -29354,6 +29491,7 @@ class OutputStream(GObject.Object):
         self,
         vectors: list[OutputVector],
         cancellable: Cancellable | None = None,
+        /,
     ) -> tuple[bool, int]:
         """
         writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int
@@ -29605,6 +29743,7 @@ class Permission(GObject.Object):
     def do_acquire(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         acquire(self, cancellable:Gio.Cancellable=None) -> bool
@@ -29614,6 +29753,7 @@ class Permission(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         acquire_async(self, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29621,6 +29761,7 @@ class Permission(GObject.Object):
     def do_acquire_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         acquire_finish(self, result:Gio.AsyncResult) -> bool
@@ -29628,6 +29769,7 @@ class Permission(GObject.Object):
     def do_release(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         release(self, cancellable:Gio.Cancellable=None) -> bool
@@ -29637,6 +29779,7 @@ class Permission(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         release_async(self, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -29644,6 +29787,7 @@ class Permission(GObject.Object):
     def do_release_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         release_finish(self, result:Gio.AsyncResult) -> bool
@@ -29888,7 +30032,7 @@ class PollableOutputStream(builtins.object):
         The behaviour of this method is undefined if
         `g_pollable_output_stream_can_poll` returns False for `stream`.
         """
-    def write_nonblocking(self, buffer: bytes, cancellable: Cancellable | None = None) -> int:
+    def write_nonblocking(self, buffer: collections.abc.Sequence[int], cancellable: Cancellable | None = None) -> int:
         """
             Attempts to write up to `count` bytes from `buffer` to `stream`, as
         with `g_output_stream_write`. If `stream` is not currently writable,
@@ -29910,7 +30054,7 @@ class PollableOutputStream(builtins.object):
         `g_pollable_output_stream_can_poll` returns False for `stream`.
         """
     def writev_nonblocking(
-        self, vectors: list[OutputVector], cancellable: Cancellable | None = None
+        self, vectors: collections.abc.Sequence[OutputVector], cancellable: Cancellable | None = None
     ) -> tuple[PollableReturn, int]:
         """
             Attempts to write the bytes contained in the `n_vectors` `vectors` to `stream`,
@@ -31302,6 +31446,7 @@ class Resolver(GObject.Object):
         self,
         address: InetAddress,
         cancellable: Cancellable | None = None,
+        /,
     ) -> str:
         """
         lookup_by_address(self, address:Gio.InetAddress, cancellable:Gio.Cancellable=None) -> str
@@ -31312,6 +31457,7 @@ class Resolver(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_by_address_async(self, address:Gio.InetAddress, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -31319,6 +31465,7 @@ class Resolver(GObject.Object):
     def do_lookup_by_address_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> str:
         """
         lookup_by_address_finish(self, result:Gio.AsyncResult) -> str
@@ -31327,6 +31474,7 @@ class Resolver(GObject.Object):
         self,
         hostname: str,
         cancellable: Cancellable | None = None,
+        /,
     ) -> list[InetAddress]:
         """
         lookup_by_name(self, hostname:str, cancellable:Gio.Cancellable=None) -> list
@@ -31337,6 +31485,7 @@ class Resolver(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_by_name_async(self, hostname:str, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -31344,6 +31493,7 @@ class Resolver(GObject.Object):
     def do_lookup_by_name_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[InetAddress]:
         """
         lookup_by_name_finish(self, result:Gio.AsyncResult) -> list
@@ -31353,6 +31503,7 @@ class Resolver(GObject.Object):
         hostname: str,
         flags: ResolverNameLookupFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> list[InetAddress]:
         """
         lookup_by_name_with_flags(self, hostname:str, flags:Gio.ResolverNameLookupFlags, cancellable:Gio.Cancellable=None) -> list
@@ -31364,6 +31515,7 @@ class Resolver(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_by_name_with_flags_async(self, hostname:str, flags:Gio.ResolverNameLookupFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -31371,6 +31523,7 @@ class Resolver(GObject.Object):
     def do_lookup_by_name_with_flags_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[InetAddress]:
         """
         lookup_by_name_with_flags_finish(self, result:Gio.AsyncResult) -> list
@@ -31380,6 +31533,7 @@ class Resolver(GObject.Object):
         rrname: str,
         record_type: ResolverRecordType,
         cancellable: Cancellable | None = None,
+        /,
     ) -> list[GLib.Variant]:
         """
         lookup_records(self, rrname:str, record_type:Gio.ResolverRecordType, cancellable:Gio.Cancellable=None) -> list
@@ -31391,6 +31545,7 @@ class Resolver(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_records_async(self, rrname:str, record_type:Gio.ResolverRecordType, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -31398,6 +31553,7 @@ class Resolver(GObject.Object):
     def do_lookup_records_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[GLib.Variant]:
         """
         lookup_records_finish(self, result:Gio.AsyncResult) -> list
@@ -31408,6 +31564,7 @@ class Resolver(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_service_async(self, rrname:str, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -31415,12 +31572,14 @@ class Resolver(GObject.Object):
     def do_lookup_service_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[SrvTarget]:
         """
         lookup_service_finish(self, result:Gio.AsyncResult) -> list
         """
     def do_reload(
         self,
+        /,
     ) -> None:
         """
         reload(self)
@@ -32653,7 +32812,7 @@ class Settings(GObject.Object):
         It is a programmer error to give a `key` that isn't specified as
         having a string type in the schema for `settings`.
         """
-    def set_strv(self, key: str, value: list[str] | None = None) -> bool:
+    def set_strv(self, key: str, value: collections.abc.Sequence[str] | None = None) -> bool:
         """
             Sets `key` in `settings` to `value`.
 
@@ -32734,6 +32893,7 @@ class Settings(GObject.Object):
         self,
         keys: int,
         n_keys: int,
+        /,
     ) -> bool:
         """
         change_event(self, keys:int, n_keys:int) -> bool
@@ -32741,6 +32901,7 @@ class Settings(GObject.Object):
     def do_changed(
         self,
         key: str,
+        /,
     ) -> None:
         """
         changed(self, key:str)
@@ -32748,6 +32909,7 @@ class Settings(GObject.Object):
     def do_writable_change_event(
         self,
         key: int,
+        /,
     ) -> bool:
         """
         writable_change_event(self, key:int) -> bool
@@ -32755,6 +32917,7 @@ class Settings(GObject.Object):
     def do_writable_changed(
         self,
         key: str,
+        /,
     ) -> None:
         """
         writable_changed(self, key:str)
@@ -33123,7 +33286,7 @@ class SettingsBackend(GObject.Object):
 
         The user gets a reference to the backend.
         """
-    def keys_changed(self, path: str, items: list[str], origin_tag: object | None = None) -> None:
+    def keys_changed(self, path: str, items: collections.abc.Sequence[str], origin_tag: object | None = None) -> None:
         """
             Signals that a list of keys have possibly changed.  Backend
         implementations should call this if keys have possibly changed their
@@ -33191,6 +33354,7 @@ class SettingsBackend(GObject.Object):
     def do_get_writable(
         self,
         key: str,
+        /,
     ) -> bool:
         """
         get_writable(self, key:str) -> bool
@@ -33200,6 +33364,7 @@ class SettingsBackend(GObject.Object):
         key: str,
         expected_type: GLib.VariantType,
         default_value: bool,
+        /,
     ) -> GLib.Variant:
         """
         read(self, key:str, expected_type:GLib.VariantType, default_value:bool) -> GLib.Variant
@@ -33208,6 +33373,7 @@ class SettingsBackend(GObject.Object):
         self,
         key: str,
         expected_type: GLib.VariantType,
+        /,
     ) -> GLib.Variant:
         """
         read_user_value(self, key:str, expected_type:GLib.VariantType) -> GLib.Variant
@@ -33216,6 +33382,7 @@ class SettingsBackend(GObject.Object):
         self,
         key: str,
         origin_tag: typing.Any = None,
+        /,
     ) -> None:
         """
         reset(self, key:str, origin_tag=None)
@@ -33223,12 +33390,14 @@ class SettingsBackend(GObject.Object):
     def do_subscribe(
         self,
         name: str,
+        /,
     ) -> None:
         """
         subscribe(self, name:str)
         """
     def do_sync(
         self,
+        /,
     ) -> None:
         """
         sync(self)
@@ -33236,6 +33405,7 @@ class SettingsBackend(GObject.Object):
     def do_unsubscribe(
         self,
         name: str,
+        /,
     ) -> None:
         """
         unsubscribe(self, name:str)
@@ -33245,6 +33415,7 @@ class SettingsBackend(GObject.Object):
         key: str,
         value: GLib.Variant,
         origin_tag: typing.Any = None,
+        /,
     ) -> bool:
         """
         write(self, key:str, value:GLib.Variant, origin_tag=None) -> bool
@@ -33253,6 +33424,7 @@ class SettingsBackend(GObject.Object):
         self,
         tree: GLib.Tree,
         origin_tag: typing.Any = None,
+        /,
     ) -> bool:
         """
         write_tree(self, tree:GLib.Tree, origin_tag=None) -> bool
@@ -33973,7 +34145,7 @@ class SimpleActionGroup(GObject.Object):
         Initialize SimpleActionGroup object with properties.
         """
     @deprecated("deprecated")
-    def add_entries(self, entries: list[ActionEntry], user_data: object | None = None) -> None:
+    def add_entries(self, entries: collections.abc.Sequence[ActionEntry], user_data: object | None = None) -> None:
         """
             A convenience function for creating multiple GSimpleAction instances
         and adding them to the action group.
@@ -34639,7 +34811,9 @@ class SimpleProxyResolver(GObject.Object):
         Initialize SimpleProxyResolver object with properties.
         """
     @staticmethod
-    def new(default_proxy: str | None = None, ignore_hosts: list[str] | None = None) -> ProxyResolver:
+    def new(
+        default_proxy: str | None = None, ignore_hosts: collections.abc.Sequence[str] | None = None
+    ) -> ProxyResolver:
         """
             Creates a new GSimpleProxyResolver. See
         GSimpleProxyResolver:default-proxy and
@@ -34656,7 +34830,7 @@ class SimpleProxyResolver(GObject.Object):
         GSimpleProxyResolver will treat it as referring to all three of
         the socks5, socks4a, and socks4 proxy types.
         """
-    def set_ignore_hosts(self, ignore_hosts: list[str]) -> None:
+    def set_ignore_hosts(self, ignore_hosts: collections.abc.Sequence[str]) -> None:
         """
             Sets the list of ignored hosts.
 
@@ -35330,7 +35504,7 @@ class Socket(GObject.Object):
         See `g_socket_receive` for additional information.
         """
     def receive_message(
-        self, vectors: list[InputVector], flags: int, cancellable: Cancellable | None = None
+        self, vectors: collections.abc.Sequence[InputVector], flags: int, cancellable: Cancellable | None = None
     ) -> tuple[int, SocketAddress, list[SocketControlMessage] | None, int]:
         """
             Receive data from a socket.  For receiving multiple messages, see
@@ -35393,7 +35567,9 @@ class Socket(GObject.Object):
 
         On error -1 is returned and `error` is set accordingly.
         """
-    def receive_messages(self, messages: list[InputMessage], flags: int, cancellable: Cancellable | None = None) -> int:
+    def receive_messages(
+        self, messages: collections.abc.Sequence[InputMessage], flags: int, cancellable: Cancellable | None = None
+    ) -> int:
         """
             Receive multiple data messages from `socket` in one go.  This is the most
         complicated and fully-featured version of this call. For easier use, see
@@ -35450,7 +35626,7 @@ class Socket(GObject.Object):
         the choice of blocking or non-blocking behavior is determined by
         the `blocking` argument rather than by `socket`'s properties.
         """
-    def send(self, buffer: bytes, cancellable: Cancellable | None = None) -> int:
+    def send(self, buffer: collections.abc.Sequence[int], cancellable: Cancellable | None = None) -> int:
         """
             Tries to send `size` bytes from `buffer` on the socket. This is
         mainly used by connection-oriented sockets; it is identical to
@@ -35470,8 +35646,8 @@ class Socket(GObject.Object):
     def send_message(
         self,
         address: SocketAddress | None,
-        vectors: list[OutputVector],
-        messages: list[SocketControlMessage] | None,
+        vectors: collections.abc.Sequence[OutputVector],
+        messages: collections.abc.Sequence[SocketControlMessage] | None,
         flags: int,
         cancellable: Cancellable | None = None,
     ) -> int:
@@ -35522,8 +35698,8 @@ class Socket(GObject.Object):
     def send_message_with_timeout(
         self,
         address: SocketAddress | None,
-        vectors: list[OutputVector],
-        messages: list[SocketControlMessage] | None,
+        vectors: collections.abc.Sequence[OutputVector],
+        messages: collections.abc.Sequence[SocketControlMessage] | None,
         flags: int,
         timeout_us: int,
         cancellable: Cancellable | None = None,
@@ -35537,7 +35713,9 @@ class Socket(GObject.Object):
         if the socket is currently not writable G_POLLABLE_RETURN_WOULD_BLOCK is
         returned. `bytes_written` will contain 0 in both cases.
         """
-    def send_messages(self, messages: list[OutputMessage], flags: int, cancellable: Cancellable | None = None) -> int:
+    def send_messages(
+        self, messages: collections.abc.Sequence[OutputMessage], flags: int, cancellable: Cancellable | None = None
+    ) -> int:
         """
             Send multiple data messages from `socket` in one go.  This is the most
         complicated and fully-featured version of this call. For easier use, see
@@ -35574,7 +35752,12 @@ class Socket(GObject.Object):
         be returned if zero messages could be sent; otherwise the number of messages
         successfully sent before the error will be returned.
         """
-    def send_to(self, address: SocketAddress | None, buffer: bytes, cancellable: Cancellable | None = None) -> int:
+    def send_to(
+        self,
+        address: SocketAddress | None,
+        buffer: collections.abc.Sequence[int],
+        cancellable: Cancellable | None = None,
+    ) -> int:
         """
             Tries to send `size` bytes from `buffer` to `address`. If `address` is
         None then the message is sent to the default receiver (set by
@@ -35582,7 +35765,9 @@ class Socket(GObject.Object):
 
         See `g_socket_send` for additional information.
         """
-    def send_with_blocking(self, buffer: bytes, blocking: bool, cancellable: Cancellable | None = None) -> int:
+    def send_with_blocking(
+        self, buffer: collections.abc.Sequence[int], blocking: bool, cancellable: Cancellable | None = None
+    ) -> int:
         """
             This behaves exactly the same as `g_socket_send`, except that
         the choice of blocking or non-blocking behavior is determined by
@@ -35819,12 +36004,14 @@ class SocketAddress(GObject.Object):
     # python methods (overrides?)
     def do_get_family(
         self,
+        /,
     ) -> SocketFamily:
         """
         get_family(self) -> Gio.SocketFamily
         """
     def do_get_native_size(
         self,
+        /,
     ) -> int:
         """
         get_native_size(self) -> int
@@ -35833,6 +36020,7 @@ class SocketAddress(GObject.Object):
         self,
         dest: typing.Any,
         destlen: int,
+        /,
     ) -> bool:
         """
         to_native(self, dest=None, destlen:int) -> bool
@@ -35954,6 +36142,7 @@ class SocketAddressEnumerator(GObject.Object):
     def do_next(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> SocketAddress | None:
         """
         next(self, cancellable:Gio.Cancellable=None) -> Gio.SocketAddress or None
@@ -35963,6 +36152,7 @@ class SocketAddressEnumerator(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         next_async(self, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -35970,6 +36160,7 @@ class SocketAddressEnumerator(GObject.Object):
     def do_next_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> SocketAddress | None:
         """
         next_finish(self, result:Gio.AsyncResult) -> Gio.SocketAddress or None
@@ -36551,6 +36742,7 @@ class SocketClient(GObject.Object):
         event: SocketClientEvent,
         connectable: SocketConnectable,
         connection: IOStream,
+        /,
     ) -> None:
         """
         event(self, event:Gio.SocketClientEvent, connectable:Gio.SocketConnectable, connection:Gio.IOStream)
@@ -36887,7 +37079,7 @@ class SocketControlMessage(GObject.Object):
         Initialize SocketControlMessage object with properties.
         """
     @staticmethod
-    def deserialize(level: int, type: int, data: bytes) -> SocketControlMessage | None:
+    def deserialize(level: int, type: int, data: collections.abc.Sequence[int]) -> SocketControlMessage | None:
         """
             Tries to deserialize a socket control message of a given
         `level` and `type`. This will ask all known (to GType) subclasses
@@ -36925,18 +37117,21 @@ class SocketControlMessage(GObject.Object):
     # python methods (overrides?)
     def do_get_level(
         self,
+        /,
     ) -> int:
         """
         get_level(self) -> int
         """
     def do_get_size(
         self,
+        /,
     ) -> int:
         """
         get_size(self) -> int
         """
     def do_get_type(
         self,
+        /,
     ) -> int:
         """
         get_type(self) -> int
@@ -36944,6 +37139,7 @@ class SocketControlMessage(GObject.Object):
     def do_serialize(
         self,
         data: typing.Any,
+        /,
     ) -> None:
         """
         serialize(self, data)
@@ -37215,6 +37411,7 @@ class SocketListener(GObject.Object):
     # python methods (overrides?)
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -37223,6 +37420,7 @@ class SocketListener(GObject.Object):
         self,
         event: SocketListenerEvent,
         socket: Socket,
+        /,
     ) -> None:
         """
         event(self, event:Gio.SocketListenerEvent, socket:Gio.Socket)
@@ -37395,6 +37593,7 @@ class SocketService(SocketListener):
         self,
         connection: SocketConnection,
         source_object: GObject.Object,
+        /,
     ) -> bool:
         """
         incoming(self, connection:Gio.SocketConnection, source_object:GObject.Object) -> bool
@@ -37970,7 +38169,7 @@ class Subprocess(GObject.Object):
     @classmethod
     def new(
         cls,
-        argv: list[str],
+        argv: collections.abc.Sequence[str],
         flags: SubprocessFlags,
     ) -> Subprocess:
         """
@@ -38060,7 +38259,7 @@ class SubprocessLauncher(GObject.Object):
         By default processes are launched with the current working directory
         of the launching process at the time of launch.
         """
-    def set_environ(self, env: list[str]) -> None:
+    def set_environ(self, env: collections.abc.Sequence[str]) -> None:
         """
             Replace the entire environment of processes launched from this
         launcher with the given 'environ' variable.
@@ -38150,7 +38349,7 @@ class SubprocessLauncher(GObject.Object):
         strings, except that the variable's name cannot contain '='.
         On Windows, they should be in UTF-8.
         """
-    def spawnv(self, argv: list[str]) -> Subprocess:
+    def spawnv(self, argv: collections.abc.Sequence[str]) -> Subprocess:
         """
         Creates a GSubprocess given a provided array of arguments.
         """
@@ -39725,7 +39924,7 @@ class ThemedIcon(GObject.Object):
     @classmethod
     def new_from_names(
         cls,
-        iconnames: list[str],
+        iconnames: collections.abc.Sequence[str],
     ) -> ThemedIcon:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -39889,6 +40088,7 @@ class ThreadedSocketService(SocketService):
         self,
         connection: SocketConnection,
         source_object: GObject.Object,
+        /,
     ) -> bool:
         """
         run(self, connection:Gio.SocketConnection, source_object:GObject.Object) -> bool
@@ -40384,6 +40584,7 @@ class TlsCertificate(GObject.Object):
         self,
         identity: SocketConnectable | None = None,
         trusted_ca: TlsCertificate | None = None,
+        /,
     ) -> TlsCertificateFlags:
         """
         verify(self, identity:Gio.SocketConnectable=None, trusted_ca:Gio.TlsCertificate=None) -> Gio.TlsCertificateFlags
@@ -40519,7 +40720,7 @@ class TlsCertificate(GObject.Object):
     @classmethod
     def new_from_pkcs12(
         cls,
-        data: list[int],
+        data: collections.abc.Sequence[int],
         password: str | None = None,
     ) -> TlsCertificate:
         """
@@ -41216,7 +41417,7 @@ class TlsConnection(IOStream):
             Finish an asynchronous TLS handshake operation. See
         `g_tls_connection_handshake` for more information.
         """
-    def set_advertised_protocols(self, protocols: list[str] | None = None) -> None:
+    def set_advertised_protocols(self, protocols: collections.abc.Sequence[str] | None = None) -> None:
         """
             Sets the list of application-layer protocols to advertise that the
         caller is willing to speak on this connection. The
@@ -41328,6 +41529,7 @@ class TlsConnection(IOStream):
         self,
         peer_cert: TlsCertificate,
         errors: TlsCertificateFlags,
+        /,
     ) -> bool:
         """
         accept_certificate(self, peer_cert:Gio.TlsCertificate, errors:Gio.TlsCertificateFlags) -> bool
@@ -41336,12 +41538,14 @@ class TlsConnection(IOStream):
         self,
         type: TlsChannelBindingType,
         data: list[int],
+        /,
     ) -> bool:
         """
         get_binding_data(self, type:Gio.TlsChannelBindingType, data:list) -> bool
         """
     def do_get_negotiated_protocol(
         self,
+        /,
     ) -> str | None:
         """
         get_negotiated_protocol(self) -> str or None
@@ -41349,6 +41553,7 @@ class TlsConnection(IOStream):
     def do_handshake(
         self,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         handshake(self, cancellable:Gio.Cancellable=None) -> bool
@@ -41359,6 +41564,7 @@ class TlsConnection(IOStream):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         handshake_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -41366,6 +41572,7 @@ class TlsConnection(IOStream):
     def do_handshake_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> bool:
         """
         handshake_finish(self, result:Gio.AsyncResult) -> bool
@@ -41757,7 +41964,7 @@ class TlsDatabase(GObject.Object):
         """
     def lookup_certificates_issued_by(
         self,
-        issuer_raw_dn: bytes,
+        issuer_raw_dn: collections.abc.Sequence[int],
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
@@ -41771,7 +41978,7 @@ class TlsDatabase(GObject.Object):
     @typing.overload
     def lookup_certificates_issued_by_async(
         self,
-        issuer_raw_dn: bytes,
+        issuer_raw_dn: collections.abc.Sequence[int],
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
@@ -41787,7 +41994,7 @@ class TlsDatabase(GObject.Object):
     @typing.overload
     def lookup_certificates_issued_by_async(
         self,
-        issuer_raw_dn: bytes,
+        issuer_raw_dn: collections.abc.Sequence[int],
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None,
@@ -41797,7 +42004,7 @@ class TlsDatabase(GObject.Object):
     @typing.overload
     def lookup_certificates_issued_by_async(
         self,
-        issuer_raw_dn: bytes,
+        issuer_raw_dn: collections.abc.Sequence[int],
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
@@ -41938,6 +42145,7 @@ class TlsDatabase(GObject.Object):
     def do_create_certificate_handle(
         self,
         certificate: TlsCertificate,
+        /,
     ) -> str | None:
         """
         create_certificate_handle(self, certificate:Gio.TlsCertificate) -> str or None
@@ -41948,6 +42156,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> TlsCertificate | None:
         """
         lookup_certificate_for_handle(self, handle:str, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None) -> Gio.TlsCertificate or None
@@ -41960,6 +42169,7 @@ class TlsDatabase(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_certificate_for_handle_async(self, handle:str, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -41967,6 +42177,7 @@ class TlsDatabase(GObject.Object):
     def do_lookup_certificate_for_handle_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> TlsCertificate:
         """
         lookup_certificate_for_handle_finish(self, result:Gio.AsyncResult) -> Gio.TlsCertificate
@@ -41977,6 +42188,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> TlsCertificate:
         """
         lookup_certificate_issuer(self, certificate:Gio.TlsCertificate, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None) -> Gio.TlsCertificate
@@ -41989,6 +42201,7 @@ class TlsDatabase(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_certificate_issuer_async(self, certificate:Gio.TlsCertificate, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -41996,6 +42209,7 @@ class TlsDatabase(GObject.Object):
     def do_lookup_certificate_issuer_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> TlsCertificate:
         """
         lookup_certificate_issuer_finish(self, result:Gio.AsyncResult) -> Gio.TlsCertificate
@@ -42006,6 +42220,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> list[TlsCertificate]:
         """
         lookup_certificates_issued_by(self, issuer_raw_dn:list, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None) -> list
@@ -42018,6 +42233,7 @@ class TlsDatabase(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         lookup_certificates_issued_by_async(self, issuer_raw_dn:list, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseLookupFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -42025,6 +42241,7 @@ class TlsDatabase(GObject.Object):
     def do_lookup_certificates_issued_by_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> list[TlsCertificate]:
         """
         lookup_certificates_issued_by_finish(self, result:Gio.AsyncResult) -> list
@@ -42037,6 +42254,7 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> TlsCertificateFlags:
         """
         verify_chain(self, chain:Gio.TlsCertificate, purpose:str, identity:Gio.SocketConnectable=None, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseVerifyFlags, cancellable:Gio.Cancellable=None) -> Gio.TlsCertificateFlags
@@ -42051,6 +42269,7 @@ class TlsDatabase(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         verify_chain_async(self, chain:Gio.TlsCertificate, purpose:str, identity:Gio.SocketConnectable=None, interaction:Gio.TlsInteraction=None, flags:Gio.TlsDatabaseVerifyFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -42058,6 +42277,7 @@ class TlsDatabase(GObject.Object):
     def do_verify_chain_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> TlsCertificateFlags:
         """
         verify_chain_finish(self, result:Gio.AsyncResult) -> Gio.TlsCertificateFlags
@@ -42447,6 +42667,7 @@ class TlsInteraction(GObject.Object):
         self,
         password: TlsPassword,
         cancellable: Cancellable | None = None,
+        /,
     ) -> TlsInteractionResult:
         """
         ask_password(self, password:Gio.TlsPassword, cancellable:Gio.Cancellable=None) -> Gio.TlsInteractionResult
@@ -42457,6 +42678,7 @@ class TlsInteraction(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         ask_password_async(self, password:Gio.TlsPassword, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -42464,6 +42686,7 @@ class TlsInteraction(GObject.Object):
     def do_ask_password_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> TlsInteractionResult:
         """
         ask_password_finish(self, result:Gio.AsyncResult) -> Gio.TlsInteractionResult
@@ -42473,6 +42696,7 @@ class TlsInteraction(GObject.Object):
         connection: TlsConnection,
         flags: TlsCertificateRequestFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> TlsInteractionResult:
         """
         request_certificate(self, connection:Gio.TlsConnection, flags:Gio.TlsCertificateRequestFlags, cancellable:Gio.Cancellable=None) -> Gio.TlsInteractionResult
@@ -42484,6 +42708,7 @@ class TlsInteraction(GObject.Object):
         cancellable: Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         request_certificate_async(self, connection:Gio.TlsConnection, flags:Gio.TlsCertificateRequestFlags, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -42491,6 +42716,7 @@ class TlsInteraction(GObject.Object):
     def do_request_certificate_finish(
         self,
         result: AsyncResult,
+        /,
     ) -> TlsInteractionResult:
         """
         request_certificate_finish(self, result:Gio.AsyncResult) -> Gio.TlsInteractionResult
@@ -42647,7 +42873,7 @@ class TlsPassword(GObject.Object):
         """
         Set flags about the password.
         """
-    def set_value(self, value: bytes) -> None:
+    def set_value(self, value: collections.abc.Sequence[int]) -> None:
         """
             Set the value for this password. The `value` will be copied by the password
         object.
@@ -42657,7 +42883,7 @@ class TlsPassword(GObject.Object):
         calculated automatically. (Note that the terminating nul is not
         considered part of the password in this case.)
         """
-    def set_value_full(self, value: bytes, destroy: GLib.DestroyNotify | None = None) -> None:
+    def set_value_full(self, value: collections.abc.Sequence[int], destroy: GLib.DestroyNotify | None = None) -> None:
         """
             Provide the value for this password.
 
@@ -42679,12 +42905,14 @@ class TlsPassword(GObject.Object):
     # python methods (overrides?)
     def do_get_default_warning(
         self,
+        /,
     ) -> str:
         """
         get_default_warning(self) -> str
         """
     def do_get_value(
         self,
+        /,
     ) -> list[int]:
         """
         get_value(self) -> list
@@ -42693,6 +42921,7 @@ class TlsPassword(GObject.Object):
         self,
         value: list[int],
         destroy: collections.abc.Callable[[typing.Any], None] | None = None,
+        /,
     ) -> None:
         """
         set_value(self, value:list, destroy:GLib.DestroyNotify=None)
@@ -43255,7 +43484,7 @@ class UnixFDList(GObject.Object):
     @classmethod
     def new_from_array(
         cls,
-        fds: list[int],
+        fds: collections.abc.Sequence[int],
     ) -> UnixFDList:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -43467,7 +43696,7 @@ class UnixSocketAddress(SocketAddress):
     @classmethod
     def new_abstract(
         cls,
-        path: list[int],
+        path: collections.abc.Sequence[int],
     ) -> UnixSocketAddress:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -43480,7 +43709,7 @@ class UnixSocketAddress(SocketAddress):
     @classmethod
     def new_with_type(
         cls,
-        path: list[int],
+        path: collections.abc.Sequence[int],
         type: UnixSocketAddressType,
     ) -> UnixSocketAddress:
         """
@@ -43666,6 +43895,7 @@ class Vfs(GObject.Object):
     def do_add_writable_namespaces(
         self,
         list: FileAttributeInfoList,
+        /,
     ) -> None:
         """
         add_writable_namespaces(self, list:Gio.FileAttributeInfoList)
@@ -43673,6 +43903,7 @@ class Vfs(GObject.Object):
     def do_get_file_for_path(
         self,
         path: str,
+        /,
     ) -> File:
         """
         get_file_for_path(self, path:str) -> Gio.File
@@ -43680,18 +43911,21 @@ class Vfs(GObject.Object):
     def do_get_file_for_uri(
         self,
         uri: str,
+        /,
     ) -> File:
         """
         get_file_for_uri(self, uri:str) -> Gio.File
         """
     def do_get_supported_uri_schemes(
         self,
+        /,
     ) -> list[str]:
         """
         get_supported_uri_schemes(self) -> list
         """
     def do_is_active(
         self,
+        /,
     ) -> bool:
         """
         is_active(self) -> bool
@@ -43705,6 +43939,7 @@ class Vfs(GObject.Object):
         cancellable: Cancellable | None,
         extra_data: typing.Any,
         free_extra_data: collections.abc.Callable[[typing.Any], None],
+        /,
     ) -> None:
         """
         local_file_add_info(self, filename:str, device:int, attribute_matcher:Gio.FileAttributeMatcher, info:Gio.FileInfo, cancellable:Gio.Cancellable=None, extra_data=None, free_extra_data:GLib.DestroyNotify)
@@ -43713,6 +43948,7 @@ class Vfs(GObject.Object):
         self,
         source: str,
         dest: str,
+        /,
     ) -> None:
         """
         local_file_moved(self, source:str, dest:str)
@@ -43720,6 +43956,7 @@ class Vfs(GObject.Object):
     def do_local_file_removed(
         self,
         filename: str,
+        /,
     ) -> None:
         """
         local_file_removed(self, filename:str)
@@ -43730,6 +43967,7 @@ class Vfs(GObject.Object):
         info: FileInfo,
         flags: FileQueryInfoFlags,
         cancellable: Cancellable | None = None,
+        /,
     ) -> bool:
         """
         local_file_set_attributes(self, filename:str, info:Gio.FileInfo, flags:Gio.FileQueryInfoFlags, cancellable:Gio.Cancellable=None) -> bool
@@ -43737,6 +43975,7 @@ class Vfs(GObject.Object):
     def do_parse_name(
         self,
         parse_name: str,
+        /,
     ) -> File:
         """
         parse_name(self, parse_name:str) -> Gio.File
@@ -44281,6 +44520,7 @@ class VolumeMonitor(GObject.Object):
     def do_drive_changed(
         self,
         drive: Drive,
+        /,
     ) -> None:
         """
         drive_changed(self, drive:Gio.Drive)
@@ -44288,6 +44528,7 @@ class VolumeMonitor(GObject.Object):
     def do_drive_connected(
         self,
         drive: Drive,
+        /,
     ) -> None:
         """
         drive_connected(self, drive:Gio.Drive)
@@ -44295,6 +44536,7 @@ class VolumeMonitor(GObject.Object):
     def do_drive_disconnected(
         self,
         drive: Drive,
+        /,
     ) -> None:
         """
         drive_disconnected(self, drive:Gio.Drive)
@@ -44302,6 +44544,7 @@ class VolumeMonitor(GObject.Object):
     def do_drive_eject_button(
         self,
         drive: Drive,
+        /,
     ) -> None:
         """
         drive_eject_button(self, drive:Gio.Drive)
@@ -44309,12 +44552,14 @@ class VolumeMonitor(GObject.Object):
     def do_drive_stop_button(
         self,
         drive: Drive,
+        /,
     ) -> None:
         """
         drive_stop_button(self, drive:Gio.Drive)
         """
     def do_get_connected_drives(
         self,
+        /,
     ) -> list[Drive]:
         """
         get_connected_drives(self) -> list
@@ -44322,12 +44567,14 @@ class VolumeMonitor(GObject.Object):
     def do_get_mount_for_uuid(
         self,
         uuid: str,
+        /,
     ) -> Mount | None:
         """
         get_mount_for_uuid(self, uuid:str) -> Gio.Mount or None
         """
     def do_get_mounts(
         self,
+        /,
     ) -> list[Mount]:
         """
         get_mounts(self) -> list
@@ -44335,12 +44582,14 @@ class VolumeMonitor(GObject.Object):
     def do_get_volume_for_uuid(
         self,
         uuid: str,
+        /,
     ) -> Volume | None:
         """
         get_volume_for_uuid(self, uuid:str) -> Gio.Volume or None
         """
     def do_get_volumes(
         self,
+        /,
     ) -> list[Volume]:
         """
         get_volumes(self) -> list
@@ -44348,6 +44597,7 @@ class VolumeMonitor(GObject.Object):
     def do_mount_added(
         self,
         mount: Mount,
+        /,
     ) -> None:
         """
         mount_added(self, mount:Gio.Mount)
@@ -44355,6 +44605,7 @@ class VolumeMonitor(GObject.Object):
     def do_mount_changed(
         self,
         mount: Mount,
+        /,
     ) -> None:
         """
         mount_changed(self, mount:Gio.Mount)
@@ -44362,6 +44613,7 @@ class VolumeMonitor(GObject.Object):
     def do_mount_pre_unmount(
         self,
         mount: Mount,
+        /,
     ) -> None:
         """
         mount_pre_unmount(self, mount:Gio.Mount)
@@ -44369,6 +44621,7 @@ class VolumeMonitor(GObject.Object):
     def do_mount_removed(
         self,
         mount: Mount,
+        /,
     ) -> None:
         """
         mount_removed(self, mount:Gio.Mount)
@@ -44376,6 +44629,7 @@ class VolumeMonitor(GObject.Object):
     def do_volume_added(
         self,
         volume: Volume,
+        /,
     ) -> None:
         """
         volume_added(self, volume:Gio.Volume)
@@ -44383,6 +44637,7 @@ class VolumeMonitor(GObject.Object):
     def do_volume_changed(
         self,
         volume: Volume,
+        /,
     ) -> None:
         """
         volume_changed(self, volume:Gio.Volume)
@@ -44390,6 +44645,7 @@ class VolumeMonitor(GObject.Object):
     def do_volume_removed(
         self,
         volume: Volume,
+        /,
     ) -> None:
         """
         volume_removed(self, volume:Gio.Volume)

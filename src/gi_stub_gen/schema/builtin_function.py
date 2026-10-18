@@ -99,7 +99,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
 
         return full_type
 
-    def render_parameter(self, namespace: str, force_no_default: bool = False) -> str:
+    def render_parameter(self, namespace: str, force_no_default: bool = False, *, is_receiver: bool = False) -> str:
         """
         Returns the formatted argument string.
         Args:
@@ -107,7 +107,7 @@ class BuiltinFunctionArgumentSchema(BaseModel):
                               Used to fix syntax errors when optional args precede required ones.
         """
 
-        if self.name in ("self", "cls") and self.kind in (
+        if is_receiver and self.name in ("self", "cls") and self.kind in (
             ArgKind.POSITIONAL_ONLY,
             ArgKind.POSITIONAL_OR_KEYWORD,
         ):
@@ -132,6 +132,8 @@ class BuiltinFunctionArgumentSchema(BaseModel):
 
 
 class BuiltinFunctionSchema(BaseSchema):
+    type_imports: set[str] = Field(default_factory=set)
+    """Namespaces embedded in annotations recovered from bound native callables."""
     name: str
     namespace: str
     is_async: bool
@@ -208,7 +210,7 @@ class BuiltinFunctionSchema(BaseSchema):
     @property
     def required_imports(self) -> set[str]:
         """Collect required gi.repository imports based on type hints."""
-        gi_imports: set[str] = set()
+        gi_imports: set[str] = set(self.type_imports)
         # check return type
         if self.return_hint_namespace:
             gi_imports.add(self.return_hint_namespace)
@@ -245,7 +247,7 @@ class BuiltinFunctionSchema(BaseSchema):
         # Contatore per sapere a che punto siamo nei POS_OR_KW
         current_pos_kw_idx = 0
 
-        for p in self.params:
+        for index, p in enumerate(self.params):
             force_no_default = False
 
             if p.kind == ArgKind.POSITIONAL_OR_KEYWORD:
@@ -255,7 +257,10 @@ class BuiltinFunctionSchema(BaseSchema):
                 current_pos_kw_idx += 1
 
             # Chiamiamo as_str con il flag
-            groups[p.kind].append(p.render_parameter(namespace, force_no_default=force_no_default))
+            groups[p.kind].append(p.render_parameter(
+                namespace, force_no_default=force_no_default,
+                is_receiver=index == 0 and self.is_from_class and not self.is_staticmethod,
+            ))
 
         # 3. Build the parts list (Identico a prima)
         parts = []

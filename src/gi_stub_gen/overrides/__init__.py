@@ -124,6 +124,7 @@ CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
         },
     },
     "gi.repository.Gst": {
+        "Caps": {"include_methods": ("__getitem__", "__len__")},
         "ControlBinding": {
             "property_comments": {
                 "name": (
@@ -142,6 +143,7 @@ CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
             },
         },
         "Structure": {
+            "include_methods": ("__getitem__", "__setitem__", "__len__"),
             "method_transforms": {
                 "set_value": transform_set_value,
             },

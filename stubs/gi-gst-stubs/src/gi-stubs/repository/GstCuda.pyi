@@ -262,6 +262,7 @@ class CudaAllocator(Gst.Allocator):
     def do_set_active(
         self,
         active: bool,
+        /,
     ) -> bool:
         """
         set_active(self, active:bool) -> bool

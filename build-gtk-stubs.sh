@@ -46,6 +46,7 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GdkPixbuf:2.0 \
     gi.repository.Gdk:4.0 \
     gi.repository.Gtk:4.0 \
+    gi._gtktemplate \
     gi.repository.Atk:1.0 \
     --preload gi.repository.GioUnix:2.0 \
     --preload gi.repository.Gio:2.0 \

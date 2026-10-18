@@ -1,0 +1,23 @@
+import gi
+from gi import events
+from gi.repository import GLib, GObject, Gst, GstBase, Gtk
+
+
+def invalid(caps: Gst.Caps, structure: Gst.Structure) -> None:
+    gi.require_version(42, "1.0")  # error
+    gi.require_versions({"Gst": 1})  # error
+    GLib.strjoinv(",", (1, 2))  # error
+    Gst.Buffer.new_wrapped(("a", "b"))  # error
+    caps["name"]  # error
+    structure[1] = 640  # error
+    Gtk.Template()  # error
+    Gtk.Template(filename=42)  # error
+    Gtk.Template(string="x")(int)  # error
+    Gtk.Template(string="x", filename="y")  # error
+    events.GLibEventLoop(main_context="wrong")  # error
+    GObject.Signal(flags="wrong")  # error
+
+
+class WrongAggregator(GstBase.Aggregator):
+    def do_aggregate(self, expired: str) -> Gst.FlowReturn:  # error
+        return Gst.FlowReturn.OK

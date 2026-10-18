@@ -41,6 +41,11 @@ class FunctionArgumentSchema(BaseSchema):
     py_type_namespace: str | None
     """The python type namespace of the argument to be used in templates"""
 
+    input_type_name: str | None = None
+    """Accepted input container annotation, distinct from concrete OUT/INOUT values."""
+    input_type_namespace: str | None = None
+    """Outer namespace of input_type_name; embedded namespaces remain in type_imports."""
+
     type_imports: set[str] = Field(default_factory=set)
     """Namespaces embedded in a container annotation or callback return annotation."""
 
@@ -88,7 +93,7 @@ class FunctionArgumentSchema(BaseSchema):
         """
         return keyword.iskeyword(self.name)
 
-    def render_type_annotation(self, namespace: str) -> str:
+    def render_type_annotation(self, namespace: str, *, for_input: bool = False) -> str:
         """
         type representation in template.
         computed with respect to the given namespace.
@@ -96,7 +101,8 @@ class FunctionArgumentSchema(BaseSchema):
         if is in the same we avoid adding the namespace prefix.
         """
 
-        base_type = self.type_var_name or self.py_type_name
+        base_type = self.type_var_name or (self.input_type_name if for_input and self.input_type_name else self.py_type_name)
+        type_namespace = self.input_type_namespace if for_input and self.input_type_name else self.py_type_namespace
 
         if self.direction == "INOUT":
             # INOUT in Python non è tipato diversamente in ingresso,
@@ -106,8 +112,8 @@ class FunctionArgumentSchema(BaseSchema):
 
         full_type = base_type
 
-        if self.type_var_name is None and self.py_type_namespace and self.py_type_namespace != namespace:
-            full_type = f"{self.py_type_namespace}.{base_type}"
+        if self.type_var_name is None and type_namespace and type_namespace != namespace:
+            full_type = f"{type_namespace}.{base_type}"
 
         if full_type != "typing.Any" and (self.may_be_null or (self.is_optional and self.direction in ("IN", "INOUT"))):
             full_type = f"{full_type} | None"
@@ -128,7 +134,7 @@ class FunctionArgumentSchema(BaseSchema):
 
     def render_parameter(self, namespace: str, force_no_default: bool = False) -> str:
         """Return one Python parameter as a string, without a trailing comment."""
-        annotation = self.render_type_annotation(namespace)
+        annotation = self.render_type_annotation(namespace, for_input=True)
         if self.is_variadic:
             return f"*{self.name}: {annotation}"
         parameter = f"{self.name}: {annotation}"
@@ -280,6 +286,8 @@ class FunctionSchema(BaseSchema):
             gi_imports.add("typing")
         # check arguments
         for arg in self.args:
+            if arg.input_type_namespace and arg.type_var_name is None:
+                gi_imports.add(arg.input_type_namespace)
             if arg.type_var_name is None:
                 gi_imports.update(arg.type_imports)
             if arg.py_type_namespace and arg.type_var_name is None:

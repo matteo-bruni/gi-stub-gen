@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import typing
 
@@ -728,7 +729,10 @@ class CallableInfo(BaseInfo, metaclass=GObject.GType):
         type [enum`GIRepository`.TypeTag.VOID] will be returned.
         """
     def invoke(
-        self, function: object | None, in_args: list[Argument], out_args: list[Argument]
+        self,
+        function: object | None,
+        in_args: collections.abc.Sequence[Argument],
+        out_args: collections.abc.Sequence[Argument],
     ) -> tuple[bool, Argument]:
         """
             Invoke the given `GICallableInfo` by calling the given `function` pointer.

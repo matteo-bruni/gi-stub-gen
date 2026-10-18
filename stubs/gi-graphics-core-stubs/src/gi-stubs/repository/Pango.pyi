@@ -75,7 +75,7 @@ def attr_break(
     length: int,
     attr_list: AttrList,
     offset: int,
-    attrs: list[LogAttr],
+    attrs: collections.abc.Sequence[LogAttr],
 ) -> None:
     """
     Apply customization from attributes to the breaks in `attrs`.
@@ -477,7 +477,7 @@ def break_(
     text: str,
     length: int,
     analysis: Analysis,
-    attrs: list[LogAttr],
+    attrs: collections.abc.Sequence[LogAttr],
 ) -> None: ...
 def default_break(
     text: str,
@@ -612,7 +612,7 @@ def get_log_attrs(
     length: int,
     level: int,
     language: Language,
-    attrs: list[LogAttr],
+    attrs: collections.abc.Sequence[LogAttr],
 ) -> None:
     """
     Computes a `PangoLogAttr` for each character in `text`.
@@ -1280,7 +1280,7 @@ def tailor_break(
     length: int,
     analysis: Analysis,
     offset: int,
-    attrs: list[LogAttr],
+    attrs: collections.abc.Sequence[LogAttr],
 ) -> None:
     """
     Apply language-specific tailoring to the breaks in `attrs`.
@@ -3835,7 +3835,7 @@ class Coverage(GObject.Object):
         """
     @deprecated("deprecated")
     @staticmethod
-    def from_bytes(bytes: bytes) -> Coverage | None:
+    def from_bytes(bytes: collections.abc.Sequence[int]) -> Coverage | None:
         """
             Convert data generated from [method`Pango`.Coverage.to_bytes]
         back to a `PangoCoverage`.
@@ -3929,7 +3929,7 @@ class Font(GObject.Object):
         Use [method`Pango`.Font.describe] if you want the font size in points.
         """
     @staticmethod
-    def descriptions_free(descs: list[FontDescription] | None = None) -> None:
+    def descriptions_free(descs: collections.abc.Sequence[FontDescription] | None = None) -> None:
         """
         Frees an array of font descriptions.
         """
@@ -4032,18 +4032,21 @@ class Font(GObject.Object):
     # python methods (overrides?)
     def do_create_hb_font(
         self,
+        /,
     ) -> HarfBuzz.font_t:
         """
         create_hb_font(self) -> HarfBuzz.font_t
         """
     def do_describe(
         self,
+        /,
     ) -> FontDescription:
         """
         describe(self) -> Pango.FontDescription
         """
     def do_describe_absolute(
         self,
+        /,
     ) -> FontDescription:
         """
         describe_absolute(self) -> Pango.FontDescription
@@ -4051,6 +4054,7 @@ class Font(GObject.Object):
     def do_get_coverage(
         self,
         language: Language,
+        /,
     ) -> Coverage:
         """
         get_coverage(self, language:Pango.Language) -> Pango.Coverage
@@ -4058,12 +4062,14 @@ class Font(GObject.Object):
     def do_get_features(
         self,
         num_features: int,
+        /,
     ) -> tuple[list[HarfBuzz.feature_t], int]:
         """
         get_features(self, num_features:int) -> features:list, num_features:int
         """
     def do_get_font_map(
         self,
+        /,
     ) -> FontMap | None:
         """
         get_font_map(self) -> Pango.FontMap or None
@@ -4071,6 +4077,7 @@ class Font(GObject.Object):
     def do_get_glyph_extents(
         self,
         glyph: int,
+        /,
     ) -> tuple[Rectangle, Rectangle]:
         """
         get_glyph_extents(self, glyph:int) -> ink_rect:Pango.Rectangle, logical_rect:Pango.Rectangle
@@ -4078,6 +4085,7 @@ class Font(GObject.Object):
     def do_get_metrics(
         self,
         language: Language | None = None,
+        /,
     ) -> FontMetrics:
         """
         get_metrics(self, language:Pango.Language=None) -> Pango.FontMetrics
@@ -4516,30 +4524,35 @@ class FontFace(GObject.Object):
     # python methods (overrides?)
     def do_describe(
         self,
+        /,
     ) -> FontDescription:
         """
         describe(self) -> Pango.FontDescription
         """
     def do_get_face_name(
         self,
+        /,
     ) -> str:
         """
         get_face_name(self) -> str
         """
     def do_get_family(
         self,
+        /,
     ) -> FontFamily:
         """
         get_family(self) -> Pango.FontFamily
         """
     def do_is_synthesized(
         self,
+        /,
     ) -> bool:
         """
         is_synthesized(self) -> bool
         """
     def do_list_sizes(
         self,
+        /,
     ) -> list[int] | None:
         """
         list_sizes(self) -> sizes:list
@@ -4686,30 +4699,35 @@ class FontFamily(GObject.Object):
     def do_get_face(
         self,
         name: str | None = None,
+        /,
     ) -> FontFace | None:
         """
         get_face(self, name:str=None) -> Pango.FontFace or None
         """
     def do_get_name(
         self,
+        /,
     ) -> str:
         """
         get_name(self) -> str
         """
     def do_is_monospace(
         self,
+        /,
     ) -> bool:
         """
         is_monospace(self) -> bool
         """
     def do_is_variable(
         self,
+        /,
     ) -> bool:
         """
         is_variable(self) -> bool
         """
     def do_list_faces(
         self,
+        /,
     ) -> list[FontFace]:
         """
         list_faces(self) -> faces:list
@@ -4895,6 +4913,7 @@ class FontMap(GObject.Object):
     # python methods (overrides?)
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -4902,18 +4921,21 @@ class FontMap(GObject.Object):
     def do_get_family(
         self,
         name: str,
+        /,
     ) -> FontFamily:
         """
         get_family(self, name:str) -> Pango.FontFamily
         """
     def do_get_serial(
         self,
+        /,
     ) -> int:
         """
         get_serial(self) -> int
         """
     def do_list_families(
         self,
+        /,
     ) -> list[FontFamily]:
         """
         list_families(self) -> families:list
@@ -4922,6 +4944,7 @@ class FontMap(GObject.Object):
         self,
         context: Context,
         desc: FontDescription,
+        /,
     ) -> Font | None:
         """
         load_font(self, context:Pango.Context, desc:Pango.FontDescription) -> Pango.Font or None
@@ -4931,6 +4954,7 @@ class FontMap(GObject.Object):
         context: Context,
         desc: FontDescription,
         language: Language,
+        /,
     ) -> Fontset | None:
         """
         load_fontset(self, context:Pango.Context, desc:Pango.FontDescription, language:Pango.Language) -> Pango.Fontset or None
@@ -5164,6 +5188,7 @@ class Fontset(GObject.Object):
         self,
         func: collections.abc.Callable[[Fontset, Font, typing.Any], bool],
         data: typing.Any = None,
+        /,
     ) -> None:
         """
         foreach(self, func:Pango.FontsetForeachFunc, data=None)
@@ -5171,18 +5196,21 @@ class Fontset(GObject.Object):
     def do_get_font(
         self,
         wc: int,
+        /,
     ) -> Font:
         """
         get_font(self, wc:int) -> Pango.Font
         """
     def do_get_language(
         self,
+        /,
     ) -> Language:
         """
         get_language(self) -> Pango.Language
         """
     def do_get_metrics(
         self,
+        /,
     ) -> FontMetrics:
         """
         get_metrics(self) -> Pango.FontMetrics
@@ -5401,7 +5429,7 @@ class GlyphItem(GObject.GBoxed, metaclass=GObject.GType):
         """
         Frees a `PangoGlyphItem` and resources to which it points.
         """
-    def get_logical_widths(self, text: str, logical_widths: list[int]) -> None:
+    def get_logical_widths(self, text: str, logical_widths: collections.abc.Sequence[int]) -> None:
         """
             Given a `PangoGlyphItem` and the corresponding text, determine the
         width corresponding to each character.
@@ -5411,7 +5439,7 @@ class GlyphItem(GObject.GBoxed, metaclass=GObject.GType):
 
         See also [method`Pango`.GlyphString.get_logical_widths].
         """
-    def letter_space(self, text: str, log_attrs: list[LogAttr], letter_spacing: int) -> None:
+    def letter_space(self, text: str, log_attrs: collections.abc.Sequence[LogAttr], letter_spacing: int) -> None:
         """
             Adds spacing between the graphemes of `glyph_item` to
         give the effect of typographic letter spacing.
@@ -5574,7 +5602,9 @@ class GlyphString(GObject.GBoxed, metaclass=GObject.GType):
         """
         Free a glyph string and associated storage.
         """
-    def get_logical_widths(self, text: str, length: int, embedding_level: int, logical_widths: list[int]) -> None:
+    def get_logical_widths(
+        self, text: str, length: int, embedding_level: int, logical_widths: collections.abc.Sequence[int]
+    ) -> None:
         """
             Given a `PangoGlyphString` and corresponding text, determine the width
         corresponding to each character.
@@ -7408,6 +7438,7 @@ class Renderer(GObject.Object):
     # python methods (overrides?)
     def do_begin(
         self,
+        /,
     ) -> None:
         """
         begin(self)
@@ -7418,6 +7449,7 @@ class Renderer(GObject.Object):
         y: int,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         draw_error_underline(self, x:int, y:int, width:int, height:int)
@@ -7428,6 +7460,7 @@ class Renderer(GObject.Object):
         glyph: int,
         x: float,
         y: float,
+        /,
     ) -> None:
         """
         draw_glyph(self, font:Pango.Font, glyph:int, x:float, y:float)
@@ -7438,6 +7471,7 @@ class Renderer(GObject.Object):
         glyph_item: GlyphItem,
         x: int,
         y: int,
+        /,
     ) -> None:
         """
         draw_glyph_item(self, text:str=None, glyph_item:Pango.GlyphItem, x:int, y:int)
@@ -7448,6 +7482,7 @@ class Renderer(GObject.Object):
         glyphs: GlyphString,
         x: int,
         y: int,
+        /,
     ) -> None:
         """
         draw_glyphs(self, font:Pango.Font, glyphs:Pango.GlyphString, x:int, y:int)
@@ -7459,6 +7494,7 @@ class Renderer(GObject.Object):
         y: int,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         draw_rectangle(self, part:Pango.RenderPart, x:int, y:int, width:int, height:int)
@@ -7468,6 +7504,7 @@ class Renderer(GObject.Object):
         attr: AttrShape,
         x: int,
         y: int,
+        /,
     ) -> None:
         """
         draw_shape(self, attr:Pango.AttrShape, x:int, y:int)
@@ -7481,12 +7518,14 @@ class Renderer(GObject.Object):
         y2: float,
         x12: float,
         x22: float,
+        /,
     ) -> None:
         """
         draw_trapezoid(self, part:Pango.RenderPart, y1_:float, x11:float, x21:float, y2:float, x12:float, x22:float)
         """
     def do_end(
         self,
+        /,
     ) -> None:
         """
         end(self)
@@ -7494,6 +7533,7 @@ class Renderer(GObject.Object):
     def do_part_changed(
         self,
         part: RenderPart,
+        /,
     ) -> None:
         """
         part_changed(self, part:Pango.RenderPart)
@@ -7501,6 +7541,7 @@ class Renderer(GObject.Object):
     def do_prepare_run(
         self,
         run: GlyphItem,
+        /,
     ) -> None:
         """
         prepare_run(self, run:Pango.GlyphItem)

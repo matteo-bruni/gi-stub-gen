@@ -19,7 +19,7 @@ def test_callable_out_inout_and_hidden_length_parameters():
     decode = parse_function(GLib.base64_decode_inplace, None)
     assert decode is not None
     assert [(arg.name, arg.direction) for arg in decode.args] == [("text", "INOUT")]
-    assert decode.render_parameter_list("GLib") == "text: bytes"
+    assert decode.render_parameter_list("GLib") == "text: collections.abc.Sequence[int]"
     assert decode.render_return_annotation("GLib") == "tuple[int, bytes]"
 
 
@@ -62,3 +62,13 @@ def test_gi_parameter_defaults_keep_required_argument_order():
     function.args = [optional, required]
     assert optional.render_parameter("Gst") == "optional: PadProbeType | None = 0"
     assert function.render_parameter_list("Gst") == "self, optional: PadProbeType | None, required: PadProbeType"
+
+
+def test_parameter_named_cls_is_not_an_implicit_receiver():
+    class Decorator:
+        def __call__(self, cls: type[int]) -> type[int]:
+            return cls
+
+    parsed = parse_python_function(Decorator.__call__, "Test", from_class=Decorator)
+    assert parsed is not None
+    assert parsed.render_parameter_list("Test") == ["self", "cls: type[int]"]

@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import typing
 
@@ -105,7 +106,7 @@ def type_find_helper_for_buffer_with_extension(
 
 def type_find_helper_for_data(
     obj: Gst.Object | None,
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
     Tries to find what type of data is contained in the given `data`, the
@@ -125,7 +126,7 @@ def type_find_helper_for_data(
 
 def type_find_helper_for_data_with_caps(
     obj: Gst.Object | None,
-    data: bytes,
+    data: collections.abc.Sequence[int],
     caps: Gst.Caps,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
@@ -143,7 +144,7 @@ def type_find_helper_for_data_with_caps(
 
 def type_find_helper_for_data_with_extension(
     obj: Gst.Object | None,
-    data: bytes,
+    data: collections.abc.Sequence[int],
     extension: str | None = None,
 ) -> tuple[Gst.Caps | None, Gst.TypeFindProbability]:
     """
@@ -1017,6 +1018,7 @@ class Aggregator(Gst.Element):
     def do_aggregate(
         self,
         timeout: bool,
+        /,
     ) -> Gst.FlowReturn:
         """
         aggregate(self, timeout:bool) -> Gst.FlowReturn
@@ -1025,6 +1027,7 @@ class Aggregator(Gst.Element):
         self,
         aggregator_pad: AggregatorPad,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.Buffer | None:
         """
         clip(self, aggregator_pad:GstBase.AggregatorPad, buf:Gst.Buffer) -> Gst.Buffer or None
@@ -1034,6 +1037,7 @@ class Aggregator(Gst.Element):
         templ: Gst.PadTemplate,
         req_name: str | None = None,
         caps: Gst.Caps | None = None,
+        /,
     ) -> AggregatorPad:
         """
         create_new_pad(self, templ:Gst.PadTemplate, req_name:str=None, caps:Gst.Caps=None) -> GstBase.AggregatorPad
@@ -1041,6 +1045,7 @@ class Aggregator(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -1048,6 +1053,7 @@ class Aggregator(Gst.Element):
     def do_finish_buffer(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         finish_buffer(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -1055,6 +1061,7 @@ class Aggregator(Gst.Element):
     def do_finish_buffer_list(
         self,
         bufferlist: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn:
         """
         finish_buffer_list(self, bufferlist:Gst.BufferList) -> Gst.FlowReturn
@@ -1062,24 +1069,28 @@ class Aggregator(Gst.Element):
     def do_fixate_src_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         fixate_src_caps(self, caps:Gst.Caps) -> Gst.Caps
         """
     def do_flush(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         flush(self) -> Gst.FlowReturn
         """
     def do_get_next_time(
         self,
+        /,
     ) -> int:
         """
         get_next_time(self) -> int
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
@@ -1087,6 +1098,7 @@ class Aggregator(Gst.Element):
     def do_negotiated_src_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         negotiated_src_caps(self, caps:Gst.Caps) -> bool
@@ -1094,6 +1106,7 @@ class Aggregator(Gst.Element):
     def do_peek_next_sample(
         self,
         aggregator_pad: AggregatorPad,
+        /,
     ) -> Gst.Sample | None:
         """
         peek_next_sample(self, aggregator_pad:GstBase.AggregatorPad) -> Gst.Sample or None
@@ -1103,6 +1116,7 @@ class Aggregator(Gst.Element):
         pad: AggregatorPad,
         decide_query: Gst.Query,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, pad:GstBase.AggregatorPad, decide_query:Gst.Query, query:Gst.Query) -> bool
@@ -1111,6 +1125,7 @@ class Aggregator(Gst.Element):
         self,
         aggregator_pad: AggregatorPad,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, aggregator_pad:GstBase.AggregatorPad, event:Gst.Event) -> bool
@@ -1119,6 +1134,7 @@ class Aggregator(Gst.Element):
         self,
         aggregator_pad: AggregatorPad,
         event: Gst.Event,
+        /,
     ) -> Gst.FlowReturn:
         """
         sink_event_pre_queue(self, aggregator_pad:GstBase.AggregatorPad, event:Gst.Event) -> Gst.FlowReturn
@@ -1127,6 +1143,7 @@ class Aggregator(Gst.Element):
         self,
         aggregator_pad: AggregatorPad,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, aggregator_pad:GstBase.AggregatorPad, query:Gst.Query) -> bool
@@ -1135,6 +1152,7 @@ class Aggregator(Gst.Element):
         self,
         aggregator_pad: AggregatorPad,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query_pre_queue(self, aggregator_pad:GstBase.AggregatorPad, query:Gst.Query) -> bool
@@ -1143,6 +1161,7 @@ class Aggregator(Gst.Element):
         self,
         mode: Gst.PadMode,
         active: bool,
+        /,
     ) -> bool:
         """
         src_activate(self, mode:Gst.PadMode, active:bool) -> bool
@@ -1150,6 +1169,7 @@ class Aggregator(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -1157,18 +1177,21 @@ class Aggregator(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -1176,6 +1199,7 @@ class Aggregator(Gst.Element):
     def do_update_src_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Caps | None]:
         """
         update_src_caps(self, caps:Gst.Caps) -> Gst.FlowReturn, ret:Gst.Caps
@@ -1558,6 +1582,7 @@ class AggregatorPad(Gst.Pad):
     def do_flush(
         self,
         aggregator: Aggregator,
+        /,
     ) -> Gst.FlowReturn:
         """
         flush(self, aggregator:GstBase.Aggregator) -> Gst.FlowReturn
@@ -1566,6 +1591,7 @@ class AggregatorPad(Gst.Pad):
         self,
         aggregator: Aggregator,
         buffer: Gst.Buffer,
+        /,
     ) -> bool:
         """
         skip_buffer(self, aggregator:GstBase.Aggregator, buffer:Gst.Buffer) -> bool
@@ -2042,6 +2068,7 @@ class BaseParse(Gst.Element):
         src_value: int,
         dest_format: Gst.Format,
         dest_value: int,
+        /,
     ) -> bool:
         """
         convert(self, src_format:Gst.Format, src_value:int, dest_format:Gst.Format, dest_value:int) -> bool
@@ -2049,6 +2076,7 @@ class BaseParse(Gst.Element):
     def do_detect(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         detect(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -2056,6 +2084,7 @@ class BaseParse(Gst.Element):
     def do_get_sink_caps(
         self,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         get_sink_caps(self, filter:Gst.Caps) -> Gst.Caps
@@ -2063,6 +2092,7 @@ class BaseParse(Gst.Element):
     def do_handle_frame(
         self,
         frame: BaseParseFrame,
+        /,
     ) -> tuple[Gst.FlowReturn, int]:
         """
         handle_frame(self, frame:GstBase.BaseParseFrame) -> Gst.FlowReturn, skipsize:int
@@ -2070,6 +2100,7 @@ class BaseParse(Gst.Element):
     def do_pre_push_frame(
         self,
         frame: BaseParseFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         pre_push_frame(self, frame:GstBase.BaseParseFrame) -> Gst.FlowReturn
@@ -2077,6 +2108,7 @@ class BaseParse(Gst.Element):
     def do_set_sink_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_sink_caps(self, caps:Gst.Caps) -> bool
@@ -2084,6 +2116,7 @@ class BaseParse(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -2091,6 +2124,7 @@ class BaseParse(Gst.Element):
     def do_sink_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, query:Gst.Query) -> bool
@@ -2098,6 +2132,7 @@ class BaseParse(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -2105,18 +2140,21 @@ class BaseParse(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -2862,6 +2900,7 @@ class BaseSink(Gst.Element):
     def do_activate_pull(
         self,
         active: bool,
+        /,
     ) -> bool:
         """
         activate_pull(self, active:bool) -> bool
@@ -2869,6 +2908,7 @@ class BaseSink(Gst.Element):
     def do_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         event(self, event:Gst.Event) -> bool
@@ -2876,6 +2916,7 @@ class BaseSink(Gst.Element):
     def do_fixate(
         self,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         fixate(self, caps:Gst.Caps) -> Gst.Caps
@@ -2883,6 +2924,7 @@ class BaseSink(Gst.Element):
     def do_get_caps(
         self,
         filter: Gst.Caps | None = None,
+        /,
     ) -> Gst.Caps:
         """
         get_caps(self, filter:Gst.Caps=None) -> Gst.Caps
@@ -2890,6 +2932,7 @@ class BaseSink(Gst.Element):
     def do_get_times(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> tuple[int, int]:
         """
         get_times(self, buffer:Gst.Buffer) -> start:int, end:int
@@ -2897,6 +2940,7 @@ class BaseSink(Gst.Element):
     def do_prepare(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         prepare(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -2904,6 +2948,7 @@ class BaseSink(Gst.Element):
     def do_prepare_list(
         self,
         buffer_list: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn:
         """
         prepare_list(self, buffer_list:Gst.BufferList) -> Gst.FlowReturn
@@ -2911,6 +2956,7 @@ class BaseSink(Gst.Element):
     def do_preroll(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -2927,6 +2973,7 @@ class BaseSink(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -2934,6 +2981,7 @@ class BaseSink(Gst.Element):
     def do_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         query(self, query:Gst.Query) -> bool
@@ -2941,6 +2989,7 @@ class BaseSink(Gst.Element):
     def do_render(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         render(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -2948,6 +2997,7 @@ class BaseSink(Gst.Element):
     def do_render_list(
         self,
         buffer_list: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn:
         """
         render_list(self, buffer_list:Gst.BufferList) -> Gst.FlowReturn
@@ -2955,30 +3005,35 @@ class BaseSink(Gst.Element):
     def do_set_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, caps:Gst.Caps) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
         """
     def do_unlock(
         self,
+        /,
     ) -> bool:
         """
         unlock(self) -> bool
         """
     def do_unlock_stop(
         self,
+        /,
     ) -> bool:
         """
         unlock_stop(self) -> bool
@@ -2986,6 +3041,7 @@ class BaseSink(Gst.Element):
     def do_wait_event(
         self,
         event: Gst.Event,
+        /,
     ) -> Gst.FlowReturn:
         """
         wait_event(self, event:Gst.Event) -> Gst.FlowReturn
@@ -3632,6 +3688,7 @@ class BaseSrc(Gst.Element):
         self,
         offset: int,
         size: int,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]:
         """
         alloc(self, offset:int, size:int) -> Gst.FlowReturn, buf:Gst.Buffer
@@ -3641,6 +3698,7 @@ class BaseSrc(Gst.Element):
         offset: int,
         size: int,
         buf: Gst.Buffer | None = None,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]:
         """
         create(self, offset:int, size:int, buf:Gst.Buffer=None) -> Gst.FlowReturn, buf:Gst.Buffer
@@ -3648,6 +3706,7 @@ class BaseSrc(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -3655,6 +3714,7 @@ class BaseSrc(Gst.Element):
     def do_do_seek(
         self,
         segment: Gst.Segment,
+        /,
     ) -> bool:
         """
         do_seek(self, segment:Gst.Segment) -> bool
@@ -3662,6 +3722,7 @@ class BaseSrc(Gst.Element):
     def do_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         event(self, event:Gst.Event) -> bool
@@ -3671,6 +3732,7 @@ class BaseSrc(Gst.Element):
         offset: int,
         size: int,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         fill(self, offset:int, size:int, buf:Gst.Buffer) -> Gst.FlowReturn
@@ -3678,6 +3740,7 @@ class BaseSrc(Gst.Element):
     def do_fixate(
         self,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         fixate(self, caps:Gst.Caps) -> Gst.Caps
@@ -3685,12 +3748,14 @@ class BaseSrc(Gst.Element):
     def do_get_caps(
         self,
         filter: Gst.Caps | None = None,
+        /,
     ) -> Gst.Caps:
         """
         get_caps(self, filter:Gst.Caps=None) -> Gst.Caps
         """
     def do_get_size(
         self,
+        /,
     ) -> tuple[bool, int]:
         """
         get_size(self) -> bool, size:int
@@ -3698,18 +3763,21 @@ class BaseSrc(Gst.Element):
     def do_get_times(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> tuple[int, int]:
         """
         get_times(self, buffer:Gst.Buffer) -> start:int, end:int
         """
     def do_is_seekable(
         self,
+        /,
     ) -> bool:
         """
         is_seekable(self) -> bool
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
@@ -3718,6 +3786,7 @@ class BaseSrc(Gst.Element):
         self,
         seek: Gst.Event,
         segment: Gst.Segment,
+        /,
     ) -> bool:
         """
         prepare_seek_segment(self, seek:Gst.Event, segment:Gst.Segment) -> bool
@@ -3725,6 +3794,7 @@ class BaseSrc(Gst.Element):
     def do_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         query(self, query:Gst.Query) -> bool
@@ -3732,30 +3802,35 @@ class BaseSrc(Gst.Element):
     def do_set_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, caps:Gst.Caps) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
         """
     def do_unlock(
         self,
+        /,
     ) -> bool:
         """
         unlock(self) -> bool
         """
     def do_unlock_stop(
         self,
+        /,
     ) -> bool:
         """
         unlock_stop(self) -> bool
@@ -4248,6 +4323,7 @@ class BaseTransform(Gst.Element):
         self,
         direction: Gst.PadDirection,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         accept_caps(self, direction:Gst.PadDirection, caps:Gst.Caps) -> bool
@@ -4255,6 +4331,7 @@ class BaseTransform(Gst.Element):
     def do_before_transform(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> None:
         """
         before_transform(self, buffer:Gst.Buffer)
@@ -4263,6 +4340,7 @@ class BaseTransform(Gst.Element):
         self,
         input: Gst.Buffer,
         outbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         copy_metadata(self, input:Gst.Buffer, outbuf:Gst.Buffer) -> bool
@@ -4270,6 +4348,7 @@ class BaseTransform(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -4279,6 +4358,7 @@ class BaseTransform(Gst.Element):
         query: Gst.Query,
         api: GObject.GType,
         params: Gst.Structure,
+        /,
     ) -> bool:
         """
         filter_meta(self, query:Gst.Query, api:GType, params:Gst.Structure) -> bool
@@ -4288,12 +4368,14 @@ class BaseTransform(Gst.Element):
         direction: Gst.PadDirection,
         caps: Gst.Caps,
         othercaps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         fixate_caps(self, direction:Gst.PadDirection, caps:Gst.Caps, othercaps:Gst.Caps) -> Gst.Caps
         """
     def do_generate_output(
         self,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]:
         """
         generate_output(self) -> Gst.FlowReturn, outbuf:Gst.Buffer
@@ -4301,6 +4383,7 @@ class BaseTransform(Gst.Element):
     def do_get_unit_size(
         self,
         caps: Gst.Caps,
+        /,
     ) -> tuple[bool, int]:
         """
         get_unit_size(self, caps:Gst.Caps) -> bool, size:int
@@ -4308,6 +4391,7 @@ class BaseTransform(Gst.Element):
     def do_prepare_output_buffer(
         self,
         input: Gst.Buffer,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]:
         """
         prepare_output_buffer(self, input:Gst.Buffer) -> Gst.FlowReturn, outbuf:Gst.Buffer
@@ -4316,6 +4400,7 @@ class BaseTransform(Gst.Element):
         self,
         decide_query: Gst.Query,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, decide_query:Gst.Query, query:Gst.Query) -> bool
@@ -4324,6 +4409,7 @@ class BaseTransform(Gst.Element):
         self,
         direction: Gst.PadDirection,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         query(self, direction:Gst.PadDirection, query:Gst.Query) -> bool
@@ -4332,6 +4418,7 @@ class BaseTransform(Gst.Element):
         self,
         incaps: Gst.Caps,
         outcaps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, incaps:Gst.Caps, outcaps:Gst.Caps) -> bool
@@ -4339,6 +4426,7 @@ class BaseTransform(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -4346,18 +4434,21 @@ class BaseTransform(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -4366,6 +4457,7 @@ class BaseTransform(Gst.Element):
         self,
         is_discont: bool,
         input: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         submit_input_buffer(self, is_discont:bool, input:Gst.Buffer) -> Gst.FlowReturn
@@ -4374,6 +4466,7 @@ class BaseTransform(Gst.Element):
         self,
         inbuf: Gst.Buffer,
         outbuf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         transform(self, inbuf:Gst.Buffer, outbuf:Gst.Buffer) -> Gst.FlowReturn
@@ -4383,6 +4476,7 @@ class BaseTransform(Gst.Element):
         direction: Gst.PadDirection,
         caps: Gst.Caps,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         transform_caps(self, direction:Gst.PadDirection, caps:Gst.Caps, filter:Gst.Caps) -> Gst.Caps
@@ -4390,6 +4484,7 @@ class BaseTransform(Gst.Element):
     def do_transform_ip(
         self,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         transform_ip(self, buf:Gst.Buffer) -> Gst.FlowReturn
@@ -4399,6 +4494,7 @@ class BaseTransform(Gst.Element):
         outbuf: Gst.Buffer,
         meta: Gst.Meta,
         inbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         transform_meta(self, outbuf:Gst.Buffer, meta:Gst.Meta, inbuf:Gst.Buffer) -> bool
@@ -4409,6 +4505,7 @@ class BaseTransform(Gst.Element):
         caps: Gst.Caps,
         size: int,
         othercaps: Gst.Caps,
+        /,
     ) -> tuple[bool, int]:
         """
         transform_size(self, direction:Gst.PadDirection, caps:Gst.Caps, size:int, othercaps:Gst.Caps) -> bool, othersize:int
@@ -4755,7 +4852,7 @@ class BitReader(GObject.GPointer, metaclass=GObject.GType):
         """
         Returns the total number of bits of a GstBitReader instance.
         """
-    def init(self, data: bytes) -> None:
+    def init(self, data: collections.abc.Sequence[int]) -> None:
         """
             Initializes a GstBitReader instance to read from `data`. This function
         can be called on already initialized instances.
@@ -4863,7 +4960,7 @@ class BitWriter(GObject.GPointer, metaclass=GObject.GType):
         """
         Write `nbits` bits of `value` to GstBitWriter.
         """
-    def put_bytes(self, data: bytes, nbytes: int) -> bool:
+    def put_bytes(self, data: collections.abc.Sequence[int], nbytes: int) -> bool:
         """
         Write `nbytes` bytes of `data` to GstBitWriter.
         """
@@ -5109,7 +5206,7 @@ class ByteReader(GObject.GPointer, metaclass=GObject.GType):
         """
         Read an unsigned 8 bit integer into `val` and update the current position.
         """
-    def init(self, data: bytes) -> None:
+    def init(self, data: collections.abc.Sequence[int]) -> None:
         """
             Initializes a GstByteReader instance to read from `data`. This function
         can be called on already initialized instances.
@@ -5369,7 +5466,7 @@ class ByteWriter(GObject.GPointer, metaclass=GObject.GType):
         """
         Initializes `writer` to an empty instance
         """
-    def init_with_data(self, data: bytes, initialized: bool) -> None:
+    def init_with_data(self, data: collections.abc.Sequence[int], initialized: bool) -> None:
         """
             Initializes `writer` with the given
         memory area. If `initialized` is True it is possible to
@@ -5383,7 +5480,7 @@ class ByteWriter(GObject.GPointer, metaclass=GObject.GType):
         """
         Writes `size` bytes of `data` to `writer`.
         """
-    def put_data(self, data: bytes) -> bool:
+    def put_data(self, data: collections.abc.Sequence[int]) -> bool:
         """
         Writes `size` bytes of `data` to `writer`.
         """
@@ -5439,11 +5536,11 @@ class ByteWriter(GObject.GPointer, metaclass=GObject.GType):
         """
         Writes a signed 8 bit integer to `writer`.
         """
-    def put_string_utf16(self, data: list[int]) -> bool:
+    def put_string_utf16(self, data: collections.abc.Sequence[int]) -> bool:
         """
         Writes a NUL-terminated UTF16 string to `writer` (including the terminator).
         """
-    def put_string_utf32(self, data: list[int]) -> bool:
+    def put_string_utf32(self, data: collections.abc.Sequence[int]) -> bool:
         """
         Writes a NUL-terminated UTF32 string to `writer` (including the terminator).
         """
@@ -5925,12 +6022,14 @@ class DataQueue(GObject.Object):
     # python methods (overrides?)
     def do_empty(
         self,
+        /,
     ) -> None:
         """
         empty(self)
         """
     def do_full(
         self,
+        /,
     ) -> None:
         """
         full(self)
@@ -6132,6 +6231,7 @@ class PushSrc(BaseSrc):
     # python methods (overrides?)
     def do_alloc(
         self,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]:
         """
         alloc(self) -> Gst.FlowReturn, buf:Gst.Buffer
@@ -6139,6 +6239,7 @@ class PushSrc(BaseSrc):
     def do_create(
         self,
         buf: Gst.Buffer | None = None,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]:
         """
         create(self, buf:Gst.Buffer=None) -> Gst.FlowReturn, buf:Gst.Buffer
@@ -6146,6 +6247,7 @@ class PushSrc(BaseSrc):
     def do_fill(
         self,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         fill(self, buf:Gst.Buffer) -> Gst.FlowReturn

@@ -59,6 +59,11 @@ def parse_module(
 
         return parse_private_gi(m), {}
 
+    if m.__name__ in {"gi.events", "gi._signalhelper", "gi._gtktemplate"}:
+        from gi_stub_gen.parser.python_gi import parse_python_helper
+
+        return parse_python_helper(m), {}
+
     module_attributes = dir(m)
     module_name = m.__name__
     # module_name = m.__name__.split(".")[-1]
@@ -258,7 +263,7 @@ def parse_module(
 
     from gi_stub_gen.schema.module import ModuleSchema
 
-    return ModuleSchema(
+    schema = ModuleSchema(
         name=module_name,
         constant=module_constants,
         enum=module_enums,
@@ -267,4 +272,9 @@ def parse_module(
         callbacks=[v for v in module_callbacks.values()],
         classes=module_classes,
         aliases=module_aliases,
-    ), unknown_module_map_types
+    )
+    if module_name == "gi":
+        from gi_stub_gen.parser.python_gi import apply_gi_function_signatures
+
+        apply_gi_function_signatures(m, schema)
+    return schema, unknown_module_map_types

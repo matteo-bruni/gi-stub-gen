@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -73,7 +74,7 @@ def buffer_add_video_bar_meta(
 def buffer_add_video_caption_meta(
     buffer: Gst.Buffer,
     caption_type: VideoCaptionType,
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> VideoCaptionMeta:
     """
     Attaches GstVideo.CaptionMeta metadata to `buffer` with the given
@@ -130,8 +131,8 @@ def buffer_add_video_meta_full(
     width: int,
     height: int,
     n_planes: int,
-    offset: list[int],
-    stride: list[int],
+    offset: collections.abc.Sequence[int],
+    stride: collections.abc.Sequence[int],
 ) -> VideoMeta:
     """
     Attaches GstVideoMeta metadata to `buffer` with the given parameters.
@@ -179,8 +180,8 @@ def buffer_add_video_region_of_interest_meta_id(
 
 def buffer_add_video_sei_user_data_unregistered_meta(
     buffer: Gst.Buffer,
-    uuid: bytes,
-    data: bytes | None = None,
+    uuid: collections.abc.Sequence[int],
+    data: collections.abc.Sequence[int] | None = None,
 ) -> VideoSEIUserDataUnregisteredMeta:
     """
     Attaches GstVideo.SEIUserDataUnregisteredMeta metadata to `buffer` with the given
@@ -659,7 +660,7 @@ def navigation_query_set_angles(
 
 def navigation_query_set_commandsv(
     query: Gst.Query,
-    cmds: list[NavigationCommand],
+    cmds: collections.abc.Sequence[NavigationCommand],
 ) -> None:
     """
     Set the GstNavigation command query result fields in `query`. The number
@@ -1374,7 +1375,7 @@ def video_is_dma_drm_caps(
     ...
 
 def video_make_raw_caps(
-    formats: list[VideoFormat] | None = None,
+    formats: collections.abc.Sequence[VideoFormat] | None = None,
 ) -> Gst.Caps:
     """
     Return a generic raw video caps for formats defined in `formats`.
@@ -1384,7 +1385,7 @@ def video_make_raw_caps(
     ...
 
 def video_make_raw_caps_with_features(
-    formats: list[VideoFormat] | None = None,
+    formats: collections.abc.Sequence[VideoFormat] | None = None,
     features: Gst.CapsFeatures | None = None,
 ) -> Gst.Caps:
     """
@@ -4152,6 +4153,7 @@ class ColorBalanceChannel(GObject.Object):
     def do_value_changed(
         self,
         value: int,
+        /,
     ) -> None:
         """
         value_changed(self, value:int)
@@ -4512,7 +4514,7 @@ class Navigation(builtins.object, metaclass=GObject.GType):
         Set the GstNavigation angles query result field in `query`.
         """
     @staticmethod
-    def query_set_commandsv(query: Gst.Query, cmds: list[NavigationCommand]) -> None:
+    def query_set_commandsv(query: Gst.Query, cmds: collections.abc.Sequence[NavigationCommand]) -> None:
         """
             Set the GstNavigation command query result fields in `query`. The number
         of commands passed must be equal to `n_commands`.
@@ -4629,7 +4631,7 @@ class VideoAffineTransformationMeta(GObject.GPointer, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def apply_matrix(self, matrix: list[float]) -> None:
+    def apply_matrix(self, matrix: collections.abc.Sequence[float]) -> None:
         """
             Apply a transformation using the given 4x4 transformation matrix.
         Performs the multiplication, meta->matrix X matrix.
@@ -4707,6 +4709,7 @@ class VideoAggregator(GstBase.Aggregator):
     def do_aggregate_frames(
         self,
         outbuffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         aggregate_frames(self, outbuffer:Gst.Buffer) -> Gst.FlowReturn
@@ -4714,6 +4717,7 @@ class VideoAggregator(GstBase.Aggregator):
     def do_create_output_buffer(
         self,
         outbuffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         create_output_buffer(self, outbuffer:Gst.Buffer) -> Gst.FlowReturn
@@ -4722,6 +4726,7 @@ class VideoAggregator(GstBase.Aggregator):
         self,
         downstream_caps: Gst.Caps,
         best_info: VideoInfo,
+        /,
     ) -> bool:
         """
         find_best_format(self, downstream_caps:Gst.Caps, best_info:GstVideo.VideoInfo) -> at_least_one_alpha:bool
@@ -4729,6 +4734,7 @@ class VideoAggregator(GstBase.Aggregator):
     def do_update_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         update_caps(self, caps:Gst.Caps) -> Gst.Caps
@@ -4922,6 +4928,7 @@ class VideoAggregatorConvertPad(VideoAggregatorPad):
         self,
         agg: VideoAggregator,
         conversion_info: VideoInfo,
+        /,
     ) -> None:
         """
         create_conversion_info(self, agg:GstVideo.VideoAggregator, conversion_info:GstVideo.VideoInfo)
@@ -5156,6 +5163,7 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
         self,
         videoaggregator: VideoAggregator,
         prepared_frame: VideoFrame,
+        /,
     ) -> None:
         """
         clean_frame(self, videoaggregator:GstVideo.VideoAggregator, prepared_frame:GstVideo.VideoFrame)
@@ -5165,6 +5173,7 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
         videoaggregator: VideoAggregator,
         buffer: Gst.Buffer,
         prepared_frame: VideoFrame,
+        /,
     ) -> bool:
         """
         prepare_frame(self, videoaggregator:GstVideo.VideoAggregator, buffer:Gst.Buffer, prepared_frame:GstVideo.VideoFrame) -> bool
@@ -5173,6 +5182,7 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
         self,
         videoaggregator: VideoAggregator,
         prepared_frame: VideoFrame,
+        /,
     ) -> None:
         """
         prepare_frame_finish(self, videoaggregator:GstVideo.VideoAggregator, prepared_frame:GstVideo.VideoFrame)
@@ -5182,12 +5192,14 @@ class VideoAggregatorPad(GstBase.AggregatorPad):
         videoaggregator: VideoAggregator,
         buffer: Gst.Buffer,
         prepared_frame: VideoFrame,
+        /,
     ) -> None:
         """
         prepare_frame_start(self, videoaggregator:GstVideo.VideoAggregator, buffer:Gst.Buffer, prepared_frame:GstVideo.VideoFrame)
         """
     def do_update_conversion_info(
         self,
+        /,
     ) -> None:
         """
         update_conversion_info(self)
@@ -6645,6 +6657,7 @@ class VideoDecoder(Gst.Element):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
@@ -6652,24 +6665,28 @@ class VideoDecoder(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
         """
     def do_drain(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         drain(self) -> Gst.FlowReturn
         """
     def do_finish(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         finish(self) -> Gst.FlowReturn
         """
     def do_flush(
         self,
+        /,
     ) -> bool:
         """
         flush(self) -> bool
@@ -6677,6 +6694,7 @@ class VideoDecoder(Gst.Element):
     def do_getcaps(
         self,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         getcaps(self, filter:Gst.Caps) -> Gst.Caps
@@ -6684,6 +6702,7 @@ class VideoDecoder(Gst.Element):
     def do_handle_frame(
         self,
         frame: VideoCodecFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         handle_frame(self, frame:GstVideo.VideoCodecFrame) -> Gst.FlowReturn
@@ -6692,18 +6711,21 @@ class VideoDecoder(Gst.Element):
         self,
         timestamp: int,
         duration: int,
+        /,
     ) -> bool:
         """
         handle_missing_data(self, timestamp:int, duration:int) -> bool
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
@@ -6713,6 +6735,7 @@ class VideoDecoder(Gst.Element):
         frame: VideoCodecFrame,
         adapter: GstBase.Adapter,
         at_eos: bool,
+        /,
     ) -> Gst.FlowReturn:
         """
         parse(self, frame:GstVideo.VideoCodecFrame, adapter:GstBase.Adapter, at_eos:bool) -> Gst.FlowReturn
@@ -6720,6 +6743,7 @@ class VideoDecoder(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -6727,6 +6751,7 @@ class VideoDecoder(Gst.Element):
     def do_reset(
         self,
         hard: bool,
+        /,
     ) -> bool:
         """
         reset(self, hard:bool) -> bool
@@ -6734,6 +6759,7 @@ class VideoDecoder(Gst.Element):
     def do_set_format(
         self,
         state: VideoCodecState,
+        /,
     ) -> bool:
         """
         set_format(self, state:GstVideo.VideoCodecState) -> bool
@@ -6741,6 +6767,7 @@ class VideoDecoder(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -6748,6 +6775,7 @@ class VideoDecoder(Gst.Element):
     def do_sink_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, query:Gst.Query) -> bool
@@ -6755,6 +6783,7 @@ class VideoDecoder(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -6762,18 +6791,21 @@ class VideoDecoder(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -6782,6 +6814,7 @@ class VideoDecoder(Gst.Element):
         self,
         frame: VideoCodecFrame,
         meta: Gst.Meta,
+        /,
     ) -> bool:
         """
         transform_meta(self, frame:GstVideo.VideoCodecFrame, meta:Gst.Meta) -> bool
@@ -7470,6 +7503,7 @@ class VideoEncoder(Gst.Element):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
@@ -7477,18 +7511,21 @@ class VideoEncoder(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
         """
     def do_finish(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         finish(self) -> Gst.FlowReturn
         """
     def do_flush(
         self,
+        /,
     ) -> bool:
         """
         flush(self) -> bool
@@ -7496,6 +7533,7 @@ class VideoEncoder(Gst.Element):
     def do_getcaps(
         self,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         getcaps(self, filter:Gst.Caps) -> Gst.Caps
@@ -7503,18 +7541,21 @@ class VideoEncoder(Gst.Element):
     def do_handle_frame(
         self,
         frame: VideoCodecFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         handle_frame(self, frame:GstVideo.VideoCodecFrame) -> Gst.FlowReturn
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
@@ -7522,6 +7563,7 @@ class VideoEncoder(Gst.Element):
     def do_pre_push(
         self,
         frame: VideoCodecFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         pre_push(self, frame:GstVideo.VideoCodecFrame) -> Gst.FlowReturn
@@ -7529,6 +7571,7 @@ class VideoEncoder(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -7536,6 +7579,7 @@ class VideoEncoder(Gst.Element):
     def do_reset(
         self,
         hard: bool,
+        /,
     ) -> bool:
         """
         reset(self, hard:bool) -> bool
@@ -7543,6 +7587,7 @@ class VideoEncoder(Gst.Element):
     def do_set_format(
         self,
         state: VideoCodecState,
+        /,
     ) -> bool:
         """
         set_format(self, state:GstVideo.VideoCodecState) -> bool
@@ -7550,6 +7595,7 @@ class VideoEncoder(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -7557,6 +7603,7 @@ class VideoEncoder(Gst.Element):
     def do_sink_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, query:Gst.Query) -> bool
@@ -7564,6 +7611,7 @@ class VideoEncoder(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -7571,18 +7619,21 @@ class VideoEncoder(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -7591,6 +7642,7 @@ class VideoEncoder(Gst.Element):
         self,
         frame: VideoCodecFrame,
         meta: Gst.Meta,
+        /,
     ) -> bool:
         """
         transform_meta(self, frame:GstVideo.VideoCodecFrame, meta:Gst.Meta) -> bool
@@ -7862,6 +7914,7 @@ class VideoFilter(GstBase.BaseTransform):
         in_info: VideoInfo,
         outcaps: Gst.Caps,
         out_info: VideoInfo,
+        /,
     ) -> bool:
         """
         set_info(self, incaps:Gst.Caps, in_info:GstVideo.VideoInfo, outcaps:Gst.Caps, out_info:GstVideo.VideoInfo) -> bool
@@ -7870,6 +7923,7 @@ class VideoFilter(GstBase.BaseTransform):
         self,
         inframe: VideoFrame,
         outframe: VideoFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         transform_frame(self, inframe:GstVideo.VideoFrame, outframe:GstVideo.VideoFrame) -> Gst.FlowReturn
@@ -7877,6 +7931,7 @@ class VideoFilter(GstBase.BaseTransform):
     def do_transform_frame_ip(
         self,
         frame: VideoFrame,
+        /,
     ) -> Gst.FlowReturn:
         """
         transform_frame_ip(self, frame:GstVideo.VideoFrame) -> Gst.FlowReturn
@@ -9869,6 +9924,7 @@ class VideoSink(GstBase.BaseSink):
         self,
         caps: Gst.Caps,
         info: VideoInfo,
+        /,
     ) -> bool:
         """
         set_info(self, caps:Gst.Caps, info:GstVideo.VideoInfo) -> bool
@@ -9876,6 +9932,7 @@ class VideoSink(GstBase.BaseSink):
     def do_show_frame(
         self,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         show_frame(self, buf:Gst.Buffer) -> Gst.FlowReturn
@@ -10407,7 +10464,9 @@ class VideoVBIEncoder(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def add_ancillary(self, composite: bool, DID: int, SDID_block_number: int, data: bytes) -> bool:
+    def add_ancillary(
+        self, composite: bool, DID: int, SDID_block_number: int, data: collections.abc.Sequence[int]
+    ) -> bool:
         """
             Stores Video Ancillary data, according to SMPTE-291M specification.
 
@@ -10419,7 +10478,7 @@ class VideoVBIEncoder(GObject.GBoxed, metaclass=GObject.GType):
         """
         Frees the `encoder`.
         """
-    def write_line(self, data: bytes) -> None:
+    def write_line(self, data: collections.abc.Sequence[int]) -> None:
         """
             `data` needs to have the correct size and alignment for the configured video
         format of `encoder`.
@@ -10452,7 +10511,7 @@ class VideoVBIParser(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def add_line(self, data: bytes) -> None:
+    def add_line(self, data: collections.abc.Sequence[int]) -> None:
         """
             Provide a new line of data to the `parser`. Call `gst_video_vbi_parser_get_ancillary`
         to get the Ancillary data that might be present on that line.

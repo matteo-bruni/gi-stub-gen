@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import typing
 
@@ -198,7 +199,7 @@ def h264_bit_writer_pps(
     ...
 
 def h264_bit_writer_sei(
-    sei_messages: list[H264SEIMessage],
+    sei_messages: collections.abc.Sequence[H264SEIMessage],
     start_code: bool,
     size: int,
 ) -> tuple[H264BitWriterResult, int, int]:
@@ -231,7 +232,7 @@ def h264_bit_writer_sps(
 
 def h264_create_sei_memory(
     start_code_prefix_length: int,
-    messages: list[H264SEIMessage],
+    messages: collections.abc.Sequence[H264SEIMessage],
 ) -> Gst.Memory:
     """
     Creates raw byte-stream format (a.k.a Annex B type) SEI nal unit data
@@ -241,7 +242,7 @@ def h264_create_sei_memory(
 
 def h264_create_sei_memory_avc(
     nal_length_size: int,
-    messages: list[H264SEIMessage],
+    messages: collections.abc.Sequence[H264SEIMessage],
 ) -> Gst.Memory:
     """
     Creates raw packetized format SEI nal unit data from `messages`
@@ -295,7 +296,7 @@ def h264_parser_identify_and_split_nalu_avc(
     offset: int,
     size: int,
     nal_length_size: int,
-    nalus: list[H264NalUnit],
+    nalus: collections.abc.Sequence[H264NalUnit],
 ) -> tuple[H264ParserResult, int]:
     """
     Parses `data` for packetized (e.g., avc/avc3) bitstream and
@@ -417,7 +418,7 @@ def h264_parser_parse_pps(
 def h264_parser_parse_sei(
     nalparser: H264NalParser,
     nalu: H264NalUnit,
-    messages: list[H264SEIMessage],
+    messages: collections.abc.Sequence[H264SEIMessage],
 ) -> H264ParserResult:
     """
     Parses `nalu` containing one or more Supplementary Enhancement Information messages,
@@ -578,7 +579,7 @@ def h265_create_sei_memory(
     layer_id: int,
     temporal_id_plus1: int,
     start_code_prefix_length: int,
-    messages: list[H265SEIMessage],
+    messages: collections.abc.Sequence[H265SEIMessage],
 ) -> Gst.Memory:
     """
     Creates raw byte-stream format (a.k.a Annex B type) SEI nal unit data
@@ -590,7 +591,7 @@ def h265_create_sei_memory_hevc(
     layer_id: int,
     temporal_id_plus1: int,
     nal_length_size: int,
-    messages: list[H265SEIMessage],
+    messages: collections.abc.Sequence[H265SEIMessage],
 ) -> Gst.Memory:
     """
     Creates raw packetized format SEI nal unit data from `messages`
@@ -7435,7 +7436,13 @@ class H265Parser(GObject.GPointer, metaclass=GObject.GType):
         Frees `parser`
         """
     def identify_and_split_nalu_hevc(
-        self, data: int, offset: int, size: int, nal_length_size: int, nalus: list[H265NalUnit], consumed: int
+        self,
+        data: int,
+        offset: int,
+        size: int,
+        nal_length_size: int,
+        nalus: collections.abc.Sequence[H265NalUnit],
+        consumed: int,
     ) -> H265ParserResult:
         """
             Parses `data` for packetized (e.g., hvc1/hev1) bitstream and
@@ -7499,7 +7506,7 @@ class H265Parser(GObject.GPointer, metaclass=GObject.GType):
         """
         Parses `data`, and fills the `pps` structure.
         """
-    def parse_sei(self, nalu: H265NalUnit, messages: list[H265SEIMessage]) -> H265ParserResult:
+    def parse_sei(self, nalu: H265NalUnit, messages: collections.abc.Sequence[H265SEIMessage]) -> H265ParserResult:
         """
         Parses `data`, create and fills the `messages` array.
         """
@@ -10484,7 +10491,13 @@ class H266Parser(GObject.GPointer, metaclass=GObject.GType):
         Frees the `parser`
         """
     def identify_and_split_nalu_vvc(
-        self, data: int, offset: int, size: int, nal_length_size: int, nalus: list[H266NalUnit], consumed: int
+        self,
+        data: int,
+        offset: int,
+        size: int,
+        nal_length_size: int,
+        nalus: collections.abc.Sequence[H266NalUnit],
+        consumed: int,
     ) -> H266ParserResult:
         """
             Parses `data` for packetized (e.g., vvc1/vvi1) bitstream and
@@ -10550,7 +10563,7 @@ class H266Parser(GObject.GPointer, metaclass=GObject.GType):
         """
         Parses `data`, and fills the `pps` structure.
         """
-    def parse_sei(self, nalu: H266NalUnit, messages: list[H266SEIMessage]) -> H266ParserResult:
+    def parse_sei(self, nalu: H266NalUnit, messages: collections.abc.Sequence[H266SEIMessage]) -> H266ParserResult:
         """
         Parses `data`, create and fills the `messages` array.
         """

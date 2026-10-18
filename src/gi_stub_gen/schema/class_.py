@@ -186,6 +186,8 @@ class ClassFieldSchema(BaseSchema):
 
 
 class ClassSchema(BaseSchema):
+    nested_classes: list[ClassSchema] = Field(default_factory=list)
+    """Runtime nested classes, such as Signal.BoundSignal and Template.Callback."""
     super: list[str]
     namespace: str
     name: str
@@ -236,6 +238,8 @@ class ClassSchema(BaseSchema):
         Gather from properties and attributes.
         """
         gi_imports: set[str] = set()
+        for nested in self.nested_classes:
+            gi_imports.update(nested.required_imports)
         gi_imports.update(self.additional_required_imports)
         if self.required_gi_import:
             gi_imports.add(self.required_gi_import)
@@ -329,4 +333,4 @@ class ClassSchema(BaseSchema):
         """
         used in template check if class has any data to render
         """
-        return bool(self.props or self.fields or self.methods or self.python_methods or self.signals)
+        return bool(self.nested_classes or self.props or self.fields or self.methods or self.python_methods or self.signals)

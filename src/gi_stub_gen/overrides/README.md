@@ -95,3 +95,31 @@ Fraction tests initialize Gst in fresh processes and check its rendered construc
 with and without manual field definitions. Runtime arithmetic and the typed example
 in `tests/apps/fraction.py` verify the five explicit methods. Check the example
 against regenerated Gst stubs; previously installed stubs lack those operators.
+
+## Python helpers and selected special methods (PyGObject 3.58.1)
+
+`include_methods` extends the normal Python-member filter for one class. Use it
+when a private/special method already has useful runtime annotations. Caps
+includes `__getitem__`/`__len__`; Structure additionally includes `__setitem__`.
+Their signatures are parsed from initialized gst-python, not copied into the
+registry. Other classes retain the existing filter.
+
+`python_gi.py` supplies signatures for unannotated public Python APIs: the seven
+`gi` configuration/version functions, Signal/BoundSignal, Template/Callback/Child,
+and the GLib asyncio helpers. `parser/python_gi.py` checks member existence,
+retains inspected documentation, and uses the existing Pydantic/Jinja pipeline.
+`parser/declarations.py` is also used by the bounded `_gi` declarations; it does
+not discover arbitrary modules or run introspection at registry import.
+
+Template.Child's widget type depends on the XML, so its factory returns Any.
+Signal arguments remain dynamic. Neither helper introduces blanket module
+fallbacks. Only base owns `_signalhelper.pyi` and `events.pyi`; GTK owns
+`_gtktemplate.pyi`, avoiding a mandatory GTK import for base-only installations.
+
+On PyGObject upgrades rerun `tests/test_parity_features.py` and the installed
+consumers. In 3.58.1 `GLibTask.get_priority(self, priority)` requires an unused
+argument: the stub preserves it and a necessity test requests review when its
+signature changes. GLibEventLoop.__enter__ returns None. The policy's inherited
+set_child_watcher raises NotImplementedError; it is represented explicitly
+because typeshed marks that method abstract although the runtime class can be
+instantiated. Child-watcher declarations are included only when present.

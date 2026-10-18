@@ -347,6 +347,7 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -355,30 +356,35 @@ class NonstreamAudioDecoder(Gst.Element):
         self,
         buffer: Gst.Buffer,
         num_samples: int,
+        /,
     ) -> bool:
         """
         decode(self, buffer:Gst.Buffer, num_samples:int) -> bool
         """
     def do_get_current_subsong(
         self,
+        /,
     ) -> int:
         """
         get_current_subsong(self) -> int
         """
     def do_get_main_tags(
         self,
+        /,
     ) -> Gst.TagList:
         """
         get_main_tags(self) -> Gst.TagList
         """
     def do_get_num_loops(
         self,
+        /,
     ) -> int:
         """
         get_num_loops(self) -> int
         """
     def do_get_num_subsongs(
         self,
+        /,
     ) -> int:
         """
         get_num_subsongs(self) -> int
@@ -386,6 +392,7 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_get_subsong_duration(
         self,
         subsong: int,
+        /,
     ) -> int:
         """
         get_subsong_duration(self, subsong:int) -> int
@@ -393,12 +400,14 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_get_subsong_tags(
         self,
         subsong: int,
+        /,
     ) -> Gst.TagList:
         """
         get_subsong_tags(self, subsong:int) -> Gst.TagList
         """
     def do_get_supported_output_modes(
         self,
+        /,
     ) -> int:
         """
         get_supported_output_modes(self) -> int
@@ -411,6 +420,7 @@ class NonstreamAudioDecoder(Gst.Element):
         initial_position: int,
         initial_output_mode: NonstreamAudioOutputMode,
         initial_num_loops: int,
+        /,
     ) -> bool:
         """
         load_from_buffer(self, source_data:Gst.Buffer, initial_subsong:int, initial_subsong_mode:GstBadAudio.NonstreamAudioSubsongMode, initial_position:int, initial_output_mode:GstBadAudio.NonstreamAudioOutputMode, initial_num_loops:int) -> bool
@@ -422,12 +432,14 @@ class NonstreamAudioDecoder(Gst.Element):
         initial_position: int,
         initial_output_mode: NonstreamAudioOutputMode,
         initial_num_loops: int,
+        /,
     ) -> bool:
         """
         load_from_custom(self, initial_subsong:int, initial_subsong_mode:GstBadAudio.NonstreamAudioSubsongMode, initial_position:int, initial_output_mode:GstBadAudio.NonstreamAudioOutputMode, initial_num_loops:int) -> bool
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
@@ -435,6 +447,7 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -442,6 +455,7 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_seek(
         self,
         new_position: int,
+        /,
     ) -> bool:
         """
         seek(self, new_position:int) -> bool
@@ -450,6 +464,7 @@ class NonstreamAudioDecoder(Gst.Element):
         self,
         subsong: int,
         initial_position: int,
+        /,
     ) -> bool:
         """
         set_current_subsong(self, subsong:int, initial_position:int) -> bool
@@ -457,6 +472,7 @@ class NonstreamAudioDecoder(Gst.Element):
     def do_set_num_loops(
         self,
         num_loops: int,
+        /,
     ) -> bool:
         """
         set_num_loops(self, num_loops:int) -> bool
@@ -465,6 +481,7 @@ class NonstreamAudioDecoder(Gst.Element):
         self,
         mode: NonstreamAudioOutputMode,
         current_position: int,
+        /,
     ) -> bool:
         """
         set_output_mode(self, mode:GstBadAudio.NonstreamAudioOutputMode, current_position:int) -> bool
@@ -473,12 +490,14 @@ class NonstreamAudioDecoder(Gst.Element):
         self,
         mode: NonstreamAudioSubsongMode,
         initial_position: int,
+        /,
     ) -> bool:
         """
         set_subsong_mode(self, mode:GstBadAudio.NonstreamAudioSubsongMode, initial_position:int) -> bool
         """
     def do_tell(
         self,
+        /,
     ) -> int:
         """
         tell(self) -> int

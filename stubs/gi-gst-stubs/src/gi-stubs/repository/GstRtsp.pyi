@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -1138,7 +1139,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
         This function can be cancelled with `gst_rtsp_connection_flush`.
         """
     @deprecated("deprecated")
-    def read(self, data: bytes, timeout: GLib.TimeVal) -> RTSPResult:
+    def read(self, data: collections.abc.Sequence[int], timeout: GLib.TimeVal) -> RTSPResult:
         """
             Attempt to read `size` bytes into `data` from the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be None, in which case this function
@@ -1146,7 +1147,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
 
         This function can be cancelled with `gst_rtsp_connection_flush`.
         """
-    def read_usec(self, data: bytes, timeout: int) -> RTSPResult:
+    def read_usec(self, data: collections.abc.Sequence[int], timeout: int) -> RTSPResult:
         """
             Attempt to read `size` bytes into `data` from the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be 0, in which case this function
@@ -1185,7 +1186,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
         This function can be cancelled with `gst_rtsp_connection_flush`.
         """
     @deprecated("deprecated")
-    def send_messages(self, messages: list[RTSPMessage], timeout: GLib.TimeVal) -> RTSPResult:
+    def send_messages(self, messages: collections.abc.Sequence[RTSPMessage], timeout: GLib.TimeVal) -> RTSPResult:
         """
             Attempt to send `messages` to the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be None, in which case this function
@@ -1193,7 +1194,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
 
         This function can be cancelled with `gst_rtsp_connection_flush`.
         """
-    def send_messages_usec(self, messages: list[RTSPMessage], timeout: int) -> RTSPResult:
+    def send_messages_usec(self, messages: collections.abc.Sequence[RTSPMessage], timeout: int) -> RTSPResult:
         """
             Attempt to send `messages` to the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be 0, in which case this function
@@ -1299,7 +1300,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
         the `conn` is connected.
         """
     @deprecated("deprecated")
-    def write(self, data: bytes, timeout: GLib.TimeVal) -> RTSPResult:
+    def write(self, data: collections.abc.Sequence[int], timeout: GLib.TimeVal) -> RTSPResult:
         """
             Attempt to write `size` bytes of `data` to the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be None, in which case this function
@@ -1307,7 +1308,7 @@ class RTSPConnection(GObject.GPointer, metaclass=GObject.GType):
 
         This function can be cancelled with `gst_rtsp_connection_flush`.
         """
-    def write_usec(self, data: bytes, timeout: int) -> RTSPResult:
+    def write_usec(self, data: collections.abc.Sequence[int], timeout: int) -> RTSPResult:
         """
             Attempt to write `size` bytes of `data` to the connected `conn`, blocking up to
         the specified `timeout`. `timeout` can be 0, in which case this function
@@ -1533,7 +1534,7 @@ class RTSPMessage(GObject.GBoxed, metaclass=GObject.GType):
             Remove the `index` header with key `header` from `msg`. If `index` equals -1,
         all matching headers will be removed.
         """
-    def set_body(self, data: bytes) -> RTSPResult:
+    def set_body(self, data: collections.abc.Sequence[int]) -> RTSPResult:
         """
             Set the body of `msg` to a copy of `data`. Any existing body or body buffer
         will be replaced by the new body.
@@ -1557,7 +1558,7 @@ class RTSPMessage(GObject.GBoxed, metaclass=GObject.GType):
         will always return None. The caller can check if there is a body buffer by
         calling `gst_rtsp_message_has_body_buffer`.
         """
-    def take_body(self, data: bytes) -> RTSPResult:
+    def take_body(self, data: collections.abc.Sequence[int]) -> RTSPResult:
         """
             Set the body of `msg` to `data` and `size`. This method takes ownership of
         `data`. Any existing body or body buffer will be replaced by the new body.
@@ -1941,7 +1942,7 @@ class RTSPWatch(GObject.GPointer, metaclass=GObject.GType):
         `id` will be non-zero and used as the ID argument in the message_sent
         callback.
         """
-    def send_messages(self, messages: list[RTSPMessage]) -> tuple[RTSPResult, int]:
+    def send_messages(self, messages: collections.abc.Sequence[RTSPMessage]) -> tuple[RTSPResult, int]:
         """
             Sends `messages` using the connection of the `watch`. If they cannot be sent
         immediately, they will be queued for transmission in `watch`. The contents of
@@ -1997,7 +1998,7 @@ class RTSPWatch(GObject.GPointer, metaclass=GObject.GType):
         returns GST_RTSP_ENOMEM. The caller then calls this function to wait for
         free space in the backlog queue and try again.
         """
-    def write_data(self, data: bytes) -> tuple[RTSPResult, int]:
+    def write_data(self, data: collections.abc.Sequence[int]) -> tuple[RTSPResult, int]:
         """
             Write `data` using the connection of the `watch`. If it cannot be sent
         immediately, it will be queued for transmission in `watch`. The contents of

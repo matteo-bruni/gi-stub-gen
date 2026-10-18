@@ -261,8 +261,8 @@ def gl_memory_init_once() -> None:
 
 def gl_memory_pbo_init_once() -> None: ...
 def gl_multiply_matrix4(
-    a: list[float],
-    b: list[float],
+    a: collections.abc.Sequence[float],
+    b: collections.abc.Sequence[float],
 ) -> list[float]:
     """
     Multiplies two 4x4 matrices, `a` and `b`, and stores the result, a
@@ -297,7 +297,7 @@ def gl_renderbuffer_init_once() -> None:
 
 def gl_set_affine_transformation_meta_from_ndc(
     meta: GstVideo.VideoAffineTransformationMeta,
-    matrix: list[float],
+    matrix: collections.abc.Sequence[float],
 ) -> None:
     """
     Set the 4x4 affine transformation matrix stored in `meta` from the
@@ -312,7 +312,7 @@ def gl_sized_gl_format_from_gl_format_type(
 ) -> int: ...
 def gl_stereo_downmix_mode_get_type() -> GObject.GType: ...
 def gl_swizzle_invert(
-    swizzle: list[int],
+    swizzle: collections.abc.Sequence[int],
 ) -> list[int]:
     """
     Given `swizzle`, produce `inversion` such that:
@@ -1206,18 +1206,21 @@ class GLBaseFilter(GstBase.BaseTransform):
         self,
         incaps: Gst.Caps,
         outcaps: Gst.Caps,
+        /,
     ) -> bool:
         """
         gl_set_caps(self, incaps:Gst.Caps, outcaps:Gst.Caps) -> bool
         """
     def do_gl_start(
         self,
+        /,
     ) -> bool:
         """
         gl_start(self) -> bool
         """
     def do_gl_stop(
         self,
+        /,
     ) -> None:
         """
         gl_stop(self)
@@ -1409,6 +1412,7 @@ class GLBaseMemoryAllocator(Gst.Allocator):
     def do_alloc(
         self,
         params: GLAllocationParams,
+        /,
     ) -> GLBaseMemory | None:
         """
         alloc(self, params:GstGL.GLAllocationParams) -> GstGL.GLBaseMemory or None
@@ -1548,12 +1552,14 @@ class GLBaseMixer(GstVideo.VideoAggregator):
     # python methods (overrides?)
     def do_gl_start(
         self,
+        /,
     ) -> bool:
         """
         gl_start(self) -> bool
         """
     def do_gl_stop(
         self,
+        /,
     ) -> None:
         """
         gl_stop(self)
@@ -1926,18 +1932,21 @@ class GLBaseSrc(GstBase.PushSrc):
     def do_fill_gl_memory(
         self,
         mem: GLMemory,
+        /,
     ) -> bool:
         """
         fill_gl_memory(self, mem:GstGL.GLMemory) -> bool
         """
     def do_gl_start(
         self,
+        /,
     ) -> bool:
         """
         gl_start(self) -> bool
         """
     def do_gl_stop(
         self,
+        /,
     ) -> None:
         """
         gl_stop(self)
@@ -2682,6 +2691,7 @@ class GLContext(Gst.Object):
     def do_activate(
         self,
         activate: bool,
+        /,
     ) -> bool:
         """
         activate(self, activate:bool) -> bool
@@ -2689,12 +2699,14 @@ class GLContext(Gst.Object):
     def do_check_feature(
         self,
         feature: str,
+        /,
     ) -> bool:
         """
         check_feature(self, feature:str) -> bool
         """
     def do_choose_format(
         self,
+        /,
     ) -> bool:
         """
         choose_format(self) -> bool
@@ -2703,42 +2715,49 @@ class GLContext(Gst.Object):
         self,
         gl_api: GLAPI,
         other_context: GLContext,
+        /,
     ) -> bool:
         """
         create_context(self, gl_api:GstGL.GLAPI, other_context:GstGL.GLContext) -> bool
         """
     def do_destroy_context(
         self,
+        /,
     ) -> None:
         """
         destroy_context(self)
         """
     def do_get_config(
         self,
+        /,
     ) -> Gst.Structure | None:
         """
         get_config(self) -> Gst.Structure or None
         """
     def do_get_gl_api(
         self,
+        /,
     ) -> GLAPI:
         """
         get_gl_api(self) -> GstGL.GLAPI
         """
     def do_get_gl_context(
         self,
+        /,
     ) -> int:
         """
         get_gl_context(self) -> int
         """
     def do_get_gl_platform(
         self,
+        /,
     ) -> GLPlatform:
         """
         get_gl_platform(self) -> GstGL.GLPlatform
         """
     def do_get_gl_platform_version(
         self,
+        /,
     ) -> tuple[int, int]:
         """
         get_gl_platform_version(self) -> major:int, minor:int
@@ -2746,12 +2765,14 @@ class GLContext(Gst.Object):
     def do_request_config(
         self,
         gl_config: Gst.Structure | None = None,
+        /,
     ) -> bool:
         """
         request_config(self, gl_config:Gst.Structure=None) -> bool
         """
     def do_swap_buffers(
         self,
+        /,
     ) -> None:
         """
         swap_buffers(self)
@@ -2982,12 +3003,14 @@ class GLDisplay(Gst.Object):
     # python methods (overrides?)
     def do_create_window(
         self,
+        /,
     ) -> GLWindow | None:
         """
         create_window(self) -> GstGL.GLWindow or None
         """
     def do_get_handle(
         self,
+        /,
     ) -> int:
         """
         get_handle(self) -> int
@@ -3174,6 +3197,7 @@ class GLFilter(GLBaseFilter):
         self,
         inbuf: Gst.Buffer,
         outbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         filter(self, inbuf:Gst.Buffer, outbuf:Gst.Buffer) -> bool
@@ -3182,12 +3206,14 @@ class GLFilter(GLBaseFilter):
         self,
         input: GLMemory,
         output: GLMemory,
+        /,
     ) -> bool:
         """
         filter_texture(self, input:GstGL.GLMemory, output:GstGL.GLMemory) -> bool
         """
     def do_init_fbo(
         self,
+        /,
     ) -> bool:
         """
         init_fbo(self) -> bool
@@ -3196,6 +3222,7 @@ class GLFilter(GLBaseFilter):
         self,
         incaps: Gst.Caps,
         outcaps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, incaps:Gst.Caps, outcaps:Gst.Caps) -> bool
@@ -3205,6 +3232,7 @@ class GLFilter(GLBaseFilter):
         direction: Gst.PadDirection,
         caps: Gst.Caps,
         filter_caps: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         transform_internal_caps(self, direction:Gst.PadDirection, caps:Gst.Caps, filter_caps:Gst.Caps) -> Gst.Caps
@@ -3821,6 +3849,7 @@ class GLMixer(GLBaseMixer):
     def do_process_buffers(
         self,
         outbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         process_buffers(self, outbuf:Gst.Buffer) -> bool
@@ -3828,6 +3857,7 @@ class GLMixer(GLBaseMixer):
     def do_process_textures(
         self,
         out_tex: GLMemory,
+        /,
     ) -> bool:
         """
         process_textures(self, out_tex:GstGL.GLMemory) -> bool
@@ -4484,7 +4514,7 @@ class GLSLStage(Gst.Object):
     def get_profile(self) -> GLSLProfile: ...
     def get_shader_type(self) -> int: ...
     def get_version(self) -> GLSLVersion: ...
-    def set_strings(self, version: GLSLVersion, profile: GLSLProfile, str: list[str]) -> bool:
+    def set_strings(self, version: GLSLVersion, profile: GLSLProfile, str: collections.abc.Sequence[str]) -> bool:
         """
         Replaces the current shader string with `str`.
         """
@@ -4542,7 +4572,7 @@ class GLSLStage(Gst.Object):
         type: int,
         version: GLSLVersion,
         profile: GLSLProfile,
-        str: list[str],
+        str: collections.abc.Sequence[str],
     ) -> GLSLStage:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -4693,7 +4723,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform1f`` for `name` on `shader`
         """
-    def set_uniform_1fv(self, name: str, value: list[float]) -> None:
+    def set_uniform_1fv(self, name: str, value: collections.abc.Sequence[float]) -> None:
         """
         Perform ``glUniform1fv`` for `name` on `shader`
         """
@@ -4701,7 +4731,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform1i`` for `name` on `shader`
         """
-    def set_uniform_1iv(self, name: str, value: list[int]) -> None:
+    def set_uniform_1iv(self, name: str, value: collections.abc.Sequence[int]) -> None:
         """
         Perform ``glUniform1iv`` for `name` on `shader`
         """
@@ -4709,7 +4739,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform2f`` for `name` on `shader`
         """
-    def set_uniform_2fv(self, name: str, value: list[float]) -> None:
+    def set_uniform_2fv(self, name: str, value: collections.abc.Sequence[float]) -> None:
         """
         Perform ``glUniform2fv`` for `name` on `shader`
         """
@@ -4717,7 +4747,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform2i`` for `name` on `shader`
         """
-    def set_uniform_2iv(self, name: str, value: list[int]) -> None:
+    def set_uniform_2iv(self, name: str, value: collections.abc.Sequence[int]) -> None:
         """
         Perform ``glUniform2iv`` for `name` on `shader`
         """
@@ -4725,7 +4755,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform3f`` for `name` on `shader`
         """
-    def set_uniform_3fv(self, name: str, value: list[float]) -> None:
+    def set_uniform_3fv(self, name: str, value: collections.abc.Sequence[float]) -> None:
         """
         Perform ``glUniform3fv`` for `name` on `shader`
         """
@@ -4733,7 +4763,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform3i`` for `name` on `shader`
         """
-    def set_uniform_3iv(self, name: str, value: list[int]) -> None:
+    def set_uniform_3iv(self, name: str, value: collections.abc.Sequence[int]) -> None:
         """
         Perform ``glUniform3iv`` for `name` on `shader`
         """
@@ -4741,7 +4771,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform4f`` for `name` on `shader`
         """
-    def set_uniform_4fv(self, name: str, value: list[float]) -> None:
+    def set_uniform_4fv(self, name: str, value: collections.abc.Sequence[float]) -> None:
         """
         Perform ``glUniform4fv`` for `name` on `shader`
         """
@@ -4749,7 +4779,7 @@ class GLShader(Gst.Object):
         """
         Perform ``glUniform4i`` for `name` on `shader`
         """
-    def set_uniform_4iv(self, name: str, value: list[int]) -> None:
+    def set_uniform_4iv(self, name: str, value: collections.abc.Sequence[int]) -> None:
         """
         Perform ``glUniform4iv`` for `name` on `shader`
         """
@@ -5531,30 +5561,35 @@ class GLWindow(Gst.Object):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> None:
         """
         close(self)
         """
     def do_controls_viewport(
         self,
+        /,
     ) -> bool:
         """
         controls_viewport(self) -> bool
         """
     def do_draw(
         self,
+        /,
     ) -> None:
         """
         draw(self)
         """
     def do_get_display(
         self,
+        /,
     ) -> int:
         """
         get_display(self) -> int
         """
     def do_get_window_handle(
         self,
+        /,
     ) -> int:
         """
         get_window_handle(self) -> int
@@ -5562,36 +5597,42 @@ class GLWindow(Gst.Object):
     def do_handle_events(
         self,
         handle_events: bool,
+        /,
     ) -> None:
         """
         handle_events(self, handle_events:bool)
         """
     def do_has_output_surface(
         self,
+        /,
     ) -> bool:
         """
         has_output_surface(self) -> bool
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
         """
     def do_queue_resize(
         self,
+        /,
     ) -> None:
         """
         queue_resize(self)
         """
     def do_quit(
         self,
+        /,
     ) -> None:
         """
         quit(self)
         """
     def do_run(
         self,
+        /,
     ) -> None:
         """
         run(self)
@@ -5600,6 +5641,7 @@ class GLWindow(Gst.Object):
         self,
         callback: collections.abc.Callable[[typing.Any], None],
         data: typing.Any = None,
+        /,
     ) -> None:
         """
         send_message(self, callback:GstGL.GLWindowCB, data=None)
@@ -5608,6 +5650,7 @@ class GLWindow(Gst.Object):
         self,
         callback: collections.abc.Callable[[typing.Any], None],
         data: typing.Any = None,
+        /,
     ) -> None:
         """
         send_message_async(self, callback:GstGL.GLWindowCB, data=None)
@@ -5616,6 +5659,7 @@ class GLWindow(Gst.Object):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         set_preferred_size(self, width:int, height:int)
@@ -5626,6 +5670,7 @@ class GLWindow(Gst.Object):
         y: int,
         width: int,
         height: int,
+        /,
     ) -> bool:
         """
         set_render_rectangle(self, x:int, y:int, width:int, height:int) -> bool
@@ -5633,12 +5678,14 @@ class GLWindow(Gst.Object):
     def do_set_window_handle(
         self,
         handle: int,
+        /,
     ) -> None:
         """
         set_window_handle(self, handle:int)
         """
     def do_show(
         self,
+        /,
     ) -> None:
         """
         show(self)

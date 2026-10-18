@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -130,7 +131,7 @@ def print_action(
     ...
 
 def print_action_types(
-    wanted_types: list[str],
+    wanted_types: collections.abc.Sequence[str],
 ) -> bool:
     """
     Prints the action types details wanted in `wanted_types`
@@ -148,7 +149,7 @@ def register_action_type(
     type_name: str,
     implementer_namespace: str,
     function: ExecuteAction,
-    parameters: list[ActionParameter] | None,
+    parameters: collections.abc.Sequence[ActionParameter] | None,
     description: str,
     flags: ActionTypeFlags,
 ) -> ActionType:
@@ -163,7 +164,7 @@ def register_action_type_dynamic(
     type_name: str,
     rank: Gst.Rank,
     function: ExecuteAction,
-    parameters: list[ActionParameter] | None,
+    parameters: collections.abc.Sequence[ActionParameter] | None,
     description: str,
     flags: ActionTypeFlags,
 ) -> ActionType: ...
@@ -1353,6 +1354,7 @@ class Monitor(Gst.Object):
     # python methods (overrides?)
     def do_get_element(
         self,
+        /,
     ) -> Gst.Element | None:
         """
         get_element(self) -> Gst.Element or None
@@ -1360,12 +1362,14 @@ class Monitor(Gst.Object):
     def do_set_media_descriptor(
         self,
         media_descriptor: MediaDescriptor,
+        /,
     ) -> None:
         """
         set_media_descriptor(self, media_descriptor:GstValidate.MediaDescriptor)
         """
     def do_setup(
         self,
+        /,
     ) -> bool:
         """
         setup(self) -> bool
@@ -1512,6 +1516,7 @@ class Override(Gst.Object):
     # python methods (overrides?)
     def do_attached(
         self,
+        /,
     ) -> None:
         """
         attached(self)

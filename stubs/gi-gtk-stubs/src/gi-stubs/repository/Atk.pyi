@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import contextlib
 import typing
 
@@ -290,7 +291,7 @@ def text_attribute_register(
     ...
 
 def text_free_ranges(
-    ranges: list[TextRange],
+    ranges: collections.abc.Sequence[TextRange],
 ) -> None:
     """
     Frees the memory associated with an array of AtkTextRange. It is assumed
@@ -2162,7 +2163,7 @@ class Document(builtins.object, metaclass=GObject.GType):
         """
         Sets the value for the given `attribute_name` inside `document`.
         """
-    def set_text_selections(self, selections: list[TextSelection]) -> bool:
+    def set_text_selections(self, selections: collections.abc.Sequence[TextSelection]) -> bool:
         """
             Makes 1 or more selections within this document denoted by the given
         array of AtkTextSelections. Any existing physical selection (inside or
@@ -2713,12 +2714,14 @@ class Hyperlink(GObject.Object):
     # python methods (overrides?)
     def do_get_end_index(
         self,
+        /,
     ) -> int:
         """
         get_end_index(self) -> int
         """
     def do_get_n_anchors(
         self,
+        /,
     ) -> int:
         """
         get_n_anchors(self) -> int
@@ -2726,12 +2729,14 @@ class Hyperlink(GObject.Object):
     def do_get_object(
         self,
         i: int,
+        /,
     ) -> Object:
         """
         get_object(self, i:int) -> Atk.Object
         """
     def do_get_start_index(
         self,
+        /,
     ) -> int:
         """
         get_start_index(self) -> int
@@ -2739,30 +2744,35 @@ class Hyperlink(GObject.Object):
     def do_get_uri(
         self,
         i: int,
+        /,
     ) -> str:
         """
         get_uri(self, i:int) -> str
         """
     def do_is_selected_link(
         self,
+        /,
     ) -> bool:
         """
         is_selected_link(self) -> bool
         """
     def do_is_valid(
         self,
+        /,
     ) -> bool:
         """
         is_valid(self) -> bool
         """
     def do_link_activated(
         self,
+        /,
     ) -> None:
         """
         link_activated(self)
         """
     def do_link_state(
         self,
+        /,
     ) -> int:
         """
         link_state(self) -> int
@@ -3139,12 +3149,14 @@ class Misc(GObject.Object):
     # python methods (overrides?)
     def do_threads_enter(
         self,
+        /,
     ) -> None:
         """
         threads_enter(self)
         """
     def do_threads_leave(
         self,
+        /,
     ) -> None:
         """
         threads_leave(self)
@@ -3957,6 +3969,7 @@ class Object(GObject.Object):
     def do_active_descendant_changed(
         self,
         child: typing.Any = None,
+        /,
     ) -> None:
         """
         active_descendant_changed(self, child=None)
@@ -3965,6 +3978,7 @@ class Object(GObject.Object):
         self,
         change_index: int,
         changed_child: typing.Any = None,
+        /,
     ) -> None:
         """
         children_changed(self, change_index:int, changed_child=None)
@@ -3972,66 +3986,77 @@ class Object(GObject.Object):
     def do_focus_event(
         self,
         focus_in: bool,
+        /,
     ) -> None:
         """
         focus_event(self, focus_in:bool)
         """
     def do_get_attributes(
         self,
+        /,
     ) -> list[typing.Any]:
         """
         get_attributes(self) -> list
         """
     def do_get_description(
         self,
+        /,
     ) -> str:
         """
         get_description(self) -> str
         """
     def do_get_index_in_parent(
         self,
+        /,
     ) -> int:
         """
         get_index_in_parent(self) -> int
         """
     def do_get_layer(
         self,
+        /,
     ) -> Layer:
         """
         get_layer(self) -> Atk.Layer
         """
     def do_get_mdi_zorder(
         self,
+        /,
     ) -> int:
         """
         get_mdi_zorder(self) -> int
         """
     def do_get_n_children(
         self,
+        /,
     ) -> int:
         """
         get_n_children(self) -> int
         """
     def do_get_name(
         self,
+        /,
     ) -> str:
         """
         get_name(self) -> str
         """
     def do_get_object_locale(
         self,
+        /,
     ) -> str:
         """
         get_object_locale(self) -> str
         """
     def do_get_parent(
         self,
+        /,
     ) -> Object:
         """
         get_parent(self) -> Atk.Object
         """
     def do_get_role(
         self,
+        /,
     ) -> Role:
         """
         get_role(self) -> Atk.Role
@@ -4039,6 +4064,7 @@ class Object(GObject.Object):
     def do_initialize(
         self,
         data: typing.Any = None,
+        /,
     ) -> None:
         """
         initialize(self, data=None)
@@ -4046,18 +4072,21 @@ class Object(GObject.Object):
     def do_property_change(
         self,
         values: PropertyValues,
+        /,
     ) -> None:
         """
         property_change(self, values:Atk.PropertyValues)
         """
     def do_ref_relation_set(
         self,
+        /,
     ) -> RelationSet:
         """
         ref_relation_set(self) -> Atk.RelationSet
         """
     def do_ref_state_set(
         self,
+        /,
     ) -> StateSet:
         """
         ref_state_set(self) -> Atk.StateSet
@@ -4065,6 +4094,7 @@ class Object(GObject.Object):
     def do_remove_property_change_handler(
         self,
         handler_id: int,
+        /,
     ) -> None:
         """
         remove_property_change_handler(self, handler_id:int)
@@ -4072,6 +4102,7 @@ class Object(GObject.Object):
     def do_set_description(
         self,
         description: str,
+        /,
     ) -> None:
         """
         set_description(self, description:str)
@@ -4079,6 +4110,7 @@ class Object(GObject.Object):
     def do_set_name(
         self,
         name: str,
+        /,
     ) -> None:
         """
         set_name(self, name:str)
@@ -4086,6 +4118,7 @@ class Object(GObject.Object):
     def do_set_parent(
         self,
         parent: Object,
+        /,
     ) -> None:
         """
         set_parent(self, parent:Atk.Object)
@@ -4093,6 +4126,7 @@ class Object(GObject.Object):
     def do_set_role(
         self,
         role: Role,
+        /,
     ) -> None:
         """
         set_role(self, role:Atk.Role)
@@ -4101,12 +4135,14 @@ class Object(GObject.Object):
         self,
         name: str,
         state_set: bool,
+        /,
     ) -> None:
         """
         state_change(self, name:str, state_set:bool)
         """
     def do_visible_data_changed(
         self,
+        /,
     ) -> None:
         """
         visible_data_changed(self)
@@ -4164,7 +4200,7 @@ class Object(GObject.Object):
     @classmethod
     def install_properties(
         cls,
-        pspecs: list[GObject.ParamSpec],
+        pspecs: collections.abc.Sequence[GObject.ParamSpec],
     ) -> None:
         """
         install_properties(self, pspecs:list)
@@ -4204,7 +4240,7 @@ class Object(GObject.Object):
     def newv(
         cls,
         object_type: GObject.GType,
-        parameters: list[GObject.Parameter],
+        parameters: collections.abc.Sequence[GObject.Parameter],
     ) -> GObject.Object:
         """
         newv(object_type:GType, parameters:list) -> GObject.Object
@@ -4634,6 +4670,7 @@ class ObjectFactory(GObject.Object):
     # python methods (overrides?)
     def do_invalidate(
         self,
+        /,
     ) -> None:
         """
         invalidate(self)
@@ -4726,6 +4763,7 @@ class Plug(Object):
     # python methods (overrides?)
     def do_get_object_id(
         self,
+        /,
     ) -> str:
         """
         get_object_id(self) -> str
@@ -5170,7 +5208,7 @@ class Relation(GObject.Object):
     @classmethod
     def new(
         cls,
-        targets: list[Object],
+        targets: collections.abc.Sequence[Object],
         relationship: RelationType,
     ) -> Relation:
         """
@@ -5509,6 +5547,7 @@ class Socket(Object):
     def do_embed(
         self,
         plug_id: str,
+        /,
     ) -> None:
         """
         embed(self, plug_id:str)
@@ -5762,7 +5801,7 @@ class StateSet(GObject.Object):
         #atk_object_ref_state_set. It should not be used to modify the existing state
         of an object. See also #atk_object_notify_state_change.
         """
-    def add_states(self, types: list[StateType]) -> None:
+    def add_states(self, types: collections.abc.Sequence[StateType]) -> None:
         """
             Adds the states of the specified types to the state set.
 
@@ -5784,7 +5823,7 @@ class StateSet(GObject.Object):
         """
         Checks whether the state for the specified type is in the specified set.
         """
-    def contains_states(self, types: list[StateType]) -> bool:
+    def contains_states(self, types: collections.abc.Sequence[StateType]) -> bool:
         """
             Checks whether the states for all the specified types are in the
         specified set.
@@ -6399,7 +6438,7 @@ class Text(builtins.object, metaclass=GObject.GType):
         Adds a selection bounded by the specified offsets.
         """
     @staticmethod
-    def free_ranges(ranges: list[TextRange]) -> None:
+    def free_ranges(ranges: collections.abc.Sequence[TextRange]) -> None:
         """
             Frees the memory associated with an array of AtkTextRange. It is assumed
         that the array was returned by the function atk_text_get_bounded_ranges

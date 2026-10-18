@@ -5,9 +5,12 @@ from types import BuiltinFunctionType, FunctionType, MethodType
 
 from typing import Any
 import inspect
+import gi._gi as GI
 
 
 from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info, extract_inspect_type_vars
+from gi_stub_gen.utils.inspect_utils import _extract_annotation_type_info
+from gi_stub_gen.utils.gi_utils import gi_type_to_py_type
 from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgumentSchema, TypeVarSchema
 from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
@@ -212,6 +215,12 @@ def parse_python_function(
             params=params,
         )
 
+    # Native virtual dispatch supplies positional arguments; Python names are not part of its contract.
+    is_vfunc = isinstance(getattr(attribute, "__func__", None), GI.VFuncInfo)
+    native_function = getattr(attribute, "__func__", None)
+    native_args = ({arg.get_name(): arg for arg in native_function.get_arguments()}
+                   if isinstance(native_function, GI.FunctionInfo) else {})
+    type_imports: set[str] = set()
     args_schema: list[BuiltinFunctionArgumentSchema] = []
     type_vars_by_name: dict[str, TypeVarSchema] = {}
     for param_name, param in sig.parameters.items():
@@ -221,6 +230,13 @@ def parse_python_function(
             param.default,
             current_namespace=namespace,
         )
+        native_arg = native_args.get(param_name)
+        if native_arg is not None and native_arg.get_direction() in (GI.Direction.IN, GI.Direction.INOUT):
+            native_type = native_arg.get_type_info()
+            if native_type.get_tag() in (GI.TypeTag.ARRAY, GI.TypeTag.GHASH, GI.TypeTag.GLIST, GI.TypeTag.GSLIST):
+                input_type = gi_type_to_py_type(native_type, for_input=True)
+                if input_type != gi_type_to_py_type(native_type):
+                    t_name, t_ns = _extract_annotation_type_info(input_type, namespace, type_imports)
         # 2. Parsing del valore di default
         def_val = None
         if param.default is not inspect.Parameter.empty:
@@ -238,7 +254,8 @@ def parse_python_function(
             type_hint_name=t_name,
             type_hint_namespace=t_ns,
             is_optional=t_opt,
-            kind=ArgKind.from_inspect(param.kind),
+            kind=(ArgKind.POSITIONAL_ONLY if is_vfunc and param.kind == inspect.Parameter.POSITIONAL_OR_KEYWORD
+                  else ArgKind.from_inspect(param.kind)),
             default_value=def_val,
             line_comment=None,
             type_var_names=type_var_names,
@@ -286,4 +303,5 @@ def parse_python_function(
         params=args_schema,
         type_vars=list(type_vars_by_name.values()),
         return_type_var_names=return_type_var_names,
+        type_imports=type_imports,
     )

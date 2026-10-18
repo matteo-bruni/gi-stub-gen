@@ -1,4 +1,5 @@
 from types import GenericAlias
+from collections.abc import Mapping, Sequence
 import importlib
 from typing import Any
 import gi
@@ -211,6 +212,8 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo | GIRepository.TypeInfo | GIRe
 # GObject.ClosureMarshal
 def gi_type_to_py_type(
     gi_type_info: GI.TypeInfo | GIRepository.TypeInfo | GIRepositoryCallableAdapter,
+    *,
+    for_input: bool = False,
 ):
     """
     Map a gi type to a python type
@@ -292,18 +295,22 @@ def gi_type_to_py_type(
         # internal type:
         element = gi_type_info.get_param_type(0)
         assert element is not None, "Container has no element type"
+        if for_input and tag == GI.TypeTag.ARRAY:
+            return GenericAlias(Sequence, gi_type_to_py_type(element, for_input=True))
         if element.get_tag() == 3:
             # list[uint8] is actually bytes
             return bytes
 
-        return GenericAlias(list, gi_type_to_py_type(element))
+        return GenericAlias(list, gi_type_to_py_type(element, for_input=for_input))
 
     if py_type is dict:
         key = gi_type_info.get_param_type(0)
         value = gi_type_info.get_param_type(1)
         assert key is not None and value is not None, "Mapping has no key/value type"
-        key_type = gi_type_to_py_type(key)
-        value_type = gi_type_to_py_type(value)
+        key_type = gi_type_to_py_type(key, for_input=for_input)
+        value_type = gi_type_to_py_type(value, for_input=for_input)
+        if for_input:
+            return Mapping[key_type, value_type]
         return dict[key_type, value_type]
 
     return py_type

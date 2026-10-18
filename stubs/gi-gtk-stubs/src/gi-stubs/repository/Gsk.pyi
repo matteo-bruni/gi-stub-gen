@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -802,8 +803,8 @@ class BorderNode(RenderNode, metaclass=GObject.GType):
     def new(
         cls,
         outline: RoundedRect,
-        border_width: list[float],
-        border_color: list[Gdk.RGBA],
+        border_width: collections.abc.Sequence[float],
+        border_color: collections.abc.Sequence[Gdk.RGBA],
     ) -> BorderNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -1126,7 +1127,7 @@ class ConicGradientNode(RenderNode, metaclass=GObject.GType):
         bounds: Graphene.Rect,
         center: Graphene.Point,
         rotation: float,
-        color_stops: list[ColorStop],
+        color_stops: collections.abc.Sequence[ColorStop],
     ) -> ConicGradientNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -1159,7 +1160,7 @@ class ContainerNode(RenderNode, metaclass=GObject.GType):
     @classmethod
     def new(
         cls,
-        children: list[RenderNode],
+        children: collections.abc.Sequence[RenderNode],
     ) -> ContainerNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -1654,7 +1655,7 @@ class GLShaderNode(RenderNode, metaclass=GObject.GType):
         shader: GLShader,
         bounds: Graphene.Rect,
         args: GLib.Bytes,
-        children: list[RenderNode] | None = None,
+        children: collections.abc.Sequence[RenderNode] | None = None,
     ) -> GLShaderNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -1761,7 +1762,7 @@ class LinearGradientNode(RenderNode, metaclass=GObject.GType):
         bounds: Graphene.Rect,
         start: Graphene.Point,
         end: Graphene.Point,
-        color_stops: list[ColorStop],
+        color_stops: collections.abc.Sequence[ColorStop],
     ) -> LinearGradientNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -2688,7 +2689,7 @@ class RadialGradientNode(RenderNode, metaclass=GObject.GType):
         vradius: float,
         start: float,
         end: float,
-        color_stops: list[ColorStop],
+        color_stops: collections.abc.Sequence[ColorStop],
     ) -> RadialGradientNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -2985,7 +2986,7 @@ class RepeatingLinearGradientNode(RenderNode, metaclass=GObject.GType):
         bounds: Graphene.Rect,
         start: Graphene.Point,
         end: Graphene.Point,
-        color_stops: list[ColorStop],
+        color_stops: collections.abc.Sequence[ColorStop],
     ) -> RepeatingLinearGradientNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -3014,7 +3015,7 @@ class RepeatingRadialGradientNode(RenderNode, metaclass=GObject.GType):
         vradius: float,
         start: float,
         end: float,
-        color_stops: list[ColorStop],
+        color_stops: collections.abc.Sequence[ColorStop],
     ) -> RepeatingRadialGradientNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -3300,7 +3301,7 @@ class ShadowNode(RenderNode, metaclass=GObject.GType):
     def new(
         cls,
         child: RenderNode,
-        shadows: list[Shadow],
+        shadows: collections.abc.Sequence[Shadow],
     ) -> ShadowNode:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -3359,7 +3360,7 @@ class Stroke(GObject.GBoxed, metaclass=GObject.GType):
         """
         Returns the miter limit of a `GskStroke`.
         """
-    def set_dash(self, dash: list[float] | None = None) -> None:
+    def set_dash(self, dash: collections.abc.Sequence[float] | None = None) -> None:
         """
             Sets the dash pattern to use by this stroke.
 

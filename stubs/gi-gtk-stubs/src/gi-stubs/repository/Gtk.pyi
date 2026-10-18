@@ -18,6 +18,7 @@ import collections.abc
 import enum
 import gi
 import gi._gi
+import gi._gtktemplate
 import typing
 
 # gi.repository imports needed by this Stub
@@ -269,7 +270,7 @@ def disable_setlocale() -> None:
 
 def distribute_natural_allocation(
     extra_space: int,
-    sizes: list[RequestedSize],
+    sizes: collections.abc.Sequence[RequestedSize],
 ) -> int:
     """
     Distributes `extra_space` to child `sizes` by bringing smaller
@@ -5562,7 +5563,7 @@ class AboutDialog(Window):
         """
         Initialize AboutDialog object with properties.
         """
-    def add_credit_section(self, section_name: str, people: list[str]) -> None:
+    def add_credit_section(self, section_name: str, people: collections.abc.Sequence[str]) -> None:
         """
         Creates a new section in the "Credits" page.
         """
@@ -5635,12 +5636,12 @@ class AboutDialog(Window):
             Returns whether the license text in the about dialog is
         automatically wrapped.
         """
-    def set_artists(self, artists: list[str]) -> None:
+    def set_artists(self, artists: collections.abc.Sequence[str]) -> None:
         """
             Sets the names of the artists to be displayed
         in the "Credits" page.
         """
-    def set_authors(self, authors: list[str]) -> None:
+    def set_authors(self, authors: collections.abc.Sequence[str]) -> None:
         """
             Sets the names of the authors which are displayed
         in the "Credits" page of the about dialog.
@@ -5657,7 +5658,7 @@ class AboutDialog(Window):
 
         This should be a short string of one or two lines.
         """
-    def set_documenters(self, documenters: list[str]) -> None:
+    def set_documenters(self, documenters: collections.abc.Sequence[str]) -> None:
         """
             Sets the names of the documenters which are displayed
         in the "Credits" page.
@@ -6541,7 +6542,9 @@ class Accessible(builtins.object):
         That might be useful when a new child of a custom `GtkAccessible`
         is created, and it needs to be linked to a previous child.
         """
-    def update_property(self, properties: list[AccessibleProperty], values: list[GObject.Value]) -> None:
+    def update_property(
+        self, properties: collections.abc.Sequence[AccessibleProperty], values: collections.abc.Sequence[GObject.Value]
+    ) -> None:
         """
             Updates a list of accessible properties.
 
@@ -6560,7 +6563,9 @@ class Accessible(builtins.object):
                                            -1);
         ```
         """
-    def update_relation(self, relations: list[AccessibleRelation], values: list[GObject.Value]) -> None:
+    def update_relation(
+        self, relations: collections.abc.Sequence[AccessibleRelation], values: collections.abc.Sequence[GObject.Value]
+    ) -> None:
         """
             Updates a list of accessible relations.
 
@@ -6579,7 +6584,9 @@ class Accessible(builtins.object):
                                         -1);
         ```
         """
-    def update_state(self, states: list[AccessibleState], values: list[GObject.Value]) -> None:
+    def update_state(
+        self, states: collections.abc.Sequence[AccessibleState], values: collections.abc.Sequence[GObject.Value]
+    ) -> None:
         """
             Updates a list of accessible states. See the [enum`Gtk`.AccessibleState]
         documentation for the value types of accessible states.
@@ -6653,7 +6660,7 @@ class AccessibleList(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_from_array(
         cls,
-        accessibles: list[Accessible],
+        accessibles: collections.abc.Sequence[Accessible],
     ) -> AccessibleList:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -7635,12 +7642,14 @@ class Adjustment(GObject.InitiallyUnowned):
         """
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
         """
     def do_value_changed(
         self,
+        /,
     ) -> None:
         """
         value_changed(self)
@@ -7894,7 +7903,7 @@ class AlertDialog(GObject.Object):
             Returns whether the alert blocks interaction
         with the parent window while it is presented.
         """
-    def set_buttons(self, labels: list[str]) -> None:
+    def set_buttons(self, labels: collections.abc.Sequence[str]) -> None:
         """
         Sets the button labels for the alert.
         """
@@ -10420,7 +10429,7 @@ class Application(Gio.Application):
         The application may stop running as a result of a call to this
         function, if `window` was the last window of the `application`.
         """
-    def set_accels_for_action(self, detailed_action_name: str, accels: list[str]) -> None:
+    def set_accels_for_action(self, detailed_action_name: str, accels: collections.abc.Sequence[str]) -> None:
         """
             Sets zero or more keyboard accelerators that will trigger the
         given action.
@@ -10467,6 +10476,7 @@ class Application(Gio.Application):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
@@ -10474,6 +10484,7 @@ class Application(Gio.Application):
     def do_add_platform_data(
         self,
         builder: GLib.VariantBuilder,
+        /,
     ) -> None:
         """
         add_platform_data(self, builder:GLib.VariantBuilder)
@@ -10481,6 +10492,7 @@ class Application(Gio.Application):
     def do_after_emit(
         self,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         after_emit(self, platform_data:GLib.Variant)
@@ -10488,6 +10500,7 @@ class Application(Gio.Application):
     def do_before_emit(
         self,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         before_emit(self, platform_data:GLib.Variant)
@@ -10495,6 +10508,7 @@ class Application(Gio.Application):
     def do_command_line(
         self,
         command_line: Gio.ApplicationCommandLine,
+        /,
     ) -> int:
         """
         command_line(self, command_line:Gio.ApplicationCommandLine) -> int
@@ -10503,6 +10517,7 @@ class Application(Gio.Application):
         self,
         connection: Gio.DBusConnection,
         object_path: str,
+        /,
     ) -> bool:
         """
         dbus_register(self, connection:Gio.DBusConnection, object_path:str) -> bool
@@ -10511,6 +10526,7 @@ class Application(Gio.Application):
         self,
         connection: Gio.DBusConnection,
         object_path: str,
+        /,
     ) -> None:
         """
         dbus_unregister(self, connection:Gio.DBusConnection, object_path:str)
@@ -10518,6 +10534,7 @@ class Application(Gio.Application):
     def do_handle_local_options(
         self,
         options: GLib.VariantDict,
+        /,
     ) -> int:
         """
         handle_local_options(self, options:GLib.VariantDict) -> int
@@ -10525,12 +10542,14 @@ class Application(Gio.Application):
     def do_local_command_line(
         self,
         arguments: list[str],
+        /,
     ) -> tuple[bool, list[str], int]:
         """
         local_command_line(self, arguments:list) -> bool, arguments:list, exit_status:int
         """
     def do_name_lost(
         self,
+        /,
     ) -> bool:
         """
         name_lost(self) -> bool
@@ -10539,30 +10558,35 @@ class Application(Gio.Application):
         self,
         files: list[Gio.File],
         hint: str,
+        /,
     ) -> None:
         """
         open(self, files:list, hint:str)
         """
     def do_quit_mainloop(
         self,
+        /,
     ) -> None:
         """
         quit_mainloop(self)
         """
     def do_run_mainloop(
         self,
+        /,
     ) -> None:
         """
         run_mainloop(self)
         """
     def do_shutdown(
         self,
+        /,
     ) -> None:
         """
         shutdown(self)
         """
     def do_startup(
         self,
+        /,
     ) -> None:
         """
         startup(self)
@@ -10570,6 +10594,7 @@ class Application(Gio.Application):
     def do_window_added(
         self,
         window: Window,
+        /,
     ) -> None:
         """
         window_added(self, window:Gtk.Window)
@@ -10577,6 +10602,7 @@ class Application(Gio.Application):
     def do_window_removed(
         self,
         window: Window,
+        /,
     ) -> None:
         """
         window_removed(self, window:Gtk.Window)
@@ -15172,7 +15198,7 @@ class Builder(GObject.Object):
         call.  The only reasonable thing to do when an error is detected is
         to call `g_error`.
         """
-    def add_objects_from_file(self, filename: str, object_ids: list[str]) -> bool:
+    def add_objects_from_file(self, filename: str, object_ids: collections.abc.Sequence[str]) -> bool:
         """
             Parses a file containing a UI definition building only the
         requested objects and merges them with the current contents
@@ -15186,7 +15212,7 @@ class Builder(GObject.Object):
         its child (for instance a `GtkTreeView` that depends on its
         `GtkTreeModel`), you have to explicitly list all of them in `object_ids`.
         """
-    def add_objects_from_resource(self, resource_path: str, object_ids: list[str]) -> bool:
+    def add_objects_from_resource(self, resource_path: str, object_ids: collections.abc.Sequence[str]) -> bool:
         """
             Parses a resource file containing a UI definition, building
         only the requested objects and merges them with the current
@@ -15975,12 +16001,14 @@ class Button(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
         """
     def do_clicked(
         self,
+        /,
     ) -> None:
         """
         clicked(self)
@@ -16489,7 +16517,7 @@ class CClosureExpression(Expression, metaclass=GObject.GType):
             [GObject.Closure, GObject.Value | None, list[GObject.Value], typing.Any, typing.Any], None
         ]
         | None,
-        params: list[Expression],
+        params: collections.abc.Sequence[Expression],
         callback_func: collections.abc.Callable[[], None],
         user_data: typing.Any = None,
     ) -> CClosureExpression:
@@ -17904,6 +17932,7 @@ class CellArea(GObject.InitiallyUnowned):
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
         edit_only: bool,
+        /,
     ) -> bool:
         """
         activate(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState, edit_only:bool) -> bool
@@ -17911,6 +17940,7 @@ class CellArea(GObject.InitiallyUnowned):
     def do_add(
         self,
         renderer: CellRenderer,
+        /,
     ) -> None:
         """
         add(self, renderer:Gtk.CellRenderer)
@@ -17921,6 +17951,7 @@ class CellArea(GObject.InitiallyUnowned):
         iter: TreeIter,
         is_expander: bool,
         is_expanded: bool,
+        /,
     ) -> None:
         """
         apply_attributes(self, tree_model:Gtk.TreeModel, iter:Gtk.TreeIter, is_expander:bool, is_expanded:bool)
@@ -17928,12 +17959,14 @@ class CellArea(GObject.InitiallyUnowned):
     def do_copy_context(
         self,
         context: CellAreaContext,
+        /,
     ) -> CellAreaContext:
         """
         copy_context(self, context:Gtk.CellAreaContext) -> Gtk.CellAreaContext
         """
     def do_create_context(
         self,
+        /,
     ) -> CellAreaContext:
         """
         create_context(self) -> Gtk.CellAreaContext
@@ -17945,6 +17978,7 @@ class CellArea(GObject.InitiallyUnowned):
         event: Gdk.Event,
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
+        /,
     ) -> int:
         """
         event(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, event:Gdk.Event, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState) -> int
@@ -17952,6 +17986,7 @@ class CellArea(GObject.InitiallyUnowned):
     def do_focus(
         self,
         direction: DirectionType,
+        /,
     ) -> bool:
         """
         focus(self, direction:Gtk.DirectionType) -> bool
@@ -17960,6 +17995,7 @@ class CellArea(GObject.InitiallyUnowned):
         self,
         callback: collections.abc.Callable[[CellRenderer, typing.Any], bool],
         callback_data: typing.Any = None,
+        /,
     ) -> None:
         """
         foreach(self, callback:Gtk.CellCallback, callback_data=None)
@@ -17972,6 +18008,7 @@ class CellArea(GObject.InitiallyUnowned):
         background_area: Gdk.Rectangle,
         callback: collections.abc.Callable[[CellRenderer, Gdk.Rectangle, Gdk.Rectangle, typing.Any], bool],
         callback_data: typing.Any = None,
+        /,
     ) -> None:
         """
         foreach_alloc(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, cell_area:Gdk.Rectangle, background_area:Gdk.Rectangle, callback:Gtk.CellAllocCallback, callback_data=None)
@@ -17982,6 +18019,7 @@ class CellArea(GObject.InitiallyUnowned):
         property_id: int,
         value: GObject.Value,
         pspec: GObject.ParamSpec,
+        /,
     ) -> None:
         """
         get_cell_property(self, renderer:Gtk.CellRenderer, property_id:int, value:GObject.Value, pspec:GObject.ParamSpec)
@@ -17990,6 +18028,7 @@ class CellArea(GObject.InitiallyUnowned):
         self,
         context: CellAreaContext,
         widget: Widget,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_height(self, context:Gtk.CellAreaContext, widget:Gtk.Widget) -> minimum_height:int, natural_height:int
@@ -17999,6 +18038,7 @@ class CellArea(GObject.InitiallyUnowned):
         context: CellAreaContext,
         widget: Widget,
         width: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_height_for_width(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, width:int) -> minimum_height:int, natural_height:int
@@ -18007,6 +18047,7 @@ class CellArea(GObject.InitiallyUnowned):
         self,
         context: CellAreaContext,
         widget: Widget,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_width(self, context:Gtk.CellAreaContext, widget:Gtk.Widget) -> minimum_width:int, natural_width:int
@@ -18016,18 +18057,21 @@ class CellArea(GObject.InitiallyUnowned):
         context: CellAreaContext,
         widget: Widget,
         height: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_width_for_height(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, height:int) -> minimum_width:int, natural_width:int
         """
     def do_get_request_mode(
         self,
+        /,
     ) -> SizeRequestMode:
         """
         get_request_mode(self) -> Gtk.SizeRequestMode
         """
     def do_is_activatable(
         self,
+        /,
     ) -> bool:
         """
         is_activatable(self) -> bool
@@ -18035,6 +18079,7 @@ class CellArea(GObject.InitiallyUnowned):
     def do_remove(
         self,
         renderer: CellRenderer,
+        /,
     ) -> None:
         """
         remove(self, renderer:Gtk.CellRenderer)
@@ -18045,6 +18090,7 @@ class CellArea(GObject.InitiallyUnowned):
         property_id: int,
         value: GObject.Value,
         pspec: GObject.ParamSpec,
+        /,
     ) -> None:
         """
         set_cell_property(self, renderer:Gtk.CellRenderer, property_id:int, value:GObject.Value, pspec:GObject.ParamSpec)
@@ -18058,6 +18104,7 @@ class CellArea(GObject.InitiallyUnowned):
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
         paint_focus: bool,
+        /,
     ) -> None:
         """
         snapshot(self, context:Gtk.CellAreaContext, widget:Gtk.Widget, snapshot:Gtk.Snapshot, background_area:Gdk.Rectangle, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState, paint_focus:bool)
@@ -18692,6 +18739,7 @@ class CellAreaContext(GObject.Object):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         allocate(self, width:int, height:int)
@@ -18699,6 +18747,7 @@ class CellAreaContext(GObject.Object):
     def do_get_preferred_height_for_width(
         self,
         width: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_height_for_width(self, width:int) -> minimum_height:int, natural_height:int
@@ -18706,12 +18755,14 @@ class CellAreaContext(GObject.Object):
     def do_get_preferred_width_for_height(
         self,
         height: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_width_for_height(self, height:int) -> minimum_width:int, natural_width:int
         """
     def do_reset(
         self,
+        /,
     ) -> None:
         """
         reset(self)
@@ -19460,12 +19511,14 @@ class CellRenderer(GObject.InitiallyUnowned):
         background_area: Gdk.Rectangle,
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
+        /,
     ) -> bool:
         """
         activate(self, event:Gdk.Event, widget:Gtk.Widget, path:str, background_area:Gdk.Rectangle, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState) -> bool
         """
     def do_editing_canceled(
         self,
+        /,
     ) -> None:
         """
         editing_canceled(self)
@@ -19474,6 +19527,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         self,
         editable: CellEditable,
         path: str,
+        /,
     ) -> None:
         """
         editing_started(self, editable:Gtk.CellEditable, path:str)
@@ -19483,6 +19537,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         widget: Widget,
         flags: CellRendererState,
         cell_area: Gdk.Rectangle,
+        /,
     ) -> Gdk.Rectangle:
         """
         get_aligned_area(self, widget:Gtk.Widget, flags:Gtk.CellRendererState, cell_area:Gdk.Rectangle) -> aligned_area:Gdk.Rectangle
@@ -19490,6 +19545,7 @@ class CellRenderer(GObject.InitiallyUnowned):
     def do_get_preferred_height(
         self,
         widget: Widget,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_height(self, widget:Gtk.Widget) -> minimum_size:int, natural_size:int
@@ -19498,6 +19554,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         self,
         widget: Widget,
         width: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_height_for_width(self, widget:Gtk.Widget, width:int) -> minimum_height:int, natural_height:int
@@ -19505,6 +19562,7 @@ class CellRenderer(GObject.InitiallyUnowned):
     def do_get_preferred_width(
         self,
         widget: Widget,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_width(self, widget:Gtk.Widget) -> minimum_size:int, natural_size:int
@@ -19513,12 +19571,14 @@ class CellRenderer(GObject.InitiallyUnowned):
         self,
         widget: Widget,
         height: int,
+        /,
     ) -> tuple[int, int]:
         """
         get_preferred_width_for_height(self, widget:Gtk.Widget, height:int) -> minimum_width:int, natural_width:int
         """
     def do_get_request_mode(
         self,
+        /,
     ) -> SizeRequestMode:
         """
         get_request_mode(self) -> Gtk.SizeRequestMode
@@ -19530,6 +19590,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         background_area: Gdk.Rectangle,
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
+        /,
     ) -> None:
         """
         snapshot(self, snapshot:Gtk.Snapshot, widget:Gtk.Widget, background_area:Gdk.Rectangle, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState)
@@ -19542,6 +19603,7 @@ class CellRenderer(GObject.InitiallyUnowned):
         background_area: Gdk.Rectangle,
         cell_area: Gdk.Rectangle,
         flags: CellRendererState,
+        /,
     ) -> CellEditable | None:
         """
         start_editing(self, event:Gdk.Event=None, widget:Gtk.Widget, path:str, background_area:Gdk.Rectangle, cell_area:Gdk.Rectangle, flags:Gtk.CellRendererState) -> Gtk.CellEditable or None
@@ -22646,6 +22708,7 @@ class CellRendererText(CellRenderer):
         self,
         path: str,
         new_text: str,
+        /,
     ) -> None:
         """
         edited(self, path:str, new_text:str)
@@ -24977,12 +25040,14 @@ class CheckButton(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
         """
     def do_toggled(
         self,
+        /,
     ) -> None:
         """
         toggled(self)
@@ -25456,7 +25521,7 @@ class ClosureExpression(Expression, metaclass=GObject.GType):
         cls,
         value_type: GObject.GType,
         closure: GObject.Closure,
-        params: list[Expression] | None = None,
+        params: collections.abc.Sequence[Expression] | None = None,
     ) -> ClosureExpression:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -26047,7 +26112,9 @@ class ColorChooser(builtins.object):
         Initialize ColorChooser object with properties.
         """
     @deprecated("deprecated")
-    def add_palette(self, orientation: Orientation, colors_per_line: int, colors: list[Gdk.RGBA] | None = None) -> None:
+    def add_palette(
+        self, orientation: Orientation, colors_per_line: int, colors: collections.abc.Sequence[Gdk.RGBA] | None = None
+    ) -> None:
         """
             Adds a palette to the color chooser.
 
@@ -29957,12 +30024,14 @@ class ComboBox(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
         """
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -29970,6 +30039,7 @@ class ComboBox(Widget):
     def do_format_entry_text(
         self,
         path: str,
+        /,
     ) -> str:
         """
         format_entry_text(self, path:str) -> str
@@ -31931,7 +32001,11 @@ class ConstraintLayout(LayoutManager):
         this function.
         """
     def add_constraints_from_description(
-        self, lines: list[str], hspacing: int, vspacing: int, views: dict[str, ConstraintTarget]
+        self,
+        lines: collections.abc.Sequence[str],
+        hspacing: int,
+        vspacing: int,
+        views: collections.abc.Mapping[str, ConstraintTarget],
     ) -> list[Constraint]:
         """
             Creates a list of constraints from a VFL description.
@@ -32841,6 +32915,7 @@ class Dialog(Window):
         """
     def do_close(
         self,
+        /,
     ) -> None:
         """
         close(self)
@@ -32848,6 +32923,7 @@ class Dialog(Window):
     def do_response(
         self,
         response_id: int,
+        /,
     ) -> None:
         """
         response(self, response_id:int)
@@ -34701,6 +34777,7 @@ class DrawingArea(Widget):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         resize(self, width:int, height:int)
@@ -35550,7 +35627,7 @@ class DropDown(Widget):
     @classmethod
     def new_from_strings(
         cls,
-        strings: list[str],
+        strings: collections.abc.Sequence[str],
     ) -> DropDown:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -36171,7 +36248,7 @@ class DropTarget(EventController):
         """
         Sets the actions that this drop target supports.
         """
-    def set_gtypes(self, types: list[GObject.GType] | None = None) -> None:
+    def set_gtypes(self, types: collections.abc.Sequence[GObject.GType] | None = None) -> None:
         """
         Sets the supported `GType`s for this drop target.
         """
@@ -39017,6 +39094,7 @@ class Entry(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
@@ -39886,6 +39964,7 @@ class EntryBuffer(GObject.Object):
         self,
         position: int,
         n_chars: int,
+        /,
     ) -> int:
         """
         delete_text(self, position:int, n_chars:int) -> int
@@ -39894,12 +39973,14 @@ class EntryBuffer(GObject.Object):
         self,
         position: int,
         n_chars: int,
+        /,
     ) -> None:
         """
         deleted_text(self, position:int, n_chars:int)
         """
     def do_get_length(
         self,
+        /,
     ) -> int:
         """
         get_length(self) -> int
@@ -39907,6 +39988,7 @@ class EntryBuffer(GObject.Object):
     def do_get_text(
         self,
         n_bytes: int,
+        /,
     ) -> str:
         """
         get_text(self, n_bytes:int) -> str
@@ -39916,6 +39998,7 @@ class EntryBuffer(GObject.Object):
         position: int,
         chars: str,
         n_chars: int,
+        /,
     ) -> int:
         """
         insert_text(self, position:int, chars:str, n_chars:int) -> int
@@ -39925,6 +40008,7 @@ class EntryBuffer(GObject.Object):
         position: int,
         chars: str,
         n_chars: int,
+        /,
     ) -> None:
         """
         inserted_text(self, position:int, chars:str, n_chars:int)
@@ -42504,7 +42588,11 @@ class FileChooser(builtins.object):
         """
     @deprecated("deprecated")
     def add_choice(
-        self, id: str, label: str, options: list[str] | None = None, option_labels: list[str] | None = None
+        self,
+        id: str,
+        label: str,
+        options: collections.abc.Sequence[str] | None = None,
+        option_labels: collections.abc.Sequence[str] | None = None,
     ) -> None:
         """
             Adds a 'choice' to the file chooser.
@@ -45549,6 +45637,7 @@ class Filter(GObject.Object):
     # python methods (overrides?)
     def do_get_strictness(
         self,
+        /,
     ) -> FilterMatch:
         """
         get_strictness(self) -> Gtk.FilterMatch
@@ -45556,6 +45645,7 @@ class Filter(GObject.Object):
     def do_match(
         self,
         item: GObject.Object | None = None,
+        /,
     ) -> bool:
         """
         match(self, item:GObject.Object=None) -> bool
@@ -47544,6 +47634,7 @@ class FlowBoxChild(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
@@ -51148,6 +51239,7 @@ class Frame(Widget):
     def do_compute_child_allocation(
         self,
         allocation: Gdk.Rectangle,
+        /,
     ) -> None:
         """
         compute_child_allocation(self, allocation:Gdk.Rectangle)
@@ -51894,6 +51986,7 @@ class GLArea(Widget):
     def do_render(
         self,
         context: Gdk.GLContext,
+        /,
     ) -> bool:
         """
         render(self, context:Gdk.GLContext) -> bool
@@ -51902,6 +51995,7 @@ class GLArea(Widget):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         resize(self, width:int, height:int)
@@ -53999,7 +54093,7 @@ class GestureStylus(GestureSingle):
         """
         Initialize GestureStylus object with properties.
         """
-    def get_axes(self, axes: list[Gdk.AxisUse]) -> tuple[bool, list[float]]:
+    def get_axes(self, axes: collections.abc.Sequence[Gdk.AxisUse]) -> tuple[bool, list[float]]:
         """
             Returns the current values for the requested `axes`.
 
@@ -57450,6 +57544,7 @@ class IMContext(GObject.Object):
     # python methods (overrides?)
     def do_activate_osk(
         self,
+        /,
     ) -> None:
         """
         activate_osk(self)
@@ -57457,6 +57552,7 @@ class IMContext(GObject.Object):
     def do_activate_osk_with_event(
         self,
         event: Gdk.Event,
+        /,
     ) -> bool:
         """
         activate_osk_with_event(self, event:Gdk.Event) -> bool
@@ -57464,6 +57560,7 @@ class IMContext(GObject.Object):
     def do_commit(
         self,
         str: str,
+        /,
     ) -> None:
         """
         commit(self, str:str)
@@ -57472,6 +57569,7 @@ class IMContext(GObject.Object):
         self,
         offset: int,
         n_chars: int,
+        /,
     ) -> bool:
         """
         delete_surrounding(self, offset:int, n_chars:int) -> bool
@@ -57479,66 +57577,77 @@ class IMContext(GObject.Object):
     def do_filter_keypress(
         self,
         event: Gdk.Event,
+        /,
     ) -> bool:
         """
         filter_keypress(self, event:Gdk.Event) -> bool
         """
     def do_focus_in(
         self,
+        /,
     ) -> None:
         """
         focus_in(self)
         """
     def do_focus_out(
         self,
+        /,
     ) -> None:
         """
         focus_out(self)
         """
     def do_get_preedit_string(
         self,
+        /,
     ) -> tuple[str, Pango.AttrList, int]:
         """
         get_preedit_string(self) -> str:str, attrs:Pango.AttrList, cursor_pos:int
         """
     def do_get_surrounding(
         self,
+        /,
     ) -> tuple[bool, str, int]:
         """
         get_surrounding(self) -> bool, text:str, cursor_index:int
         """
     def do_get_surrounding_with_selection(
         self,
+        /,
     ) -> tuple[bool, str, int, int]:
         """
         get_surrounding_with_selection(self) -> bool, text:str, cursor_index:int, anchor_index:int
         """
     def do_preedit_changed(
         self,
+        /,
     ) -> None:
         """
         preedit_changed(self)
         """
     def do_preedit_end(
         self,
+        /,
     ) -> None:
         """
         preedit_end(self)
         """
     def do_preedit_start(
         self,
+        /,
     ) -> None:
         """
         preedit_start(self)
         """
     def do_reset(
         self,
+        /,
     ) -> None:
         """
         reset(self)
         """
     def do_retrieve_surrounding(
         self,
+        /,
     ) -> bool:
         """
         retrieve_surrounding(self) -> bool
@@ -57546,6 +57655,7 @@ class IMContext(GObject.Object):
     def do_set_client_widget(
         self,
         widget: Widget | None = None,
+        /,
     ) -> None:
         """
         set_client_widget(self, widget:Gtk.Widget=None)
@@ -57553,6 +57663,7 @@ class IMContext(GObject.Object):
     def do_set_cursor_location(
         self,
         area: Gdk.Rectangle,
+        /,
     ) -> None:
         """
         set_cursor_location(self, area:Gdk.Rectangle)
@@ -57562,6 +57673,7 @@ class IMContext(GObject.Object):
         text: str,
         len: int,
         cursor_index: int,
+        /,
     ) -> None:
         """
         set_surrounding(self, text:str, len:int, cursor_index:int)
@@ -57572,6 +57684,7 @@ class IMContext(GObject.Object):
         len: int,
         cursor_index: int,
         anchor_index: int,
+        /,
     ) -> None:
         """
         set_surrounding_with_selection(self, text:str, len:int, cursor_index:int, anchor_index:int)
@@ -57579,6 +57692,7 @@ class IMContext(GObject.Object):
     def do_set_use_preedit(
         self,
         use_preedit: bool,
+        /,
     ) -> None:
         """
         set_use_preedit(self, use_preedit:bool)
@@ -58441,7 +58555,7 @@ class IconTheme(GObject.Object):
     def lookup_icon(
         self,
         icon_name: str,
-        fallbacks: list[str] | None,
+        fallbacks: collections.abc.Sequence[str] | None,
         size: int,
         scale: int,
         direction: TextDirection,
@@ -58465,7 +58579,7 @@ class IconTheme(GObject.Object):
         update the icon. This is usually done by overriding the
         GtkWidgetClass.css-`changed` function.
         """
-    def set_resource_path(self, path: list[str] | None = None) -> None:
+    def set_resource_path(self, path: collections.abc.Sequence[str] | None = None) -> None:
         """
             Sets the resource paths that will be looked at when
         looking for icons, similar to search paths.
@@ -58479,7 +58593,7 @@ class IconTheme(GObject.Object):
         of a subdirectory are also considered as ultimate fallback,
         but they are treated like unthemed icons.
         """
-    def set_search_path(self, path: list[str] | None = None) -> None:
+    def set_search_path(self, path: collections.abc.Sequence[str] | None = None) -> None:
         """
             Sets the search path for the icon theme object.
 
@@ -63600,6 +63714,7 @@ class LayoutManager(GObject.Object):
         width: int,
         height: int,
         baseline: int,
+        /,
     ) -> None:
         """
         allocate(self, widget:Gtk.Widget, width:int, height:int, baseline:int)
@@ -63608,6 +63723,7 @@ class LayoutManager(GObject.Object):
         self,
         widget: Widget,
         for_child: Widget,
+        /,
     ) -> LayoutChild:
         """
         create_layout_child(self, widget:Gtk.Widget, for_child:Gtk.Widget) -> Gtk.LayoutChild
@@ -63615,6 +63731,7 @@ class LayoutManager(GObject.Object):
     def do_get_request_mode(
         self,
         widget: Widget,
+        /,
     ) -> SizeRequestMode:
         """
         get_request_mode(self, widget:Gtk.Widget) -> Gtk.SizeRequestMode
@@ -63624,18 +63741,21 @@ class LayoutManager(GObject.Object):
         widget: Widget,
         orientation: Orientation,
         for_size: int,
+        /,
     ) -> tuple[int, int, int, int]:
         """
         measure(self, widget:Gtk.Widget, orientation:Gtk.Orientation, for_size:int) -> minimum:int, natural:int, minimum_baseline:int, natural_baseline:int
         """
     def do_root(
         self,
+        /,
     ) -> None:
         """
         root(self)
         """
     def do_unroot(
         self,
+        /,
     ) -> None:
         """
         unroot(self)
@@ -66336,6 +66456,7 @@ class ListBoxRow(Widget):
     # python methods (overrides?)
     def do_activate(
         self,
+        /,
     ) -> None:
         """
         activate(self)
@@ -67377,7 +67498,9 @@ class ListStore(GObject.Object):
         Removes all rows from the list store.
         """
     @deprecated("deprecated")
-    def insert_with_values(self, position: int, columns: list[int], values: list[GObject.Value]) -> TreeIter:
+    def insert_with_values(
+        self, position: int, columns: collections.abc.Sequence[int], values: collections.abc.Sequence[GObject.Value]
+    ) -> TreeIter:
         """
             Creates a new row at `position`. `iter` will be changed to point to this new
         row. If `position` is -1, or larger than the number of rows in the list, then
@@ -67441,13 +67564,13 @@ class ListStore(GObject.Object):
         to the last row in `list_store`.
         """
     @deprecated("deprecated")
-    def reorder(self, new_order: list[int]) -> None:
+    def reorder(self, new_order: collections.abc.Sequence[int]) -> None:
         """
             Reorders `store` to follow the order indicated by `new_order`. Note that
         this function only works with unsorted stores.
         """
     @deprecated("deprecated")
-    def set_column_types(self, types: list[GObject.GType]) -> None:
+    def set_column_types(self, types: collections.abc.Sequence[GObject.GType]) -> None:
         """
             Sets the types of the columns of a list store.
 
@@ -67535,7 +67658,7 @@ class ListStore(GObject.Object):
     @classmethod
     def new(
         cls,
-        types: list[GObject.GType],
+        types: collections.abc.Sequence[GObject.GType],
     ) -> ListStore:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -69653,12 +69776,14 @@ class MediaFile(MediaStream):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> None:
         """
         close(self)
         """
     def do_open(
         self,
+        /,
     ) -> None:
         """
         open(self)
@@ -70245,12 +70370,14 @@ class MediaStream(GObject.Object):
     # python methods (overrides?)
     def do_pause(
         self,
+        /,
     ) -> None:
         """
         pause(self)
         """
     def do_play(
         self,
+        /,
     ) -> bool:
         """
         play(self) -> bool
@@ -70258,6 +70385,7 @@ class MediaStream(GObject.Object):
     def do_realize(
         self,
         surface: Gdk.Surface,
+        /,
     ) -> None:
         """
         realize(self, surface:Gdk.Surface)
@@ -70265,6 +70393,7 @@ class MediaStream(GObject.Object):
     def do_seek(
         self,
         timestamp: int,
+        /,
     ) -> None:
         """
         seek(self, timestamp:int)
@@ -70272,6 +70401,7 @@ class MediaStream(GObject.Object):
     def do_unrealize(
         self,
         surface: Gdk.Surface,
+        /,
     ) -> None:
         """
         unrealize(self, surface:Gdk.Surface)
@@ -70280,6 +70410,7 @@ class MediaStream(GObject.Object):
         self,
         muted: bool,
         volume: float,
+        /,
     ) -> None:
         """
         update_audio(self, muted:bool, volume:float)
@@ -72215,6 +72346,7 @@ class MountOperation(Gio.MountOperation):
     # python methods (overrides?)
     def do_aborted(
         self,
+        /,
     ) -> None:
         """
         aborted(self)
@@ -72225,6 +72357,7 @@ class MountOperation(Gio.MountOperation):
         default_user: str,
         default_domain: str,
         flags: Gio.AskPasswordFlags,
+        /,
     ) -> None:
         """
         ask_password(self, message:str, default_user:str, default_domain:str, flags:Gio.AskPasswordFlags)
@@ -72233,6 +72366,7 @@ class MountOperation(Gio.MountOperation):
         self,
         message: str,
         choices: list[str],
+        /,
     ) -> None:
         """
         ask_question(self, message:str, choices:list)
@@ -72240,6 +72374,7 @@ class MountOperation(Gio.MountOperation):
     def do_reply(
         self,
         result: Gio.MountOperationResult,
+        /,
     ) -> None:
         """
         reply(self, result:Gio.MountOperationResult)
@@ -72249,6 +72384,7 @@ class MountOperation(Gio.MountOperation):
         message: str,
         processes: list[int],
         choices: list[str],
+        /,
     ) -> None:
         """
         show_processes(self, message:str, processes:list, choices:list)
@@ -72258,6 +72394,7 @@ class MountOperation(Gio.MountOperation):
         message: str,
         time_left: int,
         bytes_left: int,
+        /,
     ) -> None:
         """
         show_unmount_progress(self, message:str, time_left:int, bytes_left:int)
@@ -73014,6 +73151,7 @@ class NativeDialog(GObject.Object):
     # python methods (overrides?)
     def do_hide(
         self,
+        /,
     ) -> None:
         """
         hide(self)
@@ -73021,12 +73159,14 @@ class NativeDialog(GObject.Object):
     def do_response(
         self,
         response_id: int,
+        /,
     ) -> None:
         """
         response(self, response_id:int)
         """
     def do_show(
         self,
+        /,
     ) -> None:
         """
         show(self)
@@ -75374,7 +75514,7 @@ class PadController(EventController):
         rules apply. Some windowing systems may be able to use those for user
         feedback.
         """
-    def set_action_entries(self, entries: list[PadActionEntry]) -> None:
+    def set_action_entries(self, entries: collections.abc.Sequence[PadActionEntry]) -> None:
         """
             A convenience function to add a group of action entries on
         `controller`.
@@ -79038,12 +79178,14 @@ class Popover(Widget):
     # python methods (overrides?)
     def do_activate_default(
         self,
+        /,
     ) -> None:
         """
         activate_default(self)
         """
     def do_closed(
         self,
+        /,
     ) -> None:
         """
         closed(self)
@@ -81196,7 +81338,7 @@ class PrintJob(GObject.Object):
         """
         Sets the number of copies for this job.
         """
-    def set_page_ranges(self, ranges: list[PageRange]) -> None:
+    def set_page_ranges(self, ranges: collections.abc.Sequence[PageRange]) -> None:
         """
         Sets the page ranges for this job.
         """
@@ -81895,6 +82037,7 @@ class PrintOperation(GObject.Object):
     def do_begin_print(
         self,
         context: PrintContext,
+        /,
     ) -> None:
         """
         begin_print(self, context:Gtk.PrintContext)
@@ -81902,6 +82045,7 @@ class PrintOperation(GObject.Object):
     def do_custom_widget_apply(
         self,
         widget: Widget,
+        /,
     ) -> None:
         """
         custom_widget_apply(self, widget:Gtk.Widget)
@@ -81909,6 +82053,7 @@ class PrintOperation(GObject.Object):
     def do_done(
         self,
         result: PrintOperationResult,
+        /,
     ) -> None:
         """
         done(self, result:Gtk.PrintOperationResult)
@@ -81917,6 +82062,7 @@ class PrintOperation(GObject.Object):
         self,
         context: PrintContext,
         page_nr: int,
+        /,
     ) -> None:
         """
         draw_page(self, context:Gtk.PrintContext, page_nr:int)
@@ -81924,6 +82070,7 @@ class PrintOperation(GObject.Object):
     def do_end_print(
         self,
         context: PrintContext,
+        /,
     ) -> None:
         """
         end_print(self, context:Gtk.PrintContext)
@@ -81931,6 +82078,7 @@ class PrintOperation(GObject.Object):
     def do_paginate(
         self,
         context: PrintContext,
+        /,
     ) -> bool:
         """
         paginate(self, context:Gtk.PrintContext) -> bool
@@ -81940,6 +82088,7 @@ class PrintOperation(GObject.Object):
         preview: PrintOperationPreview,
         context: PrintContext,
         parent: Window,
+        /,
     ) -> bool:
         """
         preview(self, preview:Gtk.PrintOperationPreview, context:Gtk.PrintContext, parent:Gtk.Window) -> bool
@@ -81949,12 +82098,14 @@ class PrintOperation(GObject.Object):
         context: PrintContext,
         page_nr: int,
         setup: PageSetup,
+        /,
     ) -> None:
         """
         request_page_setup(self, context:Gtk.PrintContext, page_nr:int, setup:Gtk.PageSetup)
         """
     def do_status_changed(
         self,
+        /,
     ) -> None:
         """
         status_changed(self)
@@ -81964,6 +82115,7 @@ class PrintOperation(GObject.Object):
         widget: Widget,
         setup: PageSetup,
         settings: PrintSettings,
+        /,
     ) -> None:
         """
         update_custom_widget(self, widget:Gtk.Widget, setup:Gtk.PageSetup, settings:Gtk.PrintSettings)
@@ -82814,7 +82966,7 @@ class PrintSettings(GObject.Object):
         """
         Sets the value of Gtk.PRINT_SETTINGS_OUTPUT_BIN.
         """
-    def set_page_ranges(self, page_ranges: list[PageRange]) -> None:
+    def set_page_ranges(self, page_ranges: collections.abc.Sequence[PageRange]) -> None:
         """
         Sets the value of Gtk.PRINT_SETTINGS_PAGE_RANGES.
         """
@@ -85178,6 +85330,7 @@ class Range(Widget):
     def do_adjust_bounds(
         self,
         new_value: float,
+        /,
     ) -> None:
         """
         adjust_bounds(self, new_value:float)
@@ -85186,6 +85339,7 @@ class Range(Widget):
         self,
         scroll: ScrollType,
         new_value: float,
+        /,
     ) -> bool:
         """
         change_value(self, scroll:Gtk.ScrollType, new_value:float) -> bool
@@ -85193,6 +85347,7 @@ class Range(Widget):
     def do_get_range_border(
         self,
         border_: Border,
+        /,
     ) -> None:
         """
         get_range_border(self, border_:Gtk.Border)
@@ -85200,12 +85355,14 @@ class Range(Widget):
     def do_move_slider(
         self,
         scroll: ScrollType,
+        /,
     ) -> None:
         """
         move_slider(self, scroll:Gtk.ScrollType)
         """
     def do_value_changed(
         self,
+        /,
     ) -> None:
         """
         value_changed(self)
@@ -86015,6 +86172,7 @@ class RecentManager(GObject.Object):
     # python methods (overrides?)
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -87001,6 +87159,7 @@ class Scale(Range):
     # python methods (overrides?)
     def do_get_layout_offsets(
         self,
+        /,
     ) -> tuple[int, int]:
         """
         get_layout_offsets(self) -> x:int, y:int
@@ -87631,7 +87790,7 @@ class ScaleButton(Widget):
         """
         Sets the style of the button.
         """
-    def set_icons(self, icons: list[str]) -> None:
+    def set_icons(self, icons: collections.abc.Sequence[str]) -> None:
         """
         Sets the icons to be used by the scale button.
         """
@@ -87650,6 +87809,7 @@ class ScaleButton(Widget):
     def do_value_changed(
         self,
         value: float,
+        /,
     ) -> None:
         """
         value_changed(self, value:float)
@@ -87660,7 +87820,7 @@ class ScaleButton(Widget):
         min: float,
         max: float,
         step: float,
-        icons: list[str] | None = None,
+        icons: collections.abc.Sequence[str] | None = None,
     ) -> ScaleButton:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -96880,7 +97040,12 @@ class Snapshot(Gdk.Snapshot):
         """
         Initialize Snapshot object with properties.
         """
-    def append_border(self, outline: Gsk.RoundedRect, border_width: list[float], border_color: list[Gdk.RGBA]) -> None:
+    def append_border(
+        self,
+        outline: Gsk.RoundedRect,
+        border_width: collections.abc.Sequence[float],
+        border_color: collections.abc.Sequence[Gdk.RGBA],
+    ) -> None:
         """
             Appends a stroked border rectangle inside the given `outline`.
 
@@ -96901,7 +97066,11 @@ class Snapshot(Gdk.Snapshot):
         `color` is transparent.
         """
     def append_conic_gradient(
-        self, bounds: Graphene.Rect, center: Graphene.Point, rotation: float, stops: list[Gsk.ColorStop]
+        self,
+        bounds: Graphene.Rect,
+        center: Graphene.Point,
+        rotation: float,
+        stops: collections.abc.Sequence[Gsk.ColorStop],
     ) -> None:
         """
         Appends a conic gradient node with the given stops to `snapshot`.
@@ -96922,7 +97091,11 @@ class Snapshot(Gdk.Snapshot):
         """
     def append_layout(self, layout: Pango.Layout, color: Gdk.RGBA) -> None: ...
     def append_linear_gradient(
-        self, bounds: Graphene.Rect, start_point: Graphene.Point, end_point: Graphene.Point, stops: list[Gsk.ColorStop]
+        self,
+        bounds: Graphene.Rect,
+        start_point: Graphene.Point,
+        end_point: Graphene.Point,
+        stops: collections.abc.Sequence[Gsk.ColorStop],
     ) -> None:
         """
         Appends a linear gradient node with the given stops to `snapshot`.
@@ -96949,13 +97122,17 @@ class Snapshot(Gdk.Snapshot):
         vradius: float,
         start: float,
         end: float,
-        stops: list[Gsk.ColorStop],
+        stops: collections.abc.Sequence[Gsk.ColorStop],
     ) -> None:
         """
         Appends a radial gradient node with the given stops to `snapshot`.
         """
     def append_repeating_linear_gradient(
-        self, bounds: Graphene.Rect, start_point: Graphene.Point, end_point: Graphene.Point, stops: list[Gsk.ColorStop]
+        self,
+        bounds: Graphene.Rect,
+        start_point: Graphene.Point,
+        end_point: Graphene.Point,
+        stops: collections.abc.Sequence[Gsk.ColorStop],
     ) -> None:
         """
         Appends a repeating linear gradient node with the given stops to `snapshot`.
@@ -96968,7 +97145,7 @@ class Snapshot(Gdk.Snapshot):
         vradius: float,
         start: float,
         end: float,
-        stops: list[Gsk.ColorStop],
+        stops: collections.abc.Sequence[Gsk.ColorStop],
     ) -> None:
         """
         Appends a repeating radial gradient node with the given stops to `snapshot`.
@@ -97146,7 +97323,7 @@ class Snapshot(Gdk.Snapshot):
 
         The image is recorded until the next call to [method`Gtk`.Snapshot.pop].
         """
-    def push_shadow(self, shadow: list[Gsk.Shadow]) -> None:
+    def push_shadow(self, shadow: collections.abc.Sequence[Gsk.Shadow]) -> None:
         """
             Applies a shadow to an image.
 
@@ -97642,12 +97819,14 @@ class Sorter(GObject.Object):
         self,
         item1: GObject.Object | None = None,
         item2: GObject.Object | None = None,
+        /,
     ) -> Ordering:
         """
         compare(self, item1:GObject.Object=None, item2:GObject.Object=None) -> Gtk.Ordering
         """
     def do_get_order(
         self,
+        /,
     ) -> SorterOrder:
         """
         get_order(self) -> Gtk.SorterOrder
@@ -101619,7 +101798,7 @@ class StringList(GObject.Object):
         `position` must be smaller than the current
         length of the list.
         """
-    def splice(self, position: int, n_removals: int, additions: list[str] | None = None) -> None:
+    def splice(self, position: int, n_removals: int, additions: collections.abc.Sequence[str] | None = None) -> None:
         """
             Changes `self` by removing `n_removals` strings and adding `additions`
         to it.
@@ -101651,7 +101830,7 @@ class StringList(GObject.Object):
     @classmethod
     def new(
         cls,
-        strings: list[str] | None = None,
+        strings: collections.abc.Sequence[str] | None = None,
     ) -> StringList:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -102145,6 +102324,7 @@ class StyleContext(GObject.Object):
     # python methods (overrides?)
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -102769,7 +102949,9 @@ class SymbolicPaintable(builtins.object):
         """
         Initialize SymbolicPaintable object with properties.
         """
-    def snapshot_symbolic(self, snapshot: Gdk.Snapshot, width: float, height: float, colors: list[Gdk.RGBA]) -> None:
+    def snapshot_symbolic(
+        self, snapshot: Gdk.Snapshot, width: float, height: float, colors: collections.abc.Sequence[Gdk.RGBA]
+    ) -> None:
         """
             Snapshots the paintable with the given colors.
 
@@ -104688,18 +104870,21 @@ class TextBuffer(GObject.Object):
         tag: TextTag,
         start: TextIter,
         end: TextIter,
+        /,
     ) -> None:
         """
         apply_tag(self, tag:Gtk.TextTag, start:Gtk.TextIter, end:Gtk.TextIter)
         """
     def do_begin_user_action(
         self,
+        /,
     ) -> None:
         """
         begin_user_action(self)
         """
     def do_changed(
         self,
+        /,
     ) -> None:
         """
         changed(self)
@@ -104708,12 +104893,14 @@ class TextBuffer(GObject.Object):
         self,
         start: TextIter,
         end: TextIter,
+        /,
     ) -> None:
         """
         delete_range(self, start:Gtk.TextIter, end:Gtk.TextIter)
         """
     def do_end_user_action(
         self,
+        /,
     ) -> None:
         """
         end_user_action(self)
@@ -104722,6 +104909,7 @@ class TextBuffer(GObject.Object):
         self,
         iter: TextIter,
         anchor: TextChildAnchor,
+        /,
     ) -> None:
         """
         insert_child_anchor(self, iter:Gtk.TextIter, anchor:Gtk.TextChildAnchor)
@@ -104730,6 +104918,7 @@ class TextBuffer(GObject.Object):
         self,
         iter: TextIter,
         paintable: Gdk.Paintable,
+        /,
     ) -> None:
         """
         insert_paintable(self, iter:Gtk.TextIter, paintable:Gdk.Paintable)
@@ -104739,6 +104928,7 @@ class TextBuffer(GObject.Object):
         pos: TextIter,
         new_text: str,
         new_text_length: int,
+        /,
     ) -> None:
         """
         insert_text(self, pos:Gtk.TextIter, new_text:str, new_text_length:int)
@@ -104746,6 +104936,7 @@ class TextBuffer(GObject.Object):
     def do_mark_deleted(
         self,
         mark: TextMark,
+        /,
     ) -> None:
         """
         mark_deleted(self, mark:Gtk.TextMark)
@@ -104754,12 +104945,14 @@ class TextBuffer(GObject.Object):
         self,
         location: TextIter,
         mark: TextMark,
+        /,
     ) -> None:
         """
         mark_set(self, location:Gtk.TextIter, mark:Gtk.TextMark)
         """
     def do_modified_changed(
         self,
+        /,
     ) -> None:
         """
         modified_changed(self)
@@ -104767,12 +104960,14 @@ class TextBuffer(GObject.Object):
     def do_paste_done(
         self,
         clipboard: Gdk.Clipboard,
+        /,
     ) -> None:
         """
         paste_done(self, clipboard:Gdk.Clipboard)
         """
     def do_redo(
         self,
+        /,
     ) -> None:
         """
         redo(self)
@@ -104782,12 +104977,14 @@ class TextBuffer(GObject.Object):
         tag: TextTag,
         start: TextIter,
         end: TextIter,
+        /,
     ) -> None:
         """
         remove_tag(self, tag:Gtk.TextTag, start:Gtk.TextIter, end:Gtk.TextIter)
         """
     def do_undo(
         self,
+        /,
     ) -> None:
         """
         undo(self)
@@ -108434,18 +108631,21 @@ class TextView(Widget):
     # python methods (overrides?)
     def do_backspace(
         self,
+        /,
     ) -> None:
         """
         backspace(self)
         """
     def do_copy_clipboard(
         self,
+        /,
     ) -> None:
         """
         copy_clipboard(self)
         """
     def do_cut_clipboard(
         self,
+        /,
     ) -> None:
         """
         cut_clipboard(self)
@@ -108454,6 +108654,7 @@ class TextView(Widget):
         self,
         type: DeleteType,
         count: int,
+        /,
     ) -> None:
         """
         delete_from_cursor(self, type:Gtk.DeleteType, count:int)
@@ -108464,6 +108665,7 @@ class TextView(Widget):
         location: TextIter,
         start: TextIter,
         end: TextIter,
+        /,
     ) -> bool:
         """
         extend_selection(self, granularity:Gtk.TextExtendSelection, location:Gtk.TextIter, start:Gtk.TextIter, end:Gtk.TextIter) -> bool
@@ -108471,12 +108673,14 @@ class TextView(Widget):
     def do_insert_at_cursor(
         self,
         str: str,
+        /,
     ) -> None:
         """
         insert_at_cursor(self, str:str)
         """
     def do_insert_emoji(
         self,
+        /,
     ) -> None:
         """
         insert_emoji(self)
@@ -108486,18 +108690,21 @@ class TextView(Widget):
         step: MovementStep,
         count: int,
         extend_selection: bool,
+        /,
     ) -> None:
         """
         move_cursor(self, step:Gtk.MovementStep, count:int, extend_selection:bool)
         """
     def do_paste_clipboard(
         self,
+        /,
     ) -> None:
         """
         paste_clipboard(self)
         """
     def do_set_anchor(
         self,
+        /,
     ) -> None:
         """
         set_anchor(self)
@@ -108506,12 +108713,14 @@ class TextView(Widget):
         self,
         layer: TextViewLayer,
         snapshot: Snapshot,
+        /,
     ) -> None:
         """
         snapshot_layer(self, layer:Gtk.TextViewLayer, snapshot:Gtk.Snapshot)
         """
     def do_toggle_overwrite(
         self,
+        /,
     ) -> None:
         """
         toggle_overwrite(self)
@@ -109572,6 +109781,7 @@ class ToggleButton(Button):
     # python methods (overrides?)
     def do_toggled(
         self,
+        /,
     ) -> None:
         """
         toggled(self)
@@ -112088,7 +112298,7 @@ class TreeModelFilter(GObject.Object):
         """
     @deprecated("deprecated")
     def set_modify_func(
-        self, types: list[GObject.GType], func: TreeModelFilterModifyFunc, *data: object | None
+        self, types: collections.abc.Sequence[GObject.GType], func: TreeModelFilterModifyFunc, *data: object | None
     ) -> None:
         """
             With the `n_columns` and `types` parameters, you give an array of column
@@ -112122,6 +112332,7 @@ class TreeModelFilter(GObject.Object):
         iter: TreeIter,
         value: GObject.Value,
         column: int,
+        /,
     ) -> None:
         """
         modify(self, child_model:Gtk.TreeModel, iter:Gtk.TreeIter, value:GObject.Value, column:int)
@@ -112130,6 +112341,7 @@ class TreeModelFilter(GObject.Object):
         self,
         child_model: TreeModel,
         iter: TreeIter,
+        /,
     ) -> bool:
         """
         visible(self, child_model:Gtk.TreeModel, iter:Gtk.TreeIter) -> bool
@@ -112818,7 +113030,7 @@ class TreePath(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_from_indices(
         cls,
-        indices: list[int],
+        indices: collections.abc.Sequence[int],
     ) -> TreePath:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -113376,7 +113588,11 @@ class TreeStore(GObject.Object):
         """
     @deprecated("deprecated")
     def insert_with_values(
-        self, parent: TreeIter | None, position: int, columns: list[int], values: list[GObject.Value]
+        self,
+        parent: TreeIter | None,
+        position: int,
+        columns: collections.abc.Sequence[int],
+        values: collections.abc.Sequence[GObject.Value],
     ) -> TreeIter:
         """
             Creates a new row at the given `position`.
@@ -113458,7 +113674,7 @@ class TreeStore(GObject.Object):
         invalidated if it previously pointed to the last one.
         """
     @deprecated("deprecated")
-    def set_column_types(self, types: list[GObject.GType]) -> None:
+    def set_column_types(self, types: collections.abc.Sequence[GObject.GType]) -> None:
         """
             Sets the type of the columns in a tree store.
 
@@ -113581,7 +113797,7 @@ class TreeStore(GObject.Object):
     @classmethod
     def new(
         cls,
-        types: list[GObject.GType],
+        types: collections.abc.Sequence[GObject.GType],
     ) -> TreeStore:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -114545,12 +114761,14 @@ class TreeView(Widget):
     # python methods (overrides?)
     def do_columns_changed(
         self,
+        /,
     ) -> None:
         """
         columns_changed(self)
         """
     def do_cursor_changed(
         self,
+        /,
     ) -> None:
         """
         cursor_changed(self)
@@ -114560,6 +114778,7 @@ class TreeView(Widget):
         logical: bool,
         expand: bool,
         open_all: bool,
+        /,
     ) -> bool:
         """
         expand_collapse_cursor_row(self, logical:bool, expand:bool, open_all:bool) -> bool
@@ -114570,6 +114789,7 @@ class TreeView(Widget):
         count: int,
         extend: bool,
         modify: bool,
+        /,
     ) -> bool:
         """
         move_cursor(self, step:Gtk.MovementStep, count:int, extend:bool, modify:bool) -> bool
@@ -114578,6 +114798,7 @@ class TreeView(Widget):
         self,
         path: TreePath,
         column: TreeViewColumn | None = None,
+        /,
     ) -> None:
         """
         row_activated(self, path:Gtk.TreePath, column:Gtk.TreeViewColumn=None)
@@ -114586,6 +114807,7 @@ class TreeView(Widget):
         self,
         iter: TreeIter,
         path: TreePath,
+        /,
     ) -> None:
         """
         row_collapsed(self, iter:Gtk.TreeIter, path:Gtk.TreePath)
@@ -114594,18 +114816,21 @@ class TreeView(Widget):
         self,
         iter: TreeIter,
         path: TreePath,
+        /,
     ) -> None:
         """
         row_expanded(self, iter:Gtk.TreeIter, path:Gtk.TreePath)
         """
     def do_select_all(
         self,
+        /,
     ) -> bool:
         """
         select_all(self) -> bool
         """
     def do_select_cursor_parent(
         self,
+        /,
     ) -> bool:
         """
         select_cursor_parent(self) -> bool
@@ -114613,12 +114838,14 @@ class TreeView(Widget):
     def do_select_cursor_row(
         self,
         start_editing: bool,
+        /,
     ) -> bool:
         """
         select_cursor_row(self, start_editing:bool) -> bool
         """
     def do_start_interactive_search(
         self,
+        /,
     ) -> bool:
         """
         start_interactive_search(self) -> bool
@@ -114627,6 +114854,7 @@ class TreeView(Widget):
         self,
         iter: TreeIter,
         path: TreePath,
+        /,
     ) -> bool:
         """
         test_collapse_row(self, iter:Gtk.TreeIter, path:Gtk.TreePath) -> bool
@@ -114635,18 +114863,21 @@ class TreeView(Widget):
         self,
         iter: TreeIter,
         path: TreePath,
+        /,
     ) -> bool:
         """
         test_expand_row(self, iter:Gtk.TreeIter, path:Gtk.TreePath) -> bool
         """
     def do_toggle_cursor_row(
         self,
+        /,
     ) -> bool:
         """
         toggle_cursor_row(self) -> bool
         """
     def do_unselect_all(
         self,
+        /,
     ) -> bool:
         """
         unselect_all(self) -> bool
@@ -119586,7 +119817,7 @@ class Widget(GObject.InitiallyUnowned):
         This function is only useful for container implementations
         and should never be called by an application.
         """
-    def set_css_classes(self, classes: list[str]) -> None:
+    def set_css_classes(self, classes: collections.abc.Sequence[str]) -> None:
         """
             Clear all style classes applied to `widget`
         and replace them with `classes`.
@@ -120054,6 +120285,7 @@ class Widget(GObject.InitiallyUnowned):
         self,
         hexpand_p: bool,
         vexpand_p: bool,
+        /,
     ) -> None:
         """
         compute_expand(self, hexpand_p:bool, vexpand_p:bool)
@@ -120062,6 +120294,7 @@ class Widget(GObject.InitiallyUnowned):
         self,
         x: float,
         y: float,
+        /,
     ) -> bool:
         """
         contains(self, x:float, y:float) -> bool
@@ -120069,6 +120302,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_css_changed(
         self,
         change: CssStyleChange,
+        /,
     ) -> None:
         """
         css_changed(self, change:Gtk.CssStyleChange)
@@ -120076,6 +120310,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_direction_changed(
         self,
         previous_direction: TextDirection,
+        /,
     ) -> None:
         """
         direction_changed(self, previous_direction:Gtk.TextDirection)
@@ -120083,24 +120318,28 @@ class Widget(GObject.InitiallyUnowned):
     def do_focus(
         self,
         direction: DirectionType,
+        /,
     ) -> bool:
         """
         focus(self, direction:Gtk.DirectionType) -> bool
         """
     def do_get_request_mode(
         self,
+        /,
     ) -> SizeRequestMode:
         """
         get_request_mode(self) -> Gtk.SizeRequestMode
         """
     def do_grab_focus(
         self,
+        /,
     ) -> bool:
         """
         grab_focus(self) -> bool
         """
     def do_hide(
         self,
+        /,
     ) -> None:
         """
         hide(self)
@@ -120108,12 +120347,14 @@ class Widget(GObject.InitiallyUnowned):
     def do_keynav_failed(
         self,
         direction: DirectionType,
+        /,
     ) -> bool:
         """
         keynav_failed(self, direction:Gtk.DirectionType) -> bool
         """
     def do_map(
         self,
+        /,
     ) -> None:
         """
         map(self)
@@ -120122,6 +120363,7 @@ class Widget(GObject.InitiallyUnowned):
         self,
         orientation: Orientation,
         for_size: int,
+        /,
     ) -> tuple[int, int, int, int]:
         """
         measure(self, orientation:Gtk.Orientation, for_size:int) -> minimum:int, natural:int, minimum_baseline:int, natural_baseline:int
@@ -120129,6 +120371,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_mnemonic_activate(
         self,
         group_cycling: bool,
+        /,
     ) -> bool:
         """
         mnemonic_activate(self, group_cycling:bool) -> bool
@@ -120136,6 +120379,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_move_focus(
         self,
         direction: DirectionType,
+        /,
     ) -> None:
         """
         move_focus(self, direction:Gtk.DirectionType)
@@ -120146,18 +120390,21 @@ class Widget(GObject.InitiallyUnowned):
         y: int,
         keyboard_tooltip: bool,
         tooltip: Tooltip,
+        /,
     ) -> bool:
         """
         query_tooltip(self, x:int, y:int, keyboard_tooltip:bool, tooltip:Gtk.Tooltip) -> bool
         """
     def do_realize(
         self,
+        /,
     ) -> None:
         """
         realize(self)
         """
     def do_root(
         self,
+        /,
     ) -> None:
         """
         root(self)
@@ -120165,12 +120412,14 @@ class Widget(GObject.InitiallyUnowned):
     def do_set_focus_child(
         self,
         child: Widget | None = None,
+        /,
     ) -> None:
         """
         set_focus_child(self, child:Gtk.Widget=None)
         """
     def do_show(
         self,
+        /,
     ) -> None:
         """
         show(self)
@@ -120180,6 +120429,7 @@ class Widget(GObject.InitiallyUnowned):
         width: int,
         height: int,
         baseline: int,
+        /,
     ) -> None:
         """
         size_allocate(self, width:int, height:int, baseline:int)
@@ -120187,6 +120437,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_snapshot(
         self,
         snapshot: Snapshot,
+        /,
     ) -> None:
         """
         snapshot(self, snapshot:Gtk.Snapshot)
@@ -120194,6 +120445,7 @@ class Widget(GObject.InitiallyUnowned):
     def do_state_flags_changed(
         self,
         previous_state_flags: StateFlags,
+        /,
     ) -> None:
         """
         state_flags_changed(self, previous_state_flags:Gtk.StateFlags)
@@ -120201,24 +120453,28 @@ class Widget(GObject.InitiallyUnowned):
     def do_system_setting_changed(
         self,
         settings: SystemSetting,
+        /,
     ) -> None:
         """
         system_setting_changed(self, settings:Gtk.SystemSetting)
         """
     def do_unmap(
         self,
+        /,
     ) -> None:
         """
         unmap(self)
         """
     def do_unrealize(
         self,
+        /,
     ) -> None:
         """
         unrealize(self)
         """
     def do_unroot(
         self,
+        /,
     ) -> None:
         """
         unroot(self)
@@ -122043,18 +122299,21 @@ class Window(Widget):
         """
     def do_activate_default(
         self,
+        /,
     ) -> None:
         """
         activate_default(self)
         """
     def do_activate_focus(
         self,
+        /,
     ) -> None:
         """
         activate_focus(self)
         """
     def do_close_request(
         self,
+        /,
     ) -> bool:
         """
         close_request(self) -> bool
@@ -122062,12 +122321,14 @@ class Window(Widget):
     def do_enable_debugging(
         self,
         toggle: bool,
+        /,
     ) -> bool:
         """
         enable_debugging(self, toggle:bool) -> bool
         """
     def do_keys_changed(
         self,
+        /,
     ) -> None:
         """
         keys_changed(self)
@@ -128170,7 +128431,7 @@ class PageSetupDoneFunc(typing.Protocol):
 # Aliases
 ###############################################################
 
-Template = gi._gtktemplate.Template  # type: ignore
+Template = gi._gtktemplate.Template
 _extract_handler_and_args = gi._gtktemplate._extract_handler_and_args  # type: ignore
 ###############################################################
 # Constants

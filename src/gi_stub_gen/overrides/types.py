@@ -13,6 +13,8 @@ type InitFactory = Callable[[str, type], FunctionSchema]
 
 
 class ClassOverride(TypedDict, total=False):
+    include_methods: tuple[str, ...]
+    """Additional private/special methods to inspect normally for this class only."""
     init_factory: InitFactory
     super: list[str]
     methods: dict[str, FunctionSchema | None]

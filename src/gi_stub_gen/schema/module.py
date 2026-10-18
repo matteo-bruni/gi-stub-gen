@@ -86,7 +86,7 @@ class ModuleSchema(BaseSchema):
         valid_gi_imports: set[str] = set()
         not_gi_imports: set[str] = set()
         for gi_import in gi_imports:
-            if gi_import == "gi._gi":
+            if gi_import in {"gi._gi", "gi._signalhelper", "gi._gtktemplate"}:
                 not_gi_imports.add(gi_import)
                 continue
             if gi_import.startswith("gi._"):

@@ -922,10 +922,11 @@ def parse_class(
     #######################################################################################
     # do a second pass to get all the attributes not parsed by get_properties/get_methods
     # i.e class not from GI but added in overrides
+    included_methods = CLASS_OVERRIDES.get(module_name, {}).get(class_to_parse.__name__, {}).get("include_methods", ())
     for attribute_name in dir(class_to_parse):
         if attribute_name == "__init__" and init_factory is not None:
             continue
-        if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__", "__enter__", "__exit__"}:
+        if attribute_name.startswith("_") and attribute_name not in {"__init__", "__iter__", "__enter__", "__exit__", *included_methods}:
             # skip dunder methods
             continue
         try:

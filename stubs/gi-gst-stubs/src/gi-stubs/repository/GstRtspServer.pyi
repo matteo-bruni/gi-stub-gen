@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import typing
 
@@ -509,6 +510,7 @@ class RTSPAuth(GObject.Object):
         connection: Gio.TlsConnection,
         peer_cert: Gio.TlsCertificate,
         errors: Gio.TlsCertificateFlags,
+        /,
     ) -> bool:
         """
         accept_certificate(self, connection:Gio.TlsConnection, peer_cert:Gio.TlsCertificate, errors:Gio.TlsCertificateFlags) -> bool
@@ -516,6 +518,7 @@ class RTSPAuth(GObject.Object):
     def do_authenticate(
         self,
         ctx: RTSPContext,
+        /,
     ) -> bool:
         """
         authenticate(self, ctx:GstRtspServer.RTSPContext) -> bool
@@ -524,6 +527,7 @@ class RTSPAuth(GObject.Object):
         self,
         ctx: RTSPContext,
         check: str,
+        /,
     ) -> bool:
         """
         check(self, ctx:GstRtspServer.RTSPContext, check:str) -> bool
@@ -531,6 +535,7 @@ class RTSPAuth(GObject.Object):
     def do_generate_authenticate_header(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         generate_authenticate_header(self, ctx:GstRtspServer.RTSPContext)
@@ -777,6 +782,7 @@ class RTSPClient(GObject.Object):
         self,
         ctx: RTSPContext,
         code: GstRtsp.RTSPStatusCode,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         adjust_error_code(self, ctx:GstRtspServer.RTSPContext, code:GstRtsp.RTSPStatusCode) -> GstRtsp.RTSPStatusCode
@@ -789,6 +795,7 @@ class RTSPClient(GObject.Object):
         rate: float,
         trickmode_interval: int,
         enable_rate_control: bool,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         adjust_play_mode(self, context:GstRtspServer.RTSPContext, range:GstRtsp.RTSPTimeRange, flags:Gst.SeekFlags, rate:float, trickmode_interval:int, enable_rate_control:bool) -> GstRtsp.RTSPStatusCode
@@ -796,6 +803,7 @@ class RTSPClient(GObject.Object):
     def do_adjust_play_response(
         self,
         context: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         adjust_play_response(self, context:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -803,6 +811,7 @@ class RTSPClient(GObject.Object):
     def do_announce_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         announce_request(self, ctx:GstRtspServer.RTSPContext)
@@ -811,12 +820,14 @@ class RTSPClient(GObject.Object):
         self,
         ctx: RTSPContext,
         arr: str,
+        /,
     ) -> str:
         """
         check_requirements(self, ctx:GstRtspServer.RTSPContext, arr:str) -> str
         """
     def do_closed(
         self,
+        /,
     ) -> None:
         """
         closed(self)
@@ -826,6 +837,7 @@ class RTSPClient(GObject.Object):
         media: RTSPMedia,
         stream: RTSPStream,
         ctx: RTSPContext,
+        /,
     ) -> bool:
         """
         configure_client_media(self, media:GstRtspServer.RTSPMedia, stream:GstRtspServer.RTSPStream, ctx:GstRtspServer.RTSPContext) -> bool
@@ -834,6 +846,7 @@ class RTSPClient(GObject.Object):
         self,
         ctx: RTSPContext,
         ct: GstRtsp.RTSPTransport,
+        /,
     ) -> bool:
         """
         configure_client_transport(self, ctx:GstRtspServer.RTSPContext, ct:GstRtsp.RTSPTransport) -> bool
@@ -841,6 +854,7 @@ class RTSPClient(GObject.Object):
     def do_create_sdp(
         self,
         media: RTSPMedia,
+        /,
     ) -> GstSdp.SDPMessage:
         """
         create_sdp(self, media:GstRtspServer.RTSPMedia) -> GstSdp.SDPMessage
@@ -848,6 +862,7 @@ class RTSPClient(GObject.Object):
     def do_describe_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         describe_request(self, ctx:GstRtspServer.RTSPContext)
@@ -855,6 +870,7 @@ class RTSPClient(GObject.Object):
     def do_get_parameter_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         get_parameter_request(self, ctx:GstRtspServer.RTSPContext)
@@ -862,6 +878,7 @@ class RTSPClient(GObject.Object):
     def do_handle_response(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         handle_response(self, ctx:GstRtspServer.RTSPContext)
@@ -871,6 +888,7 @@ class RTSPClient(GObject.Object):
         ctx: RTSPContext,
         media: RTSPMedia,
         sdp: GstSdp.SDPMessage,
+        /,
     ) -> bool:
         """
         handle_sdp(self, ctx:GstRtspServer.RTSPContext, media:GstRtspServer.RTSPMedia, sdp:GstSdp.SDPMessage) -> bool
@@ -878,6 +896,7 @@ class RTSPClient(GObject.Object):
     def do_make_path_from_uri(
         self,
         uri: GstRtsp.RTSPUrl,
+        /,
     ) -> str:
         """
         make_path_from_uri(self, uri:GstRtsp.RTSPUrl) -> str
@@ -885,6 +904,7 @@ class RTSPClient(GObject.Object):
     def do_new_session(
         self,
         session: RTSPSession,
+        /,
     ) -> None:
         """
         new_session(self, session:GstRtspServer.RTSPSession)
@@ -892,6 +912,7 @@ class RTSPClient(GObject.Object):
     def do_options_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         options_request(self, ctx:GstRtspServer.RTSPContext)
@@ -899,6 +920,7 @@ class RTSPClient(GObject.Object):
     def do_params_get(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPResult:
         """
         params_get(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPResult
@@ -906,6 +928,7 @@ class RTSPClient(GObject.Object):
     def do_params_set(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPResult:
         """
         params_set(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPResult
@@ -913,6 +936,7 @@ class RTSPClient(GObject.Object):
     def do_pause_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         pause_request(self, ctx:GstRtspServer.RTSPContext)
@@ -920,6 +944,7 @@ class RTSPClient(GObject.Object):
     def do_play_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         play_request(self, ctx:GstRtspServer.RTSPContext)
@@ -927,6 +952,7 @@ class RTSPClient(GObject.Object):
     def do_pre_announce_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_announce_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -934,6 +960,7 @@ class RTSPClient(GObject.Object):
     def do_pre_describe_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_describe_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -941,6 +968,7 @@ class RTSPClient(GObject.Object):
     def do_pre_get_parameter_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_get_parameter_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -948,6 +976,7 @@ class RTSPClient(GObject.Object):
     def do_pre_options_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_options_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -955,6 +984,7 @@ class RTSPClient(GObject.Object):
     def do_pre_pause_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_pause_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -962,6 +992,7 @@ class RTSPClient(GObject.Object):
     def do_pre_play_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_play_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -969,6 +1000,7 @@ class RTSPClient(GObject.Object):
     def do_pre_record_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_record_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -976,6 +1008,7 @@ class RTSPClient(GObject.Object):
     def do_pre_set_parameter_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_set_parameter_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -983,6 +1016,7 @@ class RTSPClient(GObject.Object):
     def do_pre_setup_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_setup_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -990,6 +1024,7 @@ class RTSPClient(GObject.Object):
     def do_pre_teardown_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> GstRtsp.RTSPStatusCode:
         """
         pre_teardown_request(self, ctx:GstRtspServer.RTSPContext) -> GstRtsp.RTSPStatusCode
@@ -997,6 +1032,7 @@ class RTSPClient(GObject.Object):
     def do_record_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         record_request(self, ctx:GstRtspServer.RTSPContext)
@@ -1005,6 +1041,7 @@ class RTSPClient(GObject.Object):
         self,
         ctx: RTSPContext,
         response: GstRtsp.RTSPMessage,
+        /,
     ) -> None:
         """
         send_message(self, ctx:GstRtspServer.RTSPContext, response:GstRtsp.RTSPMessage)
@@ -1012,6 +1049,7 @@ class RTSPClient(GObject.Object):
     def do_set_parameter_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         set_parameter_request(self, ctx:GstRtspServer.RTSPContext)
@@ -1019,6 +1057,7 @@ class RTSPClient(GObject.Object):
     def do_setup_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         setup_request(self, ctx:GstRtspServer.RTSPContext)
@@ -1026,6 +1065,7 @@ class RTSPClient(GObject.Object):
     def do_teardown_request(
         self,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         teardown_request(self, ctx:GstRtspServer.RTSPContext)
@@ -1034,6 +1074,7 @@ class RTSPClient(GObject.Object):
         self,
         request: GstRtsp.RTSPMessage,
         response: GstRtsp.RTSPMessage,
+        /,
     ) -> None:
         """
         tunnel_http_response(self, request:GstRtsp.RTSPMessage, response:GstRtsp.RTSPMessage)
@@ -1584,7 +1625,7 @@ class RTSPMedia(GObject.Object):
         Find all depayloader elements, they should be named depay%d in the
         element of `media`, and create GstRTSPStreams for them.
         """
-    def complete_pipeline(self, transports: list[GstRtsp.RTSPTransport]) -> bool:
+    def complete_pipeline(self, transports: collections.abc.Sequence[GstRtsp.RTSPTransport]) -> bool:
         """
             Add a receiver and sender parts to the pipeline based on the transport from
         SETUP.
@@ -1889,7 +1930,7 @@ class RTSPMedia(GObject.Object):
         When `shared` is True, client requests for this media will share the media
         pipeline.
         """
-    def set_state(self, state: Gst.State, transports: list[RTSPStreamTransport]) -> bool:
+    def set_state(self, state: Gst.State, transports: collections.abc.Sequence[RTSPStreamTransport]) -> bool:
         """
             Set the state of `media` to `state` and for the transports in `transports`.
 
@@ -1954,6 +1995,7 @@ class RTSPMedia(GObject.Object):
         self,
         range: GstRtsp.RTSPTimeRange,
         unit: GstRtsp.RTSPRangeUnit,
+        /,
     ) -> bool:
         """
         convert_range(self, range:GstRtsp.RTSPTimeRange, unit:GstRtsp.RTSPRangeUnit) -> bool
@@ -1961,6 +2003,7 @@ class RTSPMedia(GObject.Object):
     def do_handle_message(
         self,
         message: Gst.Message,
+        /,
     ) -> bool:
         """
         handle_message(self, message:Gst.Message) -> bool
@@ -1968,6 +2011,7 @@ class RTSPMedia(GObject.Object):
     def do_handle_sdp(
         self,
         sdp: GstSdp.SDPMessage,
+        /,
     ) -> bool:
         """
         handle_sdp(self, sdp:GstSdp.SDPMessage) -> bool
@@ -1975,6 +2019,7 @@ class RTSPMedia(GObject.Object):
     def do_new_state(
         self,
         state: Gst.State,
+        /,
     ) -> None:
         """
         new_state(self, state:Gst.State)
@@ -1982,6 +2027,7 @@ class RTSPMedia(GObject.Object):
     def do_new_stream(
         self,
         stream: RTSPStream,
+        /,
     ) -> None:
         """
         new_stream(self, stream:GstRtspServer.RTSPStream)
@@ -1989,12 +2035,14 @@ class RTSPMedia(GObject.Object):
     def do_prepare(
         self,
         thread: RTSPThread | None = None,
+        /,
     ) -> bool:
         """
         prepare(self, thread:GstRtspServer.RTSPThread=None) -> bool
         """
     def do_prepared(
         self,
+        /,
     ) -> None:
         """
         prepared(self)
@@ -2002,6 +2050,7 @@ class RTSPMedia(GObject.Object):
     def do_query_position(
         self,
         position: int,
+        /,
     ) -> bool:
         """
         query_position(self, position:int) -> bool
@@ -2009,6 +2058,7 @@ class RTSPMedia(GObject.Object):
     def do_query_stop(
         self,
         stop: int,
+        /,
     ) -> bool:
         """
         query_stop(self, stop:int) -> bool
@@ -2016,6 +2066,7 @@ class RTSPMedia(GObject.Object):
     def do_removed_stream(
         self,
         stream: RTSPStream,
+        /,
     ) -> None:
         """
         removed_stream(self, stream:GstRtspServer.RTSPStream)
@@ -2023,6 +2074,7 @@ class RTSPMedia(GObject.Object):
     def do_setup_rtpbin(
         self,
         rtpbin: Gst.Element,
+        /,
     ) -> bool:
         """
         setup_rtpbin(self, rtpbin:Gst.Element) -> bool
@@ -2031,12 +2083,14 @@ class RTSPMedia(GObject.Object):
         self,
         sdp: GstSdp.SDPMessage,
         info: SDPInfo,
+        /,
     ) -> bool:
         """
         setup_sdp(self, sdp:GstSdp.SDPMessage, info:GstRtspServer.SDPInfo) -> bool
         """
     def do_suspend(
         self,
+        /,
     ) -> bool:
         """
         suspend(self) -> bool
@@ -2044,24 +2098,28 @@ class RTSPMedia(GObject.Object):
     def do_target_state(
         self,
         state: Gst.State,
+        /,
     ) -> None:
         """
         target_state(self, state:Gst.State)
         """
     def do_unprepare(
         self,
+        /,
     ) -> bool:
         """
         unprepare(self) -> bool
         """
     def do_unprepared(
         self,
+        /,
     ) -> None:
         """
         unprepared(self)
         """
     def do_unsuspend(
         self,
+        /,
     ) -> bool:
         """
         unsuspend(self) -> bool
@@ -2676,6 +2734,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_configure(
         self,
         media: RTSPMedia,
+        /,
     ) -> None:
         """
         configure(self, media:GstRtspServer.RTSPMedia)
@@ -2683,6 +2742,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_construct(
         self,
         url: GstRtsp.RTSPUrl,
+        /,
     ) -> RTSPMedia | None:
         """
         construct(self, url:GstRtsp.RTSPUrl) -> GstRtspServer.RTSPMedia or None
@@ -2690,6 +2750,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_create_element(
         self,
         url: GstRtsp.RTSPUrl,
+        /,
     ) -> Gst.Element | None:
         """
         create_element(self, url:GstRtsp.RTSPUrl) -> Gst.Element or None
@@ -2697,6 +2758,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_gen_key(
         self,
         url: GstRtsp.RTSPUrl,
+        /,
     ) -> str:
         """
         gen_key(self, url:GstRtsp.RTSPUrl) -> str
@@ -2704,6 +2766,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_media_configure(
         self,
         media: RTSPMedia,
+        /,
     ) -> None:
         """
         media_configure(self, media:GstRtspServer.RTSPMedia)
@@ -2711,6 +2774,7 @@ class RTSPMediaFactory(GObject.Object):
     def do_media_constructed(
         self,
         media: RTSPMedia,
+        /,
     ) -> None:
         """
         media_constructed(self, media:GstRtspServer.RTSPMedia)
@@ -3224,6 +3288,7 @@ class RTSPMountPoints(GObject.Object):
     def do_make_path(
         self,
         url: GstRtsp.RTSPUrl,
+        /,
     ) -> str | None:
         """
         make_path(self, url:GstRtsp.RTSPUrl) -> str or None
@@ -3861,12 +3926,14 @@ class RTSPOnvifMediaFactory(RTSPMediaFactory):
         self,
         media: RTSPOnvifMedia,
         ctx: RTSPContext,
+        /,
     ) -> bool:
         """
         create_backchannel_stream(self, media:GstRtspServer.RTSPOnvifMedia, ctx:GstRtspServer.RTSPContext) -> bool
         """
     def do_has_backchannel_support(
         self,
+        /,
     ) -> bool:
         """
         has_backchannel_support(self) -> bool
@@ -4410,6 +4477,7 @@ class RTSPServer(GObject.Object):
     def do_client_connected(
         self,
         client: RTSPClient,
+        /,
     ) -> None:
         """
         client_connected(self, client:GstRtspServer.RTSPClient)
@@ -4905,6 +4973,7 @@ class RTSPSessionPool(GObject.Object):
     # python methods (overrides?)
     def do_create_session_id(
         self,
+        /,
     ) -> str:
         """
         create_session_id(self) -> str
@@ -4912,6 +4981,7 @@ class RTSPSessionPool(GObject.Object):
     def do_session_removed(
         self,
         session: RTSPSession,
+        /,
     ) -> None:
         """
         session_removed(self, session:GstRtspServer.RTSPSession)
@@ -5764,6 +5834,7 @@ class RTSPThreadPool(GObject.Object):
         self,
         thread: RTSPThread,
         ctx: RTSPContext,
+        /,
     ) -> None:
         """
         configure_thread(self, thread:GstRtspServer.RTSPThread, ctx:GstRtspServer.RTSPContext)
@@ -5772,6 +5843,7 @@ class RTSPThreadPool(GObject.Object):
         self,
         type: RTSPThreadType,
         ctx: RTSPContext,
+        /,
     ) -> RTSPThread | None:
         """
         get_thread(self, type:GstRtspServer.RTSPThreadType, ctx:GstRtspServer.RTSPContext) -> GstRtspServer.RTSPThread or None
@@ -5779,6 +5851,7 @@ class RTSPThreadPool(GObject.Object):
     def do_thread_enter(
         self,
         thread: RTSPThread,
+        /,
     ) -> None:
         """
         thread_enter(self, thread:GstRtspServer.RTSPThread)
@@ -5786,6 +5859,7 @@ class RTSPThreadPool(GObject.Object):
     def do_thread_leave(
         self,
         thread: RTSPThread,
+        /,
     ) -> None:
         """
         thread_leave(self, thread:GstRtspServer.RTSPThread)

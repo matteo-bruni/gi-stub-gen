@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -28,7 +29,7 @@ from gi.repository import GstBase
 def buffer_add_rtp_source_meta(
     buffer: Gst.Buffer,
     ssrc: int | None = None,
-    csrc: list[int] | None = None,
+    csrc: collections.abc.Sequence[int] | None = None,
 ) -> RTPSourceMeta:
     """
     Attaches RTP source information to `buffer`.
@@ -64,7 +65,7 @@ def rtcp_buffer_new(
     ...
 
 def rtcp_buffer_new_copy_data(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> Gst.Buffer:
     """
     Create a new buffer and set the data to a copy of `len`
@@ -74,7 +75,7 @@ def rtcp_buffer_new_copy_data(
     ...
 
 def rtcp_buffer_new_take_data(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> Gst.Buffer:
     """
     Create a new buffer and set the data and size of the buffer to `data` and `len`
@@ -93,7 +94,7 @@ def rtcp_buffer_validate(
     ...
 
 def rtcp_buffer_validate_data(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> bool:
     """
     Check if the `data` and `size` point to the data of a valid compound,
@@ -104,7 +105,7 @@ def rtcp_buffer_validate_data(
     ...
 
 def rtcp_buffer_validate_data_reduced(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> bool:
     """
     Check if the `data` and `size` point to the data of a valid RTCP packet.
@@ -296,7 +297,7 @@ def rtp_buffer_new_allocate_len(
     ...
 
 def rtp_buffer_new_copy_data(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> Gst.Buffer:
     """
     Create a new buffer and set the data to a copy of `len`
@@ -306,7 +307,7 @@ def rtp_buffer_new_copy_data(
     ...
 
 def rtp_buffer_new_take_data(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> Gst.Buffer:
     """
     Create a new buffer and set the data and size of the buffer to `data` and `len`
@@ -324,7 +325,7 @@ def rtp_get_header_extension_list() -> list[Gst.ElementFactory]:
     ...
 
 def rtp_hdrext_get_ntp_56(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> tuple[bool, int]:
     """
     Reads the NTP time from the `size` NTP-56 extension bytes in `data` and store the
@@ -333,7 +334,7 @@ def rtp_hdrext_get_ntp_56(
     ...
 
 def rtp_hdrext_get_ntp_64(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> tuple[bool, int]:
     """
     Reads the NTP time from the `size` NTP-64 extension bytes in `data` and store the
@@ -883,14 +884,14 @@ class RTCPBuffer(GObject.GPointer, metaclass=GObject.GType):
         maximum size of `mtu`.
         """
     @staticmethod
-    def new_copy_data(data: bytes) -> Gst.Buffer:
+    def new_copy_data(data: collections.abc.Sequence[int]) -> Gst.Buffer:
         """
             Create a new buffer and set the data to a copy of `len`
         bytes of `data` and the size to `len`. The data will be freed when the buffer
         is freed.
         """
     @staticmethod
-    def new_take_data(data: bytes) -> Gst.Buffer:
+    def new_take_data(data: collections.abc.Sequence[int]) -> Gst.Buffer:
         """
             Create a new buffer and set the data and size of the buffer to `data` and `len`
         respectively. `data` will be freed when the buffer is unreffed, so this
@@ -911,7 +912,7 @@ class RTCPBuffer(GObject.GPointer, metaclass=GObject.GType):
         `gst_rtcp_buffer_validate_data`.
         """
     @staticmethod
-    def validate_data(data: bytes) -> bool:
+    def validate_data(data: collections.abc.Sequence[int]) -> bool:
         """
             Check if the `data` and `size` point to the data of a valid compound,
         non-reduced size RTCP packet.
@@ -919,7 +920,7 @@ class RTCPBuffer(GObject.GPointer, metaclass=GObject.GType):
         this module.
         """
     @staticmethod
-    def validate_data_reduced(data: bytes) -> bool:
+    def validate_data_reduced(data: collections.abc.Sequence[int]) -> bool:
         """
             Check if the `data` and `size` point to the data of a valid RTCP packet.
         Use this function to validate a packet before using the other functions in
@@ -967,7 +968,7 @@ class RTCPPacket(GObject.GPointer, metaclass=GObject.GType):
     def type(self) -> RTCPType: ...
 
     # gi Methods
-    def add_profile_specific_ext(self, data: bytes) -> bool:
+    def add_profile_specific_ext(self, data: collections.abc.Sequence[int]) -> bool:
         """
             Add profile-specific extension `data` to `packet`. If `packet` already
         contains profile-specific extension `data` will be appended to the existing
@@ -1021,7 +1022,7 @@ class RTCPPacket(GObject.GPointer, metaclass=GObject.GType):
         """
         Add `ssrc` to the BYE `packet`.
         """
-    def bye_add_ssrcs(self, ssrc: list[int]) -> bool:
+    def bye_add_ssrcs(self, ssrc: collections.abc.Sequence[int]) -> bool:
         """
         Adds `len` SSRCs in `ssrc` to BYE `packet`.
         """
@@ -1133,7 +1134,7 @@ class RTCPPacket(GObject.GPointer, metaclass=GObject.GType):
         """
         Set the ssrc field of the RR `packet`.
         """
-    def sdes_add_entry(self, type: RTCPSDESType, data: bytes) -> bool:
+    def sdes_add_entry(self, type: RTCPSDESType, data: collections.abc.Sequence[int]) -> bool:
         """
         Add a new SDES entry to the current item in `packet`.
         """
@@ -1362,7 +1363,7 @@ class RTPBaseAudioPayload(RTPBasePayload):
         """
         Gets the internal adapter used by the depayloader.
         """
-    def push(self, data: bytes, timestamp: int) -> Gst.FlowReturn:
+    def push(self, data: collections.abc.Sequence[int], timestamp: int) -> Gst.FlowReturn:
         """
             Create an RTP buffer and store `payload_len` bytes of `data` as the
         payload. Set the timestamp on the new buffer to `timestamp` before pushing
@@ -1816,6 +1817,7 @@ class RTPBaseDepayload(Gst.Element):
     def do_handle_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         handle_event(self, event:Gst.Event) -> bool
@@ -1823,6 +1825,7 @@ class RTPBaseDepayload(Gst.Element):
     def do_packet_lost(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         packet_lost(self, event:Gst.Event) -> bool
@@ -1830,6 +1833,7 @@ class RTPBaseDepayload(Gst.Element):
     def do_process(
         self,
         in_: Gst.Buffer,
+        /,
     ) -> Gst.Buffer:
         """
         process(self, in_:Gst.Buffer) -> Gst.Buffer
@@ -1837,6 +1841,7 @@ class RTPBaseDepayload(Gst.Element):
     def do_process_rtp_packet(
         self,
         rtp_buffer: RTPBuffer,
+        /,
     ) -> Gst.Buffer:
         """
         process_rtp_packet(self, rtp_buffer:GstRtp.RTPBuffer) -> Gst.Buffer
@@ -1844,6 +1849,7 @@ class RTPBaseDepayload(Gst.Element):
     def do_set_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, caps:Gst.Caps) -> bool
@@ -2259,6 +2265,7 @@ class RTPBasePayload(Gst.Element):
         self,
         pad: Gst.Pad,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         get_caps(self, pad:Gst.Pad, filter:Gst.Caps) -> Gst.Caps
@@ -2266,6 +2273,7 @@ class RTPBasePayload(Gst.Element):
     def do_handle_buffer(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         handle_buffer(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -2274,6 +2282,7 @@ class RTPBasePayload(Gst.Element):
         self,
         pad: Gst.Pad,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         query(self, pad:Gst.Pad, query:Gst.Query) -> bool
@@ -2281,6 +2290,7 @@ class RTPBasePayload(Gst.Element):
     def do_set_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps(self, caps:Gst.Caps) -> bool
@@ -2288,6 +2298,7 @@ class RTPBasePayload(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -2295,6 +2306,7 @@ class RTPBasePayload(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -2575,7 +2587,7 @@ class RTPBuffer(GObject.GPointer, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def add_extension_onebyte_header(self, id: int, data: bytes) -> bool:
+    def add_extension_onebyte_header(self, id: int, data: collections.abc.Sequence[int]) -> bool:
         """
             Adds a RFC 5285 header extension with a one byte header to the end of the
         RTP header. If there is already a RFC 5285 header extension with a one byte
@@ -2585,7 +2597,7 @@ class RTPBuffer(GObject.GPointer, metaclass=GObject.GType):
         a two bytes header as described in RFC 5285. In that case, use
         `gst_rtp_buffer_add_extension_twobytes_header`
         """
-    def add_extension_twobytes_header(self, appbits: int, id: int, data: bytes) -> bool:
+    def add_extension_twobytes_header(self, appbits: int, id: int, data: collections.abc.Sequence[int]) -> bool:
         """
             Adds a RFC 5285 header extension with a two bytes header to the end of the
         RTP header. If there is already a RFC 5285 header extension with a two bytes
@@ -2765,14 +2777,14 @@ class RTPBuffer(GObject.GPointer, metaclass=GObject.GType):
         All RTP header fields will be set to 0/False.
         """
     @staticmethod
-    def new_copy_data(data: bytes) -> Gst.Buffer:
+    def new_copy_data(data: collections.abc.Sequence[int]) -> Gst.Buffer:
         """
             Create a new buffer and set the data to a copy of `len`
         bytes of `data` and the size to `len`. The data will be freed when the buffer
         is freed.
         """
     @staticmethod
-    def new_take_data(data: bytes) -> Gst.Buffer:
+    def new_take_data(data: collections.abc.Sequence[int]) -> Gst.Buffer:
         """
             Create a new buffer and set the data and size of the buffer to `data` and `len`
         respectively. `data` will be freed when the buffer is unreffed, so this
@@ -2886,7 +2898,9 @@ class RTPHeaderExtension(Gst.Element):
     def get_sdp_caps_field_name(self) -> str: ...
     def get_supported_flags(self) -> RTPHeaderExtensionFlags: ...
     def get_uri(self) -> str | None: ...
-    def read(self, read_flags: RTPHeaderExtensionFlags, data: bytes, buffer: Gst.Buffer) -> bool:
+    def read(
+        self, read_flags: RTPHeaderExtensionFlags, data: collections.abc.Sequence[int], buffer: Gst.Buffer
+    ) -> bool:
         """
         Read the RTP header extension from `data`.
         """
@@ -2952,7 +2966,11 @@ class RTPHeaderExtension(Gst.Element):
         packet.
         """
     def write(
-        self, input_meta: Gst.Buffer, write_flags: RTPHeaderExtensionFlags, output: Gst.Buffer, data: bytes
+        self,
+        input_meta: Gst.Buffer,
+        write_flags: RTPHeaderExtensionFlags,
+        output: Gst.Buffer,
+        data: collections.abc.Sequence[int],
     ) -> int:
         """
             Writes the RTP header extension to `data` using information available from
@@ -2964,12 +2982,14 @@ class RTPHeaderExtension(Gst.Element):
     def do_get_max_size(
         self,
         input_meta: Gst.Buffer,
+        /,
     ) -> int:
         """
         get_max_size(self, input_meta:Gst.Buffer) -> int
         """
     def do_get_supported_flags(
         self,
+        /,
     ) -> RTPHeaderExtensionFlags:
         """
         get_supported_flags(self) -> GstRtp.RTPHeaderExtensionFlags
@@ -2979,6 +2999,7 @@ class RTPHeaderExtension(Gst.Element):
         read_flags: RTPHeaderExtensionFlags,
         data: list[int],
         buffer: Gst.Buffer,
+        /,
     ) -> bool:
         """
         read(self, read_flags:GstRtp.RTPHeaderExtensionFlags, data:list, buffer:Gst.Buffer) -> bool
@@ -2987,6 +3008,7 @@ class RTPHeaderExtension(Gst.Element):
         self,
         direction: RTPHeaderExtensionDirection,
         attributes: str,
+        /,
     ) -> bool:
         """
         set_attributes(self, direction:GstRtp.RTPHeaderExtensionDirection, attributes:str) -> bool
@@ -2994,6 +3016,7 @@ class RTPHeaderExtension(Gst.Element):
     def do_set_caps_from_attributes(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_caps_from_attributes(self, caps:Gst.Caps) -> bool
@@ -3001,6 +3024,7 @@ class RTPHeaderExtension(Gst.Element):
     def do_set_non_rtp_sink_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_non_rtp_sink_caps(self, caps:Gst.Caps) -> bool
@@ -3008,6 +3032,7 @@ class RTPHeaderExtension(Gst.Element):
     def do_update_non_rtp_src_caps(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         update_non_rtp_src_caps(self, caps:Gst.Caps) -> bool
@@ -3018,6 +3043,7 @@ class RTPHeaderExtension(Gst.Element):
         write_flags: RTPHeaderExtensionFlags,
         output: Gst.Buffer,
         data: list[int],
+        /,
     ) -> int:
         """
         write(self, input_meta:Gst.Buffer, write_flags:GstRtp.RTPHeaderExtensionFlags, output:Gst.Buffer, data:list) -> int
@@ -3236,7 +3262,7 @@ class RTPSourceMeta(GObject.GPointer, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def append_csrc(self, csrc: list[int]) -> bool:
+    def append_csrc(self, csrc: collections.abc.Sequence[int]) -> bool:
         """
         Appends `csrc` to the list of contributing sources in `meta`.
         """

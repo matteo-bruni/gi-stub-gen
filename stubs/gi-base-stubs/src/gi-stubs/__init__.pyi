@@ -21,9 +21,9 @@ import typing
 ###############################################################
 
 def check_version(
-    version: typing.Any,
-) -> typing.Any: ...
-def disable_legacy_autoinit() -> typing.Any:
+    version: str | tuple[int, ...],
+) -> None: ...
+def disable_legacy_autoinit() -> None:
     """
     Disable the legacy initialization of Gdk and Gtk.
 
@@ -36,8 +36,8 @@ def disable_legacy_autoinit() -> typing.Any:
     """
 
 def get_option(
-    name: typing.Any,
-) -> typing.Any:
+    name: str,
+) -> bool:
     """
     Get option by name.
 
@@ -46,12 +46,12 @@ def get_option(
     """
 
 def get_required_version(
-    namespace: typing.Any,
-) -> typing.Any: ...
+    namespace: str,
+) -> str | None: ...
 def require_foreign(
-    namespace: typing.Any,
-    symbol: typing.Any = None,
-) -> typing.Any:
+    namespace: str,
+    symbol: str | None = None,
+) -> None:
     """
     Ensure the given foreign marshaling module is available and loaded.
 
@@ -73,9 +73,9 @@ def require_foreign(
     """
 
 def require_version(
-    namespace: typing.Any,
-    version: typing.Any,
-) -> typing.Any:
+    namespace: str,
+    version: str,
+) -> None:
     """
     Ensures the correct versions are loaded when importing `gi` modules.
 
@@ -95,8 +95,8 @@ def require_version(
     """
 
 def require_versions(
-    requires: typing.Any,
-) -> typing.Any:
+    requires: dict[str, str],
+) -> None:
     """
     Utility function for consolidating multiple `gi.require_version()` calls.
 
@@ -298,6 +298,7 @@ version_info: tuple[int, int, int] = ...
 #     - _signalhelper
 #     - _signature
 #     - docstring
+#     - events
 #     - importer
 #     - importlib
 #     - module

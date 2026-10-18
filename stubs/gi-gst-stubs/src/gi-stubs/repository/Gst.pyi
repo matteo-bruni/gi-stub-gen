@@ -638,7 +638,7 @@ def format_to_quark(
     ...
 
 def formats_contains(
-    formats: list[Format],
+    formats: collections.abc.Sequence[Format],
     format: Format,
 ) -> bool:
     """
@@ -730,7 +730,7 @@ def meta_api_type_has_tag(
 
 def meta_api_type_register(
     api: str,
-    tags: list[str],
+    tags: collections.abc.Sequence[str],
 ) -> GObject.GType:
     """
     Register and return a GType for the `api` and associate it with
@@ -749,11 +749,11 @@ def meta_api_type_set_params_aggregator(
 
 def meta_api_type_tags_contain_only(
     api: GObject.GType,
-    valid_tags: list[str],
+    valid_tags: collections.abc.Sequence[str],
 ) -> bool: ...
 def meta_deserialize(
     buffer: Buffer,
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> tuple[Meta | None, int]:
     """
     Recreate a Gst.Meta from serialized data returned by
@@ -779,7 +779,7 @@ def meta_get_info(
 
 def meta_register_custom(
     name: str,
-    tags: list[str],
+    tags: collections.abc.Sequence[str],
     transform_func: CustomMetaTransformFunction | None = None,
     *user_data: object | None,
 ) -> MetaInfo:
@@ -959,7 +959,7 @@ def parse_launch_full(
     ...
 
 def parse_launchv(
-    argv: list[str],
+    argv: collections.abc.Sequence[str],
 ) -> Element:
     """
     Create a new element based on command line syntax.
@@ -969,7 +969,7 @@ def parse_launchv(
     ...
 
 def parse_launchv_full(
-    argv: list[str],
+    argv: collections.abc.Sequence[str],
     context: ParseContext | None,
     flags: ParseFlags,
 ) -> Element:
@@ -1004,7 +1004,7 @@ def preset_set_app_dir(
     ...
 
 def protection_filter_systems_by_available_decryptors(
-    system_identifiers: list[str],
+    system_identifiers: collections.abc.Sequence[str],
 ) -> list[str] | None:
     """
     Iterates the supplied list of UUIDs and checks the GstRegistry for
@@ -1015,7 +1015,7 @@ def protection_filter_systems_by_available_decryptors(
 def protection_meta_api_get_type() -> GObject.GType: ...
 def protection_meta_get_info() -> MetaInfo: ...
 def protection_select_system(
-    system_identifiers: list[str],
+    system_identifiers: collections.abc.Sequence[str],
 ) -> str | None:
     """
     Iterates the supplied list of UUIDs and checks the GstRegistry for
@@ -1499,7 +1499,7 @@ def util_dump_buffer(
     ...
 
 def util_dump_mem(
-    mem: bytes,
+    mem: collections.abc.Sequence[int],
 ) -> None:
     """
     Dumps the memory block into a hex representation. Useful for debugging.
@@ -5756,6 +5756,7 @@ class Allocator(Object):
         self,
         size: int,
         params: AllocationParams | None = None,
+        /,
     ) -> Memory | None:
         """
         alloc(self, size:int, params:Gst.AllocationParams=None) -> Gst.Memory or None
@@ -5763,6 +5764,7 @@ class Allocator(Object):
     def do_free(
         self,
         memory: Memory,
+        /,
     ) -> None:
         """
         free(self, memory:Gst.Memory)
@@ -6177,6 +6179,7 @@ class Bin(Element):
     def do_add_element(
         self,
         element: Element,
+        /,
     ) -> bool:
         """
         add_element(self, element:Gst.Element) -> bool
@@ -6185,6 +6188,7 @@ class Bin(Element):
         self,
         sub_bin: Bin,
         child: Element,
+        /,
     ) -> None:
         """
         deep_element_added(self, sub_bin:Gst.Bin, child:Gst.Element)
@@ -6193,12 +6197,14 @@ class Bin(Element):
         self,
         sub_bin: Bin,
         child: Element,
+        /,
     ) -> None:
         """
         deep_element_removed(self, sub_bin:Gst.Bin, child:Gst.Element)
         """
     def do_do_latency(
         self,
+        /,
     ) -> bool:
         """
         do_latency(self) -> bool
@@ -6206,6 +6212,7 @@ class Bin(Element):
     def do_element_added(
         self,
         child: Element,
+        /,
     ) -> None:
         """
         element_added(self, child:Gst.Element)
@@ -6213,6 +6220,7 @@ class Bin(Element):
     def do_element_removed(
         self,
         child: Element,
+        /,
     ) -> None:
         """
         element_removed(self, child:Gst.Element)
@@ -6220,6 +6228,7 @@ class Bin(Element):
     def do_handle_message(
         self,
         message: Message,
+        /,
     ) -> None:
         """
         handle_message(self, message:Gst.Message)
@@ -6227,6 +6236,7 @@ class Bin(Element):
     def do_remove_element(
         self,
         element: Element,
+        /,
     ) -> bool:
         """
         remove_element(self, element:Gst.Element) -> bool
@@ -6742,7 +6752,7 @@ class Buffer(MiniObjectMixin[BufferFlags], GObject.GBoxed, metaclass=GObject.GTy
             Extracts a copy of at most `size` bytes the data at `offset` into
         newly-allocated memory. `dest` must be freed using `g_free` when done.
         """
-    def fill(self, offset: int, src: bytes) -> int:
+    def fill(self, offset: int, src: collections.abc.Sequence[int]) -> int:
         """
         Copies `size` bytes from `src` to `buffer` at `offset`.
         """
@@ -6871,7 +6881,7 @@ class Buffer(MiniObjectMixin[BufferFlags], GObject.GBoxed, metaclass=GObject.GTy
         Note that this function does not check if `buffer` is writable, use
         `Gst.Buffer.is_writable` to check that if needed.
         """
-    def memcmp(self, offset: int, mem: bytes) -> int:
+    def memcmp(self, offset: int, mem: collections.abc.Sequence[int]) -> int:
         """
         Compares `size` bytes starting from `offset` in `buffer` with the memory in `mem`.
         """
@@ -6903,12 +6913,12 @@ class Buffer(MiniObjectMixin[BufferFlags], GObject.GBoxed, metaclass=GObject.GTy
         Note that when `size` == 0, the buffer will not have memory associated with it.
         """
     @classmethod
-    def new_memdup(cls, data: bytes) -> Buffer:
+    def new_memdup(cls, data: collections.abc.Sequence[int]) -> Buffer:
         """
         Creates a new buffer of size `size` and fills it with a copy of `data`.
         """
     @classmethod
-    def new_wrapped(cls, data: bytes) -> Buffer:
+    def new_wrapped(cls, data: collections.abc.Sequence[int]) -> Buffer:
         """
             Creates a new buffer that wraps the given `data`. The memory will be freed
         with `g_free` and will be marked writable.
@@ -6923,7 +6933,7 @@ class Buffer(MiniObjectMixin[BufferFlags], GObject.GBoxed, metaclass=GObject.GTy
     def new_wrapped_full(
         cls,
         flags: MemoryFlags,
-        data: bytes,
+        data: collections.abc.Sequence[int],
         maxsize: int,
         offset: int,
         *user_data: object | None,
@@ -7410,6 +7420,7 @@ class BufferPool(Object):
     def do_acquire_buffer(
         self,
         params: BufferPoolAcquireParams | None = None,
+        /,
     ) -> tuple[FlowReturn, Buffer | None]:
         """
         acquire_buffer(self, params:Gst.BufferPoolAcquireParams=None) -> Gst.FlowReturn, buffer:Gst.Buffer
@@ -7417,18 +7428,21 @@ class BufferPool(Object):
     def do_alloc_buffer(
         self,
         params: BufferPoolAcquireParams | None = None,
+        /,
     ) -> tuple[FlowReturn, Buffer | None]:
         """
         alloc_buffer(self, params:Gst.BufferPoolAcquireParams=None) -> Gst.FlowReturn, buffer:Gst.Buffer
         """
     def do_flush_start(
         self,
+        /,
     ) -> None:
         """
         flush_start(self)
         """
     def do_flush_stop(
         self,
+        /,
     ) -> None:
         """
         flush_stop(self)
@@ -7436,12 +7450,14 @@ class BufferPool(Object):
     def do_free_buffer(
         self,
         buffer: Buffer,
+        /,
     ) -> None:
         """
         free_buffer(self, buffer:Gst.Buffer)
         """
     def do_get_options(
         self,
+        /,
     ) -> list[str]:
         """
         get_options(self) -> list
@@ -7449,6 +7465,7 @@ class BufferPool(Object):
     def do_release_buffer(
         self,
         buffer: Buffer,
+        /,
     ) -> None:
         """
         release_buffer(self, buffer:Gst.Buffer)
@@ -7456,6 +7473,7 @@ class BufferPool(Object):
     def do_reset_buffer(
         self,
         buffer: Buffer,
+        /,
     ) -> None:
         """
         reset_buffer(self, buffer:Gst.Buffer)
@@ -7463,18 +7481,21 @@ class BufferPool(Object):
     def do_set_config(
         self,
         config: Structure,
+        /,
     ) -> bool:
         """
         set_config(self, config:Gst.Structure) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -7882,6 +7903,7 @@ class Bus(Object):
     def do_message(
         self,
         message: Message,
+        /,
     ) -> None:
         """
         message(self, message:Gst.Message)
@@ -7889,6 +7911,7 @@ class Bus(Object):
     def do_sync_message(
         self,
         message: Message,
+        /,
     ) -> None:
         """
         sync_message(self, message:Gst.Message)
@@ -8380,9 +8403,16 @@ class Caps(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.G
         """
 
     # python methods (overrides?)
+    def __getitem__(
+        self,
+        index: int,
+    ) -> Structure: ...
     def __iter__(
         self,
     ) -> collections.abc.Iterator[Structure]: ...
+    def __len__(
+        self,
+    ) -> int: ...
     def get_structure(
         self,
         index: int,
@@ -9108,18 +9138,21 @@ class Clock(Object):
         self,
         old_resolution: int,
         new_resolution: int,
+        /,
     ) -> int:
         """
         change_resolution(self, old_resolution:int, new_resolution:int) -> int
         """
     def do_get_internal_time(
         self,
+        /,
     ) -> int:
         """
         get_internal_time(self) -> int
         """
     def do_get_resolution(
         self,
+        /,
     ) -> int:
         """
         get_resolution(self) -> int
@@ -9127,6 +9160,7 @@ class Clock(Object):
     def do_unschedule(
         self,
         entry: ClockEntry,
+        /,
     ) -> None:
         """
         unschedule(self, entry:Gst.ClockEntry)
@@ -9134,6 +9168,7 @@ class Clock(Object):
     def do_wait(
         self,
         entry: ClockEntry,
+        /,
     ) -> tuple[ClockReturn, int]:
         """
         wait(self, entry:Gst.ClockEntry) -> Gst.ClockReturn, jitter:int
@@ -9141,6 +9176,7 @@ class Clock(Object):
     def do_wait_async(
         self,
         entry: ClockEntry,
+        /,
     ) -> ClockReturn:
         """
         wait_async(self, entry:Gst.ClockEntry) -> Gst.ClockReturn
@@ -9433,7 +9469,7 @@ class ControlBinding(Object):
         """
         Initialize ControlBinding object with properties.
         """
-    def get_g_value_array(self, timestamp: int, interval: int, values: list[GObject.Value]) -> bool:
+    def get_g_value_array(self, timestamp: int, interval: int, values: collections.abc.Sequence[GObject.Value]) -> bool:
         """
             Gets a number of GValues for the given controlled property starting at the
         requested time. The array `values` need to hold enough space for `n_values` of
@@ -9470,6 +9506,7 @@ class ControlBinding(Object):
         timestamp: int,
         interval: int,
         values: list[GObject.Value],
+        /,
     ) -> bool:
         """
         get_g_value_array(self, timestamp:int, interval:int, values:list) -> bool
@@ -9477,6 +9514,7 @@ class ControlBinding(Object):
     def do_get_value(
         self,
         timestamp: int,
+        /,
     ) -> GObject.Value | None:
         """
         get_value(self, timestamp:int) -> GObject.Value or None
@@ -9486,6 +9524,7 @@ class ControlBinding(Object):
         object: Object,
         timestamp: int,
         last_sync: int,
+        /,
     ) -> bool:
         """
         sync_values(self, object:Gst.Object, timestamp:int, last_sync:int) -> bool
@@ -9601,7 +9640,9 @@ class ControlSource(Object):
         """
         Gets the value for this Gst.ControlSource at a given timestamp.
         """
-    def control_source_get_value_array(self, timestamp: int, interval: int, values: list[float]) -> bool:
+    def control_source_get_value_array(
+        self, timestamp: int, interval: int, values: collections.abc.Sequence[float]
+    ) -> bool:
         """
             Gets an array of values for for this Gst.ControlSource. Values that are
         undefined contain NANs.
@@ -10141,7 +10182,7 @@ class Device(Object):
         """
         Check if `device` matches all of the given classes
         """
-    def has_classesv(self, classes: list[str]) -> bool:
+    def has_classesv(self, classes: collections.abc.Sequence[str]) -> bool:
         """
         Check if `factory` matches all of the given classes
         """
@@ -10159,6 +10200,7 @@ class Device(Object):
     def do_create_element(
         self,
         name: str | None = None,
+        /,
     ) -> Element | None:
         """
         create_element(self, name:str=None) -> Gst.Element or None
@@ -10166,6 +10208,7 @@ class Device(Object):
     def do_reconfigure_element(
         self,
         element: Element,
+        /,
     ) -> bool:
         """
         reconfigure_element(self, element:Gst.Element) -> bool
@@ -10645,12 +10688,14 @@ class DeviceProvider(Object):
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> None:
         """
         stop(self)
@@ -10855,7 +10900,7 @@ class DeviceProviderFactory(PluginFeature):
         """
         Check if `factory` matches all of the given `classes`
         """
-    def has_classesv(self, classes: list[str] | None = None) -> bool:
+    def has_classesv(self, classes: collections.abc.Sequence[str] | None = None) -> bool:
         """
         Check if `factory` matches all of the given classes
         """
@@ -11863,6 +11908,7 @@ class Element(Object):
     def do_change_state(
         self,
         transition: StateChange,
+        /,
     ) -> StateChangeReturn:
         """
         change_state(self, transition:Gst.StateChange) -> Gst.StateChangeReturn
@@ -11870,12 +11916,14 @@ class Element(Object):
     def do_get_state(
         self,
         timeout: int,
+        /,
     ) -> tuple[StateChangeReturn, State, State]:
         """
         get_state(self, timeout:int) -> Gst.StateChangeReturn, state:Gst.State, pending:Gst.State
         """
     def do_no_more_pads(
         self,
+        /,
     ) -> None:
         """
         no_more_pads(self)
@@ -11883,6 +11931,7 @@ class Element(Object):
     def do_pad_added(
         self,
         pad: Pad,
+        /,
     ) -> None:
         """
         pad_added(self, pad:Gst.Pad)
@@ -11890,6 +11939,7 @@ class Element(Object):
     def do_pad_removed(
         self,
         pad: Pad,
+        /,
     ) -> None:
         """
         pad_removed(self, pad:Gst.Pad)
@@ -11897,12 +11947,14 @@ class Element(Object):
     def do_post_message(
         self,
         message: Message,
+        /,
     ) -> bool:
         """
         post_message(self, message:Gst.Message) -> bool
         """
     def do_provide_clock(
         self,
+        /,
     ) -> Clock | None:
         """
         provide_clock(self) -> Gst.Clock or None
@@ -11910,6 +11962,7 @@ class Element(Object):
     def do_query(
         self,
         query: Query,
+        /,
     ) -> bool:
         """
         query(self, query:Gst.Query) -> bool
@@ -11917,6 +11970,7 @@ class Element(Object):
     def do_release_pad(
         self,
         pad: Pad,
+        /,
     ) -> None:
         """
         release_pad(self, pad:Gst.Pad)
@@ -11926,6 +11980,7 @@ class Element(Object):
         templ: PadTemplate,
         name: str | None = None,
         caps: Caps | None = None,
+        /,
     ) -> Pad | None:
         """
         request_new_pad(self, templ:Gst.PadTemplate, name:str=None, caps:Gst.Caps=None) -> Gst.Pad or None
@@ -11933,6 +11988,7 @@ class Element(Object):
     def do_send_event(
         self,
         event: Event,
+        /,
     ) -> bool:
         """
         send_event(self, event:Gst.Event) -> bool
@@ -11940,6 +11996,7 @@ class Element(Object):
     def do_set_bus(
         self,
         bus: Bus | None = None,
+        /,
     ) -> None:
         """
         set_bus(self, bus:Gst.Bus=None)
@@ -11947,6 +12004,7 @@ class Element(Object):
     def do_set_clock(
         self,
         clock: Clock | None = None,
+        /,
     ) -> bool:
         """
         set_clock(self, clock:Gst.Clock=None) -> bool
@@ -11954,6 +12012,7 @@ class Element(Object):
     def do_set_context(
         self,
         context: Context,
+        /,
     ) -> None:
         """
         set_context(self, context:Gst.Context)
@@ -11961,6 +12020,7 @@ class Element(Object):
     def do_set_state(
         self,
         state: State,
+        /,
     ) -> StateChangeReturn:
         """
         set_state(self, state:Gst.State) -> Gst.StateChangeReturn
@@ -11970,6 +12030,7 @@ class Element(Object):
         oldstate: State,
         newstate: State,
         pending: State,
+        /,
     ) -> None:
         """
         state_changed(self, oldstate:Gst.State, newstate:Gst.State, pending:Gst.State)
@@ -12354,7 +12415,9 @@ class ElementFactory(PluginFeature):
         their first argument.
         """
     def create_with_properties(
-        self, names: list[str] | None = None, values: list[typing.Any] | None = None
+        self,
+        names: collections.abc.Sequence[str] | None = None,
+        values: collections.abc.Sequence[typing.Any] | None = None,
     ) -> Element | None:
         """
             Create a new element of the type defined by the given elementfactory.
@@ -12433,7 +12496,9 @@ class ElementFactory(PluginFeature):
         """
     @staticmethod
     def make_with_properties(
-        factoryname: str, names: list[str] | None = None, values: list[typing.Any] | None = None
+        factoryname: str,
+        names: collections.abc.Sequence[str] | None = None,
+        values: collections.abc.Sequence[typing.Any] | None = None,
     ) -> Element | None:
         """
             Create a new element of the type defined by the given elementfactory.
@@ -14197,7 +14262,7 @@ class Memory(GObject.GBoxed, metaclass=GObject.GType):
     def new_wrapped(
         cls,
         flags: MemoryFlags,
-        data: list[int],
+        data: collections.abc.Sequence[int],
         maxsize: int,
         offset: int,
         user_data: typing.Any = None,
@@ -15535,7 +15600,7 @@ class Meta(GObject.GPointer, metaclass=GObject.GType):
         Check if `api` was registered with `tag`.
         """
     @staticmethod
-    def api_type_register(api: str, tags: list[str]) -> GObject.GType:
+    def api_type_register(api: str, tags: collections.abc.Sequence[str]) -> GObject.GType:
         """
             Register and return a GType for the `api` and associate it with
         `tags`.
@@ -15546,14 +15611,14 @@ class Meta(GObject.GPointer, metaclass=GObject.GType):
         This function sets the aggregator function for a specific API type.
         """
     @staticmethod
-    def api_type_tags_contain_only(api: GObject.GType, valid_tags: list[str]) -> bool: ...
+    def api_type_tags_contain_only(api: GObject.GType, valid_tags: collections.abc.Sequence[str]) -> bool: ...
     def compare_seqnum(self, meta2: Meta) -> int:
         """
             Meta sequence number compare function. Can be used as GCompareFunc
         or a GCompareDataFunc.
         """
     @staticmethod
-    def deserialize(buffer: Buffer, data: bytes) -> tuple[Meta | None, int]:
+    def deserialize(buffer: Buffer, data: collections.abc.Sequence[int]) -> tuple[Meta | None, int]:
         """
             Recreate a Gst.Meta from serialized data returned by
         `Gst.Meta.serialize` and add it to `buffer`.
@@ -15577,7 +15642,10 @@ class Meta(GObject.GPointer, metaclass=GObject.GType):
         """
     @staticmethod
     def register_custom(
-        name: str, tags: list[str], transform_func: CustomMetaTransformFunction | None = None, *user_data: object | None
+        name: str,
+        tags: collections.abc.Sequence[str],
+        transform_func: CustomMetaTransformFunction | None = None,
+        *user_data: object | None,
     ) -> MetaInfo:
         """
             Register a new custom Gst.Meta implementation, backed by an opaque
@@ -15615,7 +15683,7 @@ class Meta(GObject.GPointer, metaclass=GObject.GType):
         Since serialization size is often the same for every buffer, caller may want
         to remember the size of previous data to preallocate the next.
         """
-    def serialize_simple(self, data: bytes) -> bool:
+    def serialize_simple(self, data: collections.abc.Sequence[int]) -> bool:
         """
             Same as `Gst.Meta.serialize` but with a GByteArray instead of
         Gst.ByteArrayInterface.
@@ -16079,7 +16147,10 @@ class Object(GObject.InitiallyUnowned):
         """
     @staticmethod
     def default_deep_notify(
-        object: GObject.Object, orig: Object, pspec: GObject.ParamSpec, excluded_props: list[str] | None = None
+        object: GObject.Object,
+        orig: Object,
+        pspec: GObject.ParamSpec,
+        excluded_props: collections.abc.Sequence[str] | None = None,
     ) -> None:
         """
             A default deep_notify signal callback for an object. The user data
@@ -16115,7 +16186,9 @@ class Object(GObject.InitiallyUnowned):
         The control-rate is not expected to change if the element is in
         Gst.STATE_PAUSED or Gst.STATE_PLAYING.
         """
-    def get_g_value_array(self, property_name: str, timestamp: int, interval: int, values: list[GObject.Value]) -> bool:
+    def get_g_value_array(
+        self, property_name: str, timestamp: int, interval: int, values: collections.abc.Sequence[GObject.Value]
+    ) -> bool:
         """
             Gets a number of GValues for the given controlled property starting at the
         requested time. The array `values` need to hold enough space for `n_values` of
@@ -16266,6 +16339,7 @@ class Object(GObject.InitiallyUnowned):
         self,
         orig: Object,
         pspec: GObject.ParamSpec,
+        /,
     ) -> None:
         """
         deep_notify(self, orig:Gst.Object, pspec:GObject.ParamSpec)
@@ -17186,6 +17260,7 @@ class Pad(Object):
     def do_linked(
         self,
         peer: Pad,
+        /,
     ) -> None:
         """
         linked(self, peer:Gst.Pad)
@@ -17193,6 +17268,7 @@ class Pad(Object):
     def do_unlinked(
         self,
         peer: Pad,
+        /,
     ) -> None:
         """
         unlinked(self, peer:Gst.Pad)
@@ -17640,6 +17716,7 @@ class PadTemplate(Object):
     def do_pad_created(
         self,
         pad: Pad,
+        /,
     ) -> None:
         """
         pad_created(self, pad:Gst.Pad)
@@ -18310,7 +18387,11 @@ class Plugin(Object):
         Initialize Plugin object with properties.
         """
     def add_dependency(
-        self, env_vars: list[str] | None, paths: list[str] | None, names: list[str] | None, flags: PluginDependencyFlags
+        self,
+        env_vars: collections.abc.Sequence[str] | None,
+        paths: collections.abc.Sequence[str] | None,
+        names: collections.abc.Sequence[str] | None,
+        flags: PluginDependencyFlags,
     ) -> None:
         """
             Make GStreamer aware of external dependencies which affect the feature
@@ -19780,7 +19861,7 @@ class Query(MiniObjectMixin[MiniObjectFlags], GObject.GBoxed, metaclass=GObject.
         """
         Answer a duration query by setting the requested value in the given format.
         """
-    def set_formatsv(self, formats: list[Format]) -> None:
+    def set_formatsv(self, formats: collections.abc.Sequence[Format]) -> None:
         """
             Set the formats query result fields in `query`. The number of formats passed
         in the `formats` array must be equal to `n_formats`.
@@ -21096,6 +21177,7 @@ class StreamCollection(Object):
         self,
         stream: Stream,
         pspec: GObject.ParamSpec,
+        /,
     ) -> None:
         """
         stream_notify(self, stream:Gst.Stream, pspec:GObject.ParamSpec)
@@ -21774,9 +21856,21 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         _value: typing.Any,
         _tb: typing.Any,
     ) -> None: ...
+    def __getitem__(
+        self,
+        key: str,
+    ) -> typing.Any: ...
     def __iter__(
         self,
     ) -> collections.abc.Iterator[str]: ...
+    def __len__(
+        self,
+    ) -> int: ...
+    def __setitem__(
+        self,
+        key: str,
+        value: typing.Any,
+    ) -> None: ...
     @classmethod
     def from_string(
         cls,
@@ -22823,6 +22917,7 @@ class TaskPool(Object):
     # python methods (overrides?)
     def do_cleanup(
         self,
+        /,
     ) -> None:
         """
         cleanup(self)
@@ -22830,6 +22925,7 @@ class TaskPool(Object):
     def do_dispose_handle(
         self,
         id: typing.Any = None,
+        /,
     ) -> None:
         """
         dispose_handle(self, id=None)
@@ -22837,12 +22933,14 @@ class TaskPool(Object):
     def do_join(
         self,
         id: typing.Any = None,
+        /,
     ) -> None:
         """
         join(self, id=None)
         """
     def do_prepare(
         self,
+        /,
     ) -> None:
         """
         prepare(self)
@@ -22851,6 +22949,7 @@ class TaskPool(Object):
         self,
         func: collections.abc.Callable[[typing.Any], None],
         user_data: typing.Any = None,
+        /,
     ) -> typing.Any:
         """
         push(self, func:Gst.TaskPoolFunction, user_data=None)
@@ -23961,7 +24060,7 @@ class Uri(GObject.GBoxed, metaclass=GObject.GType):
         """
         Sets or unsets the query table in the URI.
         """
-    def set_query_table(self, query_table: dict[str, str] | None = None) -> bool:
+    def set_query_table(self, query_table: collections.abc.Mapping[str, str] | None = None) -> bool:
         """
             Set the query table to use in the URI. The old table is unreferenced and a
         reference to the new one is used instead. A value if None for `query_table`

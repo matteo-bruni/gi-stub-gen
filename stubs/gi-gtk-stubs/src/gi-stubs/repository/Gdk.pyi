@@ -1873,6 +1873,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
         self,
         info: Gio.AppInfo,
         files: list[Gio.File],
+        /,
     ) -> str | None:
         """
         get_display(self, info:Gio.AppInfo, files:list) -> str or None
@@ -1881,6 +1882,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
         self,
         info: Gio.AppInfo,
         files: list[Gio.File],
+        /,
     ) -> str | None:
         """
         get_startup_notify_id(self, info:Gio.AppInfo, files:list) -> str or None
@@ -1888,6 +1890,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
     def do_launch_failed(
         self,
         startup_notify_id: str,
+        /,
     ) -> None:
         """
         launch_failed(self, startup_notify_id:str)
@@ -1896,6 +1899,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
         self,
         info: Gio.AppInfo,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         launch_started(self, info:Gio.AppInfo, platform_data:GLib.Variant)
@@ -1904,6 +1908,7 @@ class AppLaunchContext(Gio.AppLaunchContext):
         self,
         info: Gio.AppInfo,
         platform_data: GLib.Variant,
+        /,
     ) -> None:
         """
         launched(self, info:Gio.AppInfo, platform_data:GLib.Variant)
@@ -2106,7 +2111,7 @@ class Clipboard(GObject.Object):
         """
     @typing.overload
     def read_async(
-        self, mime_types: list[str], io_priority: int, cancellable: Gio.Cancellable | None = None
+        self, mime_types: collections.abc.Sequence[str], io_priority: int, cancellable: Gio.Cancellable | None = None
     ) -> gi._gi.Async[tuple[Gio.InputStream | None, str]]:
         """
             Asynchronously requests an input stream to read the `clipboard`'s
@@ -2121,7 +2126,7 @@ class Clipboard(GObject.Object):
     @typing.overload
     def read_async(
         self,
-        mime_types: list[str],
+        mime_types: collections.abc.Sequence[str],
         io_priority: int,
         cancellable: Gio.Cancellable | None,
         callback: Gio.AsyncReadyCallback | None,
@@ -2130,7 +2135,7 @@ class Clipboard(GObject.Object):
     @typing.overload
     def read_async(
         self,
-        mime_types: list[str],
+        mime_types: collections.abc.Sequence[str],
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         *,
@@ -2579,7 +2584,7 @@ class ContentFormats(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new(
         cls,
-        mime_types: list[str] | None = None,
+        mime_types: collections.abc.Sequence[str] | None = None,
     ) -> ContentFormats:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -2784,12 +2789,14 @@ class ContentProvider(GObject.Object):
     def do_attach_clipboard(
         self,
         clipboard: Clipboard,
+        /,
     ) -> None:
         """
         attach_clipboard(self, clipboard:Gdk.Clipboard)
         """
     def do_content_changed(
         self,
+        /,
     ) -> None:
         """
         content_changed(self)
@@ -2797,24 +2804,28 @@ class ContentProvider(GObject.Object):
     def do_detach_clipboard(
         self,
         clipboard: Clipboard,
+        /,
     ) -> None:
         """
         detach_clipboard(self, clipboard:Gdk.Clipboard)
         """
     def do_get_value(
         self,
+        /,
     ) -> tuple[bool, GObject.Value]:
         """
         get_value(self) -> bool, value:GObject.Value
         """
     def do_ref_formats(
         self,
+        /,
     ) -> ContentFormats:
         """
         ref_formats(self) -> Gdk.ContentFormats
         """
     def do_ref_storable_formats(
         self,
+        /,
     ) -> ContentFormats:
         """
         ref_storable_formats(self) -> Gdk.ContentFormats
@@ -2827,6 +2838,7 @@ class ContentProvider(GObject.Object):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         write_mime_type_async(self, mime_type:str, stream:Gio.OutputStream, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -2834,6 +2846,7 @@ class ContentProvider(GObject.Object):
     def do_write_mime_type_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> bool:
         """
         write_mime_type_finish(self, result:Gio.AsyncResult) -> bool
@@ -2867,7 +2880,7 @@ class ContentProvider(GObject.Object):
     @classmethod
     def new_union(
         cls,
-        providers: list[ContentProvider] | None = None,
+        providers: collections.abc.Sequence[ContentProvider] | None = None,
     ) -> ContentProvider:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -5493,7 +5506,7 @@ class Drop(GObject.Object):
         """
     @typing.overload
     def read_async(
-        self, mime_types: list[str], io_priority: int, cancellable: Gio.Cancellable | None = None
+        self, mime_types: collections.abc.Sequence[str], io_priority: int, cancellable: Gio.Cancellable | None = None
     ) -> gi._gi.Async[tuple[Gio.InputStream | None, str]]:
         """
             Asynchronously read the dropped data from a `GdkDrop`
@@ -5502,7 +5515,7 @@ class Drop(GObject.Object):
     @typing.overload
     def read_async(
         self,
-        mime_types: list[str],
+        mime_types: collections.abc.Sequence[str],
         io_priority: int,
         cancellable: Gio.Cancellable | None,
         callback: Gio.AsyncReadyCallback | None,
@@ -5511,7 +5524,7 @@ class Drop(GObject.Object):
     @typing.overload
     def read_async(
         self,
-        mime_types: list[str],
+        mime_types: collections.abc.Sequence[str],
         io_priority: int,
         cancellable: Gio.Cancellable | None = None,
         *,
@@ -5821,7 +5834,7 @@ class FileList(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_from_array(
         cls,
-        files: list[Gio.File],
+        files: collections.abc.Sequence[Gio.File],
     ) -> FileList:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -8775,7 +8788,7 @@ class Texture(GObject.Object):
         """
         Initialize Texture object with properties.
         """
-    def download(self, data: bytes, stride: int) -> None:
+    def download(self, data: collections.abc.Sequence[int], stride: int) -> None:
         """
             Downloads the `texture` into local memory.
 
@@ -9045,7 +9058,7 @@ class TextureDownloader(GObject.GBoxed, metaclass=GObject.GType):
         memory allocation yourself and use [method`Gdk`.TextureDownloader.download_into]
         once allocation succeeded.
         """
-    def download_into(self, data: bytes, stride: int) -> None:
+    def download_into(self, data: collections.abc.Sequence[int], stride: int) -> None:
         """
         Downloads the `texture` into local memory.
         """

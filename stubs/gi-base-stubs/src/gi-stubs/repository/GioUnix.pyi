@@ -1130,6 +1130,7 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1137,6 +1138,7 @@ class InputStream(Gio.InputStream):
     def do_close_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -1144,6 +1146,7 @@ class InputStream(Gio.InputStream):
     def do_close_fn(
         self,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
@@ -1154,6 +1157,7 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> list[int] | None:
         """
         read_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None) -> buffer:list
@@ -1161,6 +1165,7 @@ class InputStream(Gio.InputStream):
     def do_read_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> int:
         """
         read_finish(self, result:Gio.AsyncResult) -> int
@@ -1170,6 +1175,7 @@ class InputStream(Gio.InputStream):
         buffer: typing.Any,
         count: int,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> int:
         """
         read_fn(self, buffer=None, count:int, cancellable:Gio.Cancellable=None) -> int
@@ -1178,6 +1184,7 @@ class InputStream(Gio.InputStream):
         self,
         count: int,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> int:
         """
         skip(self, count:int, cancellable:Gio.Cancellable=None) -> int
@@ -1189,6 +1196,7 @@ class InputStream(Gio.InputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         skip_async(self, count:int, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1196,6 +1204,7 @@ class InputStream(Gio.InputStream):
     def do_skip_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> int:
         """
         skip_finish(self, result:Gio.AsyncResult) -> int
@@ -1528,6 +1537,7 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         close_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1535,6 +1545,7 @@ class OutputStream(Gio.OutputStream):
     def do_close_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> bool:
         """
         close_finish(self, result:Gio.AsyncResult) -> bool
@@ -1542,6 +1553,7 @@ class OutputStream(Gio.OutputStream):
     def do_close_fn(
         self,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> bool:
         """
         close_fn(self, cancellable:Gio.Cancellable=None) -> bool
@@ -1549,6 +1561,7 @@ class OutputStream(Gio.OutputStream):
     def do_flush(
         self,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> bool:
         """
         flush(self, cancellable:Gio.Cancellable=None) -> bool
@@ -1559,6 +1572,7 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         flush_async(self, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1566,6 +1580,7 @@ class OutputStream(Gio.OutputStream):
     def do_flush_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> bool:
         """
         flush_finish(self, result:Gio.AsyncResult) -> bool
@@ -1575,6 +1590,7 @@ class OutputStream(Gio.OutputStream):
         source: Gio.InputStream,
         flags: Gio.OutputStreamSpliceFlags,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> int:
         """
         splice(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, cancellable:Gio.Cancellable=None) -> int
@@ -1587,6 +1603,7 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         splice_async(self, source:Gio.InputStream, flags:Gio.OutputStreamSpliceFlags, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1594,6 +1611,7 @@ class OutputStream(Gio.OutputStream):
     def do_splice_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> int:
         """
         splice_finish(self, result:Gio.AsyncResult) -> int
@@ -1605,6 +1623,7 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         write_async(self, buffer:list=None, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1612,6 +1631,7 @@ class OutputStream(Gio.OutputStream):
     def do_write_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> int:
         """
         write_finish(self, result:Gio.AsyncResult) -> int
@@ -1620,6 +1640,7 @@ class OutputStream(Gio.OutputStream):
         self,
         buffer: list[int] | None = None,
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> int:
         """
         write_fn(self, buffer:list=None, cancellable:Gio.Cancellable=None) -> int
@@ -1631,6 +1652,7 @@ class OutputStream(Gio.OutputStream):
         cancellable: Gio.Cancellable | None = None,
         callback: collections.abc.Callable[[GObject.Object | None, Gio.AsyncResult, typing.Any], None] | None = None,
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         writev_async(self, vectors:list, io_priority:int, cancellable:Gio.Cancellable=None, callback:Gio.AsyncReadyCallback=None, user_data=None)
@@ -1638,6 +1660,7 @@ class OutputStream(Gio.OutputStream):
     def do_writev_finish(
         self,
         result: Gio.AsyncResult,
+        /,
     ) -> tuple[bool, int]:
         """
         writev_finish(self, result:Gio.AsyncResult) -> bool, bytes_written:int
@@ -1646,6 +1669,7 @@ class OutputStream(Gio.OutputStream):
         self,
         vectors: list[Gio.OutputVector],
         cancellable: Gio.Cancellable | None = None,
+        /,
     ) -> tuple[bool, int]:
         """
         writev_fn(self, vectors:list, cancellable:Gio.Cancellable=None) -> bool, bytes_written:int

@@ -1019,7 +1019,7 @@ def base64_decode(
     ...
 
 def base64_decode_inplace(
-    text: bytes,
+    text: collections.abc.Sequence[int],
 ) -> tuple[int, bytes]:
     """
     Decode a sequence of Base-64 encoded text into binary data
@@ -1028,7 +1028,7 @@ def base64_decode_inplace(
     ...
 
 def base64_encode(
-    data: bytes | None = None,
+    data: collections.abc.Sequence[int] | None = None,
 ) -> str:
     """
     Encode a sequence of binary data into its Base-64 stringified
@@ -1053,7 +1053,7 @@ def base64_encode_close(
     ...
 
 def base64_encode_step(
-    in_: bytes,
+    in_: collections.abc.Sequence[int],
     break_lines: bool,
     state: int,
     save: int,
@@ -1188,7 +1188,7 @@ def bit_unlock(
 def blow_chunks() -> None: ...
 def bookmark_file_error_quark() -> int: ...
 def build_filenamev(
-    args: list[str],
+    args: collections.abc.Sequence[str],
 ) -> str:
     """
     Creates a filename from a vector of elements using the correct
@@ -1205,7 +1205,7 @@ def build_filenamev(
 
 def build_pathv(
     separator: str,
-    args: list[str],
+    args: collections.abc.Sequence[str],
 ) -> str:
     """
     Behaves exactly like `g_build_path`, but takes the path elements
@@ -1216,7 +1216,7 @@ def build_pathv(
     ...
 
 def byte_array_append(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     data: int,
     len: int,
 ) -> bytes:
@@ -1227,7 +1227,7 @@ def byte_array_append(
     ...
 
 def byte_array_free(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     free_segment: bool,
 ) -> int:
     """
@@ -1239,7 +1239,7 @@ def byte_array_free(
     ...
 
 def byte_array_free_to_bytes(
-    array: bytes,
+    array: collections.abc.Sequence[int],
 ) -> Bytes:
     """
     Transfers the data from the GByteArray into a new immutable GBytes.
@@ -1260,7 +1260,7 @@ def byte_array_new() -> bytes:
     ...
 
 def byte_array_new_take(
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> bytes:
     """
     Creates a byte array containing the `data`.
@@ -1275,7 +1275,7 @@ def byte_array_new_take(
     ...
 
 def byte_array_prepend(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     data: int,
     len: int,
 ) -> bytes:
@@ -1286,7 +1286,7 @@ def byte_array_prepend(
     ...
 
 def byte_array_ref(
-    array: bytes,
+    array: collections.abc.Sequence[int],
 ) -> bytes:
     """
     Atomically increments the reference count of `array` by one.
@@ -1295,7 +1295,7 @@ def byte_array_ref(
     ...
 
 def byte_array_remove_index(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     index_: int,
 ) -> bytes:
     """
@@ -1305,7 +1305,7 @@ def byte_array_remove_index(
     ...
 
 def byte_array_remove_index_fast(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     index_: int,
 ) -> bytes:
     """
@@ -1317,7 +1317,7 @@ def byte_array_remove_index_fast(
     ...
 
 def byte_array_remove_range(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     index_: int,
     length: int,
 ) -> bytes:
@@ -1328,7 +1328,7 @@ def byte_array_remove_range(
     ...
 
 def byte_array_set_size(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     length: int,
 ) -> bytes:
     """
@@ -1348,7 +1348,7 @@ def byte_array_sized_new(
     ...
 
 def byte_array_sort(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     compare_func: CompareFunc,
 ) -> None:
     """
@@ -1366,7 +1366,7 @@ def byte_array_sort(
     ...
 
 def byte_array_sort_with_data(
-    array: bytes,
+    array: collections.abc.Sequence[int],
     compare_func: CompareDataFunc,
     *user_data: object | None,
 ) -> None:
@@ -1377,7 +1377,7 @@ def byte_array_sort_with_data(
     ...
 
 def byte_array_steal(
-    array: bytes,
+    array: collections.abc.Sequence[int],
 ) -> tuple[int, int]:
     """
     Frees the data in the array and resets the size to zero, while
@@ -1387,7 +1387,7 @@ def byte_array_steal(
     ...
 
 def byte_array_unref(
-    array: bytes,
+    array: collections.abc.Sequence[int],
 ) -> None:
     """
     Atomically decrements the reference count of `array` by one. If the
@@ -1595,7 +1595,7 @@ def compute_checksum_for_bytes(
 
 def compute_checksum_for_data(
     checksum_type: ChecksumType,
-    data: bytes,
+    data: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Computes the checksum for a binary `data` of `length`. This is a
@@ -1634,8 +1634,8 @@ def compute_hmac_for_bytes(
 
 def compute_hmac_for_data(
     digest_type: ChecksumType,
-    key: bytes,
-    data: bytes,
+    key: collections.abc.Sequence[int],
+    data: collections.abc.Sequence[int],
 ) -> str:
     """
     Computes the HMAC for a binary `data` of `length`. This is a
@@ -1648,7 +1648,7 @@ def compute_hmac_for_data(
 
 def compute_hmac_for_string(
     digest_type: ChecksumType,
-    key: bytes,
+    key: collections.abc.Sequence[int],
     str: str,
     length: int,
 ) -> str:
@@ -1660,7 +1660,7 @@ def compute_hmac_for_string(
     ...
 
 def convert(
-    str: bytes,
+    str: collections.abc.Sequence[int],
     to_codeset: str,
     from_codeset: str,
 ) -> tuple[bytes, int, int]:
@@ -1684,7 +1684,7 @@ def convert(
 
 def convert_error_quark() -> int: ...
 def convert_with_fallback(
-    str: bytes,
+    str: collections.abc.Sequence[int],
     to_codeset: str,
     from_codeset: str,
     fallback: str,
@@ -1786,7 +1786,7 @@ def datalist_id_get_data(
 
 def datalist_id_remove_multiple(
     datalist: Data,
-    keys: list[int],
+    keys: collections.abc.Sequence[int],
 ) -> None:
     """
     Removes multiple keys from a datalist.
@@ -2171,7 +2171,7 @@ def dpgettext2(
     ...
 
 def environ_getenv(
-    envp: list[str] | None,
+    envp: collections.abc.Sequence[str] | None,
     variable: str,
 ) -> str | None:
     """
@@ -2181,7 +2181,7 @@ def environ_getenv(
     ...
 
 def environ_setenv(
-    envp: list[str] | None,
+    envp: collections.abc.Sequence[str] | None,
     variable: str,
     value: str,
     overwrite: bool,
@@ -2193,7 +2193,7 @@ def environ_setenv(
     ...
 
 def environ_unsetenv(
-    envp: list[str] | None,
+    envp: collections.abc.Sequence[str] | None,
     variable: str,
 ) -> list[str]:
     """
@@ -2354,7 +2354,7 @@ def file_read_link(
 
 def file_set_contents(
     filename: str,
-    contents: bytes,
+    contents: collections.abc.Sequence[int],
 ) -> bool:
     """
     Writes all of `contents` to a file named `filename`. This is a convenience
@@ -2366,7 +2366,7 @@ def file_set_contents(
 
 def file_set_contents_full(
     filename: str,
-    contents: bytes,
+    contents: collections.abc.Sequence[int],
     flags: FileSetContentsFlags,
     mode: int,
 ) -> bool:
@@ -3277,7 +3277,7 @@ def getenv(
     ...
 
 def hash_table_add(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
 ) -> bool:
     """
@@ -3300,7 +3300,7 @@ def hash_table_add(
     ...
 
 def hash_table_contains(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
 ) -> bool:
     """
@@ -3309,7 +3309,7 @@ def hash_table_contains(
     ...
 
 def hash_table_destroy(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> None:
     """
     Destroys all keys and values in the GHashTable and decrements its
@@ -3322,7 +3322,7 @@ def hash_table_destroy(
     ...
 
 def hash_table_find(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     predicate: HRFunc,
     *user_data: object | None,
 ) -> object | None:
@@ -3344,7 +3344,7 @@ def hash_table_find(
     ...
 
 def hash_table_foreach(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     func: HFunc,
     *user_data: object | None,
 ) -> None:
@@ -3365,7 +3365,7 @@ def hash_table_foreach(
     ...
 
 def hash_table_foreach_remove(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     func: HRFunc,
     *user_data: object | None,
 ) -> int:
@@ -3382,7 +3382,7 @@ def hash_table_foreach_remove(
     ...
 
 def hash_table_foreach_steal(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     func: HRFunc,
     *user_data: object | None,
 ) -> int:
@@ -3398,7 +3398,7 @@ def hash_table_foreach_steal(
     ...
 
 def hash_table_insert(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
     value: object | None = None,
 ) -> bool:
@@ -3419,7 +3419,7 @@ def hash_table_insert(
     ...
 
 def hash_table_lookup(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
 ) -> object | None:
     """
@@ -3431,7 +3431,7 @@ def hash_table_lookup(
     ...
 
 def hash_table_lookup_extended(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     lookup_key: object | None = None,
 ) -> tuple[bool, object | None, object | None]:
     """
@@ -3447,7 +3447,7 @@ def hash_table_lookup_extended(
     ...
 
 def hash_table_new_similar(
-    other_hash_table: dict[object, object],
+    other_hash_table: collections.abc.Mapping[object, object],
 ) -> dict[object, object]:
     """
     Creates a new GHashTable like `g_hash_table_new_full` with a reference
@@ -3462,7 +3462,7 @@ def hash_table_new_similar(
     ...
 
 def hash_table_ref(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> dict[object, object]:
     """
     Atomically increments the reference count of `hash_table` by one.
@@ -3471,7 +3471,7 @@ def hash_table_ref(
     ...
 
 def hash_table_remove(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
 ) -> bool:
     """
@@ -3485,7 +3485,7 @@ def hash_table_remove(
     ...
 
 def hash_table_remove_all(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> None:
     """
     Removes all keys and their associated values from a GHashTable.
@@ -3498,7 +3498,7 @@ def hash_table_remove_all(
     ...
 
 def hash_table_replace(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
     value: object | None = None,
 ) -> bool:
@@ -3518,7 +3518,7 @@ def hash_table_replace(
     ...
 
 def hash_table_size(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> int:
     """
     Returns the number of elements contained in the GHashTable.
@@ -3526,7 +3526,7 @@ def hash_table_size(
     ...
 
 def hash_table_steal(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     key: object | None = None,
 ) -> bool:
     """
@@ -3536,7 +3536,7 @@ def hash_table_steal(
     ...
 
 def hash_table_steal_all(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> None:
     """
     Removes all keys and their associated values from a GHashTable
@@ -3545,7 +3545,7 @@ def hash_table_steal_all(
     ...
 
 def hash_table_steal_extended(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
     lookup_key: object | None = None,
 ) -> tuple[bool, object | None, object | None]:
     """
@@ -3569,7 +3569,7 @@ def hash_table_steal_extended(
     ...
 
 def hash_table_unref(
-    hash_table: dict[object, object],
+    hash_table: collections.abc.Mapping[object, object],
 ) -> None:
     """
     Atomically decrements the reference count of `hash_table` by one.
@@ -3884,7 +3884,7 @@ def locale_from_utf8(
     ...
 
 def locale_to_utf8(
-    opsysstring: bytes,
+    opsysstring: collections.abc.Sequence[int],
 ) -> tuple[str, int, int]:
     """
     Converts a string which is in the encoding used for strings by
@@ -4089,7 +4089,7 @@ def log_set_writer_func(
 
 def log_structured_array(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
 ) -> None:
     """
     Log a message with structured data.
@@ -4132,7 +4132,7 @@ def log_variant(
 
 def log_writer_default(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
     user_data: object | None = None,
 ) -> LogWriterOutput:
     """
@@ -4229,7 +4229,7 @@ def log_writer_default_would_drop(
 
 def log_writer_format_fields(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
     use_color: bool,
 ) -> str:
     """
@@ -4265,7 +4265,7 @@ def log_writer_is_journald(
 
 def log_writer_journald(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
     user_data: object | None = None,
 ) -> LogWriterOutput:
     """
@@ -4285,7 +4285,7 @@ def log_writer_journald(
 
 def log_writer_standard_streams(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
     user_data: object | None = None,
 ) -> LogWriterOutput:
     """
@@ -4322,7 +4322,7 @@ def log_writer_supports_color(
 
 def log_writer_syslog(
     log_level: LogLevelFlags,
-    fields: list[LogField],
+    fields: collections.abc.Sequence[LogField],
     user_data: object | None = None,
 ) -> LogWriterOutput:
     """
@@ -4840,7 +4840,7 @@ def open(
 def option_error_quark() -> int: ...
 def parse_debug_string(
     string: str | None,
-    keys: list[DebugKey],
+    keys: collections.abc.Sequence[DebugKey],
 ) -> int:
     """
     Parses a string containing debugging options
@@ -6083,8 +6083,8 @@ def spaced_primes_closest(
 
 def spawn_async_with_fds(
     working_directory: str | None,
-    argv: list[str],
-    envp: list[str] | None,
+    argv: collections.abc.Sequence[str],
+    envp: collections.abc.Sequence[str] | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None,
     *user_data: object | None,
@@ -6102,8 +6102,8 @@ def spawn_async_with_fds(
 
 def spawn_async_with_pipes(
     working_directory: str | None,
-    argv: list[str],
-    envp: list[str] | None,
+    argv: collections.abc.Sequence[str],
+    envp: collections.abc.Sequence[str] | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None = None,
     *user_data: object | None,
@@ -6116,16 +6116,16 @@ def spawn_async_with_pipes(
 
 def spawn_async_with_pipes_and_fds(
     working_directory: str | None,
-    argv: list[str],
-    envp: list[str] | None,
+    argv: collections.abc.Sequence[str],
+    envp: collections.abc.Sequence[str] | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None,
     *user_data: object | None,
     stdin_fd: int,
     stdout_fd: int,
     stderr_fd: int,
-    source_fds: list[int] | None = None,
-    target_fds: list[int] | None = None,
+    source_fds: collections.abc.Sequence[int] | None = None,
+    target_fds: collections.abc.Sequence[int] | None = None,
 ) -> tuple[bool, int, int, int, int]:
     """
     Executes a child program asynchronously (your program will not
@@ -6455,8 +6455,8 @@ def spawn_error_quark() -> int: ...
 def spawn_exit_error_quark() -> int: ...
 def spawn_sync(
     working_directory: str | None,
-    argv: list[str],
-    envp: list[str] | None,
+    argv: collections.abc.Sequence[str],
+    envp: collections.abc.Sequence[str] | None,
     flags: SpawnFlags,
     child_setup: SpawnChildSetupFunc | None = None,
     *user_data: object | None,
@@ -6805,7 +6805,7 @@ def strdup(
     ...
 
 def strdupv(
-    str_array: list[str] | None = None,
+    str_array: collections.abc.Sequence[str] | None = None,
 ) -> list[str] | None:
     """
     Copies an array of strings. The copy is a deep copy; each string is also
@@ -6860,7 +6860,7 @@ def strescape(
     ...
 
 def strfreev(
-    str_array: list[str] | None = None,
+    str_array: collections.abc.Sequence[str] | None = None,
 ) -> None:
     """
     Frees an array of strings, as well as each string it contains.
@@ -6880,7 +6880,7 @@ def strip_context(
 
 def strjoinv(
     separator: str | None,
-    str_array: list[str],
+    str_array: collections.abc.Sequence[str],
 ) -> str:
     """
     Joins an array of strings together to form one long string, with the
@@ -7118,7 +7118,7 @@ def strup(
     ...
 
 def strv_contains(
-    strv: list[str],
+    strv: collections.abc.Sequence[str],
     str: str,
 ) -> bool:
     """
@@ -7128,8 +7128,8 @@ def strv_contains(
     ...
 
 def strv_equal(
-    strv1: list[str],
-    strv2: list[str],
+    strv1: collections.abc.Sequence[str],
+    strv2: collections.abc.Sequence[str],
 ) -> bool:
     """
     Checks if two arrays of strings contain exactly the same elements in
@@ -7150,7 +7150,7 @@ def strv_equal(
 
 def strv_get_type() -> GObject.GType: ...
 def strv_length(
-    str_array: list[str],
+    str_array: collections.abc.Sequence[str],
 ) -> int:
     """
     Returns the length of an array of strings. `str_array` must not be `None`.
@@ -7665,7 +7665,7 @@ def test_trap_subprocess(
 
 def test_trap_subprocess_with_envp(
     test_path: str | None,
-    envp: list[str] | None,
+    envp: collections.abc.Sequence[str] | None,
     usec_timeout: int,
     test_flags: TestSubprocessFlags,
 ) -> None:
@@ -8028,7 +8028,7 @@ def try_realloc_n(
     ...
 
 def ucs4_to_utf16(
-    str: list[str],
+    str: collections.abc.Sequence[str],
 ) -> tuple[int, int, int]:
     """
     Convert a string from UCS-4 to UTF-16. A 0 character will be
@@ -8037,7 +8037,7 @@ def ucs4_to_utf16(
     ...
 
 def ucs4_to_utf8(
-    str: list[str],
+    str: collections.abc.Sequence[str],
 ) -> tuple[str, int, int]:
     """
     Convert a string from a 32-bit fixed width representation as UCS-4.
@@ -8450,7 +8450,7 @@ def unicode_canonical_decomposition(
     ...
 
 def unicode_canonical_ordering(
-    string: list[str],
+    string: collections.abc.Sequence[str],
 ) -> None:
     """
     Computes the canonical ordering of a string in-place.
@@ -8544,7 +8544,7 @@ def unix_get_passwd_entry(
     ...
 
 def unix_open_pipe(
-    fds: list[int],
+    fds: collections.abc.Sequence[int],
     flags: int,
 ) -> bool:
     """
@@ -8707,7 +8707,7 @@ def uri_build_with_user(
 
 def uri_error_quark() -> int: ...
 def uri_escape_bytes(
-    unescaped: bytes,
+    unescaped: collections.abc.Sequence[int],
     reserved_chars_allowed: str | None = None,
 ) -> str:
     """
@@ -9037,7 +9037,7 @@ def usleep(
     ...
 
 def utf16_to_ucs4(
-    str: list[int],
+    str: collections.abc.Sequence[int],
 ) -> tuple[str, int, int]:
     """
     Convert a string from UTF-16 to UCS-4. The result will be
@@ -9046,7 +9046,7 @@ def utf16_to_ucs4(
     ...
 
 def utf16_to_utf8(
-    str: list[int],
+    str: collections.abc.Sequence[int],
 ) -> tuple[str, int, int]:
     """
     Convert a string from UTF-16 to UTF-8. The result will be
@@ -9457,7 +9457,7 @@ def utf8_truncate_middle(
     ...
 
 def utf8_validate(
-    str: bytes,
+    str: collections.abc.Sequence[int],
 ) -> tuple[bool, str]:
     """
     Validates UTF-8 encoded text. `str` is the text to validate;
@@ -9479,7 +9479,7 @@ def utf8_validate(
     ...
 
 def utf8_validate_len(
-    str: bytes,
+    str: collections.abc.Sequence[int],
 ) -> tuple[bool, str]:
     """
     Validates UTF-8 encoded text.
@@ -13657,13 +13657,13 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
 
     # gi Methods
     @staticmethod
-    def append(array: bytes, data: int, len: int) -> bytes:
+    def append(array: collections.abc.Sequence[int], data: int, len: int) -> bytes:
         """
             Adds the given bytes to the end of the GByteArray.
         The array will grow in size automatically if necessary.
         """
     @staticmethod
-    def free(array: bytes, free_segment: bool) -> int:
+    def free(array: collections.abc.Sequence[int], free_segment: bool) -> int:
         """
             Frees the memory allocated by the GByteArray. If `free_segment` is
         True it frees the actual byte data. If the reference count of
@@ -13671,7 +13671,7 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         the size of `array` will be set to zero.
         """
     @staticmethod
-    def free_to_bytes(array: bytes) -> Bytes:
+    def free_to_bytes(array: collections.abc.Sequence[int]) -> Bytes:
         """
             Transfers the data from the GByteArray into a new immutable GBytes.
 
@@ -13688,7 +13688,7 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         Creates a new GByteArray with a reference count of 1.
         """
     @staticmethod
-    def new_take(data: bytes) -> bytes:
+    def new_take(data: collections.abc.Sequence[int]) -> bytes:
         """
             Creates a byte array containing the `data`.
         After this call, `data` belongs to the GByteArray and may no longer be
@@ -13700,25 +13700,25 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         #gsize.
         """
     @staticmethod
-    def prepend(array: bytes, data: int, len: int) -> bytes:
+    def prepend(array: collections.abc.Sequence[int], data: int, len: int) -> bytes:
         """
             Adds the given data to the start of the GByteArray.
         The array will grow in size automatically if necessary.
         """
     @staticmethod
-    def ref(array: bytes) -> bytes:
+    def ref(array: collections.abc.Sequence[int]) -> bytes:
         """
             Atomically increments the reference count of `array` by one.
         This function is thread-safe and may be called from any thread.
         """
     @staticmethod
-    def remove_index(array: bytes, index_: int) -> bytes:
+    def remove_index(array: collections.abc.Sequence[int], index_: int) -> bytes:
         """
             Removes the byte at the given index from a GByteArray.
         The following bytes are moved down one place.
         """
     @staticmethod
-    def remove_index_fast(array: bytes, index_: int) -> bytes:
+    def remove_index_fast(array: collections.abc.Sequence[int], index_: int) -> bytes:
         """
             Removes the byte at the given index from a GByteArray. The last
         element in the array is used to fill in the space, so this function
@@ -13726,13 +13726,13 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         than `g_byte_array_remove_index`.
         """
     @staticmethod
-    def remove_range(array: bytes, index_: int, length: int) -> bytes:
+    def remove_range(array: collections.abc.Sequence[int], index_: int, length: int) -> bytes:
         """
             Removes the given number of bytes starting at the given index from a
         GByteArray.  The following elements are moved to close the gap.
         """
     @staticmethod
-    def set_size(array: bytes, length: int) -> bytes:
+    def set_size(array: collections.abc.Sequence[int], length: int) -> bytes:
         """
         Sets the size of the GByteArray, expanding it if necessary.
         """
@@ -13745,7 +13745,7 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         0.
         """
     @staticmethod
-    def sort(array: bytes, compare_func: CompareFunc) -> None:
+    def sort(array: collections.abc.Sequence[int], compare_func: CompareFunc) -> None:
         """
             Sorts a byte array, using `compare_func` which should be a
         `qsort`-style comparison function (returns less than zero for first
@@ -13759,20 +13759,22 @@ class ByteArray(GObject.GBoxed, metaclass=GObject.GType):
         their addresses.
         """
     @staticmethod
-    def sort_with_data(array: bytes, compare_func: CompareDataFunc, *user_data: object | None) -> None:
+    def sort_with_data(
+        array: collections.abc.Sequence[int], compare_func: CompareDataFunc, *user_data: object | None
+    ) -> None:
         """
             Like `g_byte_array_sort`, but the comparison function takes an extra
         user data argument.
         """
     @staticmethod
-    def steal(array: bytes) -> tuple[int, int]:
+    def steal(array: collections.abc.Sequence[int]) -> tuple[int, int]:
         """
             Frees the data in the array and resets the size to zero, while
         the underlying array is preserved for use elsewhere and returned
         to the caller.
         """
     @staticmethod
-    def unref(array: bytes) -> None:
+    def unref(array: collections.abc.Sequence[int]) -> None:
         """
             Atomically decrements the reference count of `array` by one. If the
         reference count drops to 0, all memory allocated by the array is
@@ -13932,7 +13934,7 @@ class Bytes(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new(
         cls,
-        data: list[int] | None = None,
+        data: collections.abc.Sequence[int] | None = None,
     ) -> Bytes:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -13946,7 +13948,7 @@ class Bytes(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_take(
         cls,
-        data: list[int] | None = None,
+        data: collections.abc.Sequence[int] | None = None,
     ) -> Bytes:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -15155,7 +15157,7 @@ class HashTableIter(GObject.GPointer, metaclass=GObject.GType):
         """
         Returns the GHashTable associated with `iter`.
         """
-    def init(self, hash_table: dict[object, object]) -> None:
+    def init(self, hash_table: collections.abc.Mapping[object, object]) -> None:
         """
             Initializes a key/value pair iterator and associates it with
         `hash_table`. Modifying the hash table after calling this function
@@ -15648,7 +15650,7 @@ class IOChannel(GObject.GBoxed, metaclass=GObject.GType):
         """
         Decrements the reference count of a GIOChannel.
         """
-    def write_chars(self, buf: bytes, count: int) -> tuple[IOStatus, int]:
+    def write_chars(self, buf: collections.abc.Sequence[int], count: int) -> tuple[IOStatus, int]:
         """
             Replacement for `g_io_channel_write` with the new API.
 
@@ -16246,7 +16248,9 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
         `full_path`.  If the file could not be loaded then an %error is
         set to either a GFileError or GKeyFileError.
         """
-    def load_from_dirs(self, file: str, search_dirs: list[str], flags: KeyFileFlags) -> tuple[bool, str]:
+    def load_from_dirs(
+        self, file: str, search_dirs: collections.abc.Sequence[str], flags: KeyFileFlags
+    ) -> tuple[bool, str]:
         """
             This function looks for a key file named `file` in the paths
         specified in `search_dirs`, loads the file into `key_file` and
@@ -16300,7 +16304,7 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
             Associates a new boolean value with `key` under `group_name`.
         If `key` cannot be found then it is created.
         """
-    def set_boolean_list(self, group_name: str, key: str, list: list[bool]) -> None:
+    def set_boolean_list(self, group_name: str, key: str, list: collections.abc.Sequence[bool]) -> None:
         """
             Associates a list of boolean values with `key` under `group_name`.
         If `key` cannot be found then it is created.
@@ -16322,7 +16326,7 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
             Associates a new double value with `key` under `group_name`.
         If `key` cannot be found then it is created.
         """
-    def set_double_list(self, group_name: str, key: str, list: list[float]) -> None:
+    def set_double_list(self, group_name: str, key: str, list: collections.abc.Sequence[float]) -> None:
         """
             Associates a list of double values with `key` under
         `group_name`.  If `key` cannot be found then it is created.
@@ -16337,7 +16341,7 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
             Associates a new integer value with `key` under `group_name`.
         If `key` cannot be found then it is created.
         """
-    def set_integer_list(self, group_name: str, key: str, list: list[int]) -> None:
+    def set_integer_list(self, group_name: str, key: str, list: collections.abc.Sequence[int]) -> None:
         """
             Associates a list of integer values with `key` under `group_name`.
         If `key` cannot be found then it is created.
@@ -16353,7 +16357,9 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
             Associates a string value for `key` and `locale` under `group_name`.
         If the translation for `key` cannot be found then it is created.
         """
-    def set_locale_string_list(self, group_name: str, key: str, locale: str, list: list[str]) -> None:
+    def set_locale_string_list(
+        self, group_name: str, key: str, locale: str, list: collections.abc.Sequence[str]
+    ) -> None:
         """
             Associates a list of string values for `key` and `locale` under
         `group_name`.  If the translation for `key` cannot be found then
@@ -16367,7 +16373,7 @@ class KeyFile(GObject.GBoxed, metaclass=GObject.GType):
         Unlike `g_key_file_set_value`, this function handles characters
         that need escaping, such as newlines.
         """
-    def set_string_list(self, group_name: str, key: str, list: list[str]) -> None:
+    def set_string_list(self, group_name: str, key: str, list: collections.abc.Sequence[str]) -> None:
         """
             Associates a list of string values for `key` under `group_name`.
         If `key` cannot be found then it is created.
@@ -16502,7 +16508,7 @@ class MainContext(GObject.GBoxed, metaclass=GObject.GType):
         this context. This will very seldom be used directly. Instead
         a typical event source will use `g_source_add_unix_fd` instead.
         """
-    def check(self, max_priority: int, fds: list[PollFD]) -> bool:
+    def check(self, max_priority: int, fds: collections.abc.Sequence[PollFD]) -> bool:
         """
             Passes the results of polling back to the main loop. You should be
         careful to pass `fds` and its length `n_fds` as received from
@@ -17199,7 +17205,9 @@ class OptionContext(GObject.GPointer, metaclass=GObject.GType):
         will recognize the options in the group. Note that this will take
         ownership of the `group` and thus the `group` should not be freed.
         """
-    def add_main_entries(self, entries: list[OptionEntry], translation_domain: str | None = None) -> None:
+    def add_main_entries(
+        self, entries: collections.abc.Sequence[OptionEntry], translation_domain: str | None = None
+    ) -> None:
         """
             A convenience function which creates a main group if it doesn't
         exist, adds the `entries` to it and sets the translation domain.
@@ -17250,7 +17258,7 @@ class OptionContext(GObject.GPointer, metaclass=GObject.GType):
         """
         Returns the summary. See `g_option_context_set_summary`.
         """
-    def parse(self, argv: list[str] | None = None) -> tuple[bool, list[str] | None]:
+    def parse(self, argv: collections.abc.Sequence[str] | None = None) -> tuple[bool, list[str] | None]:
         """
             Parses the command line arguments, recognizing options
         which have been added to `context`. A side-effect of
@@ -17274,7 +17282,7 @@ class OptionContext(GObject.GPointer, metaclass=GObject.GType):
         automatic character set conversion of string and filename
         arguments.
         """
-    def parse_strv(self, arguments: list[str] | None = None) -> tuple[bool, list[str] | None]:
+    def parse_strv(self, arguments: collections.abc.Sequence[str] | None = None) -> tuple[bool, list[str] | None]:
         """
             Parses the command line arguments.
 
@@ -17458,7 +17466,7 @@ class OptionGroup(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def add_entries(self, entries: list[OptionEntry]) -> None:
+    def add_entries(self, entries: collections.abc.Sequence[OptionEntry]) -> None:
         """
         Adds the options specified in `entries` to `group`.
         """
@@ -21778,7 +21786,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     def new_array(
         cls,
         child_type: VariantType | None = None,
-        children: list[Variant] | None = None,
+        children: collections.abc.Sequence[Variant] | None = None,
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -21828,7 +21836,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     @classmethod
     def new_bytestring(
         cls,
-        string: list[int],
+        string: collections.abc.Sequence[int],
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -21845,7 +21853,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     @classmethod
     def new_bytestring_array(
         cls,
-        strv: list[str],
+        strv: collections.abc.Sequence[str],
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -21939,7 +21947,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     def new_from_data(
         cls,
         type: VariantType,
-        data: list[int],
+        data: collections.abc.Sequence[int],
         trusted: bool,
         notify: collections.abc.Callable[[typing.Any], None],
         user_data: typing.Any = None,
@@ -22070,7 +22078,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     @classmethod
     def new_objv(
         cls,
-        strv: list[str],
+        strv: collections.abc.Sequence[str],
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -22118,7 +22126,7 @@ class Variant(GObject.GPointer, metaclass=GObject.GType):
     @classmethod
     def new_strv(
         cls,
-        strv: list[str],
+        strv: collections.abc.Sequence[str],
     ) -> Variant:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -23007,7 +23015,7 @@ class VariantType(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_tuple(
         cls,
-        items: list[VariantType],
+        items: collections.abc.Sequence[VariantType],
     ) -> VariantType:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]

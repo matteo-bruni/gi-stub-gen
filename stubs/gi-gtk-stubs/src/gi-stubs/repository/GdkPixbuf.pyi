@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import enum
 import gi._gi
 import typing
@@ -807,7 +808,10 @@ class Pixbuf(GObject.Object):
         create a pixelated image.
         """
     def save_to_bufferv(
-        self, type: str, option_keys: list[str] | None = None, option_values: list[str] | None = None
+        self,
+        type: str,
+        option_keys: collections.abc.Sequence[str] | None = None,
+        option_values: collections.abc.Sequence[str] | None = None,
     ) -> tuple[bool, bytes]:
         """
             Vector version of ``gdk_pixbuf_save_to_buffer``.
@@ -822,8 +826,8 @@ class Pixbuf(GObject.Object):
         save_func: PixbufSaveFunc,
         *user_data: object | None,
         type: str,
-        option_keys: list[str] | None = None,
-        option_values: list[str] | None = None,
+        option_keys: collections.abc.Sequence[str] | None = None,
+        option_values: collections.abc.Sequence[str] | None = None,
     ) -> bool:
         """
             Vector version of ``gdk_pixbuf_save_to_callback``.
@@ -845,8 +849,8 @@ class Pixbuf(GObject.Object):
         self,
         stream: Gio.OutputStream,
         type: str,
-        option_keys: list[str] | None = None,
-        option_values: list[str] | None = None,
+        option_keys: collections.abc.Sequence[str] | None = None,
+        option_values: collections.abc.Sequence[str] | None = None,
         cancellable: Gio.Cancellable | None = None,
     ) -> bool:
         """
@@ -861,8 +865,8 @@ class Pixbuf(GObject.Object):
         self,
         stream: Gio.OutputStream,
         type: str,
-        option_keys: list[str] | None = None,
-        option_values: list[str] | None = None,
+        option_keys: collections.abc.Sequence[str] | None = None,
+        option_values: collections.abc.Sequence[str] | None = None,
         cancellable: Gio.Cancellable | None = None,
         callback: Gio.AsyncReadyCallback | None = None,
         *user_data: object | None,
@@ -879,7 +883,11 @@ class Pixbuf(GObject.Object):
         the operation.
         """
     def savev(
-        self, filename: str, type: str, option_keys: list[str] | None = None, option_values: list[str] | None = None
+        self,
+        filename: str,
+        type: str,
+        option_keys: collections.abc.Sequence[str] | None = None,
+        option_values: collections.abc.Sequence[str] | None = None,
     ) -> bool:
         """
             Vector version of ``gdk_pixbuf_save``.
@@ -1115,7 +1123,7 @@ class Pixbuf(GObject.Object):
     @classmethod
     def new_from_inline(
         cls,
-        data: list[int],
+        data: collections.abc.Sequence[int],
         copy_pixels: bool,
     ) -> Pixbuf:
         """
@@ -1275,7 +1283,7 @@ class Pixbuf(GObject.Object):
     @classmethod
     def new_from_xpm_data(
         cls,
-        data: list[str],
+        data: collections.abc.Sequence[str],
     ) -> Pixbuf:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -1480,6 +1488,7 @@ class PixbufAnimation(GObject.Object):
     def do_get_iter(
         self,
         start_time: GLib.TimeVal | None = None,
+        /,
     ) -> PixbufAnimationIter:
         """
         get_iter(self, start_time:GLib.TimeVal=None) -> GdkPixbuf.PixbufAnimationIter
@@ -1488,18 +1497,21 @@ class PixbufAnimation(GObject.Object):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         get_size(self, width:int, height:int)
         """
     def do_get_static_image(
         self,
+        /,
     ) -> Pixbuf:
         """
         get_static_image(self) -> GdkPixbuf.Pixbuf
         """
     def do_is_static_image(
         self,
+        /,
     ) -> bool:
         """
         is_static_image(self) -> bool
@@ -1706,24 +1718,28 @@ class PixbufAnimationIter(GObject.Object):
     def do_advance(
         self,
         current_time: GLib.TimeVal | None = None,
+        /,
     ) -> bool:
         """
         advance(self, current_time:GLib.TimeVal=None) -> bool
         """
     def do_get_delay_time(
         self,
+        /,
     ) -> int:
         """
         get_delay_time(self) -> int
         """
     def do_get_pixbuf(
         self,
+        /,
     ) -> Pixbuf:
         """
         get_pixbuf(self) -> GdkPixbuf.Pixbuf
         """
     def do_on_currently_loading_frame(
         self,
+        /,
     ) -> bool:
         """
         on_currently_loading_frame(self) -> bool
@@ -2021,7 +2037,7 @@ class PixbufLoader(GObject.Object):
         Attempts to set the desired image size  are ignored after the
         emission of the ::size-prepared signal.
         """
-    def write(self, buf: bytes) -> bool:
+    def write(self, buf: collections.abc.Sequence[int]) -> bool:
         """
         Parses the next `count` bytes in the given image buffer.
         """
@@ -2033,6 +2049,7 @@ class PixbufLoader(GObject.Object):
     # python methods (overrides?)
     def do_area_prepared(
         self,
+        /,
     ) -> None:
         """
         area_prepared(self)
@@ -2043,12 +2060,14 @@ class PixbufLoader(GObject.Object):
         y: int,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         area_updated(self, x:int, y:int, width:int, height:int)
         """
     def do_closed(
         self,
+        /,
     ) -> None:
         """
         closed(self)
@@ -2057,6 +2076,7 @@ class PixbufLoader(GObject.Object):
         self,
         width: int,
         height: int,
+        /,
     ) -> None:
         """
         size_prepared(self, width:int, height:int)

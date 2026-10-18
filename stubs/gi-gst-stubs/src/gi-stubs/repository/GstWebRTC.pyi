@@ -967,6 +967,7 @@ class WebRTCICE(Gst.Object):
         stream: WebRTCICEStream,
         candidate: str,
         promise: Gst.Promise | None = None,
+        /,
     ) -> None:
         """
         add_candidate(self, stream:GstWebRTC.WebRTCICEStream, candidate:str, promise:Gst.Promise=None)
@@ -974,6 +975,7 @@ class WebRTCICE(Gst.Object):
     def do_add_stream(
         self,
         session_id: int,
+        /,
     ) -> WebRTCICEStream | None:
         """
         add_stream(self, session_id:int) -> GstWebRTC.WebRTCICEStream or None
@@ -981,6 +983,7 @@ class WebRTCICE(Gst.Object):
     def do_add_turn_server(
         self,
         uri: str,
+        /,
     ) -> bool:
         """
         add_turn_server(self, uri:str) -> bool
@@ -988,6 +991,7 @@ class WebRTCICE(Gst.Object):
     def do_close(
         self,
         promise: Gst.Promise | None = None,
+        /,
     ) -> None:
         """
         close(self, promise:Gst.Promise=None)
@@ -996,6 +1000,7 @@ class WebRTCICE(Gst.Object):
         self,
         stream: WebRTCICEStream,
         component: WebRTCICEComponent,
+        /,
     ) -> WebRTCICETransport | None:
         """
         find_transport(self, stream:GstWebRTC.WebRTCICEStream, component:GstWebRTC.WebRTCICEComponent) -> GstWebRTC.WebRTCICETransport or None
@@ -1003,18 +1008,21 @@ class WebRTCICE(Gst.Object):
     def do_gather_candidates(
         self,
         stream: WebRTCICEStream,
+        /,
     ) -> bool:
         """
         gather_candidates(self, stream:GstWebRTC.WebRTCICEStream) -> bool
         """
     def do_get_http_proxy(
         self,
+        /,
     ) -> str:
         """
         get_http_proxy(self) -> str
         """
     def do_get_is_controller(
         self,
+        /,
     ) -> bool:
         """
         get_is_controller(self) -> bool
@@ -1022,6 +1030,7 @@ class WebRTCICE(Gst.Object):
     def do_get_local_candidates(
         self,
         stream: WebRTCICEStream,
+        /,
     ) -> WebRTCICECandidateStats:
         """
         get_local_candidates(self, stream:GstWebRTC.WebRTCICEStream) -> GstWebRTC.WebRTCICECandidateStats
@@ -1029,6 +1038,7 @@ class WebRTCICE(Gst.Object):
     def do_get_remote_candidates(
         self,
         stream: WebRTCICEStream,
+        /,
     ) -> WebRTCICECandidateStats:
         """
         get_remote_candidates(self, stream:GstWebRTC.WebRTCICEStream) -> GstWebRTC.WebRTCICECandidateStats
@@ -1036,18 +1046,21 @@ class WebRTCICE(Gst.Object):
     def do_get_selected_pair(
         self,
         stream: WebRTCICEStream,
+        /,
     ) -> tuple[bool, WebRTCICECandidateStats, WebRTCICECandidateStats]:
         """
         get_selected_pair(self, stream:GstWebRTC.WebRTCICEStream) -> bool, local_stats:GstWebRTC.WebRTCICECandidateStats, remote_stats:GstWebRTC.WebRTCICECandidateStats
         """
     def do_get_stun_server(
         self,
+        /,
     ) -> str | None:
         """
         get_stun_server(self) -> str or None
         """
     def do_get_turn_server(
         self,
+        /,
     ) -> str | None:
         """
         get_turn_server(self) -> str or None
@@ -1055,6 +1068,7 @@ class WebRTCICE(Gst.Object):
     def do_set_force_relay(
         self,
         force_relay: bool,
+        /,
     ) -> None:
         """
         set_force_relay(self, force_relay:bool)
@@ -1062,6 +1076,7 @@ class WebRTCICE(Gst.Object):
     def do_set_http_proxy(
         self,
         uri: str,
+        /,
     ) -> None:
         """
         set_http_proxy(self, uri:str)
@@ -1069,6 +1084,7 @@ class WebRTCICE(Gst.Object):
     def do_set_is_controller(
         self,
         controller: bool,
+        /,
     ) -> None:
         """
         set_is_controller(self, controller:bool)
@@ -1078,6 +1094,7 @@ class WebRTCICE(Gst.Object):
         stream: WebRTCICEStream,
         ufrag: str,
         pwd: str,
+        /,
     ) -> bool:
         """
         set_local_credentials(self, stream:GstWebRTC.WebRTCICEStream, ufrag:str, pwd:str) -> bool
@@ -1086,6 +1103,7 @@ class WebRTCICE(Gst.Object):
         self,
         func: collections.abc.Callable[[WebRTCICE, int, str, typing.Any], None],
         user_data: typing.Any = None,
+        /,
     ) -> None:
         """
         set_on_ice_candidate(self, func:GstWebRTC.WebRTCICEOnCandidateFunc, user_data=None)
@@ -1095,6 +1113,7 @@ class WebRTCICE(Gst.Object):
         stream: WebRTCICEStream,
         ufrag: str,
         pwd: str,
+        /,
     ) -> bool:
         """
         set_remote_credentials(self, stream:GstWebRTC.WebRTCICEStream, ufrag:str, pwd:str) -> bool
@@ -1102,6 +1121,7 @@ class WebRTCICE(Gst.Object):
     def do_set_stun_server(
         self,
         uri: str | None = None,
+        /,
     ) -> None:
         """
         set_stun_server(self, uri:str=None)
@@ -1110,6 +1130,7 @@ class WebRTCICE(Gst.Object):
         self,
         stream: WebRTCICEStream,
         tos: int,
+        /,
     ) -> None:
         """
         set_tos(self, stream:GstWebRTC.WebRTCICEStream, tos:int)
@@ -1117,6 +1138,7 @@ class WebRTCICE(Gst.Object):
     def do_set_turn_server(
         self,
         uri: str | None = None,
+        /,
     ) -> None:
         """
         set_turn_server(self, uri:str=None)
@@ -1350,12 +1372,14 @@ class WebRTCICEStream(Gst.Object):
     def do_find_transport(
         self,
         component: WebRTCICEComponent,
+        /,
     ) -> WebRTCICETransport | None:
         """
         find_transport(self, component:GstWebRTC.WebRTCICEComponent) -> GstWebRTC.WebRTCICETransport or None
         """
     def do_gather_candidates(
         self,
+        /,
     ) -> bool:
         """
         gather_candidates(self) -> bool
@@ -1465,12 +1489,14 @@ class WebRTCICETransport(Gst.Object):
     # python methods (overrides?)
     def do_gather_candidates(
         self,
+        /,
     ) -> bool:
         """
         gather_candidates(self) -> bool
         """
     def do_get_selected_candidate_pair(
         self,
+        /,
     ) -> WebRTCICECandidatePair | None:
         """
         get_selected_candidate_pair(self) -> GstWebRTC.WebRTCICECandidatePair or None

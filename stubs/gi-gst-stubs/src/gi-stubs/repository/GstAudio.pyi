@@ -77,8 +77,8 @@ def audio_buffer_map(
 def audio_buffer_reorder_channels(
     buffer: Gst.Buffer,
     format: AudioFormat,
-    from_: list[AudioChannelPosition],
-    to: list[AudioChannelPosition],
+    from_: collections.abc.Sequence[AudioChannelPosition],
+    to: collections.abc.Sequence[AudioChannelPosition],
 ) -> bool:
     """
     Reorders `buffer` from the channel positions `from` to the channel
@@ -123,7 +123,7 @@ def audio_channel_get_fallback_mask(
 
 def audio_channel_positions_from_mask(
     channel_mask: int,
-    position: list[AudioChannelPosition],
+    position: collections.abc.Sequence[AudioChannelPosition],
 ) -> bool:
     """
     Convert the `channels` present in `channel_mask` to a `position` array
@@ -136,7 +136,7 @@ def audio_channel_positions_from_mask(
     ...
 
 def audio_channel_positions_to_mask(
-    position: list[AudioChannelPosition],
+    position: collections.abc.Sequence[AudioChannelPosition],
     force_order: bool,
 ) -> tuple[bool, int]:
     """
@@ -148,7 +148,7 @@ def audio_channel_positions_to_mask(
     ...
 
 def audio_channel_positions_to_string(
-    position: list[AudioChannelPosition],
+    position: collections.abc.Sequence[AudioChannelPosition],
 ) -> str:
     """
     Converts `position` to a human-readable string representation for
@@ -157,7 +157,7 @@ def audio_channel_positions_to_string(
     ...
 
 def audio_channel_positions_to_valid_order(
-    position: list[AudioChannelPosition],
+    position: collections.abc.Sequence[AudioChannelPosition],
 ) -> bool:
     """
     Reorders the channel positions in `position` from any order to
@@ -166,7 +166,7 @@ def audio_channel_positions_to_valid_order(
     ...
 
 def audio_check_valid_channel_positions(
-    position: list[AudioChannelPosition],
+    position: collections.abc.Sequence[AudioChannelPosition],
     force_order: bool,
 ) -> bool:
     """
@@ -194,7 +194,7 @@ def audio_format_build_integer(
 @deprecated("deprecated")
 def audio_format_fill_silence(
     info: AudioFormatInfo,
-    dest: bytes,
+    dest: collections.abc.Sequence[int],
 ) -> None:
     """
     Fill `length` bytes in `dest` with silence samples for `info`.
@@ -236,9 +236,9 @@ def audio_formats_raw() -> tuple[list[AudioFormat], int]:
     ...
 
 def audio_get_channel_reorder_map(
-    from_: list[AudioChannelPosition],
-    to: list[AudioChannelPosition],
-    reorder_map: list[int],
+    from_: collections.abc.Sequence[AudioChannelPosition],
+    to: collections.abc.Sequence[AudioChannelPosition],
+    reorder_map: collections.abc.Sequence[int],
 ) -> bool:
     """
     Returns a reorder map for `from` to `to` that can be used in
@@ -262,8 +262,8 @@ def audio_iec61937_frame_size(
     ...
 
 def audio_iec61937_payload(
-    src: bytes,
-    dst: bytes,
+    src: collections.abc.Sequence[int],
+    dst: collections.abc.Sequence[int],
     spec: AudioRingBufferSpec,
     endianness: int,
 ) -> bool:
@@ -301,7 +301,7 @@ def audio_level_meta_get_info() -> Gst.MetaInfo:
     ...
 
 def audio_make_raw_caps(
-    formats: list[AudioFormat] | None,
+    formats: collections.abc.Sequence[AudioFormat] | None,
     layout: AudioLayout,
 ) -> Gst.Caps:
     """
@@ -314,10 +314,10 @@ def audio_make_raw_caps(
 def audio_meta_api_get_type() -> GObject.GType: ...
 def audio_meta_get_info() -> Gst.MetaInfo: ...
 def audio_reorder_channels(
-    data: bytes,
+    data: collections.abc.Sequence[int],
     format: AudioFormat,
-    from_: list[AudioChannelPosition],
-    to: list[AudioChannelPosition],
+    from_: collections.abc.Sequence[AudioChannelPosition],
+    to: collections.abc.Sequence[AudioChannelPosition],
 ) -> bool:
     """
     Reorders `data` from the channel positions `from` to the channel
@@ -335,9 +335,9 @@ def audio_reorder_channels(
     ...
 
 def audio_reorder_channels_with_reorder_map(
-    data: bytes,
+    data: collections.abc.Sequence[int],
     bps: int,
-    reorder_map: list[int],
+    reorder_map: collections.abc.Sequence[int],
 ) -> None:
     """
     Reorders `data` with the given `reorder_map`.
@@ -401,7 +401,7 @@ def buffer_add_audio_meta(
     buffer: Gst.Buffer,
     info: AudioInfo,
     samples: int,
-    offsets: list[int] | None = None,
+    offsets: collections.abc.Sequence[int] | None = None,
 ) -> AudioMeta:
     """
     Allocates and attaches a GstAudio.Meta on `buffer`, which must be writable
@@ -428,7 +428,7 @@ def buffer_add_audio_meta(
 def buffer_add_dsd_plane_offset_meta(
     buffer: Gst.Buffer,
     num_bytes_per_channel: int,
-    offsets: list[int] | None = None,
+    offsets: collections.abc.Sequence[int] | None = None,
 ) -> DsdPlaneOffsetMeta:
     """
     Allocates and attaches a GstDsdPlaneOffsetMeta on `buffer`, which must be
@@ -457,7 +457,7 @@ def buffer_add_dsd_plane_offset_meta(
 
 def buffer_get_audio_downmix_meta_for_channels(
     buffer: Gst.Buffer,
-    to_position: list[AudioChannelPosition],
+    to_position: collections.abc.Sequence[AudioChannelPosition],
 ) -> AudioDownmixMeta:
     """
     Find the GstAudio.DownmixMeta on `buffer` for the given destination
@@ -474,14 +474,14 @@ def buffer_get_audio_level_meta(
     ...
 
 def dsd_convert(
-    input_data: bytes,
-    output_data: bytes,
+    input_data: collections.abc.Sequence[int],
+    output_data: collections.abc.Sequence[int],
     input_format: DsdFormat,
     output_format: DsdFormat,
     input_layout: AudioLayout,
     output_layout: AudioLayout,
-    input_plane_offsets: list[int] | None,
-    output_plane_offsets: list[int] | None,
+    input_plane_offsets: collections.abc.Sequence[int] | None,
+    output_plane_offsets: collections.abc.Sequence[int] | None,
     num_dsd_bytes: int,
     reverse_byte_bits: bool,
 ) -> None:
@@ -1102,7 +1102,7 @@ class AudioFormat(GObject.GEnum):
     def build_integer(sign: bool, endianness: int, width: int, depth: int) -> AudioFormat: ...
     @deprecated("deprecated")
     @staticmethod
-    def fill_silence(info: AudioFormatInfo, dest: bytes) -> None: ...
+    def fill_silence(info: AudioFormatInfo, dest: collections.abc.Sequence[int]) -> None: ...
     @staticmethod
     def from_string(format: str) -> AudioFormat: ...
     @staticmethod
@@ -1590,6 +1590,7 @@ class AudioAggregator(GstBase.Aggregator):
         outbuf: Gst.Buffer,
         out_offset: int,
         num_frames: int,
+        /,
     ) -> bool:
         """
         aggregate_one_buffer(self, pad:GstAudio.AudioAggregatorPad, inbuf:Gst.Buffer, in_offset:int, outbuf:Gst.Buffer, out_offset:int, num_frames:int) -> bool
@@ -1597,6 +1598,7 @@ class AudioAggregator(GstBase.Aggregator):
     def do_create_output_buffer(
         self,
         num_frames: int,
+        /,
     ) -> Gst.Buffer:
         """
         create_output_buffer(self, num_frames:int) -> Gst.Buffer
@@ -1979,12 +1981,14 @@ class AudioAggregatorPad(GstBase.AggregatorPad):
         in_info: AudioInfo,
         out_info: AudioInfo,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.Buffer:
         """
         convert_buffer(self, in_info:GstAudio.AudioInfo, out_info:GstAudio.AudioInfo, buffer:Gst.Buffer) -> Gst.Buffer
         """
     def do_update_conversion_info(
         self,
+        /,
     ) -> None:
         """
         update_conversion_info(self)
@@ -2281,6 +2285,7 @@ class AudioBaseSink(GstBase.BaseSink):
     # python methods (overrides?)
     def do_create_ringbuffer(
         self,
+        /,
     ) -> AudioRingBuffer | None:
         """
         create_ringbuffer(self) -> GstAudio.AudioRingBuffer or None
@@ -2288,6 +2293,7 @@ class AudioBaseSink(GstBase.BaseSink):
     def do_payload(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.Buffer:
         """
         payload(self, buffer:Gst.Buffer) -> Gst.Buffer
@@ -2616,6 +2622,7 @@ class AudioBaseSrc(GstBase.PushSrc):
     # python methods (overrides?)
     def do_create_ringbuffer(
         self,
+        /,
     ) -> AudioRingBuffer | None:
         """
         create_ringbuffer(self) -> GstAudio.AudioRingBuffer or None
@@ -2854,7 +2861,10 @@ class AudioBuffer(GObject.GPointer, metaclass=GObject.GType):
         """
     @staticmethod
     def reorder_channels(
-        buffer: Gst.Buffer, format: AudioFormat, from_: list[AudioChannelPosition], to: list[AudioChannelPosition]
+        buffer: Gst.Buffer,
+        format: AudioFormat,
+        from_: collections.abc.Sequence[AudioChannelPosition],
+        to: collections.abc.Sequence[AudioChannelPosition],
     ) -> bool:
         """
             Reorders `buffer` from the channel positions `from` to the channel
@@ -2980,6 +2990,7 @@ class AudioCdSrc(GstBase.PushSrc):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> None:
         """
         close(self)
@@ -2987,6 +2998,7 @@ class AudioCdSrc(GstBase.PushSrc):
     def do_open(
         self,
         device: str,
+        /,
     ) -> bool:
         """
         open(self, device:str) -> bool
@@ -2994,6 +3006,7 @@ class AudioCdSrc(GstBase.PushSrc):
     def do_read_sector(
         self,
         sector: int,
+        /,
     ) -> Gst.Buffer:
         """
         read_sector(self, sector:int) -> Gst.Buffer
@@ -3403,7 +3416,7 @@ class AudioConverter(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def convert(self, flags: AudioConverterFlags, in_: bytes) -> tuple[bool, bytes]:
+    def convert(self, flags: AudioConverterFlags, in_: collections.abc.Sequence[int]) -> tuple[bool, bytes]:
         """
             Convenience wrapper around `gst_audio_converter_samples`, which will
         perform allocation of the output buffer based on the result from
@@ -3816,6 +3829,7 @@ class AudioDecoder(Gst.Element):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
@@ -3823,6 +3837,7 @@ class AudioDecoder(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -3830,6 +3845,7 @@ class AudioDecoder(Gst.Element):
     def do_flush(
         self,
         hard: bool,
+        /,
     ) -> None:
         """
         flush(self, hard:bool)
@@ -3837,6 +3853,7 @@ class AudioDecoder(Gst.Element):
     def do_getcaps(
         self,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         getcaps(self, filter:Gst.Caps) -> Gst.Caps
@@ -3844,18 +3861,21 @@ class AudioDecoder(Gst.Element):
     def do_handle_frame(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         handle_frame(self, buffer:Gst.Buffer) -> Gst.FlowReturn
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
@@ -3863,6 +3883,7 @@ class AudioDecoder(Gst.Element):
     def do_parse(
         self,
         adapter: GstBase.Adapter,
+        /,
     ) -> tuple[Gst.FlowReturn, int, int]:
         """
         parse(self, adapter:GstBase.Adapter) -> Gst.FlowReturn, offset:int, length:int
@@ -3870,6 +3891,7 @@ class AudioDecoder(Gst.Element):
     def do_pre_push(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         pre_push(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -3877,6 +3899,7 @@ class AudioDecoder(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -3884,6 +3907,7 @@ class AudioDecoder(Gst.Element):
     def do_set_format(
         self,
         caps: Gst.Caps,
+        /,
     ) -> bool:
         """
         set_format(self, caps:Gst.Caps) -> bool
@@ -3891,6 +3915,7 @@ class AudioDecoder(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -3898,6 +3923,7 @@ class AudioDecoder(Gst.Element):
     def do_sink_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, query:Gst.Query) -> bool
@@ -3905,6 +3931,7 @@ class AudioDecoder(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -3912,18 +3939,21 @@ class AudioDecoder(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -3933,6 +3963,7 @@ class AudioDecoder(Gst.Element):
         outbuf: Gst.Buffer,
         meta: Gst.Meta,
         inbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         transform_meta(self, outbuf:Gst.Buffer, meta:Gst.Meta, inbuf:Gst.Buffer) -> bool
@@ -4537,6 +4568,7 @@ class AudioEncoder(Gst.Element):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
@@ -4544,12 +4576,14 @@ class AudioEncoder(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
         """
     def do_flush(
         self,
+        /,
     ) -> None:
         """
         flush(self)
@@ -4557,6 +4591,7 @@ class AudioEncoder(Gst.Element):
     def do_getcaps(
         self,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps:
         """
         getcaps(self, filter:Gst.Caps) -> Gst.Caps
@@ -4564,18 +4599,21 @@ class AudioEncoder(Gst.Element):
     def do_handle_frame(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         handle_frame(self, buffer:Gst.Buffer) -> Gst.FlowReturn
         """
     def do_negotiate(
         self,
+        /,
     ) -> bool:
         """
         negotiate(self) -> bool
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
@@ -4583,6 +4621,7 @@ class AudioEncoder(Gst.Element):
     def do_pre_push(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         pre_push(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -4590,6 +4629,7 @@ class AudioEncoder(Gst.Element):
     def do_propose_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         propose_allocation(self, query:Gst.Query) -> bool
@@ -4597,6 +4637,7 @@ class AudioEncoder(Gst.Element):
     def do_set_format(
         self,
         info: AudioInfo,
+        /,
     ) -> bool:
         """
         set_format(self, info:GstAudio.AudioInfo) -> bool
@@ -4604,6 +4645,7 @@ class AudioEncoder(Gst.Element):
     def do_sink_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         sink_event(self, event:Gst.Event) -> bool
@@ -4611,6 +4653,7 @@ class AudioEncoder(Gst.Element):
     def do_sink_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         sink_query(self, query:Gst.Query) -> bool
@@ -4618,6 +4661,7 @@ class AudioEncoder(Gst.Element):
     def do_src_event(
         self,
         event: Gst.Event,
+        /,
     ) -> bool:
         """
         src_event(self, event:Gst.Event) -> bool
@@ -4625,18 +4669,21 @@ class AudioEncoder(Gst.Element):
     def do_src_query(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         src_query(self, query:Gst.Query) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -4646,6 +4693,7 @@ class AudioEncoder(Gst.Element):
         outbuf: Gst.Buffer,
         meta: Gst.Meta,
         inbuf: Gst.Buffer,
+        /,
     ) -> bool:
         """
         transform_meta(self, outbuf:Gst.Buffer, meta:Gst.Meta, inbuf:Gst.Buffer) -> bool
@@ -4926,6 +4974,7 @@ class AudioFilter(GstBase.BaseTransform):
     def do_setup(
         self,
         info: AudioInfo,
+        /,
     ) -> bool:
         """
         setup(self, info:GstAudio.AudioInfo) -> bool
@@ -5074,7 +5123,7 @@ class AudioFormatInfo(GObject.GPointer, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def fill_silence(self, dest: bytes) -> None:
+    def fill_silence(self, dest: collections.abc.Sequence[int]) -> None:
         """
         Fill `length` bytes in `dest` with silence samples for `info`.
         """
@@ -5147,7 +5196,11 @@ class AudioInfo(GObject.GBoxed, metaclass=GObject.GType):
         Compares two GstAudio.Info and returns whether they are equal or not
         """
     def set_format(
-        self, format: AudioFormat, rate: int, channels: int, position: list[AudioChannelPosition] | None = None
+        self,
+        format: AudioFormat,
+        rate: int,
+        channels: int,
+        position: collections.abc.Sequence[AudioChannelPosition] | None = None,
     ) -> None:
         """
             Set the default info for the audio info of `format` and `rate` and `channels`.
@@ -5490,7 +5543,9 @@ class AudioRingBuffer(Gst.Object):
             Close the audio device associated with the ring buffer. The ring buffer
         should already have been released via `gst_audio_ring_buffer_release`.
         """
-    def commit(self, sample: int, data: bytes, out_samples: int, accum: int) -> tuple[int, int, int]:
+    def commit(
+        self, sample: int, data: collections.abc.Sequence[int], out_samples: int, accum: int
+    ) -> tuple[int, int, int]:
         """
             Commit `in_samples` samples pointed to by `data` to the ringbuffer `buf`.
 
@@ -5599,7 +5654,7 @@ class AudioRingBuffer(Gst.Object):
             Returns a pointer to memory where the data from segment `segment`
         can be found. This function is mostly used by subclasses.
         """
-    def read(self, sample: int, data: bytes) -> tuple[int, int]:
+    def read(self, sample: int, data: collections.abc.Sequence[int]) -> tuple[int, int]:
         """
             Read `len` samples from the ringbuffer into the memory pointed
         to by `data`.
@@ -5628,7 +5683,7 @@ class AudioRingBuffer(Gst.Object):
 
         MT safe.
         """
-    def set_channel_positions(self, position: list[AudioChannelPosition]) -> None:
+    def set_channel_positions(self, position: collections.abc.Sequence[AudioChannelPosition]) -> None:
         """
             Tell the ringbuffer about the device's channel positions. This must
         be called in when the ringbuffer is acquired.
@@ -5676,6 +5731,7 @@ class AudioRingBuffer(Gst.Object):
     def do_acquire(
         self,
         spec: AudioRingBufferSpec,
+        /,
     ) -> bool:
         """
         acquire(self, spec:GstAudio.AudioRingBufferSpec) -> bool
@@ -5683,18 +5739,21 @@ class AudioRingBuffer(Gst.Object):
     def do_activate(
         self,
         active: bool,
+        /,
     ) -> bool:
         """
         activate(self, active:bool) -> bool
         """
     def do_clear_all(
         self,
+        /,
     ) -> None:
         """
         clear_all(self)
         """
     def do_close_device(
         self,
+        /,
     ) -> bool:
         """
         close_device(self) -> bool
@@ -5705,48 +5764,56 @@ class AudioRingBuffer(Gst.Object):
         data: list[int],
         out_samples: int,
         accum: int,
+        /,
     ) -> tuple[int, int, int]:
         """
         commit(self, sample:int, data:list, out_samples:int, accum:int) -> int, sample:int, accum:int
         """
     def do_delay(
         self,
+        /,
     ) -> int:
         """
         delay(self) -> int
         """
     def do_open_device(
         self,
+        /,
     ) -> bool:
         """
         open_device(self) -> bool
         """
     def do_pause(
         self,
+        /,
     ) -> bool:
         """
         pause(self) -> bool
         """
     def do_release(
         self,
+        /,
     ) -> bool:
         """
         release(self) -> bool
         """
     def do_resume(
         self,
+        /,
     ) -> bool:
         """
         resume(self) -> bool
         """
     def do_start(
         self,
+        /,
     ) -> bool:
         """
         start(self) -> bool
         """
     def do_stop(
         self,
+        /,
     ) -> bool:
         """
         stop(self) -> bool
@@ -5975,24 +6042,28 @@ class AudioSink(AudioBaseSink):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
         """
     def do_delay(
         self,
+        /,
     ) -> int:
         """
         delay(self) -> int
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
         """
     def do_pause(
         self,
+        /,
     ) -> None:
         """
         pause(self)
@@ -6000,30 +6071,35 @@ class AudioSink(AudioBaseSink):
     def do_prepare(
         self,
         spec: AudioRingBufferSpec,
+        /,
     ) -> bool:
         """
         prepare(self, spec:GstAudio.AudioRingBufferSpec) -> bool
         """
     def do_reset(
         self,
+        /,
     ) -> None:
         """
         reset(self)
         """
     def do_resume(
         self,
+        /,
     ) -> None:
         """
         resume(self)
         """
     def do_stop(
         self,
+        /,
     ) -> None:
         """
         stop(self)
         """
     def do_unprepare(
         self,
+        /,
     ) -> bool:
         """
         unprepare(self) -> bool
@@ -6031,6 +6107,7 @@ class AudioSink(AudioBaseSink):
     def do_write(
         self,
         data: list[int],
+        /,
     ) -> int:
         """
         write(self, data:list) -> int
@@ -6363,18 +6440,21 @@ class AudioSrc(AudioBaseSrc):
     # python methods (overrides?)
     def do_close(
         self,
+        /,
     ) -> bool:
         """
         close(self) -> bool
         """
     def do_delay(
         self,
+        /,
     ) -> int:
         """
         delay(self) -> int
         """
     def do_open(
         self,
+        /,
     ) -> bool:
         """
         open(self) -> bool
@@ -6382,6 +6462,7 @@ class AudioSrc(AudioBaseSrc):
     def do_prepare(
         self,
         spec: AudioRingBufferSpec,
+        /,
     ) -> bool:
         """
         prepare(self, spec:GstAudio.AudioRingBufferSpec) -> bool
@@ -6389,18 +6470,21 @@ class AudioSrc(AudioBaseSrc):
     def do_read(
         self,
         data: list[int],
+        /,
     ) -> tuple[int, int]:
         """
         read(self, data:list) -> int, timestamp:int
         """
     def do_reset(
         self,
+        /,
     ) -> None:
         """
         reset(self)
         """
     def do_unprepare(
         self,
+        /,
     ) -> bool:
         """
         unprepare(self) -> bool
@@ -6805,7 +6889,11 @@ class DsdInfo(GObject.GBoxed, metaclass=GObject.GType):
         Compares two GstDsdInfo and returns whether they are equal or not
         """
     def set_format(
-        self, format: DsdFormat, rate: int, channels: int, positions: list[AudioChannelPosition] | None = None
+        self,
+        format: DsdFormat,
+        rate: int,
+        channels: int,
+        positions: collections.abc.Sequence[AudioChannelPosition] | None = None,
     ) -> None:
         """
             Set the default info for the DSD info of `format` and `rate` and `channels`.

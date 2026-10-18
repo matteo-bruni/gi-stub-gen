@@ -14,9 +14,11 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import contextlib
 import enum
 import gi
+import gi._signalhelper
 import typing
 
 # gi.repository imports needed by this Stub
@@ -994,7 +996,7 @@ def signal_add_emission_hook(
     ...
 
 def signal_chain_from_overridden(
-    instance_and_params: list[typing.Any],
+    instance_and_params: collections.abc.Sequence[typing.Any],
     return_value: Value,
 ) -> None:
     """
@@ -1041,7 +1043,7 @@ def signal_connect_closure_by_id(
     ...
 
 def signal_emitv(
-    instance_and_params: list[typing.Any],
+    instance_and_params: collections.abc.Sequence[typing.Any],
     signal_id: int,
     detail: int,
     return_value: typing.Any = None,
@@ -1274,7 +1276,7 @@ def signal_newv(
     *accu_data: object | None,
     c_marshaller: ClosureMarshal | None,
     return_type: GType,
-    param_types: list[GType] | None = None,
+    param_types: collections.abc.Sequence[GType] | None = None,
 ) -> int:
     """
     Creates a new signal. (This is usually done in the class initializer.)
@@ -3083,7 +3085,9 @@ class Closure(GBoxed, metaclass=GType):
         reference count of a closure drops to zero (unless it has already
         been invalidated before).
         """
-    def invoke(self, param_values: list[typing.Any], invocation_hint: object | None = None) -> typing.Any:
+    def invoke(
+        self, param_values: collections.abc.Sequence[typing.Any], invocation_hint: object | None = None
+    ) -> typing.Any:
         """
         Invokes the closure, i.e. executes the callback represented by the `closure`.
         """
@@ -3804,7 +3808,7 @@ class Object(builtins.object):
         """
         Get a property value by name.
         """
-    def getv(self, names: list[str], values: list[Value]) -> None:
+    def getv(self, names: collections.abc.Sequence[str], values: collections.abc.Sequence[Value]) -> None:
         """
             Gets `n_properties` properties for an `object`.
         Obtained properties will be set to `values`. All properties must be valid.
@@ -4063,7 +4067,7 @@ class Object(builtins.object):
     @classmethod
     def install_properties(
         cls,
-        pspecs: list[ParamSpec],
+        pspecs: collections.abc.Sequence[ParamSpec],
     ) -> None:
         """
         install_properties(self, pspecs:list)
@@ -4140,7 +4144,7 @@ class Object(builtins.object):
     def newv(
         cls,
         object_type: GType,
-        parameters: list[Parameter],
+        parameters: collections.abc.Sequence[Parameter],
     ) -> Object:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -4532,7 +4536,7 @@ class ObjectClass(GPointer, metaclass=GType):
         """
         Looks up the GParamSpec for a property of a class.
         """
-    def install_properties(self, pspecs: list[ParamSpec]) -> None:
+    def install_properties(self, pspecs: collections.abc.Sequence[ParamSpec]) -> None:
         """
             Installs new properties from an array of GParamSpecs.
 
@@ -4790,6 +4794,7 @@ class ParamSpec(builtins.object, metaclass=GType):
     # python methods (overrides?)
     def do_finalize(
         self,
+        /,
     ) -> None:
         """
         finalize(self)
@@ -4806,6 +4811,7 @@ class ParamSpec(builtins.object, metaclass=GType):
     def do_value_is_valid(
         self,
         value: Value,
+        /,
     ) -> bool:
         """
         value_is_valid(self, value:GObject.Value) -> bool
@@ -4813,6 +4819,7 @@ class ParamSpec(builtins.object, metaclass=GType):
     def do_value_set_default(
         self,
         value: Value,
+        /,
     ) -> None:
         """
         value_set_default(self, value:GObject.Value)
@@ -4820,6 +4827,7 @@ class ParamSpec(builtins.object, metaclass=GType):
     def do_value_validate(
         self,
         value: Value,
+        /,
     ) -> bool:
         """
         value_validate(self, value:GObject.Value) -> bool
@@ -4828,6 +4836,7 @@ class ParamSpec(builtins.object, metaclass=GType):
         self,
         value1: Value,
         value2: Value,
+        /,
     ) -> int:
         """
         values_cmp(self, value1:GObject.Value, value2:GObject.Value) -> int
@@ -6208,12 +6217,14 @@ class TypeModule(Object):
     # python methods (overrides?)
     def do_load(
         self,
+        /,
     ) -> bool:
         """
         load(self) -> bool
         """
     def do_unload(
         self,
+        /,
     ) -> None:
         """
         unload(self)
@@ -7909,7 +7920,7 @@ SPAWN_STDOUT_TO_DEV_NULL = GLib.SPAWN_STDOUT_TO_DEV_NULL
 """
 [DEPRECATED] GObject.SPAWN_STDOUT_TO_DEV_NULL is deprecated; use GLib.SPAWN_STDOUT_TO_DEV_NULL instead
 """
-Signal = gi._signalhelper.Signal  # type: ignore
+Signal = gi._signalhelper.Signal
 SignalOverride = gi._signalhelper.SignalOverride  # type: ignore
 Source = GLib.Source
 """

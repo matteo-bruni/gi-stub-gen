@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -82,7 +83,7 @@ def ptp_deinit() -> None:
 
 def ptp_init(
     clock_id: int,
-    interfaces: list[str] | None = None,
+    interfaces: collections.abc.Sequence[str] | None = None,
 ) -> bool:
     """
     Initialize the GStreamer PTP subsystem and create a PTP ordinary clock in
@@ -481,7 +482,7 @@ class NetTimePacket(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new(
         cls,
-        buffer: list[int] | None = None,
+        buffer: collections.abc.Sequence[int] | None = None,
     ) -> NetTimePacket:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]

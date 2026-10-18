@@ -1,64 +1,14 @@
 """Build the deliberately bounded internal API through normal schema rendering."""
 
-import ast
 from types import ModuleType
 
 from gi_stub_gen.overrides.private_gi import FLAG_CLASSES, FUNCTIONS, INFO_METHODS, OTHER_METHODS
 from gi_stub_gen.schema.builtin_function import (
-    ArgKind,
-    BuiltinFunctionArgumentSchema,
-    BuiltinFunctionSchema,
     TypeVarSchema,
 )
 from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 from gi_stub_gen.schema.module import ModuleSchema
-
-
-def _function(signature: str, owner: object) -> BuiltinFunctionSchema:
-    static = signature.startswith("@")
-    node = ast.parse(f"def {signature.lstrip('@')}: ...").body[0]
-    assert isinstance(node, ast.FunctionDef)
-    if not hasattr(owner, node.name):
-        raise RuntimeError(f"Private PyGObject API changed: {owner}.{node.name}")
-    params = []
-    positional = node.args.posonlyargs + node.args.args
-    defaults = [None] * (len(positional) - len(node.args.defaults)) + list(node.args.defaults)
-    entries = [
-        (arg, ArgKind.POSITIONAL_ONLY if i < len(node.args.posonlyargs) else ArgKind.POSITIONAL_OR_KEYWORD, defaults[i])
-        for i, arg in enumerate(positional)
-    ]
-    if node.args.vararg:
-        entries.append((node.args.vararg, ArgKind.VAR_POSITIONAL, None))
-    entries.extend(
-        (arg, ArgKind.KEYWORD_ONLY, default) for arg, default in zip(node.args.kwonlyargs, node.args.kw_defaults)
-    )
-    if node.args.kwarg:
-        entries.append((node.args.kwarg, ArgKind.VAR_KEYWORD, None))
-    for arg, kind, default in entries:
-        params.append(
-            BuiltinFunctionArgumentSchema(
-                name=arg.arg,
-                type_hint_name=ast.unparse(arg.annotation) if arg.annotation else "object",
-                type_hint_namespace=None,
-                kind=kind,
-                default_value=ast.unparse(default) if default is not None else None,
-                is_optional=False,
-                line_comment=None,
-            )
-        )
-    return BuiltinFunctionSchema(
-        name=node.name,
-        namespace="gi._gi",
-        is_async=False,
-        is_from_class=not isinstance(owner, ModuleType),
-        is_classmethod=False,
-        is_staticmethod=static,
-        docstring=None,
-        return_hint_name=ast.unparse(node.returns) if node.returns else "None",
-        return_hint_namespace=None,
-        return_is_optional=False,
-        params=params,
-    )
+from gi_stub_gen.parser.declarations import parse_signature
 
 
 def _field(name: str, annotation: str) -> ClassFieldSchema:
@@ -102,7 +52,7 @@ def parse_private_gi(module: ModuleType) -> ModuleSchema:
                 props=[],
                 fields=fields,
                 methods=[],
-                python_methods=[_function(signature, runtime) for signature in signatures],
+                python_methods=[parse_signature(signature, runtime, "gi._gi") for signature in signatures],
                 signals=[],
                 extra=[],
                 is_deprecated=False,
@@ -116,7 +66,7 @@ def parse_private_gi(module: ModuleType) -> ModuleSchema:
         constant=[],
         enum=[],
         function=[],
-        builtin_function=[_function(signature, module) for signature in FUNCTIONS],
+        builtin_function=[parse_signature(signature, module, "gi._gi") for signature in FUNCTIONS],
         callbacks=[],
         aliases=[],
     )

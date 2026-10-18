@@ -431,30 +431,35 @@ class AppSink(GstBase.BaseSink):
     # python methods (overrides?)
     def do_eos(
         self,
+        /,
     ) -> None:
         """
         eos(self)
         """
     def do_new_preroll(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_preroll(self) -> Gst.FlowReturn
         """
     def do_new_sample(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sample(self) -> Gst.FlowReturn
         """
     def do_pull_preroll(
         self,
+        /,
     ) -> Gst.Sample | None:
         """
         pull_preroll(self) -> Gst.Sample or None
         """
     def do_pull_sample(
         self,
+        /,
     ) -> Gst.Sample | None:
         """
         pull_sample(self) -> Gst.Sample or None
@@ -462,6 +467,7 @@ class AppSink(GstBase.BaseSink):
     def do_try_pull_object(
         self,
         timeout: int,
+        /,
     ) -> Gst.MiniObject | None:
         """
         try_pull_object(self, timeout:int) -> Gst.MiniObject or None
@@ -469,6 +475,7 @@ class AppSink(GstBase.BaseSink):
     def do_try_pull_preroll(
         self,
         timeout: int,
+        /,
     ) -> Gst.Sample | None:
         """
         try_pull_preroll(self, timeout:int) -> Gst.Sample or None
@@ -476,6 +483,7 @@ class AppSink(GstBase.BaseSink):
     def do_try_pull_sample(
         self,
         timeout: int,
+        /,
     ) -> Gst.Sample | None:
         """
         try_pull_sample(self, timeout:int) -> Gst.Sample or None
@@ -1536,12 +1544,14 @@ class AppSrc(GstBase.BaseSrc):
     # python methods (overrides?)
     def do_end_of_stream(
         self,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_of_stream(self) -> Gst.FlowReturn
         """
     def do_enough_data(
         self,
+        /,
     ) -> None:
         """
         enough_data(self)
@@ -1549,6 +1559,7 @@ class AppSrc(GstBase.BaseSrc):
     def do_need_data(
         self,
         length: int,
+        /,
     ) -> None:
         """
         need_data(self, length:int)
@@ -1556,6 +1567,7 @@ class AppSrc(GstBase.BaseSrc):
     def do_push_buffer(
         self,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn:
         """
         push_buffer(self, buffer:Gst.Buffer) -> Gst.FlowReturn
@@ -1563,6 +1575,7 @@ class AppSrc(GstBase.BaseSrc):
     def do_push_buffer_list(
         self,
         buffer_list: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn:
         """
         push_buffer_list(self, buffer_list:Gst.BufferList) -> Gst.FlowReturn
@@ -1570,6 +1583,7 @@ class AppSrc(GstBase.BaseSrc):
     def do_push_sample(
         self,
         sample: Gst.Sample,
+        /,
     ) -> Gst.FlowReturn:
         """
         push_sample(self, sample:Gst.Sample) -> Gst.FlowReturn
@@ -1577,6 +1591,7 @@ class AppSrc(GstBase.BaseSrc):
     def do_seek_data(
         self,
         offset: int,
+        /,
     ) -> bool:
         """
         seek_data(self, offset:int) -> bool

@@ -51,8 +51,10 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
             for name, _, _ in csv.reader(io.StringIO(wheel.read(record).decode())):
                 assert name not in owners, f"Overlapping wheel file: {name}"
                 owners[name] = archive.name
-    for marker in ("gi-stubs/py.typed", "gi-stubs/repository/__init__.pyi", "gi-stubs/_gi.pyi"):
+    for marker in ("gi-stubs/py.typed", "gi-stubs/repository/__init__.pyi", "gi-stubs/_gi.pyi", "gi-stubs/events.pyi", "gi-stubs/_signalhelper.pyi"):
         assert owners[marker].startswith("gi_base_stubs-")
+
+    assert owners["gi-stubs/_gtktemplate.pyi"].startswith("gi_gtk_stubs-")
 
     env = work / "venv"
     checked("uv", "venv", "--python", sys.executable, str(env))
@@ -76,7 +78,7 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
     work, _, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid", "gstreamer_typed_pipeline", "namespaces"):
+    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "gstreamer_typed_pipeline", "namespaces"):
         source = work / f"{fixture}.py"
         if fixture == "namespaces":
             names = sorted({path.stem for path in (ROOT / "stubs").glob("*/src/gi-stubs/repository/*.pyi") if path.stem != "__init__"})
@@ -97,7 +99,8 @@ def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: 
             diagnostics = json.loads(result.stdout)
             assert all(item["severity"] == "major" and Path(item["location"]["path"]) == source for item in diagnostics)
             actual = [item["location"]["positions"]["begin"]["line"] for item in diagnostics]
-        assert sorted(actual) == expected, result.stdout + result.stderr
+        # A rejected constructor can produce separate __new__ and __init__ diagnostics.
+        assert sorted(set(actual)) == expected, result.stdout + result.stderr
         assert result.returncode == (1 if expected else 0), result.stdout + result.stderr
 
 

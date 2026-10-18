@@ -254,6 +254,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         picture: AV1Picture,
         tile: AV1Tile,
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_tile(self, picture:GstCodecs.AV1Picture, tile:GstCodecs.AV1Tile) -> Gst.FlowReturn
@@ -262,6 +263,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: AV1Picture,
+        /,
     ) -> AV1Picture:
         """
         duplicate_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.AV1Picture) -> GstCodecs.AV1Picture
@@ -269,6 +271,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: AV1Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.AV1Picture) -> Gst.FlowReturn
@@ -276,6 +279,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, live:bool) -> int
@@ -284,6 +288,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: AV1Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.AV1Picture) -> Gst.FlowReturn
@@ -292,6 +297,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         seq_hdr: GstCodecParsers.AV1SequenceHeaderOBU,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, seq_hdr:GstCodecParsers.AV1SequenceHeaderOBU, max_dpb_size:int) -> Gst.FlowReturn
@@ -300,6 +306,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: AV1Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.AV1Picture) -> Gst.FlowReturn
@@ -308,6 +315,7 @@ class AV1Decoder(GstVideo.VideoDecoder):
         self,
         picture: AV1Picture,
         dpb: AV1Dpb,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.AV1Picture, dpb:GstCodecs.AV1Dpb) -> Gst.FlowReturn
@@ -595,6 +603,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         slice: H264Slice,
         ref_pic_list0: list[H264Picture],
         ref_pic_list1: list[H264Picture],
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_slice(self, picture:GstCodecs.H264Picture, slice:GstCodecs.H264Slice, ref_pic_list0:list, ref_pic_list1:list) -> Gst.FlowReturn
@@ -602,6 +611,7 @@ class H264Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: H264Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.H264Picture) -> Gst.FlowReturn
@@ -609,6 +619,7 @@ class H264Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, live:bool) -> int
@@ -617,6 +628,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         self,
         first_field: H264Picture,
         second_field: H264Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_field_picture(self, first_field:GstCodecs.H264Picture, second_field:GstCodecs.H264Picture) -> Gst.FlowReturn
@@ -625,6 +637,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H264Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H264Picture) -> Gst.FlowReturn
@@ -633,6 +646,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         self,
         sps: GstCodecParsers.H264SPS,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, sps:GstCodecParsers.H264SPS, max_dpb_size:int) -> Gst.FlowReturn
@@ -641,6 +655,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H264Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H264Picture) -> Gst.FlowReturn
@@ -650,6 +665,7 @@ class H264Decoder(GstVideo.VideoDecoder):
         picture: H264Picture,
         slice: H264Slice,
         dpb: H264Dpb,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.H264Picture, slice:GstCodecs.H264Slice, dpb:GstCodecs.H264Dpb) -> Gst.FlowReturn
@@ -1029,6 +1045,7 @@ class H265Decoder(GstVideo.VideoDecoder):
         slice: H265Slice,
         ref_pic_list0: list[H265Picture],
         ref_pic_list1: list[H265Picture],
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_slice(self, picture:GstCodecs.H265Picture, slice:GstCodecs.H265Slice, ref_pic_list0:list, ref_pic_list1:list) -> Gst.FlowReturn
@@ -1036,6 +1053,7 @@ class H265Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: H265Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.H265Picture) -> Gst.FlowReturn
@@ -1043,6 +1061,7 @@ class H265Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, live:bool) -> int
@@ -1051,6 +1070,7 @@ class H265Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H265Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H265Picture) -> Gst.FlowReturn
@@ -1059,6 +1079,7 @@ class H265Decoder(GstVideo.VideoDecoder):
         self,
         sps: GstCodecParsers.H265SPS,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, sps:GstCodecParsers.H265SPS, max_dpb_size:int) -> Gst.FlowReturn
@@ -1067,6 +1088,7 @@ class H265Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H265Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H265Picture) -> Gst.FlowReturn
@@ -1076,6 +1098,7 @@ class H265Decoder(GstVideo.VideoDecoder):
         picture: H265Picture,
         slice: H265Slice,
         dpb: H265Dpb,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.H265Picture, slice:GstCodecs.H265Slice, dpb:GstCodecs.H265Dpb) -> Gst.FlowReturn
@@ -1386,6 +1409,7 @@ class H266Decoder(GstVideo.VideoDecoder):
         self,
         picture: H266Picture,
         slice: H266Slice,
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_slice(self, picture:GstCodecs.H266Picture, slice:GstCodecs.H266Slice) -> Gst.FlowReturn
@@ -1393,6 +1417,7 @@ class H266Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: H266Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.H266Picture) -> Gst.FlowReturn
@@ -1400,6 +1425,7 @@ class H266Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, live:bool) -> int
@@ -1408,6 +1434,7 @@ class H266Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H266Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H266Picture) -> Gst.FlowReturn
@@ -1416,6 +1443,7 @@ class H266Decoder(GstVideo.VideoDecoder):
         self,
         sps: GstCodecParsers.H266SPS,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, sps:GstCodecParsers.H266SPS, max_dpb_size:int) -> Gst.FlowReturn
@@ -1424,6 +1452,7 @@ class H266Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: H266Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.H266Picture) -> Gst.FlowReturn
@@ -1433,6 +1462,7 @@ class H266Decoder(GstVideo.VideoDecoder):
         picture: H266Picture,
         slice: H266Slice,
         dpb: H266Dpb,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.H266Picture, slice:GstCodecs.H266Slice, dpb:GstCodecs.H266Dpb) -> Gst.FlowReturn
@@ -1743,6 +1773,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         self,
         picture: Mpeg2Picture,
         slice: Mpeg2Slice,
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_slice(self, picture:GstCodecs.Mpeg2Picture, slice:GstCodecs.Mpeg2Slice) -> Gst.FlowReturn
@@ -1750,6 +1781,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: Mpeg2Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.Mpeg2Picture) -> Gst.FlowReturn
@@ -1757,6 +1789,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         is_live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, is_live:bool) -> int
@@ -1765,6 +1798,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         self,
         first_field: Mpeg2Picture,
         second_field: Mpeg2Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_field_picture(self, first_field:GstCodecs.Mpeg2Picture, second_field:GstCodecs.Mpeg2Picture) -> Gst.FlowReturn
@@ -1773,6 +1807,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Mpeg2Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Mpeg2Picture) -> Gst.FlowReturn
@@ -1784,6 +1819,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         seq_display_ext: GstCodecParsers.MpegVideoSequenceDisplayExt,
         seq_scalable_ext: GstCodecParsers.MpegVideoSequenceScalableExt,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, seq:GstCodecParsers.MpegVideoSequenceHdr, seq_ext:GstCodecParsers.MpegVideoSequenceExt, seq_display_ext:GstCodecParsers.MpegVideoSequenceDisplayExt, seq_scalable_ext:GstCodecParsers.MpegVideoSequenceScalableExt, max_dpb_size:int) -> Gst.FlowReturn
@@ -1792,6 +1828,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Mpeg2Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Mpeg2Picture) -> Gst.FlowReturn
@@ -1802,6 +1839,7 @@ class Mpeg2Decoder(GstVideo.VideoDecoder):
         slice: Mpeg2Slice,
         prev_picture: Mpeg2Picture,
         next_picture: Mpeg2Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.Mpeg2Picture, slice:GstCodecs.Mpeg2Slice, prev_picture:GstCodecs.Mpeg2Picture, next_picture:GstCodecs.Mpeg2Picture) -> Gst.FlowReturn
@@ -2050,6 +2088,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
         self,
         picture: Vp8Picture,
         parser: GstCodecParsers.Vp8Parser,
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_picture(self, picture:GstCodecs.Vp8Picture, parser:GstCodecParsers.Vp8Parser) -> Gst.FlowReturn
@@ -2057,6 +2096,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: Vp8Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.Vp8Picture) -> Gst.FlowReturn
@@ -2064,6 +2104,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         is_live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, is_live:bool) -> int
@@ -2072,6 +2113,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Vp8Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Vp8Picture) -> Gst.FlowReturn
@@ -2080,6 +2122,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
         self,
         frame_hdr: GstCodecParsers.Vp8FrameHdr,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, frame_hdr:GstCodecParsers.Vp8FrameHdr, max_dpb_size:int) -> Gst.FlowReturn
@@ -2088,6 +2131,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Vp8Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Vp8Picture) -> Gst.FlowReturn
@@ -2095,6 +2139,7 @@ class Vp8Decoder(GstVideo.VideoDecoder):
     def do_start_picture(
         self,
         picture: Vp8Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.Vp8Picture) -> Gst.FlowReturn
@@ -2318,6 +2363,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
         self,
         picture: Vp9Picture,
         dpb: Vp9Dpb,
+        /,
     ) -> Gst.FlowReturn:
         """
         decode_picture(self, picture:GstCodecs.Vp9Picture, dpb:GstCodecs.Vp9Dpb) -> Gst.FlowReturn
@@ -2326,6 +2372,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Vp9Picture,
+        /,
     ) -> Vp9Picture | None:
         """
         duplicate_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Vp9Picture) -> GstCodecs.Vp9Picture or None
@@ -2333,6 +2380,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
     def do_end_picture(
         self,
         picture: Vp9Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         end_picture(self, picture:GstCodecs.Vp9Picture) -> Gst.FlowReturn
@@ -2340,6 +2388,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
     def do_get_preferred_output_delay(
         self,
         is_live: bool,
+        /,
     ) -> int:
         """
         get_preferred_output_delay(self, is_live:bool) -> int
@@ -2348,6 +2397,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Vp9Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Vp9Picture) -> Gst.FlowReturn
@@ -2356,6 +2406,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
         self,
         frame_hdr: Vp9FrameHeader,
         max_dpb_size: int,
+        /,
     ) -> Gst.FlowReturn:
         """
         new_sequence(self, frame_hdr:GstCodecs.Vp9FrameHeader, max_dpb_size:int) -> Gst.FlowReturn
@@ -2364,6 +2415,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
         self,
         frame: GstVideo.VideoCodecFrame,
         picture: Vp9Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         output_picture(self, frame:GstVideo.VideoCodecFrame, picture:GstCodecs.Vp9Picture) -> Gst.FlowReturn
@@ -2371,6 +2423,7 @@ class Vp9Decoder(GstVideo.VideoDecoder):
     def do_start_picture(
         self,
         picture: Vp9Picture,
+        /,
     ) -> Gst.FlowReturn:
         """
         start_picture(self, picture:GstCodecs.Vp9Picture) -> Gst.FlowReturn

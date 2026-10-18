@@ -14,6 +14,7 @@ from typing_extensions import deprecated  # noqa: F401
 import typing_extensions  # noqa: F401
 
 import builtins
+import collections.abc
 import typing
 
 # gi.repository imports needed by this Stub
@@ -28,7 +29,7 @@ from gi.repository import GstVideo
 
 def codec_utils_aac_caps_set_level_and_profile(
     caps: Gst.Caps,
-    audio_config: bytes,
+    audio_config: collections.abc.Sequence[int],
 ) -> bool:
     """
     Sets the level and profile on `caps` if it can be determined from
@@ -40,7 +41,7 @@ def codec_utils_aac_caps_set_level_and_profile(
     ...
 
 def codec_utils_aac_get_channels(
-    audio_config: bytes,
+    audio_config: collections.abc.Sequence[int],
 ) -> int:
     """
     Returns the channels of the given AAC stream.
@@ -56,7 +57,7 @@ def codec_utils_aac_get_index_from_sample_rate(
     ...
 
 def codec_utils_aac_get_level(
-    audio_config: bytes,
+    audio_config: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Determines the level of a stream as defined in ISO/IEC 14496-3. For AAC LC
@@ -76,7 +77,7 @@ def codec_utils_aac_get_level(
     ...
 
 def codec_utils_aac_get_profile(
-    audio_config: bytes,
+    audio_config: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Returns the profile of the given AAC stream as a string. The profile is
@@ -86,7 +87,7 @@ def codec_utils_aac_get_profile(
     ...
 
 def codec_utils_aac_get_sample_rate(
-    audio_config: bytes,
+    audio_config: collections.abc.Sequence[int],
 ) -> int:
     """
     Translates the sample rate index found in AAC headers to the actual sample
@@ -161,7 +162,7 @@ def codec_utils_caps_get_mime_codec(
 
 def codec_utils_h264_caps_set_level_and_profile(
     caps: Gst.Caps,
-    sps: bytes,
+    sps: collections.abc.Sequence[int],
 ) -> bool:
     """
     Sets the level and profile in `caps` if it can be determined from `sps`. See
@@ -171,7 +172,7 @@ def codec_utils_h264_caps_set_level_and_profile(
     ...
 
 def codec_utils_h264_get_level(
-    sps: bytes,
+    sps: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the level indication (level_idc) in the stream's
@@ -189,7 +190,7 @@ def codec_utils_h264_get_level_idc(
     ...
 
 def codec_utils_h264_get_profile(
-    sps: bytes,
+    sps: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the profile indication (profile_idc) in the stream's
@@ -210,7 +211,7 @@ def codec_utils_h264_get_profile(
     ...
 
 def codec_utils_h264_get_profile_flags_level(
-    codec_data: bytes,
+    codec_data: collections.abc.Sequence[int],
 ) -> tuple[bool, int, int, int]:
     """
     Parses profile, flags, and level from a H264 AVCC extradata/sequence_header.
@@ -225,7 +226,7 @@ def codec_utils_h264_get_profile_flags_level(
 
 def codec_utils_h265_caps_set_level_tier_and_profile(
     caps: Gst.Caps,
-    profile_tier_level: bytes,
+    profile_tier_level: collections.abc.Sequence[int],
 ) -> bool:
     """
     Sets the level, tier and profile in `caps` if it can be determined from
@@ -236,7 +237,7 @@ def codec_utils_h265_caps_set_level_tier_and_profile(
     ...
 
 def codec_utils_h265_get_level(
-    profile_tier_level: bytes,
+    profile_tier_level: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the level indication (general_level_idc) in the stream's
@@ -254,7 +255,7 @@ def codec_utils_h265_get_level_idc(
     ...
 
 def codec_utils_h265_get_profile(
-    profile_tier_level: bytes,
+    profile_tier_level: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the profile indication (general_profile_idc) in the stream's
@@ -277,7 +278,7 @@ def codec_utils_h265_get_profile(
     ...
 
 def codec_utils_h265_get_tier(
-    profile_tier_level: bytes,
+    profile_tier_level: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the tier indication (general_tier_flag) in the stream's
@@ -288,7 +289,7 @@ def codec_utils_h265_get_tier(
 
 def codec_utils_h266_caps_set_level_tier_and_profile(
     caps: Gst.Caps,
-    decoder_configuration: bytes,
+    decoder_configuration: collections.abc.Sequence[int],
 ) -> bool:
     """
     Sets the level, tier and profile in `caps` if it can be determined from
@@ -299,7 +300,7 @@ def codec_utils_h266_caps_set_level_tier_and_profile(
     ...
 
 def codec_utils_h266_get_level(
-    ptl_record: bytes,
+    ptl_record: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the level indication (general_level_idc) in the stream's
@@ -316,7 +317,7 @@ def codec_utils_h266_get_level_idc(
     ...
 
 def codec_utils_h266_get_profile(
-    ptl_record: bytes,
+    ptl_record: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the profile indication (general_profile_idc) in the stream's
@@ -325,7 +326,7 @@ def codec_utils_h266_get_profile(
     ...
 
 def codec_utils_h266_get_tier(
-    ptl_record: bytes,
+    ptl_record: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the tier indication (general_tier_flag) in the stream's
@@ -335,7 +336,7 @@ def codec_utils_h266_get_tier(
 
 def codec_utils_mpeg4video_caps_set_level_and_profile(
     caps: Gst.Caps,
-    vis_obj_seq: bytes,
+    vis_obj_seq: collections.abc.Sequence[int],
 ) -> bool:
     """
     Sets the level and profile in `caps` if it can be determined from
@@ -346,7 +347,7 @@ def codec_utils_mpeg4video_caps_set_level_and_profile(
     ...
 
 def codec_utils_mpeg4video_get_level(
-    vis_obj_seq: bytes,
+    vis_obj_seq: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the level indication in the stream's visual object sequence into
@@ -357,7 +358,7 @@ def codec_utils_mpeg4video_get_level(
     ...
 
 def codec_utils_mpeg4video_get_profile(
-    vis_obj_seq: bytes,
+    vis_obj_seq: collections.abc.Sequence[int],
 ) -> str | None:
     """
     Converts the profile indication in the stream's visual object sequence into
@@ -373,7 +374,7 @@ def codec_utils_opus_create_caps(
     channel_mapping_family: int,
     stream_count: int,
     coupled_count: int,
-    channel_mapping: bytes | None = None,
+    channel_mapping: collections.abc.Sequence[int] | None = None,
 ) -> Gst.Caps | None:
     """
     Creates Opus caps from the given parameters.
@@ -396,7 +397,7 @@ def codec_utils_opus_create_header(
     channel_mapping_family: int,
     stream_count: int,
     coupled_count: int,
-    channel_mapping: bytes | None,
+    channel_mapping: collections.abc.Sequence[int] | None,
     pre_skip: int,
     output_gain: int,
 ) -> Gst.Buffer | None:
@@ -437,7 +438,7 @@ def encoding_list_available_categories() -> list[str]:
     ...
 
 def install_plugins_async(
-    details: list[str],
+    details: collections.abc.Sequence[str],
     ctx: InstallPluginsContext | None,
     func: InstallPluginsResultFunc,
     *user_data: object | None,
@@ -490,7 +491,7 @@ def install_plugins_supported() -> bool:
     ...
 
 def install_plugins_sync(
-    details: list[str],
+    details: collections.abc.Sequence[str],
     ctx: InstallPluginsContext | None = None,
 ) -> InstallPluginsReturn:
     """
@@ -1085,6 +1086,7 @@ class AudioVisualizer(Gst.Element):
     def do_decide_allocation(
         self,
         query: Gst.Query,
+        /,
     ) -> bool:
         """
         decide_allocation(self, query:Gst.Query) -> bool
@@ -1093,12 +1095,14 @@ class AudioVisualizer(Gst.Element):
         self,
         audio: Gst.Buffer,
         video: GstVideo.VideoFrame,
+        /,
     ) -> bool:
         """
         render(self, audio:Gst.Buffer, video:GstVideo.VideoFrame) -> bool
         """
     def do_setup(
         self,
+        /,
     ) -> bool:
         """
         setup(self) -> bool
@@ -1264,12 +1268,14 @@ class Discoverer(GObject.Object):
         self,
         info: DiscovererInfo,
         err: GLib.Error,
+        /,
     ) -> None:
         """
         discovered(self, info:GstPbutils.DiscovererInfo, err:error)
         """
     def do_finished(
         self,
+        /,
     ) -> None:
         """
         finished(self)
@@ -1277,6 +1283,7 @@ class Discoverer(GObject.Object):
     def do_load_serialize_info(
         self,
         uri: str,
+        /,
     ) -> DiscovererInfo:
         """
         load_serialize_info(self, uri:str) -> GstPbutils.DiscovererInfo
@@ -1284,12 +1291,14 @@ class Discoverer(GObject.Object):
     def do_source_setup(
         self,
         source: Gst.Element,
+        /,
     ) -> None:
         """
         source_setup(self, source:Gst.Element)
         """
     def do_starting(
         self,
+        /,
     ) -> None:
         """
         starting(self)

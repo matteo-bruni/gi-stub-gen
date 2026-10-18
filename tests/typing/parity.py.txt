@@ -1,0 +1,73 @@
+from collections import UserDict
+from typing import Any, assert_type
+import asyncio
+import gi
+from gi import events
+from gi.repository import GLib, GObject, Gst, GstBase, Gtk
+
+
+def containers(caps: Gst.Caps, structure: Gst.Structure) -> None:
+    assert_type(GLib.strjoinv(",", ("a", "b")), str)
+    assert_type(Gst.Buffer.new_wrapped((65, 66)), Gst.Buffer)
+    assert_type(Gst.Buffer.new_wrapped(b"AB"), Gst.Buffer)
+    assert_type(caps[0], Gst.Structure)
+    assert_type(len(caps), int)
+    structure["width"] = 640
+    assert_type(structure["width"], Any)
+    assert_type(len(structure), int)
+    uri = Gst.Uri.from_string("https://example.com")
+    assert uri is not None
+    assert_type(uri.set_query_table(UserDict({"a": "b"})), bool)
+    assert_type(GLib.base64_decode_inplace(b"YWI="), tuple[int, bytes])
+
+
+class Aggregator(GstBase.Aggregator):
+    def do_aggregate(self, expired: bool) -> Gst.FlowReturn:
+        return Gst.FlowReturn.OK
+
+
+gi.require_version("Gst", "1.0")
+assert_type(gi.require_versions({"Gst": "1.0"}), None)
+assert_type(gi.get_required_version("Gst"), str | None)
+assert_type(gi.get_option("legacy_autoinit"), bool)
+
+
+class Emitter(GObject.Object):
+    @GObject.Signal
+    def changed(self, value: int) -> None:
+        pass
+
+
+assert_type(Emitter.changed, GObject.Signal)
+assert_type(Emitter().changed.connect(lambda _obj, value: None), int)
+
+
+@Gtk.Template(string='<interface/>')
+class Box(Gtk.Box):
+    child = Gtk.Template.Child("child")
+
+    @Gtk.Template.Callback()
+    def clicked(self, button: Gtk.Button) -> None:
+        pass
+
+
+assert_type(Box(), Box)
+assert_type(Box().child, Any)
+
+
+async def answer() -> int:
+    return 42
+
+
+def async_helpers() -> None:
+    loop = events.GLibEventLoop()
+    policy = events.GLibEventLoopPolicy()
+    assert_type(policy.new_event_loop(), events.GLibEventLoop)
+    task = events.GLibTask(answer(), loop=loop)
+    assert_type(task, events.GLibTask[int])
+    assert_type(loop.run_until_complete(task), int)
+    assert_type(task.get_priority(None), int)
+    with loop.paused() as paused:
+        assert_type(paused, None)
+    compatible: asyncio.AbstractEventLoop = loop
+    compatible.close()

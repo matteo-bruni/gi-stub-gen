@@ -132,6 +132,8 @@ def parse_argument(
     type_hint_name: str
     type_hint_comment: str | None = None
     type_imports: set[str] = set()
+    input_type_name: str | None = None
+    input_type_namespace: str | None = None
 
     # if is a callback, we record its return type for type hinting
     # to create something like arg: Callback | typing.Callable[..., PadProbeReturn]
@@ -190,6 +192,12 @@ def parse_argument(
             current_namespace=annotation_namespace,
             required_imports=type_imports,
         )
+        if callable_type == "FunctionInfo" and direction in ("IN", "INOUT"):
+            input_type = gi_type_to_py_type(gi_type, for_input=True)
+            if input_type != py_type:
+                input_type_name, input_type_namespace = _extract_annotation_type_info(
+                    input_type, current_namespace=annotation_namespace, required_imports=type_imports,
+                )
 
     array_length: int = get_safe_gi_array_length(gi_type)
     is_caller_allocates = obj.is_caller_allocates()
@@ -200,9 +208,13 @@ def parse_argument(
     )
     if is_marshaled_gvalue_payload:
         type_imports.clear()
+        input_type_name = input_type_namespace = None
         if gir_type is not None and gir_type.is_array:
             type_hint_name = "list[typing.Any]"
             type_hint_namespace = None
+            if callable_type == "FunctionInfo" and direction in ("IN", "INOUT"):
+                input_type_name = "Sequence[typing.Any]"
+                input_type_namespace = "collections.abc"
         else:
             type_hint_name = "Any"
             type_hint_namespace = "typing"
@@ -216,6 +228,8 @@ def parse_argument(
         direction=direction,
         py_type_namespace=type_hint_namespace,
         py_type_name=type_hint_name,
+        input_type_name=input_type_name,
+        input_type_namespace=input_type_namespace,
         type_imports=type_imports,
         is_deprecated=gi_type.is_deprecated(),
         tag_as_string=gi_type.get_tag_as_string(),
