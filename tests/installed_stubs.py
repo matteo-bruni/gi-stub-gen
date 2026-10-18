@@ -78,7 +78,7 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
     work, _, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "gstreamer_typed_pipeline", "namespaces"):
+    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "gstreamer_typed_pipeline", "namespaces"):
         source = work / f"{fixture}.py"
         if fixture == "namespaces":
             names = sorted({path.stem for path in (ROOT / "stubs").glob("*/src/gi-stubs/repository/*.pyi") if path.stem != "__init__"})

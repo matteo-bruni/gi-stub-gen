@@ -5,6 +5,18 @@ Use `method_transforms` when a parsed method needs a small correction. Use a ful
 `methods` or `fields` definition when introspection cannot describe the member.
 Keep these Python projections out of the runtime property/GStreamer catalog.
 
+Interface inheritance is inferred from the runtime's direct Python bases, with
+the same-name repository layer of Python overrides expanded in place. Keep
+interfaces nominal and preserve the runtime's selected method when bases share
+a name. For example, `Socket.condition_wait` has no timeout argument, although
+`DatagramBased.condition_wait(socket, ...)` does. Do not add the interface's
+signature as an overload of the bound Socket method. `super` still replaces
+inferred bases; synthetic `Props` composition is handled separately by the parser.
+These native collisions remain visible to stub checkers. Comments at the targeted
+transforms explain the runtime choice; do not add blanket ignores or merge the
+conflicting signatures. Consumers needing the other native entry point can call
+the interface method explicitly, as in the Socket example above.
+
 ## Application rules
 
 `ClassOverride` is a TypedDict, not another runtime model. `methods` and `fields`
@@ -46,6 +58,9 @@ not version gates; rerun runtime checks when dependencies change.
 | Gio.Task.return_value | GIR describes a GValue input, but `return_value(42)` followed by `propagate_value()` returns `(True, 42)`. Correct only the result argument to a marshalled Python payload. |
 | Gio.DBusConnection.__init__ | Verified with PyGObject 3.58.1 / GLib 2.80: `gi.overrides.Gio._warn_init` forwards arguments and warns against direct construction, but exposes only `*args, **kwargs`. Reuse the property constructor builder and retain the warning. Prefer `new_sync` / `new_for_address_sync` or their asynchronous counterparts for initialized connections. |
 | Gst.Structure.set_value | Installed gst-python annotates the Python override as `bool`; `set_value("answer", 42)` returns `None`. Correct only the return annotation. |
+| GioUnix.InputStream/OutputStream.get_fd | PyGObject 3.58.1's bound wrappers return the native integer descriptor but lack return annotations. Preserve the bound signature and recover `int`; the interface's static entry point is unchanged. |
+| Atk.Object.get_name/get_description | Atk 2.52.0 returns `None` for unset values on NoOpObject, although GI declares a non-null string. Mark only these two returns nullable. |
+| Gtk.TreeViewColumn.set_cell_data_func | PyGObject 3.58.1's wrapper accepts one `func_data` and loses callback/return annotations. Preserve the parsed wrapper and docs; overload omitted data, typed data and callback removal with `None`. Renderer types use a bound, not a closed list of concrete GTK renderers. |
 | GEnum/GFlags and their metaclasses | Model `IntEnum`/`IntFlag` behavior, runtime value metadata and PyGObject's implicit acceptance of enum classes as GType arguments. `_GEnumMeta`/`_GFlagsMeta` are stub-only support classes, not public runtime exports. |
 | GObject.Property | Generic descriptor with overloads for class/instance access; this is static typing structure beyond the introspected runtime signature. |
 | Required callbacks | ClosureMarshal, EqualFunc and EqualFuncFull are looked up through GIRepository when normal traversal has not found them; their signatures are parsed, not handwritten. |
@@ -83,6 +98,12 @@ or changes, prompting review of the transform after dependency/parser upgrades.
 Keep the runtime behavior tests when removing a redundant transform, and remove
 its corresponding necessity test. These checks run against installed libraries;
 they do not monitor upstream releases automatically.
+
+`tests/test_consumer_corrections.py` applies the same necessity checks to the
+GioUnix, Atk and TreeViewColumn transforms. Its GTK callback integration test
+requires a display and skips explicitly otherwise; constructing TreeViewColumn
+headlessly can crash GTK. Consumer fixtures cover callback arity, renderer and
+payload types, bound/callable/partial handlers, reset, and nullable text getters.
 
 `tests/test_dbus_connection.py` disables `init_factory` to check that normal
 parsing still exposes the generic constructor. If upstream restores a precise

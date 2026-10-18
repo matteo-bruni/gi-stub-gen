@@ -24,6 +24,15 @@ must not require Rich or configured logging handlers. Preserve the metadata's
 origin namespace separately from the rendering destination, including nested
 types and their imports.
 
+Keep GI interfaces nominal. Expand only a Python override's same-namespace
+backing class when recovering direct bases; GI prerequisites are not Python
+bases. Preserve runtime member precedence and explicit base overrides. Track
+`Props` bases separately from class bases, and bind generic interface arguments
+by TypeVar identity rather than name. Native classes can expose an interface
+method under a conflicting Python signature: do not invent overloads to hide
+that mismatch or add blanket checker suppressions. Recheck `test_interfaces.py`
+and the installed interface consumers after inheritance changes.
+
 Keep serializable runtime descriptors independent of GI, Rich and Jinja.
 `parser/gobject.py` handles generic runtime GType/ParamSpec inspection;
 GStreamer-specific logic belongs in `parser/gstreamer.py`. These descriptors

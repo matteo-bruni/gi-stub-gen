@@ -673,7 +673,7 @@ def test_gio_liststore_renders_pep695_typevar():
     TemplateManager.set_module_name("Gio")
     rendered = class_schema.render_stub()
 
-    assert "class ListStore[ObjectItemType: GObject.Object](GObject.Object):" in rendered
+    assert "class ListStore[ObjectItemType: GObject.Object](GObject.Object, ListModel[ObjectItemType]):" in rendered
     assert "def append(self, item: ObjectItemType) -> None: ..." in rendered
     assert "def insert(self, position: int, item: ObjectItemType) -> None: ..." in rendered
     assert ") -> ListStore[ObjectItemType]:" in rendered
@@ -696,6 +696,8 @@ def test_gio_listmodel_renders_pep695_typevar():
     rendered = class_schema.render_stub()
 
     assert "class ListModel[ObjectItemType: GObject.Object]:" in rendered
+    assert "class Props:" in rendered
+    assert "typing.Generic.Props" not in rendered
     assert "def get_item(self, position: int) -> ObjectItemType | None:" in rendered
     assert "typing.Generic" not in rendered
 

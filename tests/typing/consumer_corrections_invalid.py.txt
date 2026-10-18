@@ -1,0 +1,25 @@
+from gi.repository import Atk, GioUnix, Gtk
+
+
+def wrong_arity(data: int) -> None: ...
+
+
+def with_number(col: Gtk.TreeViewColumn, renderer: Gtk.CellRendererText,
+                model: Gtk.TreeModel, row: Gtk.TreeIter, data: int) -> None: ...
+
+
+def wrong_renderer(col: Gtk.TreeViewColumn, renderer: Gtk.CellRendererToggle,
+                   model: Gtk.TreeModel, row: Gtk.TreeIter, data: None) -> None: ...
+
+
+def consume(stream: GioUnix.InputStream, obj: Atk.Object,
+            col: Gtk.TreeViewColumn, renderer: Gtk.CellRendererText) -> None:
+    fd: str = stream.get_fd()  # error
+    obj.get_name().upper()  # error
+    obj.get_description().upper()  # error
+    col.set_cell_data_func(renderer, wrong_arity)  # error
+    col.set_cell_data_func(renderer, with_number)  # error
+    col.set_cell_data_func(renderer, with_number, "bad")  # error
+    col.set_cell_data_func(renderer, wrong_renderer)  # error
+    col.set_cell_data_func(renderer, None, 1, 2)  # error
+    col.set_cell_data_func(renderer)  # error

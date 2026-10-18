@@ -13,6 +13,7 @@ def _make_enum_meta_schema(name: str, runtime_name: str) -> ClassSchema:
         ),
         line_comment=f"Typing-only model of gi._enum.{runtime_name}; not a public PyGObject runtime API.",
         props=[],
+        allow_synthetic_props=False,
         required_gi_import="enum",
         fields=[
             ClassFieldSchema(

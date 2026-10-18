@@ -6,6 +6,7 @@ import re
 
 from typing import Any, TypeVar
 from pathlib import Path
+from types import get_original_bases
 from gi.repository import GObject
 
 
@@ -137,6 +138,24 @@ def get_super_class_name(
         return super_module, super_class.__name__
 
     return super_module, super_class.__name__
+
+
+def get_declared_class_bases(obj: type) -> list[Any]:
+    """Expand an override's same-namespace backing class, preserving direct base order and type arguments."""
+    bases: list[Any] = []
+    for base in get_original_bases(obj):
+        origin = typing.get_origin(base) or base
+        if (
+            origin.__name__ == obj.__name__
+            and sanitize_gi_module_name(origin.__module__) == sanitize_gi_module_name(obj.__module__)
+        ):
+            candidates = get_declared_class_bases(origin)
+        else:
+            candidates = [base]
+        for candidate in candidates:
+            if candidate not in bases:
+                bases.append(candidate)
+    return bases
 
 
 def get_py_type_namespace_repr(py_type: Any) -> str | None:

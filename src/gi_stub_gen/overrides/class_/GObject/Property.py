@@ -18,6 +18,7 @@ CLASS_PROPERTY = ClassSchema(
     'descriptor, preventing the "Method declaration is obscured" error when '
     "applying the decorator over a method.\n\n",
     props=[],
+    allow_synthetic_props=False,
     required_gi_import="typing",
     fields=[],
     methods=[],

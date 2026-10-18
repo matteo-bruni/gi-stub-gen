@@ -1,0 +1,40 @@
+from functools import partial
+from typing import assert_type
+from gi.repository import Atk, GioUnix, Gtk
+
+
+def no_data(column: Gtk.TreeViewColumn, renderer: Gtk.CellRenderer,
+            model: Gtk.TreeModel, row: Gtk.TreeIter, data: None) -> None: ...
+
+
+def with_number(column: Gtk.TreeViewColumn, renderer: Gtk.CellRendererText,
+                model: Gtk.TreeModel, row: Gtk.TreeIter, data: int) -> None: ...
+
+
+class Handler:
+    def draw(self, column: Gtk.TreeViewColumn, renderer: Gtk.CellRenderer,
+             model: Gtk.TreeModel, row: Gtk.TreeIter, data: str) -> None: ...
+
+    def __call__(self, column: Gtk.TreeViewColumn, renderer: Gtk.CellRenderer,
+                 model: Gtk.TreeModel, row: Gtk.TreeIter, data: None) -> None: ...
+
+
+def consume(inp: GioUnix.InputStream, out: GioUnix.OutputStream, obj: Atk.Object,
+            col: Gtk.TreeViewColumn, renderer: Gtk.CellRendererText,
+            base_renderer: Gtk.CellRenderer, handler: Handler) -> None:
+    assert_type(inp.get_fd(), int)
+    assert_type(out.get_fd(), int)
+    assert_type(obj.get_name(), str | None)
+    assert_type(obj.get_description(), str | None)
+    name = obj.get_name()
+    if name is not None:
+        assert_type(name.upper(), str)
+    assert_type(col.set_cell_data_func(renderer, no_data), None)
+    col.set_cell_data_func(base_renderer, no_data)
+    col.set_cell_data_func(renderer, no_data, None)
+    col.set_cell_data_func(renderer, with_number, 42)
+    col.set_cell_data_func(cell_renderer=renderer, func=handler.draw, func_data="payload")
+    col.set_cell_data_func(renderer, handler)
+    col.set_cell_data_func(renderer, partial(no_data))
+    col.set_cell_data_func(renderer, None)
+    col.set_cell_data_func(renderer, None, "ignored")

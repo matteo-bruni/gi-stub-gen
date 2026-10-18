@@ -9,6 +9,7 @@ GENUM_SCHEMA = ClassSchema(
     docstring="From pygobject 3.52 GEnum are integrated with enum.IntEnum"
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     props=[],
+    allow_synthetic_props=False,
     required_gi_import="enum",
     fields=[
         ClassFieldSchema(

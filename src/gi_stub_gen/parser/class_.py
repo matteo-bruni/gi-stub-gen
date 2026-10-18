@@ -10,7 +10,7 @@ import gi
 import gi._gi as GI
 from gi.repository import GObject
 
-from typing import Any
+from typing import Any, TypeVar, get_args, get_origin
 from types import (
     BuiltinFunctionType,
     FunctionType,
@@ -35,7 +35,7 @@ from gi_stub_gen.utils.gi_utils import (
 from gi_stub_gen.manager.gir_docs import GIRDocs
 
 from gi_stub_gen.parser.python_function import parse_python_function
-from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info
+from gi_stub_gen.utils.inspect_utils import extract_inspect_params_type_info, _format_annotation_expr
 from gi_stub_gen.parser.constant import parse_constant
 from gi_stub_gen.parser.function import parse_function, parse_callable
 from gi_stub_gen.schema.builtin_function import (
@@ -56,6 +56,7 @@ from gi_stub_gen.schema.signals import (
 from gi_stub_gen.utils.gst import get_fraction_value
 from gi_stub_gen.utils.utils import (
     get_super_class_name,
+    get_declared_class_bases,
     get_py_type_name_repr,
     get_py_type_namespace_repr,
     sanitize_gi_module_name,
@@ -1543,8 +1544,6 @@ def _assemble_class(
     # ================================================================
     # Compute super class
     # ================================================================
-    super_list, required_gi_import = _resolve_class_bases(namespace, obj, override_mixins)
-
     type_vars = _apply_class_type_vars(
         namespace=namespace,
         class_name=obj.__name__,
@@ -1552,15 +1551,16 @@ def _assemble_class(
         builtin_methods=builtin_methods,
         initial_type_vars=inferred_type_vars,
     )
+    super_list, props_bases, base_imports = _resolve_class_bases(namespace, obj, override_mixins, type_vars)
 
     instance = ClassSchema(
         namespace=namespace,
         name=obj.__name__,
         super=super_list,
         type_vars=type_vars,
-        props_ignored_super_classes=set(override_mixins),
+        props_bases=props_bases,
         allow_synthetic_props=allow_synthetic_props,
-        additional_required_imports=additional_required_imports or set(),
+        additional_required_imports=(additional_required_imports or set()) | base_imports,
         shadowed_builtin_types={name for name in dir(obj) if isinstance(getattr(builtins, name, None), type)},
         docstring=class_docstring,
         props=props,
@@ -1569,14 +1569,38 @@ def _assemble_class(
         signals=signals,
         is_deprecated=is_deprecated,
         extra=extra,
-        required_gi_import=required_gi_import,
+        required_gi_import=None,
         python_methods=builtin_methods,
     )
     # instance.add_init_method()
     return instance
 
 
-def _resolve_class_bases(namespace: str, obj: Any, override_mixins: list[str]) -> tuple[list[str], str | None]:
+def _render_interface_base(
+    base: Any, obj: type, namespace: str, type_vars: list[TypeVarSchema], imports: set[str],
+) -> tuple[str, str]:
+    """Return the parameterized interface and its non-generic Props base as stub text."""
+    origin = get_origin(base) or base
+    name = _format_annotation_expr(origin, current_namespace=namespace, required_imports=imports)
+    parameters = get_args(base) or getattr(origin, "__parameters__", ())
+    own_parameters = getattr(obj, "__parameters__", ())
+    declared_names = {var.name for var in type_vars}
+    arguments = []
+    for parameter in parameters:
+        if isinstance(parameter, TypeVar):
+            # Identically named TypeVars from unrelated classes are not interchangeable.
+            if any(parameter is own for own in own_parameters) and parameter.__name__ in declared_names:
+                arguments.append(parameter.__name__)
+                continue
+            parameter = parameter.__bound__ or object
+        arguments.append(_format_annotation_expr(parameter, current_namespace=namespace, required_imports=imports))
+    annotation = f"{name}[{', '.join(arguments)}]" if arguments else name
+    return annotation, f"{name}.Props"
+
+
+def _resolve_class_bases(
+    namespace: str, obj: Any, override_mixins: list[str], type_vars: list[TypeVarSchema],
+) -> tuple[list[str], list[str], set[str]]:
     """Resolve bases, metaclass and mixins in the established override order."""
     from gi_stub_gen.overrides import get_super_override
 
@@ -1609,19 +1633,32 @@ def _resolve_class_bases(namespace: str, obj: Any, override_mixins: list[str]) -
 
     # build the super class name in the template
     # TODO: move to runtime function
-    required_gi_import = None
+    required_imports: set[str] = set()
     base_class = base_class_name
     if sane_namespace != sane_super_namespace and sane_super_namespace is not None:
         # they are in different namespaces
         # so we add it to the repr
         base_class = f"{sane_super_namespace}.{base_class_name}"
         if sane_super_namespace != sanitize_gi_module_name(namespace):
-            required_gi_import = sane_super_namespace
+            required_imports.add(sane_super_namespace)
 
     # check if we need to add GType as metaclass
     is_gtype = do_class_need_gtype_metaclass(obj)
 
     super_list = [base_class]
+    props_bases = [f"{base_class}.Props"] if base_class != "builtins.object" and not base_class.startswith("typing.Generic") else []
+    if get_super_override(namespace, obj.__name__) is None:
+        # Native interfaces can hide incompatible bound signatures (e.g. Socket's missing timeout).
+        # Preserve the runtime bases and selected methods; do not merge those signatures into overloads.
+        for base in get_declared_class_bases(obj):
+            origin = get_origin(base) or base
+            if not isinstance(getattr(origin, "__info__", None), GI.InterfaceInfo):
+                continue
+            interface, interface_props = _render_interface_base(base, obj, namespace, type_vars, required_imports)
+            if interface not in super_list:
+                super_list.append(interface)
+            if interface_props not in props_bases:
+                props_bases.append(interface_props)
     if is_gtype:
         if sane_namespace == "GObject":
             super_list.append("metaclass=GType")
@@ -1632,17 +1669,19 @@ def _resolve_class_bases(namespace: str, obj: Any, override_mixins: list[str]) -
     super_override = get_super_override(namespace, obj.__name__)
     if super_override is not None:
         super_list = super_override
+        props_bases = [f"{base}.Props" for base in super_override
+                       if base != "builtins.object" and not base.startswith(("metaclass=", "typing.Generic"))][:1]
         # Extract required imports from overridden super classes
         for super_cls in super_override:
             if "." in super_cls and not super_cls.startswith("builtins."):
                 # e.g. "GObject.SomeClass" -> need to import GObject
                 override_namespace = super_cls.split(".")[0]
                 if override_namespace != sane_namespace:
-                    required_gi_import = override_namespace
+                    required_imports.add(override_namespace)
 
     super_list = [
         *override_mixins,
         *(super_cls for super_cls in super_list if super_cls not in override_mixins),
     ]
 
-    return super_list, required_gi_import
+    return super_list, props_bases, required_imports

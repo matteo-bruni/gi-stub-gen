@@ -1,4 +1,4 @@
-{% if props %}
+{% if props or compose_props %}
 @typing.type_check_only
 class Props{{ props_super_class | if_exists('({})')  }}:
     {% for prop in props %}
@@ -29,6 +29,9 @@ class Props{{ props_super_class | if_exists('({})')  }}:
     {% endif %}
     {% endif %}
     {% endfor %}
+    {% if not props %}
+    ...
+    {% endif %}
 
 @builtins.property
 def props(self) -> Props: ...

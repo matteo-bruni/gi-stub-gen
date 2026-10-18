@@ -11,6 +11,7 @@ GFLAG_SCHEMA = ClassSchema(
     " see https://pygobject.gnome.org/changelog.html [manual-override]",
     required_gi_import="enum",
     props=[],
+    allow_synthetic_props=False,
     fields=[
         ClassFieldSchema(
             name="__gtype__",

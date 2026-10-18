@@ -1,0 +1,25 @@
+from gi.repository import Gio, GLib, GObject, Gst, Gtk
+
+
+class Item(GObject.Object): ...
+
+
+def accept_model(model: Gio.ListModel[Item]) -> None: ...
+def accept_proxy(proxy: Gst.ChildProxy) -> None: ...
+
+
+class Duck:
+    def get_children_count(self) -> int: return 0
+
+
+def invalid(store: Gio.ListStore[Item], bin_: Gst.Bin, widget: Gtk.Widget, socket: Gio.Socket) -> None:
+    accept_model(bin_)  # error
+    accept_proxy(Duck())  # error
+    store.append(GObject.Object())  # error
+    store.get_item("zero")  # error
+    store.props.item_type = GObject.TYPE_OBJECT  # error
+    store.props.n_items = 12  # error
+    widget.props.accessible_role = "alert"  # error
+    widget.props.visible = "yes"  # error
+    bin_.get_child_by_name(12)  # error
+    socket.condition_wait(GLib.IOCondition.IN, 0, None)  # error

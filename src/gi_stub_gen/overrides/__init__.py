@@ -47,6 +47,9 @@ from gi_stub_gen.overrides.class_.Gst.Fraction import (
 )
 from gi_stub_gen.overrides.class_.Gio.Task import transform_return_value
 from gi_stub_gen.overrides.class_.Gst.Structure import transform_set_value
+from gi_stub_gen.overrides.class_.GioUnix.FileDescriptorBased import transform_get_fd
+from gi_stub_gen.overrides.class_.Atk.Object import transform_nullable_text
+from gi_stub_gen.overrides.class_.Gtk.TreeViewColumn import transform_set_cell_data_func
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import FunctionSchema
@@ -62,6 +65,19 @@ def get_super_override(namespace: str, class_name: str) -> list[str] | None:
 
 
 CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
+    "gi.repository.GioUnix": {
+        "InputStream": {"method_transforms": {"get_fd": transform_get_fd}},
+        "OutputStream": {"method_transforms": {"get_fd": transform_get_fd}},
+    },
+    "gi.repository.Atk": {
+        "Object": {"method_transforms": {
+            "get_name": transform_nullable_text,
+            "get_description": transform_nullable_text,
+        }},
+    },
+    "gi.repository.Gtk": {
+        "TreeViewColumn": {"method_transforms": {"set_cell_data_func": transform_set_cell_data_func}},
+    },
     "gi.repository.GObject": {
         "Object": {
             "methods": {

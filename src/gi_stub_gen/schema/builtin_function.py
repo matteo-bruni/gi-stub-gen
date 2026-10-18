@@ -150,6 +150,8 @@ class BuiltinFunctionSchema(BaseSchema):
     method_type_vars: list[TypeVarSchema] = Field(default_factory=list)
     return_type_var_names: list[str] = Field(default_factory=list)
     is_overload: bool = False
+    overloads: list["BuiltinFunctionSchema"] = Field(default_factory=list)
+    """Alternative Python signatures rendered in place of this signature, preserving its documentation."""
 
     @property
     def is_method(self) -> bool:
@@ -158,6 +160,13 @@ class BuiltinFunctionSchema(BaseSchema):
 
     def render_stub(self) -> str:
         """Return stub text as a string."""
+        if self.overloads:
+            return "\n".join(
+                TemplateManager.render_master("builtin_function.jinja", fun=variant.model_copy(update={
+                    "is_overload": True, "docstring": self.docstring if i == 0 else None,
+                }))
+                for i, variant in enumerate(self.overloads)
+            )
         return TemplateManager.render_master("builtin_function.jinja", fun=self)
 
     def render_type_parameters(self) -> str | None:
@@ -211,6 +220,10 @@ class BuiltinFunctionSchema(BaseSchema):
     def required_imports(self) -> set[str]:
         """Collect required gi.repository imports based on type hints."""
         gi_imports: set[str] = set(self.type_imports)
+        if self.overloads:
+            gi_imports.add("typing")
+            for variant in self.overloads:
+                gi_imports.update(variant.required_imports)
         # check return type
         if self.return_hint_namespace:
             gi_imports.add(self.return_hint_namespace)

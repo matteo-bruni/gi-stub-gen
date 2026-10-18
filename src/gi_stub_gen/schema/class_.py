@@ -192,8 +192,14 @@ class ClassSchema(BaseSchema):
     namespace: str
     name: str
     type_vars: list[TypeVarSchema] = Field(default_factory=list)
-    props_ignored_super_classes: set[str] = Field(default_factory=set)
+    props_bases: list[str] = Field(default_factory=list)
+    """Ordered stub type expressions for the synthetic Props bases, independent of the runtime class bases."""
     allow_synthetic_props: bool = True
+    """Emit an empty Props class and props accessor when neither local properties nor a Props base exist.
+
+    Disabled for Python-only helpers and typing overrides that do not expose GObject properties;
+    explicit properties and compositions of inherited Props are still rendered.
+    """
     additional_required_imports: set[str] = Field(default_factory=set)
     shadowed_builtin_types: set[str] = Field(default_factory=set)
     """Builtin type names hidden by runtime members, including inherited members."""
@@ -286,15 +292,7 @@ class ClassSchema(BaseSchema):
 
     def render_props_base(self) -> str | None:
         """Return stub text, or None when absent."""
-        for super_cls in self.super:
-            if super_cls.startswith(("metaclass=", "typing.Generic")):
-                continue
-            if super_cls in self.props_ignored_super_classes:
-                continue
-            if super_cls == "builtins.object":
-                return None
-            return f"{super_cls}.Props"
-        return None
+        return ", ".join(self.props_bases) or None
 
     def render_stub(self) -> str:
         """Return stub text as a string."""
@@ -325,6 +323,7 @@ class ClassSchema(BaseSchema):
             "class_props.jinja",
             props=[prop for prop in self.props if prop.readable or prop.can_write],
             props_super_class=self.render_props_base(),
+            compose_props=len(self.props_bases) > 1,
             allow_synthetic_props=self.allow_synthetic_props,
         )
 

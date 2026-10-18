@@ -1,0 +1,34 @@
+from typing import assert_type
+from gi.repository import Gio, GLib, GObject, Gst, Gtk
+
+
+class Item(GObject.Object): ...
+
+
+def accept_model(model: Gio.ListModel[Item]) -> None: ...
+def accept_proxy(proxy: Gst.ChildProxy) -> None: ...
+def accept_actions(group: Gio.ActionGroup, mapping: Gio.ActionMap) -> None: ...
+def accept_props(props: Gtk.Accessible.Props) -> None: ...
+
+
+def consume(store: Gio.ListStore[Item], bin_: Gst.Bin, actions: Gio.SimpleActionGroup,
+            widget: Gtk.Widget, selection: Gtk.SingleSelection, strings: Gtk.StringList,
+            socket: Gio.Socket) -> None:
+    accept_model(store)
+    assert_type(store.get_item(0), Item | None)
+    assert_type(next(iter(store)), Item)
+    store.append(Item())
+    assert_type(store.props.item_type, GObject.GType)
+    assert_type(store.props.n_items, int)
+    accept_proxy(bin_)
+    assert_type(bin_.get_children_count(), int)
+    assert_type(bin_.get_child_by_name("source"), GObject.Object | None)
+    accept_actions(actions, actions)
+    accept_props(widget.props)
+    widget.props.visible = True
+    widget.props.accessible_role = Gtk.AccessibleRole.ALERT
+    assert_type(selection.get_item(0), GObject.Object | None)
+    assert_type(selection.select_item(0, True), bool)
+    assert_type(strings.get_item(0), GObject.Object | None)
+    assert_type(socket.condition_wait(GLib.IOCondition.IN, None), bool)
+    assert_type(Gio.DatagramBased.condition_wait(socket, GLib.IOCondition.IN, 0, None), bool)
