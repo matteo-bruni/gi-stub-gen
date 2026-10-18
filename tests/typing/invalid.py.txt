@@ -1,0 +1,10 @@
+from gi.repository import Gio, Gst, Gtk
+
+
+def invalid(app: Gtk.Application, pad: Gst.Pad) -> None:
+    Gst.ElementFactory.make(123)  # error
+    pad.set_active("yes")  # error
+    direction: Gst.PadDirection = 1  # error
+    app.props.application_id = 42  # error
+    Gio.DBusConnection(exit_on_close="yes")  # error
+

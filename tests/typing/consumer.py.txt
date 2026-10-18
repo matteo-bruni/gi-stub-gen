@@ -1,0 +1,27 @@
+from typing import assert_type
+
+from gi.repository import Gio, GObject, Gst, Gtk, RuntimeProbe
+
+
+def on_open(app: Gtk.Application, files: list[Gio.File], hint: str) -> None:
+    assert_type(files, list[Gio.File])
+
+
+def consume(app: Gtk.Application, pad: Gst.Pad) -> None:
+    assert_type(app.props.application_id, str)
+    assert_type(pad.get_direction(), Gst.PadDirection)
+    assert_type(Gst.PadDirection.SRC.value_nick, str)
+    assert_type(Gst.MapFlags.READ.first_value_nick, str)
+    gtype: GObject.GType = Gst.PadDirection
+    fraction = Gst.Fraction(num=1, denom=2)
+    assert_type(fraction.num, int)
+    assert_type(fraction * 2, Gst.Fraction)
+    assert_type(2 / fraction, Gst.Fraction)
+    assert_type(Gst.Structure.new_empty("example"), Gst.Structure)
+    assert_type(Gio.DBusConnection(address="unix:path=/tmp/unused", exit_on_close=False), Gio.DBusConnection)
+    assert_type(Gio.File.new_for_path("/tmp"), Gio.File)
+    assert_type(RuntimeProbe.answer(), int)
+    app.connect("open", on_open)
+    app.props.application_id = "org.example.Probe"
+    pad.set_active(True)
+

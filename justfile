@@ -3,6 +3,10 @@
 set positional-arguments
 set dotenv-load
 
+# Verified versions; update regularly using the procedure in AGENTS.md.
+ty_version := "0.0.89"
+pyright_version := "1.1.414"
+
 # python code to find gi overrides paths
 
 # sys_overrides := `/usr/bin/python3 -c 'import os, gi; print(os.path.join(os.path.dirname(gi.__file__), "overrides"))' `
@@ -117,11 +121,24 @@ clean-gst-cache:
 test:
     uv run --group gst --locked pytest -rA --tb=short tests/
 
+# Build and check real wheels in a temporary venv, without changing the development venv.
+test-installed-stubs:
+    uv run --group gst --locked pytest -q tests/installed_stubs.py
+
+pyright *args:
+    uvx --with nodejs-wheel pyright=={{pyright_version}} {{args}}
+
+check-types:
+    just pyright --pythonpath "$(uv run --group gst --locked python -c 'import sys; print(sys.executable)')" src/gi_stub_gen tests examples
+
+ty-check *args:
+    uvx ty=={{ty_version}} check {{args}}
+
 # Run Astra TY type checking ignoring some known issues.
 ty:
     #!/bin/bash
     set -e
-    uvx ty check \
+    just ty-check \
         --ignore invalid-method-override \
         --ignore invalid-type-form \
         --ignore deprecated \

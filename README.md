@@ -5,7 +5,7 @@
 
 A modern, modular type hint generator for GObject Introspection (GI) libraries (GStreamer, GTK, Gio, etc.).
 
-This tool discovers types by importing the libraries at runtime via `gi.repository`, inspecting them, and generating fully compliant `.pyi` stub files.
+This tool inspects live libraries through `gi.repository` and generates Python `.pyi` stub files.
 
 ## Why another stub generator?
 
@@ -14,26 +14,20 @@ This tool discovers types by importing the libraries at runtime via `gi.reposito
 > 
 > I am not a GI/PyGObject expert. This project started as a learning exercise to understand the internals of GObject Introspection. Mistakes are possible, and feedback is highly appreciated!
 
-I started developing with GStreamer Python bindings and found the lack of IDE support (type hints, autocompletion) frustrating. While looking at existing solutions like `pygobject-stubs`, I found them difficult to extend due to their monolithic nature and tight coupling between parsing and generation.
+I started this project to improve type hints and autocompletion for GStreamer Python development.
 
-Furthermore, `pygobject-stubs` rely on custom PEP 517 build backends to select stubs to install at **install time** based on a config. 
-My goal is to decouple generation from installation, enabling the creation of deterministic, version-specific packages (e.g., a standalone `gtk4-stubs` package) that are easy to install and manage in any virtual environment.
-
-GI Stub Gen takes a different approach:
-
-1.  **Separation of Concerns:** The parsing logic is completely decoupled from the template generation.
-2.  **Intermediate Representation:** All introspection data is collected into strictly typed **Pydantic models**. This allows for easy inspection, validation, and modification of data *before* the stubs are written.
-3.  **Modular Output:** Instead of one giant package, this tool aims to generate separate packages for each library (e.g., `stubs-gst`, `stubs-gtk`). This allows library maintainers to potentially own their stubs.
-4.  **Runtime Inspection:** By inspecting the live objects, we catch overrides and dynamic attributes that static GIR files often miss.
+1.  **Architecture:** Parsers build Pydantic models, then rendering methods and Jinja templates produce the stubs.
+2.  **Packaging:** Stub packages are generated and versioned before installation, with configurable namespace groupings.
+3.  **Introspection:** Runtime inspection includes PyGObject overrides, while GIR files supply documentation.
+4.  **Corrections:** Manual overrides live in the generator rather than in generated `.pyi` files.
 
 ## Features
 
--   **Explicit Versioning:** Generate stubs for specific library versions (e.g., GStreamer 1.18 vs 1.20) rather than relying on the system default at runtime.
--   **Docstrings:** Uses runtime inspection for accurate types/overrides and parses `.gir` files to extract **Docstrings**. Docstrings are converted from c syntax to Python syntax where possible.
--   **Deprecation Handling:** Detects `PyDeprecationWarning` for aliases/attributes and marks functions with the `@deprecated` decorator.
--   **Signal** Better typing for GObject signals and error handling. Added `def connect()` overloads for signals with specific signatures.
--   **Protocols:** Uses `typing.Protocol` for better structural typing of interfaces.
--   **Automated Logic:** Focuses on improving the generator logic rather than manually patching the output files.
+-   **Versioning:** Generate stubs for the library versions available in the build environment.
+-   **Docstrings:** Extract GIR documentation and translate C references to Python where supported.
+-   **Deprecation:** Annotate detected deprecated APIs.
+-   **Signals:** Generate `connect()` overloads for known signal signatures.
+-   **Protocols:** Represent callbacks and interfaces with `typing.Protocol`.
 
 ---
 
@@ -160,84 +154,6 @@ to trigger and overwrite the existing packages with the latest generated stubs.
 
 ## Architecture & Design Decisions
 
-### Parsing, stub text and reusable metadata
-
-`parser/function.py` constructs callable and argument models through `parse_callable`
-and `parse_argument`; `parse_function` filters supported module/class functions.
-`parser/class_.py` assembles classes, applies overrides and resolves their bases and
-generics. The Pydantic stub models retain data, validation, pure calculations and
-rendering methods. Simple enum and constant factories remain in their models.
-
-Manual corrections use full definitions for missing signatures and targeted
-`method_transforms` for parsed methods. Transforms prefer the effective Python
-method and run before generic adaptation. Registry models are copied deeply;
-required callbacks are resolved during parsing with the current documentation.
-See [override rules and runtime evidence](src/gi_stub_gen/overrides/README.md).
-
-Parsers accept an explicit `docs: GIRDocs | None`; `None` means no GIR documentation
-or callable metadata lookup. The CLI loads and resets the documentation manager
-for each namespace. `parse_module(module, docs=docs, on_progress=callback)` works
-without Rich logging handlers; its optional callback receives the attribute name,
-completed count and total. The CLI owns the progress display.
-
-Methods that generate stub text use `render_*`: `render_type_annotation`,
-`render_return_annotation`, `render_parameter`, `render_parameter_list`,
-`render_stub` and `render_stub_compact`. Helpers for decorators, bases and generics
-are also methods with this prefix. `FunctionSchema.render_parameter_list` returns
-a string; the builtin equivalent returns a list of fragments including `/` and `*`.
-`FunctionSchema.return_hint` remains a data field. `ModuleSchema.render_stub`
-sets the template context; individual model rendering still uses TemplateManager.
-The previous internal names have been removed, without compatibility aliases.
-
-For metadata consumers, `schema/property.py` provides `PropertyDescriptor`,
-`PropertyDefault` and `PropertyValue` and can be imported without GI, Rich or Jinja.
-`parser/property.py` exposes `describe_property(param_spec)` and
-`describe_properties(gtype)` for runtime ParamSpecs, including inherited properties.
-These describe type defaults and constraints, not the current values of an instance.
-Native objects remain in the runtime adapter; unsupported or unavailable defaults
-are explicit states, distinct from an available JSON null. No arbitrary `repr`
-is serialized. Nullability can be unknown and does not replace stub heuristics.
-
-The GStreamer consumer in `parser/gstreamer.py` builds a catalog with `elements`
-and a shared `types` dictionary containing only enum/flags definitions, keyed by
-registered GType names. Each element
-has its factory `name`, `properties`, referenced `enum_types`, `pad_templates`,
-signals, plugin name, rank and factory metadata. Properties reference their
-`value_type`; enum/flags values live once in `types`. The standalone
-`describe_properties` API still includes inline enum values.
-
-`parser/gobject.py` handles generic GType and runtime signal metadata; it does not
-import GStreamer. Its `describe_type` and `describe_signals` are separate from the
-GIInfo parsing used for stub generation. The corresponding models in
-`schema/gobject.py` and `schema/gstreamer.py` have no runtime dependencies on GI.
-The dictionary lists enum/flags types referenced by properties and signals, not
-types "owned" by an element. Other types (such as `guint`, `void` or `GstBuffer`)
-remain names in the descriptions without entries in `types`. Numeric GType IDs
-are process-local and are not serialized.
-
-The example loads the `videotestsrc` factory and writes this catalog as JSON,
-without requiring a `Gst.VideoTestSrc` class. In the prepared devcontainer:
-
-```sh
-uv run --group gst --locked python examples/describe_videotestsrc.py
-```
-
-For multiple selected factories, call `Gst.init(None)` then
-`describe_catalog(["videotestsrc", "appsrc", "fakesrc"])`. The two latter elements
-share a single `types["GstFormat"]` definition. This does not scan all plugins or
-create element instances. Pad caps are stored in GStreamer's caps syntax and
-describe templates, not runtime negotiation. Signals include native parameter
-GTypes, not Python callback annotations or GIR parameter documentation.
-
-For enums available only through a GType, the runtime parser uses the same private
-`gi._gi.enum_add`/`flags_add` fallback as PyGObject 3.56's ParamSpec overrides.
-This can register Python wrappers; keep catalog inspection in a separate process
-from stub generation when both are needed. No catalog APIs are called by the CLI.
-
-See [the comparison and refactoring notes](docs/GI_parsing_comparison.md) for scope,
-tradeoffs and verification results. OpenAPI and dynamic configuration models are
-separate possible consumers, not part of this refactoring.
-
 ### Why not just parse `.gir` files?
 Parsing only `.gir` (XML) files is insufficient because:
 1.  **Overrides:** PyGObject heavily modifies the API (adding Pythonic methods like `__iter__`, `__enter__`, or custom constructors). GIR files do not reflect these Python-specific overrides.
@@ -245,7 +161,7 @@ Parsing only `.gir` (XML) files is insufficient because:
 
 *However, we do use GIR files to fetch docstrings, since at least in Ubuntu, these are stripped from the typelib and are not available via the Python introspection API.*
 
-### GIRepository vs exploring directly using  __info__ classes
+### GIRepository vs exploring directly using  `__info__` classes
 Working with `GIRepository` in Python for stub generation has some quirks. 
 GIRepository reflects the underlying C API, which can differ from the Python bindings provided by PyGObject. 
 This can lead to discrepancies in available methods, properties, and behaviors between the two.
