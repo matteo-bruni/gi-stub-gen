@@ -1,0 +1,26 @@
+from gi.repository import Gst
+
+
+def wrong_arity(message: Gst.Message) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def wrong_source(source: str, message: Gst.Message) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def wrong_result(bus: Gst.Bus, message: Gst.Message) -> str:
+    return "wrong"
+
+
+def data(bus: Gst.Bus, message: Gst.Message, count: int) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def invalid(bus: Gst.Bus) -> None:
+    bus.set_sync_handler(wrong_arity)  # error
+    bus.set_sync_handler(wrong_source)  # error
+    bus.set_sync_handler(wrong_result)  # error
+    bus.set_sync_handler(data, "wrong")  # error; ty-misses: TypeVarTuple payload compatibility
+    bus.set_sync_handler(data)  # error; ty-misses: TypeVarTuple missing payload
+    bus.set_sync_handler(data, 1, 2)  # error; ty-misses: TypeVarTuple extra payload

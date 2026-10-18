@@ -1,0 +1,28 @@
+# These classes expose the generated literal overload alone, so the retained
+# dynamic fallback cannot mask mistakes in its arguments or user-data pack.
+from typing import assert_type
+from gi.repository import Gio, GObject, Gst
+from signal_probe import Bus, SimpleAction, Application, GtkApplication
+
+
+def message(sender: Bus, event: Gst.Message, count: int, label: str) -> None: ...
+def notify(sender: SimpleAction, spec: GObject.ParamSpec) -> None: ...
+def notify_data(sender: SimpleAction, spec: GObject.ParamSpec, count: int) -> None: ...
+def startup(sender: Application, label: str) -> None: ...
+def opened(sender: GtkApplication, files: list[Gio.File], hint: str, count: int) -> None: ...
+def wrong_signal_argument(sender: Bus, event: str) -> None: ...
+def missing_emitter() -> None: ...
+
+
+def consume(bus: Bus, action: SimpleAction, app: Application, gtk_app: GtkApplication) -> None:
+    assert_type(bus.connect("message", message, 42, "label"), int)
+    action.connect("notify::enabled", notify)
+    action.connect("notify::enabled", notify_data, 42)
+    app.connect("startup", startup, "label")
+    gtk_app.connect("open", opened, 42)
+    bus.connect("message", message, "label", 42)  # error; ty-misses: TypeVarTuple payload compatibility
+    bus.connect("message", message, 42)  # error; ty-misses: TypeVarTuple missing payload
+    bus.connect("message", wrong_signal_argument)  # error
+    action.connect("notify::enabled", notify_data, "wrong")  # error; ty-misses: TypeVarTuple payload compatibility
+    app.connect("startup", missing_emitter)  # error
+    gtk_app.connect("open", opened, "wrong")  # error; ty-misses: TypeVarTuple payload compatibility

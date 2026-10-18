@@ -548,19 +548,22 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
 
     # Signals
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["eos"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["eos"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Signal that the end-of-stream has been reached. This signal is emitted from
         the streaming thread.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["new-preroll"],
-        handler: typing.Callable[..., Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
             Signal that a new preroll sample is available.
@@ -576,11 +579,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         set to True, which it is not by default for performance reasons.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["new-sample"],
-        handler: typing.Callable[..., Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
             Signal that a new sample is available.
@@ -596,11 +599,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         set to True, which it is not by default for performance reasons.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["new-serialized-event"],
-        handler: typing.Callable[..., bool],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], bool],
+        *args: *UserData,
     ) -> int:
         """
             Signal that a new downstream serialized event is available.
@@ -622,11 +625,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         skip basesink handling of the event, False otherwise.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["propose-allocation"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Query], bool],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Query, *UserData], bool],
+        *args: *UserData,
     ) -> int:
         """
             Signal that a new propose_allocation query is available.
@@ -635,11 +638,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         "emit-signals" property is True.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pull-preroll"],
-        handler: typing.Callable[..., Gst.Sample | None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], Gst.Sample | None],
+        *args: *UserData,
     ) -> int:
         """
             Get the last preroll sample in `appsink`. This was the sample that caused the
@@ -662,11 +665,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         element is set to the READY/None state.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pull-sample"],
-        handler: typing.Callable[..., Gst.Sample | None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], Gst.Sample | None],
+        *args: *UserData,
     ) -> int:
         """
             This function blocks until a sample or EOS becomes available or the appsink
@@ -685,11 +688,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         None. Use gst_app_sink_is_eos () to check for the EOS condition.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["try-pull-object"],
-        handler: typing.Callable[[typing_extensions.Self, int], Gst.MiniObject | None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, *UserData], Gst.MiniObject | None],
+        *args: *UserData,
     ) -> int:
         """
             This function blocks until a sample or an event becomes available or the appsink
@@ -716,11 +719,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         so make sure that your code is checking for the actual type it is handling.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["try-pull-preroll"],
-        handler: typing.Callable[[typing_extensions.Self, int], Gst.Sample | None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, *UserData], Gst.Sample | None],
+        *args: *UserData,
     ) -> int:
         """
             Get the last preroll sample in `appsink`. This was the sample that caused the
@@ -744,11 +747,11 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         element is set to the READY/None state, or the timeout expires.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["try-pull-sample"],
-        handler: typing.Callable[[typing_extensions.Self, int], Gst.Sample | None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, *UserData], Gst.Sample | None],
+        *args: *UserData,
     ) -> int:
         """
             This function blocks until a sample or EOS becomes available or the appsink
@@ -768,260 +771,263 @@ class AppSink(GstBase.BaseSink, Gst.URIHandler):
         for the EOS condition.
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["no-more-pads"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-added"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-removed"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::buffer_list"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::caps"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_bytes"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_time"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::drop"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::dropped"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::emit_signals"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::eos"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::in_"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::leaky_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_bytes"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_time"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::out"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::silent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::wait_on_eos"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::async_"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::blocksize"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::enable_last_sample"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::last_sample"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_bitrate"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_lateness"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::processing_deadline"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::qos"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::render_delay"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::stats"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::sync"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::throttle_time"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::ts_offset"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -1599,18 +1605,21 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["end-of-stream"],
-        handler: typing.Callable[..., Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
         Notify `appsrc` that no more buffer are available.
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["enough-data"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["enough-data"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Signal that the source has enough data. It is recommended that the
@@ -1618,11 +1627,11 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         emitted again to avoid excessive buffer queueing.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["need-data"],
-        handler: typing.Callable[[typing_extensions.Self, int], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Signal that the source needs more data. In the callback or from another
@@ -1635,11 +1644,11 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         fired.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["push-buffer"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Buffer], Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Buffer, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
             Adds a buffer to the queue of buffers that the appsrc element will
@@ -1653,11 +1662,11 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         becomes available in the queue.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["push-buffer-list"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.BufferList], Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.BufferList, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
             Adds a buffer list to the queue of buffers and buffer lists that the
@@ -1671,11 +1680,11 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         becomes available in the queue.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["push-sample"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Sample], Gst.FlowReturn],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Sample, *UserData], Gst.FlowReturn],
+        *args: *UserData,
     ) -> int:
         """
             Extract a buffer from the provided sample and adds the extracted buffer
@@ -1693,11 +1702,11 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         becomes available in the queue.
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["seek-data"],
-        handler: typing.Callable[[typing_extensions.Self, int], bool],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, *UserData], bool],
+        *args: *UserData,
     ) -> int:
         """
             Seek to the given offset. The next push-buffer should produce buffers from
@@ -1705,246 +1714,249 @@ class AppSrc(GstBase.BaseSrc, Gst.URIHandler):
         This callback is only called for seekable stream types.
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["no-more-pads"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-added"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-removed"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::block"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::caps"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_bytes"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::current_level_time"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::dropped"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::duration"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::emit_signals"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::format"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::handle_segment_change"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::in_"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::is_live"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::leaky_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_bytes"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_latency"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::max_time"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::min_latency"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::min_percent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::out"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::silent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::size"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::stream_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::automatic_eos"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::blocksize"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::do_timestamp"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::num_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::typefind"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..

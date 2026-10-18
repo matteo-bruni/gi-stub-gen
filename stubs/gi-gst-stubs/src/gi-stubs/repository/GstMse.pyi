@@ -331,12 +331,18 @@ class MediaSource(Gst.Object):
 
     # Signals
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-source-close"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-source-close"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-source-ended"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-source-ended"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` has ended, normally through
@@ -345,8 +351,11 @@ class MediaSource(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceended)
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-source-open"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-source-open"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` has been opened.
@@ -354,67 +363,67 @@ class MediaSource(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-mediasource-onsourceopen)
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::active_source_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::duration"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::position"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::ready_state"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::source_buffers"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -539,92 +548,95 @@ class MseSrc(Gst.Element, Gst.URIHandler):
 
     # Signals
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["no-more-pads"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["no-more-pads"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-added"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["pad-removed"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::duration"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::n_audio"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::n_text"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::n_video"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::position"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::ready_state"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -652,74 +664,74 @@ class MseSrcPad(Gst.Pad):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["linked"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["unlinked"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Pad], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Pad, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::caps"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::direction"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::offset"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::template"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -935,8 +947,11 @@ class SourceBuffer(Gst.Object):
 
     # Signals
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-abort"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-abort"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` was aborted after a call to `gst_source_buffer_abort`.
@@ -944,8 +959,11 @@ class SourceBuffer(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onabort)
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-error"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-error"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` has encountered an error after a call to
@@ -954,8 +972,11 @@ class SourceBuffer(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onerror)
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-update"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-update"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` has successfully processed data after a call to
@@ -964,8 +985,11 @@ class SourceBuffer(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdate)
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-update-end"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-update-end"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` is no longer in the updating state after a call to
@@ -975,8 +999,11 @@ class SourceBuffer(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdateend)
         """
     @typing.overload
-    def connect(
-        self, detailed_signal: typing.Literal["on-update-start"], handler: typing.Callable[..., None], *args: typing.Any
+    def connect[*UserData](
+        self,
+        detailed_signal: typing.Literal["on-update-start"],
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when `self` has begun to process data after a call to
@@ -985,81 +1012,81 @@ class SourceBuffer(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebuffer-onupdatestart)
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::append_mode"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::append_window_end"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::append_window_start"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::buffered"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::content_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::timestamp_offset"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::updating"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -1122,11 +1149,11 @@ class SourceBufferList(Gst.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["on-sourcebuffer-added"],
-        handler: typing.Callable[..., None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when a GstSourceBuffer has been added to this list.
@@ -1134,11 +1161,11 @@ class SourceBufferList(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onaddsourcebuffer)
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["on-sourcebuffer-removed"],
-        handler: typing.Callable[..., None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, *UserData], None],
+        *args: *UserData,
     ) -> int:
         """
             Emitted when a GstSourceBuffer has been removed from this list.
@@ -1146,39 +1173,39 @@ class SourceBufferList(Gst.Object):
         [Specification](https://www.w3.org/TR/media-source-2/#dom-sourcebufferlist-onremovesourcebuffer)
         """
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["deep-notify"],
-        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, Gst.Object, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::length"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::parent"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..

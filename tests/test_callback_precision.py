@@ -36,6 +36,7 @@ def test_native_self_argument_is_separate_from_protocol_receiver():
 def test_selected_callbacks_link_userdata_and_preserve_original_protocol():
     for runtime, namespace in [
         (Gst.Pad.add_probe, "Gst"),
+        (Gst.Bus.set_sync_handler, "Gst"),
         (Gio.File.load_contents_async, "Gio"),
         (Gio.InputStream.read_bytes_async, "Gio"),
     ]:

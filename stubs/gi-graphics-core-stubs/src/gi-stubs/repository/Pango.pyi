@@ -3800,11 +3800,11 @@ class Context(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -3889,11 +3889,11 @@ class Coverage(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -4094,11 +4094,11 @@ class Font(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -4561,11 +4561,11 @@ class FontFace(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -4736,53 +4736,53 @@ class FontFamily(GObject.Object, Gio.ListModel[GObject.Object]):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["items-changed"],
-        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, int, int, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::is_monospace"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::is_variable"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::item_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::n_items"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::name"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -4963,32 +4963,32 @@ class FontMap(GObject.Object, Gio.ListModel[GObject.Object]):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["items-changed"],
-        handler: typing.Callable[[typing_extensions.Self, int, int, int], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, int, int, int, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::item_type"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify::n_items"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, typing.Any], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -5219,11 +5219,11 @@ class Fontset(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -5300,11 +5300,11 @@ class FontsetSimple(Fontset):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -6662,11 +6662,11 @@ class Layout(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..
@@ -7550,11 +7550,11 @@ class Renderer(GObject.Object):
 
     # Signals
     @typing.overload
-    def connect(
+    def connect[*UserData](
         self,
         detailed_signal: typing.Literal["notify"],
-        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec], None],
-        *args: typing.Any,
+        handler: typing.Callable[[typing_extensions.Self, GObject.ParamSpec, *UserData], None],
+        *args: *UserData,
     ) -> int: ...
     @typing.overload
     def connect(  # type: ignore otherwise pylance will complain and we should repeat all parent overloads here..

@@ -75,8 +75,20 @@ The base build now generates a bounded `gi._gi` stub from `private_gi.py` throug
 the normal schemas/templates. Its C signatures are checked against PyGObject
 3.58.1 sources; generation checks member presence. Recheck these declarations
 on upgrades, including integer tag results and Async's omitted-callback behavior.
-`callbacks.py` selects only the three verified call sites that use the precise
+`callbacks.py` selects only the four verified call sites that use the precise
 `WithData` Protocol variants; other sites retain their original Protocol/fallback.
+`Gst.Bus.set_sync_handler` is checked with zero/multiple user-data values,
+bound/callable/partial handlers and callback removal. Its signature still comes
+from GI. Signal `connect` overloads correlate their extra arguments with the
+handler through `UserData`; the emitter is always present, including signals
+without native arguments. The dynamic-name fallback remains permissive, even
+for a known literal signal. Installed-wheel tests also check the precise signal
+overloads in isolation so that this fallback cannot hide incorrect declarations.
+Checker limits remain: ty 0.0.89 misses user-data pack mismatches; Pyrefly 1.4.0
+misses a completely omitted BusSyncHandler payload. Pyright 1.1.414 checks these
+calls but rejects direct assignment to `BusSyncHandlerWithData[int, str]` with
+spurious parameter-name errors. Prefer normal annotated functions passed to
+`set_sync_handler`, whose inferred packs are checked correctly.
 See [typing features and verification](../../../docs/Typing_features.md).
 
 `ControlBinding.property_comments["name"]` documents a native inheritance

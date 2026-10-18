@@ -2,11 +2,11 @@
 # Signals
 {% for signal in signals %}
 @typing.overload
-def connect(
+def connect[*UserData](
     self, 
     detailed_signal: {{ signal.render_signal_annotation() }}, 
     handler: typing.Callable[{{ signal.render_handler_parameters(module_name) }}, {{ signal.handler.render_return_annotation(module_name) }}], 
-    *args: typing.Any
+    *args: *UserData
 ) -> int:{{ ' ...' | if_true(not signal.docstring)}}
     {% if signal.docstring %}
     """

@@ -23,7 +23,7 @@ def test_inherited_signal_uses_destination_namespace_without_changing_origin():
         assert parsed is not None
         signal = next(signal for signal in parsed.signals if signal.name == "open")
         assert signal.namespace == signal.handler.namespace == "Gio"
-        assert signal.render_handler_parameters(namespace) == f"[typing_extensions.Self, {expected}, str]"
+        assert signal.render_handler_parameters(namespace) == f"[typing_extensions.Self, {expected}, str, *UserData]"
         assert signal.handler.args[0].namespace == "Gio"
         assert ("Gio" in signal.required_gi_imports) == (namespace == "Gtk")
 

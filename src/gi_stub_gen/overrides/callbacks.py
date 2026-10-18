@@ -6,6 +6,7 @@ itself only describes a generic object, not necessarily the caller's class.
 
 PRECISE_CALLBACKS = {
     ("Gst", "Pad", "add_probe"): ("PadProbeCallback", None),
+    ("Gst", "Bus", "set_sync_handler"): ("BusSyncHandler", None),
     ("Gio", "File", "load_contents_async"): ("AsyncReadyCallback", "File"),
     ("Gio", "InputStream", "read_bytes_async"): ("AsyncReadyCallback", "InputStream"),
 }

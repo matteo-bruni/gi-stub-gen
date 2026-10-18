@@ -1,0 +1,59 @@
+from functools import partial
+from typing import assert_type
+from gi.repository import Gio, GObject, Gst, Gtk
+
+
+def sync(sender: Gst.Bus, event: Gst.Message) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def sync_data(sender: Gst.Bus, event: Gst.Message, count: int, label: str) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def optional_data(sender: Gst.Bus, event: Gst.Message, label: str = "label") -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def variadic_data(sender: Gst.Bus, event: Gst.Message, *labels: str) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+class Handler:
+    def method(self, sender: Gst.Bus, event: Gst.Message, count: int) -> Gst.BusSyncReply:
+        return Gst.BusSyncReply.PASS
+
+    def __call__(self, sender: Gst.Bus, event: Gst.Message) -> Gst.BusSyncReply:
+        return Gst.BusSyncReply.PASS
+
+
+def prefixed(prefix: str, sender: Gst.Bus, event: Gst.Message) -> Gst.BusSyncReply:
+    return Gst.BusSyncReply.PASS
+
+
+def message(sender: Gst.Bus, event: Gst.Message, label: str) -> None: ...
+def notified(sender: Gio.SimpleAction, spec: GObject.ParamSpec, count: int) -> None: ...
+def startup(sender: Gio.Application, label: str) -> None: ...
+def opened(sender: Gtk.Application, files: list[Gio.File], hint: str, count: int) -> None: ...
+
+
+def consume(bus: Gst.Bus, action: Gio.SimpleAction, app: Gio.Application,
+            gtk_app: Gtk.Application, dynamic_signal: str, handler: Handler) -> None:
+    assert_type(bus.set_sync_handler(sync), None)
+    bus.set_sync_handler(sync_data, 42, "label")
+    bus.set_sync_handler(optional_data)
+    bus.set_sync_handler(optional_data, "label")
+    bus.set_sync_handler(variadic_data)
+    bus.set_sync_handler(variadic_data, "first", "second")
+    bus.set_sync_handler(handler.method, 42)
+    bus.set_sync_handler(handler)
+    bus.set_sync_handler(partial(prefixed, "prefix"))
+    bus.set_sync_handler(None)
+    bus.set_sync_handler()
+    assert_type(bus.connect("message", message, "label"), int)
+    action.connect("notify::enabled", notified, 42)
+    app.connect("startup", startup, "label")
+    gtk_app.connect("open", opened, 42)
+    bus.connect(dynamic_signal, message, "label")
+    # The dynamic fallback intentionally remains permissive, even for a known signal.
+    bus.connect("message", message, 42)

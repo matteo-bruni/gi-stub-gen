@@ -46,16 +46,13 @@ class SignalSchema(BaseSchema):
         return f'typing.Literal["{self.name}"]'
 
     def render_handler_parameters(self, namespace: str) -> str:
-        """Return stub text as a string."""
-        types_types: list[str] = []
+        """Return Callable parameter-list text: emitter, native inputs, then connect's user data."""
+        parameters = ["typing_extensions.Self"]
         for arg in self.handler.args:
             if arg.direction in ("IN", "INOUT"):
-                types_types.append(arg.render_type_annotation(namespace))
-        if len(types_types) > 0:
-            # add typing.Self as first param
-            types_types.insert(0, "typing_extensions.Self")
-            return f"[{', '.join(types_types)}]"
-        return "..."
+                parameters.append(arg.render_type_annotation(namespace))
+        parameters.append("*UserData")
+        return f"[{', '.join(parameters)}]"
 
 
 def generate_notify_signal(
@@ -101,23 +98,6 @@ def generate_notify_signal(
                     line_comment=None,
                     py_type_name="ParamSpec",
                     py_type_namespace="GObject",
-                    default_value=None,
-                    is_pointer=False,
-                ),
-                FunctionArgumentSchema(
-                    direction="IN",
-                    name="arg2",
-                    namespace=namespace,
-                    may_be_null=False,
-                    is_optional=False,
-                    is_callback=False,
-                    get_array_length=-1,
-                    is_deprecated=False,
-                    is_caller_allocates=False,
-                    tag_as_string="??",
-                    line_comment=None,
-                    py_type_name="Any",
-                    py_type_namespace="typing",
                     default_value=None,
                     is_pointer=False,
                 ),

@@ -1,5 +1,6 @@
 """Explicit integration suite: run with `just test-installed-stubs` after generation."""
 
+import ast
 import csv
 import hashlib
 import importlib.util
@@ -9,6 +10,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import textwrap
 import zipfile
 
 import pytest
@@ -71,6 +73,24 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
             shutil.copy2(source, site / source.name)
     (site / "gi/repository/RuntimeProbe.py").write_text("def answer() -> int:\n    return 42\n")
     checked("uv", "pip", "install", "--python", str(python), "--no-deps", *map(str, reversed(archives)))
+    # Check literal signal signatures independently: the dynamic fallback would
+    # otherwise accept invalid callbacks and hide an incorrect precise overload.
+    probe = "import typing, typing_extensions\nfrom gi.repository import Gio, GObject\nfrom gi.repository.Gst import Message\n"
+    for module, owner, signal, probe_name in (
+        ("Gst", "Bus", "message", "Bus"),
+        ("Gio", "SimpleAction", "notify::enabled", "SimpleAction"),
+        ("Gio", "Application", "startup", "Application"),
+        ("Gtk", "Application", "open", "GtkApplication"),
+    ):
+        tree = ast.parse((site / "gi-stubs/repository" / f"{module}.pyi").read_text())
+        cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == owner)
+        method = next(n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name == "connect"
+                      and n.args.args[1].annotation is not None
+                      and ast.unparse(n.args.args[1].annotation) == f"typing.Literal[{signal!r}]")
+        assert len(method.type_params) == 1
+        method.decorator_list = []
+        probe += f"class {probe_name}:\n" + textwrap.indent(ast.unparse(method), "    ") + "\n"
+    (site / "signal_probe.pyi").write_text(probe)
     return work, site, archives
 
 
@@ -78,7 +98,7 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
     work, _, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "gstreamer_typed_pipeline", "namespaces"):
+    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "bus_callbacks", "bus_callbacks_invalid", "signals_exact", "gstreamer_typed_pipeline", "namespaces"):
         source = work / f"{fixture}.py"
         if fixture == "namespaces":
             names = sorted({path.stem for path in (ROOT / "stubs").glob("*/src/gi-stubs/repository/*.pyi") if path.stem != "__init__"})
