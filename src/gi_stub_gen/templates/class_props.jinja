@@ -1,20 +1,41 @@
 {% if props %}
+@typing.type_check_only
 class Props{{ props_super_class | if_exists('({})')  }}:
     {% for prop in props %}
-    {{ prop.name }}: {{ prop.render_type_annotation(module_name) }} {{ prop.line_comment | if_exists("# ") | trim }}
+    {% if prop.uses_attribute_annotation(module_name) %}
+    {{ prop.name }}: {{ prop.render_type_annotation(module_name) }} {{ prop.declaration_comment | if_exists("# ") | trim }} {{ prop.line_comment | if_exists("# ") | trim }}
     {% if prop.docstring or prop.is_deprecated %}
     """
     {{ prop.docstring | if_exists | trim | indent(4) }}
-    {{ "@deprecated" if prop.is_deprecated else ""  | indent(4, blank=True) -}}
+    {{ "@deprecated" if prop.is_deprecated else "" | indent(4, blank=True) -}}
     """
+    {% endif %}
+    {% else %}
+    {% if not prop.readable %}
+    # Write-only: checkers cannot fully prohibit reads of a property.
+    {% endif %}
+    @builtins.property
+    def {{ prop.name }}(self) -> {{ prop.render_type_annotation(module_name) if prop.readable else 'typing.Never' }}: {{ prop.declaration_comment | if_exists("# ") | trim }}
+        {% if prop.docstring or prop.is_deprecated %}
+        """
+        {{ prop.docstring | if_exists | trim | indent(8) }}
+        {{ "@deprecated" if prop.is_deprecated else "" | indent(8, blank=True) -}}
+        """
+        {% endif %}
+        ...
+    {% if prop.can_write %}
+    @{{ prop.name }}.setter
+    def {{ prop.name }}(self, value: {{ prop.render_write_annotation(module_name) }}) -> None: ...
+    {% endif %}
     {% endif %}
     {% endfor %}
 
 @builtins.property
 def props(self) -> Props: ...
 {% elif not props_super_class and allow_synthetic_props %}
-{# No props in this class but its super is object is a parent class for future inherited class, so we add a fake empty since someone might inherit from this class #}
-class Props: 
+{# Empty base for subclasses with properties. #}
+@typing.type_check_only
+class Props:
     ...
 @builtins.property
 def props(self) -> Props: ...

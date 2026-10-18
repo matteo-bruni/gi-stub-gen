@@ -8,3 +8,57 @@ def invalid(app: Gtk.Application, pad: Gst.Pad) -> None:
     app.props.application_id = 42  # error
     Gio.DBusConnection(exit_on_close="yes")  # error
 
+
+
+from gi import _gi
+
+
+def invalid_private(info: _gi.CallableInfo, task: _gi.Async[int]) -> None:
+    info.get_n_args()  # error: public API is not the internal API
+    value: str = task.result()  # error
+
+
+def invalid_properties(connection: Gio.DBusConnection) -> None:
+    connection.props.closed = True  # error
+    connection.props.flags = Gio.DBusConnectionFlags.NONE  # error
+    connection.props.exit_on_close = "yes"  # error
+
+
+def invalid_inherited_properties(binding: Gst.ControlBinding) -> None:
+    binding.props.name = "other"  # error
+
+
+def wrong_probe(value: int) -> Gst.PadProbeReturn:
+    return Gst.PadProbeReturn.OK
+
+
+def wrong_data(pad: Gst.Pad, info: Gst.PadProbeInfo, value: int) -> Gst.PadProbeReturn:
+    return Gst.PadProbeReturn.OK
+
+
+def wrong_file(stream: Gio.InputStream, result: Gio.AsyncResult) -> None:
+    pass
+
+
+def invalid_callbacks(pad: Gst.Pad, file: Gio.File, stream: Gio.InputStream) -> None:
+    pad.add_probe(Gst.PadProbeType.BUFFER, wrong_probe)  # error
+    pad.add_probe(Gst.PadProbeType.BUFFER, wrong_data, "text")  # error; ty-misses: TypeVarTuple constraint
+    pad.add_probe(Gst.PadProbeType.BUFFER, wrong_data)  # error; ty-misses: TypeVarTuple arity
+    file.load_contents_async(None, wrong_file)  # error
+    stream.read_bytes_async(3, 0, None, wrong_probe)  # error
+
+
+async def invalid_async(stream: Gio.InputStream) -> None:
+    await stream.read_bytes_async(3, 0, callback=None)  # error
+    value: str = await stream.read_bytes_async(3, 0)  # error
+    stream.read_bytes_async("three", 0)  # error
+
+
+from gi.repository import GstApp
+
+
+def invalid_gstreamer(source: GstApp.AppSrc, sink: GstApp.AppSink) -> None:
+    source.props.format = "TIME"  # error
+    source.props.caps = "application/octet-stream"  # error
+    sink.props.current_level_buffers = 3  # error
+    source.push_buffer(b"not a Gst.Buffer")  # error

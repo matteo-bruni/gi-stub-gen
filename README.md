@@ -28,6 +28,16 @@ I started this project to improve type hints and autocompletion for GStreamer Py
 -   **Deprecation:** Annotate detected deprecated APIs.
 -   **Signals:** Generate `connect()` overloads for known signal signatures.
 -   **Protocols:** Represent callbacks and interfaces with `typing.Protocol`.
+-   **Properties:** Preserve `Props` completion with readable, writable and construct-only constraints.
+-   **Async:** Generate awaitable overloads from verified GI finish metadata.
+-   **Internal GI:** Include targeted `_gi` annotations without replacing public GObject definitions.
+
+See [typing behavior and verification](docs/Typing_features.md) and the executable
+[GStreamer pipeline example](examples/gstreamer_typed_pipeline.py).
+
+Optional Pyrefly checks: `just check-types-pyrefly` for sources, tests and examples;
+`just pyrefly` for generated stubs; `just pyrefly-check <paths>` for selected files.
+The version is pinned in `justfile`; diagnostics remain visible and are not yet a passing gate.
 
 ---
 

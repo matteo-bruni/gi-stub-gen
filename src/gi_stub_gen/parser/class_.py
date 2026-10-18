@@ -6,7 +6,7 @@ import importlib
 import inspect
 
 import gi
-import gi._gi as GI  # type: ignore
+import gi._gi as GI
 from gi.repository import GObject
 
 from typing import Any
@@ -23,6 +23,7 @@ from gi_stub_gen.parser.property import describe_property
 from gi_stub_gen.schema.property import PropertyDescriptor
 from gi_stub_gen.parser.fields import gi_parse_field, should_expose_class_field
 from gi_stub_gen.parser.signals import get_all_signals_flattened
+from gi_stub_gen.parser.class_property import parse_class_property
 from gi_stub_gen.utils.gi_utils import (
     do_class_need_gtype_metaclass,
     MAP_GI_GTYPE_TO_TYPE,
@@ -61,7 +62,7 @@ from gi_stub_gen.utils.utils import (
 )
 from gi.repository import GIRepository
 
-from gi_stub_gen.overrides import get_init_factory, has_method_override
+from gi_stub_gen.overrides import CLASS_OVERRIDES, get_init_factory, has_method_override
 from gi_stub_gen.schema.function import FunctionSchema
 
 import logging
@@ -363,8 +364,8 @@ def _python_property_type(
 
 
 def get_all_properties_flattened(
-    info: GIRepository.BaseInfo | GI.ObjectInfo,
-) -> list[GIRepository.PropertyInfo]:
+    info: GI.BaseInfo | None,
+) -> list[GI.PropertyInfo]:
     """
     Recursively fetch all properties for a given GI Info, including:
     - Properties defined in the class itself
@@ -374,7 +375,7 @@ def get_all_properties_flattened(
     Uses duck typing (hasattr) to safely handle both Objects and Interfaces.
     """
     # Dictionary to ensure uniqueness and prefer the most specific definition (Child > Parent)
-    collected_props: dict[str, GIRepository.PropertyInfo] = {}
+    collected_props: dict[str, GI.PropertyInfo] = {}
 
     current = info
 
@@ -383,7 +384,7 @@ def get_all_properties_flattened(
         if hasattr(current, "get_properties"):
             for prop in current.get_properties():  # type: ignore
                 name = prop.get_name()
-                if name not in collected_props:
+                if name is not None and name not in collected_props:
                     collected_props[name] = prop
 
         # 2. Collect properties from implemented interfaces
@@ -393,7 +394,7 @@ def get_all_properties_flattened(
                 if hasattr(iface, "get_properties"):
                     for prop in iface.get_properties():
                         name = prop.get_name()
-                        if name not in collected_props:
+                        if name is not None and name not in collected_props:
                             collected_props[name] = prop
 
         # 3. Move up to the parent class
@@ -643,16 +644,16 @@ def parse_class(
     class_to_parse: Any,
     parse_even_if_alias: bool = False,
     docs: GIRDocs | None = None,
-) -> tuple[ClassSchema | None, list[GI.TypeInfo]]:
+) -> tuple[ClassSchema | None, list[CallbackSchema]]:
     """
-    Parse a class and return a ClassSchema and a list of GI.TypeInfo callbacks found during parsing.
+    Parse a class and return a ClassSchema and a list of CallbackSchema callbacks found during parsing.
 
     Args:
         module_name (str): module name where we are parsing the class
         class_to_parse (Any): class to be parsed
         module_docs (ModuleDocs): module documentation
     Returns:
-        tuple[ClassSchema | None, list[GI.TypeInfo]]: parsed ClassSchema and list of GI.TypeInfo callbacks
+        tuple[ClassSchema | None, list[CallbackSchema]]: parsed ClassSchema and list of CallbackSchema callbacks
     """
     from gi_stub_gen.schema.class_ import ClassPropSchema
 
@@ -685,7 +686,7 @@ def parse_class(
         return None, []
 
     init_factory = get_init_factory(module_name, class_to_parse.__name__)
-    # callbacks_found: list[GI.TypeInfo] = []
+    # callbacks_found: list[CallbackSchema] = []
     callbacks_found: list[CallbackSchema] = []
     """callbacks found during class parsing, saved to be parsed later"""
 
@@ -707,17 +708,17 @@ def parse_class(
 
     # retrieve GI info object and parse its properties/methods/signals
     class_info = class_to_parse.__info__ if hasattr(class_to_parse, "__info__") else None
-    class_signals_to_parse: list[GIRepository.SignalInfo] = get_all_signals_flattened(class_info) if class_info else []
-    class_fields_to_parse: list[GIRepository.FieldInfo] = (
+    class_signals_to_parse: list[GI.SignalInfo] = get_all_signals_flattened(class_info) if class_info else []
+    class_fields_to_parse: list[GI.FieldInfo] = (
         class_info.get_fields() if class_info and hasattr(class_info, "get_fields") else []
     )
-    class_field_info_by_name = {
+    class_field_info_by_name: dict[str | None, GI.FieldInfo | GIRepository.FieldInfo] = {
         field.get_name(): field for field in class_fields_to_parse if field.get_name() is not None
     }
-    class_properties_to_parse: list[GIRepository.PropertyInfo] = (
+    class_properties_to_parse: list[GI.PropertyInfo] = (
         class_info.get_properties() if class_info and hasattr(class_info, "get_properties") else []
     )
-    class_methods_to_parse: list[GIRepository.CallableInfo] = (
+    class_methods_to_parse: list[GI.FunctionInfo] = (
         class_info.get_methods() if class_info and hasattr(class_info, "get_methods") else []
     )
 
@@ -838,40 +839,29 @@ def parse_class(
     #######################################################################################
     # parse properties
     #######################################################################################
-    # Parse Props (they have a getter/setter depending on the flags)
+    type_info = GIRepo().find_by_name(
+        module_name.removeprefix("gi.repository."),
+        class_to_parse.__name__,
+        namespace_version=GI.Repository.get_default().get_version(module_name.removeprefix("gi.repository."))
+        if class_properties_to_parse else None,
+        target_type=GIRepository.BaseInfo,
+    )
+    accessor_properties = {}
+    property_comments = CLASS_OVERRIDES.get(module_name, {}).get(class_to_parse.__name__, {}).get("property_comments", {})
+    if isinstance(type_info, (GIRepository.ObjectInfo, GIRepository.InterfaceInfo)):
+        for index in range(type_info.get_n_properties()):
+            prop_info = type_info.get_property(index)
+            accessor_properties[prop_info.get_name()] = prop_info
     for prop in class_properties_to_parse:
-        # start parsing the actual property
-        prop_gi_type_info = get_gi_type_info(prop)
-
-        # TODO: !! PARSING CALLBACK (credo non possa succedere nelle prop)
-        prop_type = gi_type_to_py_type(prop_gi_type_info)
-        prop_type_hint_namespace = get_py_type_namespace_repr(prop_type)
-        prop_type_hint_name = get_py_type_name_repr(prop_type)
         p_name = prop.get_name()
         assert p_name is not None, "Property name is None"
-        sanitized_name, line_comment = sanitize_variable_name(p_name)
-
-        # may_be_null = is_property_nullable_safe(prop)
-        may_be_null = is_class_field_nullable(prop)
-
-        c = ClassPropSchema(
-            name=sanitized_name,
-            is_deprecated=prop.is_deprecated(),
-            readable=bool(prop.get_flags() & GObject.ParamFlags.READABLE),
-            writable=bool(prop.get_flags() & GObject.ParamFlags.WRITABLE),
-            type_hint_namespace=prop_type_hint_namespace,
-            type_hint_name=prop_type_hint_name,
-            line_comment=line_comment,
-            docstring=(
-                docs.get_class_property_docstring(
-                    class_name=class_to_parse.__name__,
-                    property_name=p_name,
-                )
-                if docs is not None
-                else None
-            ),
-            may_be_null=may_be_null,
+        c = parse_class_property(
+            prop, accessor_properties.get(p_name), module_name.removeprefix("gi.repository."),
+            docs.get_class_property_docstring(class_name=class_to_parse.__name__, property_name=p_name)
+            if docs is not None else None,
         )
+        if p_name in property_comments:
+            c.declaration_comment = property_comments[p_name]
         class_props.append(c)
         class_parsed_elements.append(p_name)
 
@@ -907,11 +897,6 @@ def parse_class(
     # some classes like GLib.Error have no __info__ so we cant parse from gi info
     # we rely on GIRepository to get them
     # this way we also parse fields that appear when instantiating the class
-    type_info = GIRepo().find_by_name(
-        module_name.removeprefix("gi.repository."),
-        class_to_parse.__name__,
-        target_type=GIRepository.BaseInfo,
-    )
     if type_info is not None and isinstance(type_info, (GIRepository.ObjectInfo, GIRepository.StructInfo)):
         for i in range(type_info.get_n_fields()):
             field = type_info.get_field(i)

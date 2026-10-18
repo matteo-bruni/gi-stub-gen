@@ -51,7 +51,7 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
             for name, _, _ in csv.reader(io.StringIO(wheel.read(record).decode())):
                 assert name not in owners, f"Overlapping wheel file: {name}"
                 owners[name] = archive.name
-    for marker in ("gi-stubs/py.typed", "gi-stubs/repository/__init__.pyi"):
+    for marker in ("gi-stubs/py.typed", "gi-stubs/repository/__init__.pyi", "gi-stubs/_gi.pyi"):
         assert owners[marker].startswith("gi_base_stubs-")
 
     env = work / "venv"
@@ -76,10 +76,17 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
     work, _, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid"):
+    for fixture in ("consumer", "invalid", "gstreamer_typed_pipeline", "namespaces"):
         source = work / f"{fixture}.py"
-        source.write_text((ROOT / "tests/typing" / f"{fixture}.py.txt").read_text())
-        expected = [number for number, line in enumerate(source.read_text().splitlines(), 1) if "# error" in line]
+        if fixture == "namespaces":
+            names = sorted({path.stem for path in (ROOT / "stubs").glob("*/src/gi-stubs/repository/*.pyi") if path.stem != "__init__"})
+            source.write_text("from typing import assert_type\n" + "\n".join(
+                f"from gi.repository import {name}\nassert_type({name}.__name__, str)" for name in names
+            ))
+        else:
+            original = ROOT / "examples/gstreamer_typed_pipeline.py" if fixture == "gstreamer_typed_pipeline" else ROOT / "tests/typing" / f"{fixture}.py.txt"
+            source.write_text(original.read_text())
+        expected = [number for number, line in enumerate(source.read_text().splitlines(), 1) if "# error" in line and not (checker == "ty-check" and "ty-misses:" in line)]
         if checker == "pyright":
             result = run("just", checker, "--pythonpath", python, "--outputjson", str(source))
             diagnostics = json.loads(result.stdout)["generalDiagnostics"]

@@ -222,7 +222,3 @@ source "${SPX_COMPLETIONS_PATH}"
 
 export USER=`id -un`
 export GROUP=`id -gn`
-
-# >>> Codex installer >>>
-export PATH="/home/hunter/.local/bin:$PATH"
-# <<< Codex installer <<<

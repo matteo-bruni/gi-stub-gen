@@ -15,6 +15,7 @@ import typing_extensions  # noqa: F401
 
 import builtins
 import collections.abc
+import gi._gi
 import typing
 
 # gi.repository imports needed by this Stub
@@ -143,18 +144,33 @@ def app_info_get_default_for_type(
     """
     ...
 
+@typing.overload
 def app_info_get_default_for_type_async(
     content_type: str,
     must_support_uris: bool,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[AppInfo]:
     """
     Asynchronously gets the default GAppInfo for a given content type.
     """
     ...
 
+@typing.overload
+def app_info_get_default_for_type_async(
+    content_type: str,
+    must_support_uris: bool,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def app_info_get_default_for_type_async(
+    content_type: str,
+    must_support_uris: bool,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def app_info_get_default_for_type_finish(
     result: AsyncResult,
 ) -> AppInfo:
@@ -177,12 +193,11 @@ def app_info_get_default_for_uri_scheme(
     """
     ...
 
+@typing.overload
 def app_info_get_default_for_uri_scheme_async(
     uri_scheme: str,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[AppInfo]:
     """
     Asynchronously gets the default application for handling URIs with
     the given URI scheme. A URI scheme is the initial part
@@ -191,6 +206,20 @@ def app_info_get_default_for_uri_scheme_async(
     """
     ...
 
+@typing.overload
+def app_info_get_default_for_uri_scheme_async(
+    uri_scheme: str,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def app_info_get_default_for_uri_scheme_async(
+    uri_scheme: str,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def app_info_get_default_for_uri_scheme_finish(
     result: AsyncResult,
 ) -> AppInfo:
@@ -241,13 +270,12 @@ def app_info_launch_default_for_uri(
     """
     ...
 
+@typing.overload
 def app_info_launch_default_for_uri_async(
     uri: str,
     context: AppLaunchContext | None = None,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[bool]:
     """
     Async version of `g_app_info_launch_default_for_uri`.
 
@@ -262,6 +290,22 @@ def app_info_launch_default_for_uri_async(
     """
     ...
 
+@typing.overload
+def app_info_launch_default_for_uri_async(
+    uri: str,
+    context: AppLaunchContext | None,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def app_info_launch_default_for_uri_async(
+    uri: str,
+    context: AppLaunchContext | None = None,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def app_info_launch_default_for_uri_finish(
     result: AsyncResult,
 ) -> bool:
@@ -302,12 +346,11 @@ def async_initable_newv_async(
     """
     ...
 
+@typing.overload
 def bus_get(
     bus_type: BusType,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[DBusConnection]:
     """
     Asynchronously connects to the message bus specified by `bus_type`.
 
@@ -319,6 +362,20 @@ def bus_get(
     """
     ...
 
+@typing.overload
+def bus_get(
+    bus_type: BusType,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def bus_get(
+    bus_type: BusType,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def bus_get_finish(
     res: AsyncResult,
 ) -> DBusConnection:
@@ -725,12 +782,11 @@ def dbus_address_get_for_bus_sync(
     """
     ...
 
+@typing.overload
 def dbus_address_get_stream(
     address: str,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[tuple[IOStream, str | None]]:
     """
     Asynchronously connects to an endpoint specified by `address` and
     sets up the connection so it is in a state to run the client-side
@@ -746,6 +802,20 @@ def dbus_address_get_stream(
     """
     ...
 
+@typing.overload
+def dbus_address_get_stream(
+    address: str,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def dbus_address_get_stream(
+    address: str,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def dbus_address_get_stream_finish(
     res: AsyncResult,
 ) -> tuple[IOStream, str | None]:
@@ -1215,13 +1285,12 @@ def file_new_tmp(
     """
     ...
 
+@typing.overload
 def file_new_tmp_async(
     tmpl: str | None,
     io_priority: int,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[tuple[File, FileIOStream]]:
     """
     Asynchronously opens a file in the preferred directory for temporary files
      (as returned by `g_get_tmp_dir`) as `g_file_new_tmp`.
@@ -1232,13 +1301,28 @@ def file_new_tmp_async(
     """
     ...
 
+@typing.overload
+def file_new_tmp_async(
+    tmpl: str | None,
+    io_priority: int,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def file_new_tmp_async(
+    tmpl: str | None,
+    io_priority: int,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
+@typing.overload
 def file_new_tmp_dir_async(
     tmpl: str | None,
     io_priority: int,
     cancellable: Cancellable | None = None,
-    callback: AsyncReadyCallback | None = None,
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[File]:
     """
     Asynchronously creates a directory in the preferred directory for
     temporary files (as returned by `g_get_tmp_dir`) as `g_dir_make_tmp`.
@@ -1249,6 +1333,22 @@ def file_new_tmp_dir_async(
     """
     ...
 
+@typing.overload
+def file_new_tmp_dir_async(
+    tmpl: str | None,
+    io_priority: int,
+    cancellable: Cancellable | None,
+    callback: AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@typing.overload
+def file_new_tmp_dir_async(
+    tmpl: str | None,
+    io_priority: int,
+    cancellable: Cancellable | None = None,
+    *,
+    callback: AsyncReadyCallback | None,
+) -> None: ...
 def file_new_tmp_dir_finish(
     result: AsyncResult,
 ) -> File:
@@ -4761,34 +4861,45 @@ class Action(builtins.object):
     inside of a [class`Gio`.SimpleActionGroup].
     """
 
+    @typing.type_check_only
     class Props:
-        enabled: bool
-        """
-        If `action` is currently enabled.
+        @builtins.property
+        def enabled(self) -> bool:
+            """
+            If `action` is currently enabled.
 
-        If the action is disabled then calls to `g_action_activate` and
-        `g_action_change_state` have no effect.
-        """
-        name: str
-        """
-        The name of the action.  This is mostly meaningful for identifying
-        the action once it has been added to a GActionGroup. It is immutable.
-        """
-        parameter_type: GLib.VariantType | None  # [parameter-type]: changed because contained invalid characters
-        """
-        The type of the parameter that must be given when activating the
-        action. This is immutable, and may be None if no parameter is needed when
-        activating the action.
-        """
-        state: GLib.Variant | None
-        """
-        The state of the action, or None if the action is stateless.
-        """
-        state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
-        """
-        The GVariantType of the state that the action has, or None if the
-        action is stateless. This is immutable.
-        """
+            If the action is disabled then calls to `g_action_activate` and
+            `g_action_change_state` have no effect.
+            """
+            ...
+        @builtins.property
+        def name(self) -> str:
+            """
+            The name of the action.  This is mostly meaningful for identifying
+            the action once it has been added to a GActionGroup. It is immutable.
+            """
+            ...
+        @builtins.property
+        def parameter_type(self) -> GLib.VariantType | None:
+            """
+            The type of the parameter that must be given when activating the
+            action. This is immutable, and may be None if no parameter is needed when
+            activating the action.
+            """
+            ...
+        @builtins.property
+        def state(self) -> GLib.Variant | None:
+            """
+            The state of the action, or None if the action is stateless.
+            """
+            ...
+        @builtins.property
+        def state_type(self) -> GLib.VariantType | None:
+            """
+            The GVariantType of the state that the action has, or None if the
+            action is stateless. This is immutable.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -5093,6 +5204,7 @@ class ActionGroup(builtins.object):
     calls to [method`Gio`.ActionGroup.query_action].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -5489,6 +5601,7 @@ class ActionMap(builtins.object):
     name.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -5704,6 +5817,7 @@ class AppInfo(builtins.object):
     different ideas of what a given URI means.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -5790,16 +5904,31 @@ class AppInfo(builtins.object):
         Gets the default GAppInfo for a given content type.
         """
     @staticmethod
+    @typing.overload
+    def get_default_for_type_async(
+        content_type: str, must_support_uris: bool, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[AppInfo]:
+        """
+        Asynchronously gets the default GAppInfo for a given content type.
+        """
+    @staticmethod
+    @typing.overload
+    def get_default_for_type_async(
+        content_type: str,
+        must_support_uris: bool,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
     def get_default_for_type_async(
         content_type: str,
         must_support_uris: bool,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
-        """
-        Asynchronously gets the default GAppInfo for a given content type.
-        """
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     @staticmethod
     def get_default_for_type_finish(result: AsyncResult) -> AppInfo:
         """
@@ -5817,18 +5946,26 @@ class AppInfo(builtins.object):
         "ftp" or "sip".
         """
     @staticmethod
+    @typing.overload
     def get_default_for_uri_scheme_async(
-        uri_scheme: str,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        uri_scheme: str, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[AppInfo]:
         """
             Asynchronously gets the default application for handling URIs with
         the given URI scheme. A URI scheme is the initial part
         of the URI, up to but not including the ':', e.g. "http",
         "ftp" or "sip".
         """
+    @staticmethod
+    @typing.overload
+    def get_default_for_uri_scheme_async(
+        uri_scheme: str, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
+    def get_default_for_uri_scheme_async(
+        uri_scheme: str, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     @staticmethod
     def get_default_for_uri_scheme_finish(result: AsyncResult) -> AppInfo:
         """
@@ -5941,13 +6078,10 @@ class AppInfo(builtins.object):
         `g_app_info_launch_default_for_uri_async` instead.
         """
     @staticmethod
+    @typing.overload
     def launch_default_for_uri_async(
-        uri: str,
-        context: AppLaunchContext | None = None,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        uri: str, context: AppLaunchContext | None = None, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
         """
             Async version of `g_app_info_launch_default_for_uri`.
 
@@ -5960,6 +6094,24 @@ class AppInfo(builtins.object):
         applications are really started before termination and if you are interested
         in receiving error information from their activation.
         """
+    @staticmethod
+    @typing.overload
+    def launch_default_for_uri_async(
+        uri: str,
+        context: AppLaunchContext | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
+    def launch_default_for_uri_async(
+        uri: str,
+        context: AppLaunchContext | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     @staticmethod
     def launch_default_for_uri_finish(result: AsyncResult) -> bool:
         """
@@ -5980,14 +6132,13 @@ class AppInfo(builtins.object):
         can fail to start if it runs into problems during startup. There is
         no way to detect this.
         """
+    @typing.overload
     def launch_uris_async(
         self,
         uris: list[str] | None = None,
         context: AppLaunchContext | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Async version of `g_app_info_launch_uris`.
 
@@ -5996,6 +6147,24 @@ class AppInfo(builtins.object):
         extended error information for sandboxed applications, see notes for
         `g_app_info_launch_default_for_uri_async`.
         """
+    @typing.overload
+    def launch_uris_async(
+        self,
+        uris: list[str] | None,
+        context: AppLaunchContext | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def launch_uris_async(
+        self,
+        uris: list[str] | None = None,
+        context: AppLaunchContext | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def launch_uris_finish(self, result: AsyncResult) -> bool:
         """
         Finishes a `g_app_info_launch_uris_async` operation.
@@ -6618,12 +6787,18 @@ class Application(GObject.Object):
     [gapplication-example-dbushooks.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-dbushooks.c).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        action_group: ActionGroup | None  # [action-group]: changed because contained invalid characters
-        """
-        The group of actions that the application exports.
-        """
-        application_id: str  # [application-id]: changed because contained invalid characters
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def action_group(self) -> typing.Never:
+            """
+            The group of actions that the application exports.
+            """
+            ...
+        @action_group.setter
+        def action_group(self, value: ActionGroup | None) -> None: ...
+        application_id: str | None  # [application-id]: changed because contained invalid characters
         """
         The unique identifier for the application.
         """
@@ -6635,27 +6810,37 @@ class Application(GObject.Object):
         """
         Time (in milliseconds) to stay alive after becoming idle.
         """
-        is_busy: bool  # [is-busy]: changed because contained invalid characters
-        """
-        Whether the application is currently marked as busy through
-        `g_application_mark_busy` or `g_application_bind_busy_property`.
-        """
-        is_registered: bool  # [is-registered]: changed because contained invalid characters
-        """
-        Whether [method`Gio`.Application.register] has been called.
-        """
-        is_remote: bool  # [is-remote]: changed because contained invalid characters
-        """
-        Whether this application instance is remote.
-        """
-        resource_base_path: str  # [resource-base-path]: changed because contained invalid characters
+        @builtins.property
+        def is_busy(self) -> bool:
+            """
+            Whether the application is currently marked as busy through
+            `g_application_mark_busy` or `g_application_bind_busy_property`.
+            """
+            ...
+        @builtins.property
+        def is_registered(self) -> bool:
+            """
+            Whether [method`Gio`.Application.register] has been called.
+            """
+            ...
+        @builtins.property
+        def is_remote(self) -> bool:
+            """
+            Whether this application instance is remote.
+            """
+            ...
+        resource_base_path: str | None  # [resource-base-path]: changed because contained invalid characters
         """
         The base resource path for the application.
         """
-        version: str
-        """
-        The human-readable version number of the application.
-        """
+        @builtins.property
+        def version(self) -> str | None:
+            """
+            The human-readable version number of the application.
+            """
+            ...
+        @version.setter
+        def version(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -7947,24 +8132,14 @@ class ApplicationCommandLine(GObject.Object):
     [gapplication-example-cmdline3.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline3.c)
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        arguments: GLib.Variant | None
-        """
-        The commandline that caused this [signal`Gio`.Application::command-line]
-        signal emission.
-        """
-        is_remote: bool  # [is-remote]: changed because contained invalid characters
-        """
-        Whether this is a remote commandline.
-        """
-        options: GLib.Variant | None
-        """
-        The options sent along with the commandline.
-        """
-        platform_data: GLib.Variant | None  # [platform-data]: changed because contained invalid characters
-        """
-        Platform-specific data for the commandline.
-        """
+        @builtins.property
+        def is_remote(self) -> bool:
+            """
+            Whether this is a remote commandline.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -8361,6 +8536,7 @@ class AsyncInitable(builtins.object):
     ```
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -8371,13 +8547,8 @@ class AsyncInitable(builtins.object):
         """
         Initialize AsyncInitable object with properties.
         """
-    def init_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def init_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Starts asynchronous initialization of the object implementing the
         interface. This must be done before any real use of the object after
@@ -8416,6 +8587,18 @@ class AsyncInitable(builtins.object):
         threads, just implement the GAsyncInitable interface without overriding
         any interface methods.
         """
+    @typing.overload
+    def init_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def init_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def init_finish(self, res: AsyncResult) -> bool:
         """
             Finishes asynchronous initialization and returns the result.
@@ -8558,6 +8741,7 @@ class AsyncResult(builtins.object):
     as a default.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -8639,6 +8823,7 @@ class BufferedInputStream(FilterInputStream):
     Note that the buffer's size cannot be reduced below the size of the data within the buffer.
     """
 
+    @typing.type_check_only
     class Props(FilterInputStream.Props):
         buffer_size: int  # [buffer-size]: changed because contained invalid characters
         """
@@ -8691,14 +8876,8 @@ class BufferedInputStream(FilterInputStream):
         For the asynchronous, non-blocking, version of this function, see
         `g_buffered_input_stream_fill_async`.
         """
-    def fill_async(
-        self,
-        count: int,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def fill_async(self, count: int, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[int]:
         """
             Reads data into `stream`'s buffer asynchronously, up to `count` size.
         `io_priority` can be used to prioritize reads. For the synchronous
@@ -8707,6 +8886,24 @@ class BufferedInputStream(FilterInputStream):
         If `count` is -1 then the attempted read size is equal to the number
         of bytes that are required to fill the buffer.
         """
+    @typing.overload
+    def fill_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def fill_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def fill_finish(self, result: AsyncResult) -> int:
         """
         Finishes an asynchronous read.
@@ -8882,6 +9079,7 @@ class BufferedOutputStream(FilterOutputStream):
     Note that the buffer's size cannot be reduced below the size of the data within the buffer.
     """
 
+    @typing.type_check_only
     class Props(FilterOutputStream.Props):
         auto_grow: bool  # [auto-grow]: changed because contained invalid characters
         """
@@ -9017,11 +9215,14 @@ class BytesIcon(GObject.Object):
     PNG) to be used as icon.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        bytes: GLib.Bytes | None
-        """
-        The bytes containing the icon.
-        """
+        @builtins.property
+        def bytes(self) -> GLib.Bytes:
+            """
+            The bytes containing the icon.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -9309,15 +9510,20 @@ class CharsetConverter(GObject.Object):
     [struct`GLib`.IConv].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        from_charset: str  # [from-charset]: changed because contained invalid characters
-        """
-        The character encoding to convert from.
-        """
-        to_charset: str  # [to-charset]: changed because contained invalid characters
-        """
-        The character encoding to convert to.
-        """
+        @builtins.property
+        def from_charset(self) -> str:
+            """
+            The character encoding to convert from.
+            """
+            ...
+        @builtins.property
+        def to_charset(self) -> str:
+            """
+            The character encoding to convert to.
+            """
+            ...
         use_fallback: bool  # [use-fallback]: changed because contained invalid characters
         """
         Use fallback (of form `<hexval>`) for invalid bytes.
@@ -9413,6 +9619,7 @@ class Converter(builtins.object):
     replace.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -9548,11 +9755,14 @@ class ConverterInputStream(FilterInputStream):
     [iface`Gio`.PollableInputStream].
     """
 
+    @typing.type_check_only
     class Props(FilterInputStream.Props):
-        converter: Converter | None
-        """
-        The converter object.
-        """
+        @builtins.property
+        def converter(self) -> Converter:
+            """
+            The converter object.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -9653,11 +9863,14 @@ class ConverterOutputStream(FilterOutputStream):
     [iface`Gio`.PollableOutputStream].
     """
 
+    @typing.type_check_only
     class Props(FilterOutputStream.Props):
-        converter: Converter | None
-        """
-        The converter object.
-        """
+        @builtins.property
+        def converter(self) -> Converter:
+            """
+            The converter object.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -10228,27 +10441,21 @@ class DBusConnection(GObject.Object):
     [gdbus-example-export.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-export.c)
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        address: str
-        """
-        A D-Bus address specifying potential endpoints that can be used
-        when establishing the connection.
-        """
-        authentication_observer: (
-            DBusAuthObserver | None
-        )  # [authentication-observer]: changed because contained invalid characters
-        """
-        A GDBusAuthObserver object to assist in the authentication process or None.
-        """
-        capabilities: DBusCapabilityFlags
-        """
-        Flags from the GDBusCapabilityFlags enumeration
-        representing connection features negotiated with the other peer.
-        """
-        closed: bool
-        """
-        A boolean specifying whether the connection has been closed.
-        """
+        @builtins.property
+        def capabilities(self) -> DBusCapabilityFlags:
+            """
+            Flags from the GDBusCapabilityFlags enumeration
+            representing connection features negotiated with the other peer.
+            """
+            ...
+        @builtins.property
+        def closed(self) -> bool:
+            """
+            A boolean specifying whether the connection has been closed.
+            """
+            ...
         exit_on_close: bool  # [exit-on-close]: changed because contained invalid characters
         """
         A boolean specifying whether the process will be terminated (by
@@ -10258,51 +10465,59 @@ class DBusConnection(GObject.Object):
         Note that GDBusConnection objects returned by `g_bus_get_finish`
         and `g_bus_get_sync` will (usually) have this property set to True.
         """
-        flags: DBusConnectionFlags
-        """
-        Flags from the GDBusConnectionFlags enumeration.
-        """
-        guid: str
-        """
-        The GUID of the peer performing the role of server when
-        authenticating.
+        @builtins.property
+        def flags(self) -> DBusConnectionFlags:
+            """
+            Flags from the GDBusConnectionFlags enumeration.
+            """
+            ...
+        @builtins.property
+        def guid(self) -> str:
+            """
+            The GUID of the peer performing the role of server when
+            authenticating.
 
-        If you are constructing a GDBusConnection and pass
-        G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER in the
-        GDBusConnection:flags property then you **must** also set this
-        property to a valid guid.
+            If you are constructing a GDBusConnection and pass
+            G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER in the
+            GDBusConnection:flags property then you **must** also set this
+            property to a valid guid.
 
-        If you are constructing a GDBusConnection and pass
-        G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT in the
-        GDBusConnection:flags property you will be able to read the GUID
-        of the other peer here after the connection has been successfully
-        initialized.
+            If you are constructing a GDBusConnection and pass
+            G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT in the
+            GDBusConnection:flags property you will be able to read the GUID
+            of the other peer here after the connection has been successfully
+            initialized.
 
-        Note that the
-        [D-Bus specification](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses)
-        uses the term ‘UUID’ to refer to this, whereas GLib consistently uses the
-        term ‘GUID’ for historical reasons.
+            Note that the
+            [D-Bus specification](https://dbus.freedesktop.org/doc/dbus-specification.html#addresses)
+            uses the term ‘UUID’ to refer to this, whereas GLib consistently uses the
+            term ‘GUID’ for historical reasons.
 
-        Despite its name, the format of GDBusConnection:guid does not follow
-        [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122) or the Microsoft
-        GUID format.
-        """
-        stream: IOStream | None
-        """
-        The underlying GIOStream used for I/O.
+            Despite its name, the format of GDBusConnection:guid does not follow
+            [RFC 4122](https://datatracker.ietf.org/doc/html/rfc4122) or the Microsoft
+            GUID format.
+            """
+            ...
+        @builtins.property
+        def stream(self) -> IOStream:
+            """
+            The underlying GIOStream used for I/O.
 
-        If this is passed on construction and is a GSocketConnection,
-        then the corresponding GSocket will be put into non-blocking mode.
+            If this is passed on construction and is a GSocketConnection,
+            then the corresponding GSocket will be put into non-blocking mode.
 
-        While the GDBusConnection is active, it will interact with this
-        stream from a worker thread, so it is not safe to interact with
-        the stream directly.
-        """
-        unique_name: str  # [unique-name]: changed because contained invalid characters
-        """
-        The unique name as assigned by the message bus or None if the
-        connection is not open or not a message bus connection.
-        """
+            While the GDBusConnection is active, it will interact with this
+            stream from a worker thread, so it is not safe to interact with
+            the stream directly.
+            """
+            ...
+        @builtins.property
+        def unique_name(self) -> str | None:
+            """
+            The unique name as assigned by the message bus or None if the
+            connection is not open or not a message bus connection.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -10354,6 +10569,7 @@ class DBusConnection(GObject.Object):
         filter is removed, and may be called after `connection` has been
         destroyed.)
         """
+    @typing.overload
     def call(
         self,
         bus_name: str | None,
@@ -10365,9 +10581,7 @@ class DBusConnection(GObject.Object):
         flags: DBusCallFlags,
         timeout_msec: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[GLib.Variant]:
         """
             Asynchronously invokes the `method_name` method on the
         `interface_name` D-Bus interface on the remote object at
@@ -10415,6 +10629,36 @@ class DBusConnection(GObject.Object):
         If `callback` is None then the D-Bus method call message will be sent with
         the G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
         """
+    @typing.overload
+    def call(
+        self,
+        bus_name: str | None,
+        object_path: str,
+        interface_name: str,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        reply_type: GLib.VariantType | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def call(
+        self,
+        bus_name: str | None,
+        object_path: str,
+        interface_name: str,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        reply_type: GLib.VariantType | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def call_finish(self, res: AsyncResult) -> GLib.Variant:
         """
         Finishes an operation started with `g_dbus_connection_call`.
@@ -10469,6 +10713,7 @@ class DBusConnection(GObject.Object):
         `g_dbus_connection_call` for the asynchronous version of
         this method.
         """
+    @typing.overload
     def call_with_unix_fd_list(
         self,
         bus_name: str | None,
@@ -10481,9 +10726,7 @@ class DBusConnection(GObject.Object):
         timeout_msec: int,
         fd_list: UnixFDList | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[tuple[GLib.Variant, UnixFDList]]:
         """
             Like `g_dbus_connection_call` but also takes a GUnixFDList object.
 
@@ -10501,6 +10744,38 @@ class DBusConnection(GObject.Object):
 
         This method is only available on UNIX.
         """
+    @typing.overload
+    def call_with_unix_fd_list(
+        self,
+        bus_name: str | None,
+        object_path: str,
+        interface_name: str,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        reply_type: GLib.VariantType | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        fd_list: UnixFDList | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def call_with_unix_fd_list(
+        self,
+        bus_name: str | None,
+        object_path: str,
+        interface_name: str,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        reply_type: GLib.VariantType | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        fd_list: UnixFDList | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def call_with_unix_fd_list_finish(self, res: AsyncResult) -> tuple[GLib.Variant, UnixFDList]:
         """
             Finishes an operation started with `g_dbus_connection_call_with_unix_fd_list`.
@@ -10536,12 +10811,8 @@ class DBusConnection(GObject.Object):
 
         This method is only available on UNIX.
         """
-    def close(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Closes `connection`. Note that this never causes the process to
         exit (this might only happen if the other end of a shared message
@@ -10568,6 +10839,12 @@ class DBusConnection(GObject.Object):
         operation. See `g_dbus_connection_close_sync` for the synchronous
         version.
         """
+    @typing.overload
+    def close(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def close(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def close_finish(self, res: AsyncResult) -> bool:
         """
         Finishes an operation started with `g_dbus_connection_close`.
@@ -10639,12 +10916,8 @@ class DBusConnection(GObject.Object):
         `g_dbus_connection_unexport_menu_model` with the return value of
         this function.
         """
-    def flush(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def flush(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously flushes `connection`, that is, writes all queued
         outgoing message to the transport and then flushes the transport
@@ -10661,6 +10934,12 @@ class DBusConnection(GObject.Object):
         operation. See `g_dbus_connection_flush_sync` for the synchronous
         version.
         """
+    @typing.overload
+    def flush(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def flush(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def flush_finish(self, res: AsyncResult) -> bool:
         """
         Finishes an operation started with `g_dbus_connection_flush`.
@@ -11349,6 +11628,7 @@ class DBusInterface(builtins.object):
     (see [class`Gio`.DBusProxy]).
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -11516,6 +11796,7 @@ class DBusInterfaceSkeleton(GObject.Object):
     Abstract base class for D-Bus interfaces on the service side.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         g_flags: DBusInterfaceSkeletonFlags  # [g-flags]: changed because contained invalid characters
         """
@@ -11862,8 +12143,10 @@ class DBusMessage(GObject.Object):
     on a [class`Gio`.DBusConnection].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        locked: bool
+        @builtins.property
+        def locked(self) -> bool: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -12478,6 +12761,7 @@ class DBusObject(builtins.object):
     interfaces.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -12576,6 +12860,7 @@ class DBusObjectManager(builtins.object):
     and [class`Gio`.DBusObjectManagerServer] for the service-side implementation.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -12738,53 +13023,59 @@ class DBusObjectManagerClient(GObject.Object):
     same main loop.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        bus_type: BusType  # [bus-type]: changed because contained invalid characters
-        """
-        If this property is not G_BUS_TYPE_NONE, then
-        GDBusObjectManagerClient:connection must be None and will be set to the
-        GDBusConnection obtained by calling `g_bus_get` with the value
-        of this property.
-        """
-        connection: DBusConnection | None
-        """
-        The GDBusConnection to use.
-        """
-        flags: DBusObjectManagerClientFlags
-        """
-        Flags from the GDBusObjectManagerClientFlags enumeration.
-        """
-        get_proxy_type_destroy_notify: (
-            object | None
-        )  # [get-proxy-type-destroy-notify]: changed because contained invalid characters
-        """
-        A GDestroyNotify for the #gpointer user_data in GDBusObjectManagerClient:get-proxy-type-user-data.
-        """
-        get_proxy_type_func: object | None  # [get-proxy-type-func]: changed because contained invalid characters
-        """
-        The GDBusProxyTypeFunc to use when determining what GType to
-        use for interface proxies or None.
-        """
-        get_proxy_type_user_data: (
-            object | None
-        )  # [get-proxy-type-user-data]: changed because contained invalid characters
-        """
-        The #gpointer user_data to pass to GDBusObjectManagerClient:get-proxy-type-func.
-        """
-        name: str
-        """
-        The well-known name or unique name that the manager is for.
-        """
-        name_owner: str  # [name-owner]: changed because contained invalid characters
-        """
-        The unique name that owns GDBusObjectManagerClient:name or None if
-        no-one is currently owning the name. Connect to the
-        GObject::notify signal to track changes to this property.
-        """
-        object_path: str  # [object-path]: changed because contained invalid characters
-        """
-        The object path the manager is for.
-        """
+        @builtins.property
+        def connection(self) -> DBusConnection:
+            """
+            The GDBusConnection to use.
+            """
+            ...
+        @builtins.property
+        def flags(self) -> DBusObjectManagerClientFlags:
+            """
+            Flags from the GDBusObjectManagerClientFlags enumeration.
+            """
+            ...
+        @builtins.property
+        def get_proxy_type_destroy_notify(self) -> object | None:
+            """
+            A GDestroyNotify for the #gpointer user_data in GDBusObjectManagerClient:get-proxy-type-user-data.
+            """
+            ...
+        @builtins.property
+        def get_proxy_type_func(self) -> object | None:
+            """
+            The GDBusProxyTypeFunc to use when determining what GType to
+            use for interface proxies or None.
+            """
+            ...
+        @builtins.property
+        def get_proxy_type_user_data(self) -> object | None:
+            """
+            The #gpointer user_data to pass to GDBusObjectManagerClient:get-proxy-type-func.
+            """
+            ...
+        @builtins.property
+        def name(self) -> str:
+            """
+            The well-known name or unique name that the manager is for.
+            """
+            ...
+        @builtins.property
+        def name_owner(self) -> str | None:
+            """
+            The unique name that owns GDBusObjectManagerClient:name or None if
+            no-one is currently owning the name. Connect to the
+            GObject::notify signal to track changes to this property.
+            """
+            ...
+        @builtins.property
+        def object_path(self) -> str:
+            """
+            The object path the manager is for.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -13218,15 +13509,18 @@ class DBusObjectManagerServer(GObject.Object):
     object implementing the `org.freedesktop.DBus.ObjectManager` interface.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         connection: DBusConnection | None
         """
         The GDBusConnection to export objects on.
         """
-        object_path: str  # [object-path]: changed because contained invalid characters
-        """
-        The object path to register the manager object at.
-        """
+        @builtins.property
+        def object_path(self) -> str:
+            """
+            The object path to register the manager object at.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -13383,15 +13677,20 @@ class DBusObjectProxy(GObject.Object):
     is used to obtain it.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        g_connection: DBusConnection | None  # [g-connection]: changed because contained invalid characters
-        """
-        The connection of the proxy.
-        """
-        g_object_path: str  # [g-object-path]: changed because contained invalid characters
-        """
-        The object path of the proxy.
-        """
+        @builtins.property
+        def g_connection(self) -> DBusConnection | None:
+            """
+            The connection of the proxy.
+            """
+            ...
+        @builtins.property
+        def g_object_path(self) -> str:
+            """
+            The object path of the proxy.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -13494,6 +13793,7 @@ class DBusObjectSkeleton(GObject.Object):
     This type is intended to be used with [iface`Gio`.DBusObjectManager].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         g_object_path: str  # [g-object-path]: changed because contained invalid characters
         """
@@ -13730,18 +14030,14 @@ class DBusProxy(GObject.Object):
     [`gdbus-example-watch-proxy.c`](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gdbus-example-watch-proxy.c).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        g_bus_type: BusType  # [g-bus-type]: changed because contained invalid characters
-        """
-        If this property is not G_BUS_TYPE_NONE, then
-        GDBusProxy:g-connection must be None and will be set to the
-        GDBusConnection obtained by calling `g_bus_get` with the value
-        of this property.
-        """
-        g_connection: DBusConnection | None  # [g-connection]: changed because contained invalid characters
-        """
-        The GDBusConnection the proxy is for.
-        """
+        @builtins.property
+        def g_connection(self) -> DBusConnection | None:
+            """
+            The GDBusConnection the proxy is for.
+            """
+            ...
         g_default_timeout: int  # [g-default-timeout]: changed because contained invalid characters
         """
         The timeout to use if -1 (specifying default timeout) is passed
@@ -13753,10 +14049,12 @@ class DBusProxy(GObject.Object):
         the default timeout (typically 25 seconds) is used. If set to
         G_MAXINT, then no timeout is used.
         """
-        g_flags: DBusProxyFlags  # [g-flags]: changed because contained invalid characters
-        """
-        Flags from the GDBusProxyFlags enumeration.
-        """
+        @builtins.property
+        def g_flags(self) -> DBusProxyFlags:
+            """
+            Flags from the GDBusProxyFlags enumeration.
+            """
+            ...
         g_interface_info: DBusInterfaceInfo | None  # [g-interface-info]: changed because contained invalid characters
         """
         Ensure that interactions with this proxy conform to the given
@@ -13784,24 +14082,32 @@ class DBusProxy(GObject.Object):
         GDBusInterfaceInfo, since extending a D-Bus interface on the
         service-side is not considered an ABI break.
         """
-        g_interface_name: str  # [g-interface-name]: changed because contained invalid characters
-        """
-        The D-Bus interface name the proxy is for.
-        """
-        g_name: str  # [g-name]: changed because contained invalid characters
-        """
-        The well-known or unique name that the proxy is for.
-        """
-        g_name_owner: str  # [g-name-owner]: changed because contained invalid characters
-        """
-        The unique name that owns GDBusProxy:g-name or None if no-one
-        currently owns that name. You may connect to GObject::notify signal to
-        track changes to this property.
-        """
-        g_object_path: str  # [g-object-path]: changed because contained invalid characters
-        """
-        The object path the proxy is for.
-        """
+        @builtins.property
+        def g_interface_name(self) -> str:
+            """
+            The D-Bus interface name the proxy is for.
+            """
+            ...
+        @builtins.property
+        def g_name(self) -> str:
+            """
+            The well-known or unique name that the proxy is for.
+            """
+            ...
+        @builtins.property
+        def g_name_owner(self) -> str:
+            """
+            The unique name that owns GDBusProxy:g-name or None if no-one
+            currently owns that name. You may connect to GObject::notify signal to
+            track changes to this property.
+            """
+            ...
+        @builtins.property
+        def g_object_path(self) -> str:
+            """
+            The object path the proxy is for.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -13827,6 +14133,7 @@ class DBusProxy(GObject.Object):
         """
         Initialize DBusProxy object with properties.
         """
+    @typing.overload
     def call(
         self,
         method_name: str,
@@ -13834,9 +14141,7 @@ class DBusProxy(GObject.Object):
         flags: DBusCallFlags,
         timeout_msec: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[GLib.Variant]:
         """
             Asynchronously invokes the `method_name` method on `proxy`.
 
@@ -13881,6 +14186,28 @@ class DBusProxy(GObject.Object):
         If `callback` is None then the D-Bus method call message will be sent with
         the G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
         """
+    @typing.overload
+    def call(
+        self,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def call(
+        self,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def call_finish(self, res: AsyncResult) -> GLib.Variant:
         """
         Finishes an operation started with `g_dbus_proxy_call`.
@@ -13929,6 +14256,7 @@ class DBusProxy(GObject.Object):
         GDBusProxy:g-interface-info) and `method_name` is referenced by it,
         then the return value is checked against the return type.
         """
+    @typing.overload
     def call_with_unix_fd_list(
         self,
         method_name: str,
@@ -13937,14 +14265,36 @@ class DBusProxy(GObject.Object):
         timeout_msec: int,
         fd_list: UnixFDList | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[tuple[GLib.Variant, UnixFDList]]:
         """
             Like `g_dbus_proxy_call` but also takes a GUnixFDList object.
 
         This method is only available on UNIX.
         """
+    @typing.overload
+    def call_with_unix_fd_list(
+        self,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        fd_list: UnixFDList | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def call_with_unix_fd_list(
+        self,
+        method_name: str,
+        parameters: GLib.Variant | None,
+        flags: DBusCallFlags,
+        timeout_msec: int,
+        fd_list: UnixFDList | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def call_with_unix_fd_list_finish(self, res: AsyncResult) -> tuple[GLib.Variant, UnixFDList]:
         """
         Finishes an operation started with `g_dbus_proxy_call_with_unix_fd_list`.
@@ -14390,35 +14740,46 @@ class DBusServer(GObject.Object):
     server.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        active: bool
-        """
-        Whether the server is currently active.
-        """
-        address: str
-        """
-        The D-Bus address to listen on.
-        """
-        authentication_observer: (
-            DBusAuthObserver | None
-        )  # [authentication-observer]: changed because contained invalid characters
-        """
-        A GDBusAuthObserver object to assist in the authentication process or None.
-        """
-        client_address: str  # [client-address]: changed because contained invalid characters
-        """
-        The D-Bus address that clients can use.
-        """
-        flags: DBusServerFlags
-        """
-        Flags from the GDBusServerFlags enumeration.
-        """
-        guid: str
-        """
-        The GUID of the server.
+        @builtins.property
+        def active(self) -> bool:
+            """
+            Whether the server is currently active.
+            """
+            ...
+        @builtins.property
+        def address(self) -> str:
+            """
+            The D-Bus address to listen on.
+            """
+            ...
+        @builtins.property
+        def authentication_observer(self) -> DBusAuthObserver | None:
+            """
+            A GDBusAuthObserver object to assist in the authentication process or None.
+            """
+            ...
+        @builtins.property
+        def client_address(self) -> str:
+            """
+            The D-Bus address that clients can use.
+            """
+            ...
+        @builtins.property
+        def flags(self) -> DBusServerFlags:
+            """
+            Flags from the GDBusServerFlags enumeration.
+            """
+            ...
+        @builtins.property
+        def guid(self) -> str:
+            """
+            The GUID of the server.
 
-        See GDBusConnection:guid for more details.
-        """
+            See GDBusConnection:guid for more details.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -14655,6 +15016,7 @@ class DataInputStream(BufferedInputStream):
     for reading structured data directly from a binary input stream.
     """
 
+    @typing.type_check_only
     class Props(BufferedInputStream.Props):
         byte_order: DataStreamByteOrder  # [byte-order]: changed because contained invalid characters
         """
@@ -14740,13 +15102,10 @@ class DataInputStream(BufferedInputStream):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def read_line_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bytes | None, int]]:
         """
             The asynchronous version of `g_data_input_stream_read_line`.  It is
         an error to have two outstanding calls to this function.
@@ -14755,6 +15114,18 @@ class DataInputStream(BufferedInputStream):
         can then call `g_data_input_stream_read_line_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def read_line_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def read_line_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def read_line_finish(self, result: AsyncResult) -> tuple[bytes | None, int]:
         """
             Finish an asynchronous call started by
@@ -14820,14 +15191,10 @@ class DataInputStream(BufferedInputStream):
         does not consume the stop character.
         """
     @deprecated("deprecated")
+    @typing.overload
     def read_until_async(
-        self,
-        stop_chars: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, stop_chars: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[str, int]]:
         """
             The asynchronous version of `g_data_input_stream_read_until`.
         It is an error to have two outstanding calls to this function.
@@ -14845,6 +15212,26 @@ class DataInputStream(BufferedInputStream):
         will be marked as deprecated in a future release.  Use
         `g_data_input_stream_read_upto_async` instead.
         """
+    @deprecated("deprecated")
+    @typing.overload
+    def read_until_async(
+        self,
+        stop_chars: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def read_until_async(
+        self,
+        stop_chars: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     @deprecated("deprecated")
     def read_until_finish(self, result: AsyncResult) -> tuple[str, int]:
         """
@@ -14868,15 +15255,10 @@ class DataInputStream(BufferedInputStream):
 
         The returned string will always be nul-terminated on success.
         """
+    @typing.overload
     def read_upto_async(
-        self,
-        stop_chars: str,
-        stop_chars_len: int,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, stop_chars: str, stop_chars_len: int, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[str, int]]:
         """
             The asynchronous version of `g_data_input_stream_read_upto`.
         It is an error to have two outstanding calls to this function.
@@ -14893,6 +15275,26 @@ class DataInputStream(BufferedInputStream):
         can then call `g_data_input_stream_read_upto_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def read_upto_async(
+        self,
+        stop_chars: str,
+        stop_chars_len: int,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def read_upto_async(
+        self,
+        stop_chars: str,
+        stop_chars_len: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def read_upto_finish(self, result: AsyncResult) -> tuple[str, int]:
         """
             Finish an asynchronous call started by
@@ -15006,6 +15408,7 @@ class DataOutputStream(FilterOutputStream):
     for writing data directly to an output stream.
     """
 
+    @typing.type_check_only
     class Props(FilterOutputStream.Props):
         byte_order: DataStreamByteOrder  # [byte-order]: changed because contained invalid characters
         """
@@ -15191,6 +15594,7 @@ class DatagramBased(builtins.object):
     implement your own locking.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -15430,6 +15834,7 @@ class DebugController(builtins.object):
     all that’s needed to dynamically enable or disable debug output.
     """
 
+    @typing.type_check_only
     class Props:
         debug_enabled: bool  # [debug-enabled]: changed because contained invalid characters
         """
@@ -15581,15 +15986,18 @@ class DebugControllerDBus(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        connection: DBusConnection | None
-        """
-        The D-Bus connection to expose the debugging interface on.
+        @builtins.property
+        def connection(self) -> DBusConnection | None:
+            """
+            The D-Bus connection to expose the debugging interface on.
 
-        Typically this will be the same connection (to the system or session bus)
-        which the rest of the application or service’s D-Bus objects are registered
-        on.
-        """
+            Typically this will be the same connection (to the system or session bus)
+            which the rest of the application or service’s D-Bus objects are registered
+            on.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -15786,6 +16194,7 @@ class Drive(builtins.object):
     equivalent of `GDrive` in that API.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -15817,13 +16226,8 @@ class Drive(builtins.object):
         Checks if a drive can be stopped.
         """
     @deprecated("deprecated")
-    def eject(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def eject(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously ejects a drive.
 
@@ -15832,23 +16236,54 @@ class Drive(builtins.object):
         result of the operation.
         """
     @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
+    @deprecated("deprecated")
     def eject_finish(self, result: AsyncResult) -> bool:
         """
         Finishes ejecting a drive.
         """
+    @typing.overload
     def eject_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Ejects a drive. This is an asynchronous operation, and is
         finished by calling `g_drive_eject_with_operation_finish` with the `drive`
         and GAsyncResult data returned in the `callback`.
         """
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def eject_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes ejecting a drive. If any errors occurred during the operation,
@@ -15916,12 +16351,8 @@ class Drive(builtins.object):
             Checks if the GDrive and/or its media is considered removable by the user.
         See `g_drive_is_media_removable`.
         """
-    def poll_for_media(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def poll_for_media(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously polls `drive` to see if media has been inserted or removed.
 
@@ -15929,18 +16360,25 @@ class Drive(builtins.object):
         You can then call `g_drive_poll_for_media_finish` to obtain the
         result of the operation.
         """
+    @typing.overload
+    def poll_for_media(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def poll_for_media(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def poll_for_media_finish(self, result: AsyncResult) -> bool:
         """
         Finishes an operation started with `g_drive_poll_for_media` on a drive.
         """
+    @typing.overload
     def start(
         self,
         flags: DriveStartFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Asynchronously starts a drive.
 
@@ -15948,18 +16386,35 @@ class Drive(builtins.object):
         You can then call `g_drive_start_finish` to obtain the
         result of the operation.
         """
+    @typing.overload
+    def start(
+        self,
+        flags: DriveStartFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def start(
+        self,
+        flags: DriveStartFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def start_finish(self, result: AsyncResult) -> bool:
         """
         Finishes starting a drive.
         """
+    @typing.overload
     def stop(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Asynchronously stops a drive.
 
@@ -15967,6 +16422,24 @@ class Drive(builtins.object):
         You can then call `g_drive_stop_finish` to obtain the
         result of the operation.
         """
+    @typing.overload
+    def stop(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def stop(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def stop_finish(self, result: AsyncResult) -> bool:
         """
         Finishes stopping a drive.
@@ -16191,18 +16664,21 @@ class DtlsClientConnection(builtins.object):
     [iface`Gio`.DtlsConnection], representing a client-side DTLS connection.
     """
 
+    @typing.type_check_only
     class Props:
-        accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
-        """
-        A list of the distinguished names of the Certificate Authorities
-        that the server will accept client certificates signed by. If the
-        server requests a client certificate during the handshake, then
-        this property will be set after the handshake completes.
+        @builtins.property
+        def accepted_cas(self) -> list[bytes]:
+            """
+            A list of the distinguished names of the Certificate Authorities
+            that the server will accept client certificates signed by. If the
+            server requests a client certificate during the handshake, then
+            this property will be set after the handshake completes.
 
-        Each item in the list is a GByteArray which contains the complete
-        subject DN of the certificate authority.
-        """
-        server_identity: SocketConnectable | None  # [server-identity]: changed because contained invalid characters
+            Each item in the list is a GByteArray which contains the complete
+            subject DN of the certificate authority.
+            """
+            ...
+        server_identity: SocketConnectable  # [server-identity]: changed because contained invalid characters
         """
         A GSocketConnectable describing the identity of the server that
         is expected on the other end of the connection.
@@ -16363,27 +16839,36 @@ class DtlsConnection(builtins.object):
     further I/O.
     """
 
+    @typing.type_check_only
     class Props:
-        advertised_protocols: list | None  # [advertised-protocols]: changed because contained invalid characters
+        advertised_protocols: list[str] | None  # [advertised-protocols]: changed because contained invalid characters
         """
         The list of application-layer protocols that the connection
         advertises that it is willing to speak. See
         `g_dtls_connection_set_advertised_protocols`.
         """
-        base_socket: DatagramBased | None  # [base-socket]: changed because contained invalid characters
-        """
-        The GDatagramBased that the connection wraps. Note that this may be any
-        implementation of GDatagramBased, not just a GSocket.
-        """
-        certificate: TlsCertificate | None
-        """
-        The connection's certificate; see
-        `g_dtls_connection_set_certificate`.
-        """
-        ciphersuite_name: str  # [ciphersuite-name]: changed because contained invalid characters
-        """
-        The name of the DTLS ciphersuite in use. See `g_dtls_connection_get_ciphersuite_name`.
-        """
+        @builtins.property
+        def base_socket(self) -> DatagramBased | None:
+            """
+            The GDatagramBased that the connection wraps. Note that this may be any
+            implementation of GDatagramBased, not just a GSocket.
+            """
+            ...
+        @builtins.property
+        def certificate(self) -> TlsCertificate | None:
+            """
+            The connection's certificate; see
+            `g_dtls_connection_set_certificate`.
+            """
+            ...
+        @certificate.setter
+        def certificate(self, value: TlsCertificate) -> None: ...
+        @builtins.property
+        def ciphersuite_name(self) -> str | None:
+            """
+            The name of the DTLS ciphersuite in use. See `g_dtls_connection_get_ciphersuite_name`.
+            """
+            ...
         database: TlsDatabase | None
         """
         The certificate database to use when verifying this TLS connection.
@@ -16409,43 +16894,49 @@ class DtlsConnection(builtins.object):
         database need to interact with the user. This will be used to prompt the
         user for passwords where necessary.
         """
-        negotiated_protocol: str  # [negotiated-protocol]: changed because contained invalid characters
-        """
-        The application-layer protocol negotiated during the TLS
-        handshake. See `g_dtls_connection_get_negotiated_protocol`.
-        """
-        peer_certificate: TlsCertificate | None  # [peer-certificate]: changed because contained invalid characters
-        """
-        The connection's peer's certificate, after the TLS handshake has
-        completed or failed. Note in particular that this is not yet set
-        during the emission of GDtlsConnection::accept-certificate.
+        @builtins.property
+        def negotiated_protocol(self) -> str | None:
+            """
+            The application-layer protocol negotiated during the TLS
+            handshake. See `g_dtls_connection_get_negotiated_protocol`.
+            """
+            ...
+        @builtins.property
+        def peer_certificate(self) -> TlsCertificate | None:
+            """
+            The connection's peer's certificate, after the TLS handshake has
+            completed or failed. Note in particular that this is not yet set
+            during the emission of GDtlsConnection::accept-certificate.
 
-        (You can watch for a GObject::notify signal on this property to
-        detect when a handshake has occurred.)
-        """
-        peer_certificate_errors: (
-            TlsCertificateFlags  # [peer-certificate-errors]: changed because contained invalid characters
-        )
-        """
-        The errors noticed while verifying
-        GDtlsConnection:peer-certificate. Normally this should be 0, but
-        it may not be if GDtlsClientConnection:validation-flags is not
-        G_TLS_CERTIFICATE_VALIDATE_ALL, or if
-        GDtlsConnection::accept-certificate overrode the default
-        behavior.
+            (You can watch for a GObject::notify signal on this property to
+            detect when a handshake has occurred.)
+            """
+            ...
+        @builtins.property
+        def peer_certificate_errors(self) -> TlsCertificateFlags:
+            """
+            The errors noticed while verifying
+            GDtlsConnection:peer-certificate. Normally this should be 0, but
+            it may not be if GDtlsClientConnection:validation-flags is not
+            G_TLS_CERTIFICATE_VALIDATE_ALL, or if
+            GDtlsConnection::accept-certificate overrode the default
+            behavior.
 
-        GLib guarantees that if certificate verification fails, at least
-        one error will be set, but it does not guarantee that all possible
-        errors will be set. Accordingly, you may not safely decide to
-        ignore any particular type of error. For example, it would be
-        incorrect to mask G_TLS_CERTIFICATE_EXPIRED if you want to allow
-        expired certificates, because this could potentially be the only
-        error flag set even if other problems exist with the certificate.
-        """
-        protocol_version: TlsProtocolVersion  # [protocol-version]: changed because contained invalid characters
-        """
-        The DTLS protocol version in use. See `g_dtls_connection_get_protocol_version`.
-        """
+            GLib guarantees that if certificate verification fails, at least
+            one error will be set, but it does not guarantee that all possible
+            errors will be set. Accordingly, you may not safely decide to
+            ignore any particular type of error. For example, it would be
+            incorrect to mask G_TLS_CERTIFICATE_EXPIRED if you want to allow
+            expired certificates, because this could potentially be the only
+            error flag set even if other problems exist with the certificate.
+            """
+            ...
+        @builtins.property
+        def protocol_version(self) -> TlsProtocolVersion:
+            """
+            The DTLS protocol version in use. See `g_dtls_connection_get_protocol_version`.
+            """
+            ...
         rehandshake_mode: TlsRehandshakeMode  # [rehandshake-mode]: changed because contained invalid characters
         """
         The rehandshaking mode. See
@@ -16496,17 +16987,24 @@ class DtlsConnection(builtins.object):
         partially-closed and any pending untransmitted data may be lost. Call
         `g_dtls_connection_close` again to complete closing the GDtlsConnection.
         """
-    def close_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously close the DTLS connection. See `g_dtls_connection_close` for
         more information.
         """
+    @typing.overload
+    def close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def close_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool:
         """
             Finish an asynchronous TLS close operation. See `g_dtls_connection_close`
@@ -16630,17 +17128,24 @@ class DtlsConnection(builtins.object):
         GDtlsConnection::accept_certificate may be emitted during the
         handshake.
         """
-    def handshake_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def handshake_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously performs a TLS handshake on `conn`. See
         `g_dtls_connection_handshake` for more information.
         """
+    @typing.overload
+    def handshake_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def handshake_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def handshake_finish(self, result: AsyncResult) -> bool:
         """
             Finish an asynchronous TLS handshake operation. See
@@ -16758,19 +17263,34 @@ class DtlsConnection(builtins.object):
         partially-closed and any pending untransmitted data may be lost. Call
         `g_dtls_connection_shutdown` again to complete closing the GDtlsConnection.
         """
+    @typing.overload
+    def shutdown_async(
+        self, shutdown_read: bool, shutdown_write: bool, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
+        """
+            Asynchronously shut down part or all of the DTLS connection. See
+        `g_dtls_connection_shutdown` for more information.
+        """
+    @typing.overload
+    def shutdown_async(
+        self,
+        shutdown_read: bool,
+        shutdown_write: bool,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
     def shutdown_async(
         self,
         shutdown_read: bool,
         shutdown_write: bool,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
-        """
-            Asynchronously shut down part or all of the DTLS connection. See
-        `g_dtls_connection_shutdown` for more information.
-        """
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def shutdown_finish(self, result: AsyncResult) -> bool:
         """
             Finish an asynchronous TLS shutdown operation. See
@@ -16986,6 +17506,7 @@ class DtlsServerConnection(builtins.object):
     [iface`Gio`.DtlsConnection], representing a server-side DTLS connection.
     """
 
+    @typing.type_check_only
     class Props:
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
@@ -17045,15 +17566,20 @@ class Emblem(GObject.Object):
     supported. More may be added in the future.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        icon: GObject.Object | None
-        """
-        The actual icon of the emblem.
-        """
-        origin: EmblemOrigin
-        """
-        The origin the emblem is derived from.
-        """
+        @builtins.property
+        def icon(self) -> Icon:
+            """
+            The actual icon of the emblem.
+            """
+            ...
+        @builtins.property
+        def origin(self) -> EmblemOrigin:
+            """
+            The origin the emblem is derived from.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -17138,11 +17664,14 @@ class EmblemedIcon(GObject.Object):
     of the emblems. See also [class`Gio`.Emblem] for more information.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        gicon: Icon | None
-        """
-        The [iface`Gio`.Icon] to attach emblems to.
-        """
+        @builtins.property
+        def gicon(self) -> Icon | None:
+            """
+            The [iface`Gio`.Icon] to attach emblems to.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -17312,6 +17841,7 @@ class File(builtins.object):
     for HTTP `ETag` headers, which are a very similar concept.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -17342,14 +17872,10 @@ class File(builtins.object):
         G_IO_ERROR_IS_DIRECTORY error will be returned. Other errors are
         possible too, and depend on what kind of filesystem the file is on.
         """
+    @typing.overload
     def append_to_async(
-        self,
-        flags: FileCreateFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, flags: FileCreateFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileOutputStream]:
         """
             Asynchronously opens `file` for appending.
 
@@ -17360,6 +17886,24 @@ class File(builtins.object):
         You can then call `g_file_append_to_finish` to get the result
         of the operation.
         """
+    @typing.overload
+    def append_to_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def append_to_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def append_to_finish(self, res: AsyncResult) -> FileOutputStream:
         """
             Finishes an asynchronous file append operation started with
@@ -17427,6 +17971,7 @@ class File(builtins.object):
         If you are interested in copying the GFile object itself (not the on-disk
         file), see `g_file_dup`.
         """
+    @typing.overload
     def copy_async(
         self,
         destination: File,
@@ -17435,9 +17980,7 @@ class File(builtins.object):
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
         progress_callback_data: object | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Copies the file `source` to the location specified by `destination`
         asynchronously. For details of the behaviour, see `g_file_copy`.
@@ -17450,6 +17993,30 @@ class File(builtins.object):
         When the operation is finished, `callback` will be called. You can then call
         `g_file_copy_finish` to get the result of the operation.
         """
+    @typing.overload
+    def copy_async(
+        self,
+        destination: File,
+        flags: FileCopyFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        progress_callback: FileProgressCallback | None,
+        progress_callback_data: object | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def copy_async(
+        self,
+        destination: File,
+        flags: FileCopyFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        progress_callback: FileProgressCallback | None = None,
+        progress_callback_data: object | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def copy_attributes(self, destination: File, flags: FileCopyFlags, cancellable: Cancellable | None = None) -> bool:
         """
             Copies the file attributes from `source` to `destination`.
@@ -17487,14 +18054,10 @@ class File(builtins.object):
         be returned. Other errors are possible too, and depend on what kind
         of filesystem the file is on.
         """
+    @typing.overload
     def create_async(
-        self,
-        flags: FileCreateFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, flags: FileCreateFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileOutputStream]:
         """
             Asynchronously creates a new file and returns an output stream
         for writing to it. The file must not already exist.
@@ -17506,6 +18069,24 @@ class File(builtins.object):
         You can then call `g_file_create_finish` to get the result
         of the operation.
         """
+    @typing.overload
+    def create_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def create_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def create_finish(self, res: AsyncResult) -> FileOutputStream:
         """
             Finishes an asynchronous file create operation started with
@@ -17537,14 +18118,10 @@ class File(builtins.object):
         not supported, so make sure you really need to do read and write
         streaming, rather than just opening for reading or writing.
         """
+    @typing.overload
     def create_readwrite_async(
-        self,
-        flags: FileCreateFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, flags: FileCreateFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileIOStream]:
         """
             Asynchronously creates a new file and returns a stream
         for reading and writing to it. The file must not already exist.
@@ -17556,6 +18133,24 @@ class File(builtins.object):
         You can then call `g_file_create_readwrite_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def create_readwrite_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def create_readwrite_async(
+        self,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def create_readwrite_finish(self, res: AsyncResult) -> FileIOStream:
         """
             Finishes an asynchronous file create operation started with
@@ -17585,18 +18180,25 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
-    def delete_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def delete_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously delete a file. If the `file` is a directory, it will
         only be deleted if it is empty.  This has the same semantics as
         `g_unlink`.
         """
+    @typing.overload
+    def delete_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def delete_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def delete_finish(self, result: AsyncResult) -> bool:
         """
         Finishes deleting a file started with `g_file_delete_async`.
@@ -17615,13 +18217,8 @@ class File(builtins.object):
         This call does no blocking I/O.
         """
     @deprecated("deprecated")
-    def eject_mountable(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def eject_mountable(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Starts an asynchronous eject on a mountable.
         When this operation has completed, `callback` will be called with
@@ -17633,19 +18230,32 @@ class File(builtins.object):
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
     @deprecated("deprecated")
+    @typing.overload
+    def eject_mountable(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def eject_mountable(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
+    @deprecated("deprecated")
     def eject_mountable_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous eject operation started by
         `g_file_eject_mountable`.
         """
+    @typing.overload
     def eject_mountable_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Starts an asynchronous eject on a mountable.
         When this operation has completed, `callback` will be called with
@@ -17656,6 +18266,24 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
+    def eject_mountable_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def eject_mountable_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def eject_mountable_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous eject operation started by
@@ -17691,15 +18319,10 @@ class File(builtins.object):
         be returned. If the file is not a directory, the G_IO_ERROR_NOT_DIRECTORY
         error will be returned. Other errors are possible too.
         """
+    @typing.overload
     def enumerate_children_async(
-        self,
-        attributes: str,
-        flags: FileQueryInfoFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, flags: FileQueryInfoFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileEnumerator]:
         """
             Asynchronously gets the requested information about the files
         in a directory. The result is a GFileEnumerator object that will
@@ -17712,6 +18335,26 @@ class File(builtins.object):
         then call `g_file_enumerate_children_finish` to get the result of
         the operation.
         """
+    @typing.overload
+    def enumerate_children_async(
+        self,
+        attributes: str,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def enumerate_children_async(
+        self,
+        attributes: str,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def enumerate_children_finish(self, res: AsyncResult) -> FileEnumerator:
         """
             Finishes an async enumerate children operation.
@@ -17739,13 +18382,10 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def find_enclosing_mount_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[Mount]:
         """
             Asynchronously gets the mount for the file.
 
@@ -17756,6 +18396,18 @@ class File(builtins.object):
         You can then call `g_file_find_enclosing_mount_finish` to
         get the result of the operation.
         """
+    @typing.overload
+    def find_enclosing_mount_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def find_enclosing_mount_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def find_enclosing_mount_finish(self, res: AsyncResult) -> Mount:
         """
             Finishes an asynchronous find mount request.
@@ -17921,12 +18573,8 @@ class File(builtins.object):
         this is not included in the GBytes length. The resulting GBytes should be
         freed with `g_bytes_unref` when no longer in use.
         """
-    def load_bytes_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def load_bytes_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[tuple[GLib.Bytes, str | None]]:
         """
             Asynchronously loads the contents of `file` as GBytes.
 
@@ -17939,6 +18587,14 @@ class File(builtins.object):
 
         See `g_file_load_bytes` for more information.
         """
+    @typing.overload
+    def load_bytes_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def load_bytes_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def load_bytes_finish(self, result: AsyncResult) -> tuple[GLib.Bytes, str | None]:
         """
             Completes an asynchronous request to `g_file_load_bytes_async`.
@@ -17962,12 +18618,10 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def load_contents_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, bytes, str | None]]:
         """
             Starts an asynchronous load of the `file`'s contents.
 
@@ -17983,6 +18637,17 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
+    def load_contents_async[*UserData](
+        self,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallbackWithData[File, *UserData] | None,
+        *user_data: *UserData,
+    ) -> None: ...
+    @typing.overload
+    def load_contents_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallbackWithData[File] | None
+    ) -> None: ...
     def load_contents_finish(self, res: AsyncResult) -> tuple[bool, bytes, str | None]:
         """
             Finishes an asynchronous load of the `file`'s contents.
@@ -18016,16 +18681,23 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
-    def make_directory_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def make_directory_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
         Asynchronously creates a directory.
         """
+    @typing.overload
+    def make_directory_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def make_directory_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def make_directory_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous directory creation, started with
@@ -18056,18 +18728,32 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
+    def make_symbolic_link_async(
+        self, symlink_value: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
+        """
+            Asynchronously creates a symbolic link named `file` which contains the
+        string `symlink_value`.
+        """
+    @typing.overload
+    def make_symbolic_link_async(
+        self,
+        symlink_value: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
     def make_symbolic_link_async(
         self,
         symlink_value: str,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
-        """
-            Asynchronously creates a symbolic link named `file` which contains the
-        string `symlink_value`.
-        """
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def make_symbolic_link_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous symbolic link creation, started with
@@ -18147,14 +18833,13 @@ class File(builtins.object):
         usage, and may not have any effect depending on the GFileMonitor
         backend and/or filesystem type.
         """
+    @typing.overload
     def mount_enclosing_volume(
         self,
         flags: MountMountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Starts a `mount_operation`, mounting the volume that contains
         the file `location`.
@@ -18167,18 +18852,35 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
+    def mount_enclosing_volume(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def mount_enclosing_volume(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def mount_enclosing_volume_finish(self, result: AsyncResult) -> bool:
         """
         Finishes a mount operation started by `g_file_mount_enclosing_volume`.
         """
+    @typing.overload
     def mount_mountable(
         self,
         flags: MountMountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[File]:
         """
             Mounts a file of type G_FILE_TYPE_MOUNTABLE.
         Using `mount_operation`, you can request callbacks when, for instance,
@@ -18192,6 +18894,24 @@ class File(builtins.object):
         You can then call `g_file_mount_mountable_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def mount_mountable(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def mount_mountable(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def mount_mountable_finish(self, result: AsyncResult) -> File:
         """
             Finishes a mount operation. See `g_file_mount_mountable` for details.
@@ -18242,6 +18962,7 @@ class File(builtins.object):
         the G_IO_ERROR_WOULD_RECURSE error may be returned (if the native
         move operation isn't available).
         """
+    @typing.overload
     def move_async(
         self,
         destination: File,
@@ -18250,9 +18971,7 @@ class File(builtins.object):
         cancellable: Cancellable | None = None,
         progress_callback: FileProgressCallback | None = None,
         progress_callback_data: object | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Asynchronously moves a file `source` to the location of `destination`. For details of the behaviour, see `g_file_move`.
 
@@ -18264,6 +18983,30 @@ class File(builtins.object):
         When the operation is finished, `callback` will be called. You can then call
         `g_file_move_finish` to get the result of the operation.
         """
+    @typing.overload
+    def move_async(
+        self,
+        destination: File,
+        flags: FileCopyFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        progress_callback: FileProgressCallback | None,
+        progress_callback_data: object | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def move_async(
+        self,
+        destination: File,
+        flags: FileCopyFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        progress_callback: FileProgressCallback | None = None,
+        progress_callback_data: object | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def move_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous file movement, started with
@@ -18341,13 +19084,10 @@ class File(builtins.object):
         a temporary file could not be created.
         """
     @staticmethod
+    @typing.overload
     def new_tmp_async(
-        tmpl: str | None,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        tmpl: str | None, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[File, FileIOStream]]:
         """
             Asynchronously opens a file in the preferred directory for temporary files
          (as returned by `g_get_tmp_dir`) as `g_file_new_tmp`.
@@ -18357,13 +19097,28 @@ class File(builtins.object):
         directory components. If it is None, a default template is used.
         """
     @staticmethod
-    def new_tmp_dir_async(
+    @typing.overload
+    def new_tmp_async(
+        tmpl: str | None,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
+    def new_tmp_async(
         tmpl: str | None,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
+    def new_tmp_dir_async(
+        tmpl: str | None, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[File]:
         """
             Asynchronously creates a directory in the preferred directory for
         temporary files (as returned by `g_get_tmp_dir`) as `g_dir_make_tmp`.
@@ -18372,6 +19127,24 @@ class File(builtins.object):
         containing a sequence of six 'X' characters, and containing no
         directory components. If it is None, a default template is used.
         """
+    @staticmethod
+    @typing.overload
+    def new_tmp_dir_async(
+        tmpl: str | None,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @staticmethod
+    @typing.overload
+    def new_tmp_dir_async(
+        tmpl: str | None,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     @staticmethod
     def new_tmp_dir_finish(result: AsyncResult) -> File:
         """
@@ -18402,13 +19175,10 @@ class File(builtins.object):
         really need to do read and write streaming, rather than just opening
         for reading or writing.
         """
+    @typing.overload
     def open_readwrite_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileIOStream]:
         """
             Asynchronously opens `file` for reading and writing.
 
@@ -18419,6 +19189,18 @@ class File(builtins.object):
         You can then call `g_file_open_readwrite_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def open_readwrite_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def open_readwrite_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def open_readwrite_finish(self, res: AsyncResult) -> FileIOStream:
         """
             Finishes an asynchronous file read operation started with
@@ -18442,12 +19224,8 @@ class File(builtins.object):
 
         This call does no blocking I/O.
         """
-    def poll_mountable(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def poll_mountable(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Polls a file of type G_FILE_TYPE_MOUNTABLE.
 
@@ -18459,6 +19237,14 @@ class File(builtins.object):
         You can then call `g_file_mount_mountable_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def poll_mountable(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def poll_mountable(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def poll_mountable_finish(self, result: AsyncResult) -> bool:
         """
             Finishes a poll operation. See `g_file_poll_mountable` for details.
@@ -18475,16 +19261,25 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def query_default_handler_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[AppInfo]:
         """
         Async version of `g_file_query_default_handler`.
         """
+    @typing.overload
+    def query_default_handler_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_default_handler_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def query_default_handler_finish(self, result: AsyncResult) -> AppInfo:
         """
         Finishes a `g_file_query_default_handler_async` operation.
@@ -18550,14 +19345,10 @@ class File(builtins.object):
         be returned. Other errors are possible too, and depend on what
         kind of filesystem the file is on.
         """
+    @typing.overload
     def query_filesystem_info_async(
-        self,
-        attributes: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileInfo]:
         """
             Asynchronously gets the requested information about the filesystem
         that the specified `file` is on. The result is a GFileInfo object
@@ -18571,6 +19362,24 @@ class File(builtins.object):
         then call `g_file_query_info_finish` to get the result of the
         operation.
         """
+    @typing.overload
+    def query_filesystem_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_filesystem_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def query_filesystem_info_finish(self, res: AsyncResult) -> FileInfo:
         """
             Finishes an asynchronous filesystem info query.
@@ -18611,15 +19420,10 @@ class File(builtins.object):
         returned. Other errors are possible too, and depend on what kind of
         filesystem the file is on.
         """
+    @typing.overload
     def query_info_async(
-        self,
-        attributes: str,
-        flags: FileQueryInfoFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, flags: FileQueryInfoFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileInfo]:
         """
             Asynchronously gets the requested information about specified `file`.
         The result is a GFileInfo object that contains key-value attributes
@@ -18631,6 +19435,26 @@ class File(builtins.object):
         When the operation is finished, `callback` will be called. You can
         then call `g_file_query_info_finish` to get the result of the operation.
         """
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def query_info_finish(self, res: AsyncResult) -> FileInfo:
         """
             Finishes an asynchronous file info query.
@@ -18673,13 +19497,8 @@ class File(builtins.object):
         error will be returned. Other errors are possible too, and depend
         on what kind of filesystem the file is on.
         """
-    def read_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def read_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[FileInputStream]:
         """
             Asynchronously opens `file` for reading.
 
@@ -18690,6 +19509,18 @@ class File(builtins.object):
         You can then call `g_file_read_finish` to get the result
         of the operation.
         """
+    @typing.overload
+    def read_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def read_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def read_finish(self, res: AsyncResult) -> FileInputStream:
         """
             Finishes an asynchronous file read operation started with
@@ -18741,6 +19572,7 @@ class File(builtins.object):
         G_IO_ERROR_FILENAME_TOO_LONG will be returned. Other errors are
         possible too, and depend on what kind of filesystem the file is on.
         """
+    @typing.overload
     def replace_async(
         self,
         etag: str | None,
@@ -18748,9 +19580,7 @@ class File(builtins.object):
         flags: FileCreateFlags,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[FileOutputStream]:
         """
             Asynchronously overwrites the file, replacing the contents,
         possibly creating a backup copy of the file first.
@@ -18762,6 +19592,28 @@ class File(builtins.object):
         You can then call `g_file_replace_finish` to get the result
         of the operation.
         """
+    @typing.overload
+    def replace_async(
+        self,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def replace_async(
+        self,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def replace_contents(
         self,
         contents: bytes,
@@ -18788,6 +19640,7 @@ class File(builtins.object):
         The returned `new_etag` can be used to verify that the file hasn't
         changed the next time it is saved over.
         """
+    @typing.overload
     def replace_contents_async(
         self,
         contents: bytes,
@@ -18795,9 +19648,7 @@ class File(builtins.object):
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[tuple[bool, str | None]]:
         """
             Starts an asynchronous replacement of `file` with the given
         `contents` of `length` bytes. `etag` will replace the document's
@@ -18819,6 +19670,28 @@ class File(builtins.object):
         for a GBytes version that will automatically hold a reference to the
         contents (without copying) for the duration of the call.
         """
+    @typing.overload
+    def replace_contents_async(
+        self,
+        contents: bytes,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def replace_contents_async(
+        self,
+        contents: bytes,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def replace_contents_bytes_async(
         self,
         contents: GLib.Bytes,
@@ -18865,6 +19738,7 @@ class File(builtins.object):
         supported, so make sure you really need to do read and write streaming,
         rather than just opening for reading or writing.
         """
+    @typing.overload
     def replace_readwrite_async(
         self,
         etag: str | None,
@@ -18872,9 +19746,7 @@ class File(builtins.object):
         flags: FileCreateFlags,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[FileIOStream]:
         """
             Asynchronously overwrites the file in read-write mode,
         replacing the contents, possibly creating a backup copy
@@ -18887,6 +19759,28 @@ class File(builtins.object):
         You can then call `g_file_replace_readwrite_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def replace_readwrite_async(
+        self,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def replace_readwrite_async(
+        self,
+        etag: str | None,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def replace_readwrite_finish(self, res: AsyncResult) -> FileIOStream:
         """
             Finishes an asynchronous file replace operation started with
@@ -18986,15 +19880,10 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def set_attributes_async(
-        self,
-        info: FileInfo,
-        flags: FileQueryInfoFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, info: FileInfo, flags: FileQueryInfoFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, FileInfo]]:
         """
             Asynchronously sets the attributes of `file` with `info`.
 
@@ -19005,6 +19894,26 @@ class File(builtins.object):
         You can then call `g_file_set_attributes_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def set_attributes_async(
+        self,
+        info: FileInfo,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def set_attributes_async(
+        self,
+        info: FileInfo,
+        flags: FileQueryInfoFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def set_attributes_finish(self, result: AsyncResult) -> tuple[bool, FileInfo]:
         """
         Finishes setting an attribute started in `g_file_set_attributes_async`.
@@ -19044,14 +19953,10 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def set_display_name_async(
-        self,
-        display_name: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, display_name: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[File]:
         """
             Asynchronously sets the display name for a given GFile.
 
@@ -19062,19 +19967,36 @@ class File(builtins.object):
         You can then call `g_file_set_display_name_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def set_display_name_async(
+        self,
+        display_name: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def set_display_name_async(
+        self,
+        display_name: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def set_display_name_finish(self, res: AsyncResult) -> File:
         """
             Finishes setting a display name started with
         `g_file_set_display_name_async`.
         """
+    @typing.overload
     def start_mountable(
         self,
         flags: DriveStartFlags,
         start_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Starts a file of type G_FILE_TYPE_MOUNTABLE.
         Using `start_operation`, you can request callbacks when, for instance,
@@ -19088,6 +20010,24 @@ class File(builtins.object):
         You can then call `g_file_mount_mountable_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def start_mountable(
+        self,
+        flags: DriveStartFlags,
+        start_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def start_mountable(
+        self,
+        flags: DriveStartFlags,
+        start_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def start_mountable_finish(self, result: AsyncResult) -> bool:
         """
             Finishes a start operation. See `g_file_start_mountable` for details.
@@ -19095,14 +20035,13 @@ class File(builtins.object):
         Finish an asynchronous start operation that was started
         with `g_file_start_mountable`.
         """
+    @typing.overload
     def stop_mountable(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Stops a file of type G_FILE_TYPE_MOUNTABLE.
 
@@ -19114,6 +20053,24 @@ class File(builtins.object):
         You can then call `g_file_stop_mountable_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def stop_mountable(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def stop_mountable(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def stop_mountable_finish(self, result: AsyncResult) -> bool:
         """
             Finishes a stop operation, see `g_file_stop_mountable` for details.
@@ -19141,29 +20098,31 @@ class File(builtins.object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
-    def trash_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def trash_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
         Asynchronously sends `file` to the Trash location, if possible.
         """
+    @typing.overload
+    def trash_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def trash_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def trash_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous file trashing operation, started with
         `g_file_trash_async`.
         """
     @deprecated("deprecated")
-    def unmount_mountable(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def unmount_mountable(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Unmounts a file of type G_FILE_TYPE_MOUNTABLE.
 
@@ -19175,6 +20134,20 @@ class File(builtins.object):
         You can then call `g_file_unmount_mountable_finish` to get
         the result of the operation.
         """
+    @deprecated("deprecated")
+    @typing.overload
+    def unmount_mountable(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def unmount_mountable(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     @deprecated("deprecated")
     def unmount_mountable_finish(self, result: AsyncResult) -> bool:
         """
@@ -19183,14 +20156,13 @@ class File(builtins.object):
         Finish an asynchronous unmount operation that was started
         with `g_file_unmount_mountable`.
         """
+    @typing.overload
     def unmount_mountable_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Unmounts a file of type G_FILE_TYPE_MOUNTABLE.
 
@@ -19202,6 +20174,24 @@ class File(builtins.object):
         You can then call `g_file_unmount_mountable_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def unmount_mountable_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def unmount_mountable_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def unmount_mountable_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an unmount operation,
@@ -19430,15 +20420,6 @@ class FileEnumerator(GObject.Object):
     on it, and it should be freed with [method`GObject`.Object.unref].
     """
 
-    class Props(GObject.Object.Props):
-        container: File | None
-        """
-        The container that is being enumerated.
-        """
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Fields
     @builtins.property
     def parent_instance(self) -> GObject.Object | None: ...
@@ -19459,13 +20440,8 @@ class FileEnumerator(GObject.Object):
         is dropped, but you might want to call this function to make
         sure resources are released as early as possible.
         """
-    def close_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously closes the file enumerator.
 
@@ -19474,6 +20450,18 @@ class FileEnumerator(GObject.Object):
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned in
         `g_file_enumerator_close_finish`.
         """
+    @typing.overload
+    def close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def close_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool:
         """
             Finishes closing a file enumerator, started from `g_file_enumerator_close_async`.
@@ -19570,14 +20558,10 @@ class FileEnumerator(GObject.Object):
         enumerator is at the end, None will be returned and `error` will
         be unset.
         """
+    @typing.overload
     def next_files_async(
-        self,
-        num_files: int,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, num_files: int, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[list[FileInfo]]:
         """
             Request information for a number of files from the enumerator asynchronously.
         When all I/O for the operation is finished the `callback` will be called with
@@ -19644,6 +20628,24 @@ class FileEnumerator(GObject.Object):
         be executed before an outstanding request with lower priority. Default
         priority is G_PRIORITY_DEFAULT.
         """
+    @typing.overload
+    def next_files_async(
+        self,
+        num_files: int,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def next_files_async(
+        self,
+        num_files: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def next_files_finish(self, result: AsyncResult) -> list[FileInfo]:
         """
         Finishes the asynchronous operation started with `g_file_enumerator_next_files_async`.
@@ -19820,14 +20822,10 @@ class FileIOStream(IOStream):
         was cancelled, the error G_IO_ERROR_CANCELLED will be set, and None will
         be returned.
         """
+    @typing.overload
     def query_info_async(
-        self,
-        attributes: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileInfo]:
         """
             Asynchronously queries the `stream` for a GFileInfo. When completed,
         `callback` will be called with a GAsyncResult which can be used to
@@ -19836,6 +20834,24 @@ class FileIOStream(IOStream):
         For the synchronous version of this function, see
         `g_file_io_stream_query_info`.
         """
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def query_info_finish(self, result: AsyncResult) -> FileInfo:
         """
             Finalizes the asynchronous query started
@@ -19988,11 +21004,14 @@ class FileIcon(GObject.Object):
     It implements [iface`Gio`.LoadableIcon].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        file: File | None
-        """
-        The file containing the icon.
-        """
+        @builtins.property
+        def file(self) -> File:
+            """
+            The file containing the icon.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -21114,14 +22133,10 @@ class FileInputStream(InputStream):
         stream is blocked, the stream will set the pending flag internally, and
         any other operations on the stream will fail with G_IO_ERROR_PENDING.
         """
+    @typing.overload
     def query_info_async(
-        self,
-        attributes: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileInfo]:
         """
             Queries the stream information asynchronously.
         When the operation is finished `callback` will be called.
@@ -21135,6 +22150,24 @@ class FileInputStream(InputStream):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be set
         """
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def query_info_finish(self, result: AsyncResult) -> FileInfo:
         """
         Finishes an asynchronous info query operation.
@@ -21248,11 +22281,14 @@ class FileMonitor(GObject.Object):
     context is still running).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        cancelled: bool
-        """
-        Whether the monitor has been cancelled.
-        """
+        @builtins.property
+        def cancelled(self) -> bool:
+            """
+            Whether the monitor has been cancelled.
+            """
+            ...
         rate_limit: int  # [rate-limit]: changed because contained invalid characters
         """
         The limit of the monitor to watch for changes, in milliseconds.
@@ -21453,14 +22489,10 @@ class FileOutputStream(OutputStream):
         was cancelled, the error G_IO_ERROR_CANCELLED will be set, and None will
         be returned.
         """
+    @typing.overload
     def query_info_async(
-        self,
-        attributes: str,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, attributes: str, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[FileInfo]:
         """
             Asynchronously queries the `stream` for a GFileInfo. When completed,
         `callback` will be called with a GAsyncResult which can be used to
@@ -21469,6 +22501,24 @@ class FileOutputStream(OutputStream):
         For the synchronous version of this function, see
         `g_file_output_stream_query_info`.
         """
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def query_info_async(
+        self,
+        attributes: str,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def query_info_finish(self, result: AsyncResult) -> FileInfo:
         """
             Finalizes the asynchronous query started
@@ -21681,11 +22731,14 @@ class FilterInputStream(InputStream):
     and byte order flipping.
     """
 
+    @typing.type_check_only
     class Props(InputStream.Props):
-        base_stream: InputStream | None  # [base-stream]: changed because contained invalid characters
-        """
-        The underlying base stream on which the I/O ops will be done.
-        """
+        @builtins.property
+        def base_stream(self) -> InputStream:
+            """
+            The underlying base stream on which the I/O ops will be done.
+            """
+            ...
         close_base_stream: bool  # [close-base-stream]: changed because contained invalid characters
         """
         Whether the base stream should be closed when the filter stream is closed.
@@ -21765,12 +22818,16 @@ class FilterOutputStream(OutputStream):
     and byte order flipping.
     """
 
+    @typing.type_check_only
     class Props(OutputStream.Props):
-        base_stream: OutputStream | None  # [base-stream]: changed because contained invalid characters
-        close_base_stream: bool  # [close-base-stream]: changed because contained invalid characters
-        """
-        Whether the base stream should be closed when the filter stream is closed.
-        """
+        @builtins.property
+        def base_stream(self) -> OutputStream: ...
+        @builtins.property
+        def close_base_stream(self) -> bool:
+            """
+            Whether the base stream should be closed when the filter stream is closed.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -22133,19 +23190,26 @@ class IOStream(GObject.Object):
     the base stream in (though they are guaranteed not to crash).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        closed: bool
-        """
-        Whether the stream is closed.
-        """
-        input_stream: InputStream | None  # [input-stream]: changed because contained invalid characters
-        """
-        The [class`Gio`.InputStream] to read from.
-        """
-        output_stream: OutputStream | None  # [output-stream]: changed because contained invalid characters
-        """
-        The [class`Gio`.OutputStream] to write to.
-        """
+        @builtins.property
+        def closed(self) -> bool:
+            """
+            Whether the stream is closed.
+            """
+            ...
+        @builtins.property
+        def input_stream(self) -> InputStream:
+            """
+            The [class`Gio`.InputStream] to read from.
+            """
+            ...
+        @builtins.property
+        def output_stream(self) -> OutputStream:
+            """
+            The [class`Gio`.OutputStream] to write to.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -22201,13 +23265,8 @@ class IOStream(GObject.Object):
         The default implementation of this method just calls close on the
         individual input/output streams.
         """
-    def close_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Requests an asynchronous close of the stream, releasing resources
         related to it. When the operation is finished `callback` will be
@@ -22220,6 +23279,18 @@ class IOStream(GObject.Object):
         to implement asynchronicity, so they are optional for inheriting
         classes. However, if you override one you must override all.
         """
+    @typing.overload
+    def close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def close_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool:
         """
         Closes a stream.
@@ -22248,15 +23319,10 @@ class IOStream(GObject.Object):
         already set or `stream` is closed, it will return False and set
         `error`.
         """
+    @typing.overload
     def splice_async(
-        self,
-        stream2: IOStream,
-        flags: IOStreamSpliceFlags,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, stream2: IOStream, flags: IOStreamSpliceFlags, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
         """
             Asynchronously splice the output stream of `stream1` to the input stream of
         `stream2`, and splice the output stream of `stream2` to the input stream of
@@ -22266,6 +23332,26 @@ class IOStream(GObject.Object):
         You can then call `g_io_stream_splice_finish` to get the
         result of the operation.
         """
+    @typing.overload
+    def splice_async(
+        self,
+        stream2: IOStream,
+        flags: IOStreamSpliceFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def splice_async(
+        self,
+        stream2: IOStream,
+        flags: IOStreamSpliceFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     @staticmethod
     def splice_finish(result: AsyncResult) -> bool:
         """
@@ -22417,6 +23503,7 @@ class Icon(builtins.object):
     icon types.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -22535,65 +23622,90 @@ class InetAddress(GObject.Object):
     port number).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        bytes: object | None
-        """
-        The raw address data.
-        """
-        family: SocketFamily
-        """
-        The address family (IPv4 or IPv6).
-        """
-        is_any: bool  # [is-any]: changed because contained invalid characters
-        """
-        Whether this is the "any" address for its family.
-        See `g_inet_address_get_is_any`.
-        """
-        is_link_local: bool  # [is-link-local]: changed because contained invalid characters
-        """
-        Whether this is a link-local address.
-        See `g_inet_address_get_is_link_local`.
-        """
-        is_loopback: bool  # [is-loopback]: changed because contained invalid characters
-        """
-        Whether this is the loopback address for its family.
-        See `g_inet_address_get_is_loopback`.
-        """
-        is_mc_global: bool  # [is-mc-global]: changed because contained invalid characters
-        """
-        Whether this is a global multicast address.
-        See `g_inet_address_get_is_mc_global`.
-        """
-        is_mc_link_local: bool  # [is-mc-link-local]: changed because contained invalid characters
-        """
-        Whether this is a link-local multicast address.
-        See `g_inet_address_get_is_mc_link_local`.
-        """
-        is_mc_node_local: bool  # [is-mc-node-local]: changed because contained invalid characters
-        """
-        Whether this is a node-local multicast address.
-        See `g_inet_address_get_is_mc_node_local`.
-        """
-        is_mc_org_local: bool  # [is-mc-org-local]: changed because contained invalid characters
-        """
-        Whether this is an organization-local multicast address.
-        See `g_inet_address_get_is_mc_org_local`.
-        """
-        is_mc_site_local: bool  # [is-mc-site-local]: changed because contained invalid characters
-        """
-        Whether this is a site-local multicast address.
-        See `g_inet_address_get_is_mc_site_local`.
-        """
-        is_multicast: bool  # [is-multicast]: changed because contained invalid characters
-        """
-        Whether this is a multicast address.
-        See `g_inet_address_get_is_multicast`.
-        """
-        is_site_local: bool  # [is-site-local]: changed because contained invalid characters
-        """
-        Whether this is a site-local address.
-        See `g_inet_address_get_is_loopback`.
-        """
+        @builtins.property
+        def bytes(self) -> object | None:
+            """
+            The raw address data.
+            """
+            ...
+        @builtins.property
+        def family(self) -> SocketFamily:
+            """
+            The address family (IPv4 or IPv6).
+            """
+            ...
+        @builtins.property
+        def is_any(self) -> bool:
+            """
+            Whether this is the "any" address for its family.
+            See `g_inet_address_get_is_any`.
+            """
+            ...
+        @builtins.property
+        def is_link_local(self) -> bool:
+            """
+            Whether this is a link-local address.
+            See `g_inet_address_get_is_link_local`.
+            """
+            ...
+        @builtins.property
+        def is_loopback(self) -> bool:
+            """
+            Whether this is the loopback address for its family.
+            See `g_inet_address_get_is_loopback`.
+            """
+            ...
+        @builtins.property
+        def is_mc_global(self) -> bool:
+            """
+            Whether this is a global multicast address.
+            See `g_inet_address_get_is_mc_global`.
+            """
+            ...
+        @builtins.property
+        def is_mc_link_local(self) -> bool:
+            """
+            Whether this is a link-local multicast address.
+            See `g_inet_address_get_is_mc_link_local`.
+            """
+            ...
+        @builtins.property
+        def is_mc_node_local(self) -> bool:
+            """
+            Whether this is a node-local multicast address.
+            See `g_inet_address_get_is_mc_node_local`.
+            """
+            ...
+        @builtins.property
+        def is_mc_org_local(self) -> bool:
+            """
+            Whether this is an organization-local multicast address.
+            See `g_inet_address_get_is_mc_org_local`.
+            """
+            ...
+        @builtins.property
+        def is_mc_site_local(self) -> bool:
+            """
+            Whether this is a site-local multicast address.
+            See `g_inet_address_get_is_mc_site_local`.
+            """
+            ...
+        @builtins.property
+        def is_multicast(self) -> bool:
+            """
+            Whether this is a multicast address.
+            See `g_inet_address_get_is_multicast`.
+            """
+            ...
+        @builtins.property
+        def is_site_local(self) -> bool:
+            """
+            Whether this is a site-local address.
+            See `g_inet_address_get_is_loopback`.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -22846,15 +23958,22 @@ class InetAddressMask(GObject.Object):
     often given in string form. For example, `10.0.0.0/8`, or `fe80::/10`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        address: InetAddress | None
-        """
-        The base address.
-        """
-        family: SocketFamily
-        """
-        The address family (IPv4 or IPv6).
-        """
+        @builtins.property
+        def address(self) -> InetAddress:
+            """
+            The base address.
+            """
+            ...
+        @address.setter
+        def address(self, value: InetAddress | None) -> None: ...
+        @builtins.property
+        def family(self) -> SocketFamily:
+            """
+            The address family (IPv4 or IPv6).
+            """
+            ...
         length: int
         """
         The prefix length, in bytes.
@@ -22981,23 +24100,32 @@ class InetSocketAddress(SocketAddress):
     [`struct sockaddr_in` or `struct sockaddr_in6`](man:sockaddr(3type)).
     """
 
+    @typing.type_check_only
     class Props(SocketAddress.Props):
-        address: InetAddress | None
-        """
-        The address.
-        """
-        flowinfo: int
-        """
-        The `sin6_flowinfo` field, for IPv6 addresses.
-        """
-        port: int
-        """
-        The port.
-        """
-        scope_id: int  # [scope-id]: changed because contained invalid characters
-        """
-        The `sin6_scope_id` field, for IPv6 addresses.
-        """
+        @builtins.property
+        def address(self) -> InetAddress:
+            """
+            The address.
+            """
+            ...
+        @builtins.property
+        def flowinfo(self) -> int:
+            """
+            The `sin6_flowinfo` field, for IPv6 addresses.
+            """
+            ...
+        @builtins.property
+        def port(self) -> int:
+            """
+            The port.
+            """
+            ...
+        @builtins.property
+        def scope_id(self) -> int:
+            """
+            The `sin6_scope_id` field, for IPv6 addresses.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -23152,6 +24280,7 @@ class Initable(builtins.object):
     an exception on failure.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -23349,13 +24478,8 @@ class InputStream(GObject.Object):
         Cancelling a close will still leave the stream closed, but some streams
         can use a faster close that doesn't block to e.g. check errors.
         """
-    def close_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Requests an asynchronous closes of the stream, releasing resources related to it.
         When the operation is finished `callback` will be called.
@@ -23368,6 +24492,18 @@ class InputStream(GObject.Object):
         asynchronicity, so they are optional for inheriting classes. However, if you
         override one you must override all.
         """
+    @typing.overload
+    def close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def close_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool:
         """
         Finishes closing a stream asynchronously, started from `g_input_stream_close_async`.
@@ -23515,14 +24651,10 @@ class InputStream(GObject.Object):
 
         On error None is returned and `error` is set accordingly.
         """
+    @typing.overload
     def read_bytes_async(
-        self,
-        count: int,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, count: int, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[GLib.Bytes]:
         """
             Request an asynchronous read of `count` bytes from the stream into a
         new GBytes. When the operation is finished `callback` will be
@@ -23545,6 +24677,24 @@ class InputStream(GObject.Object):
         value) will be executed before an outstanding request with lower
         priority. Default priority is G_PRIORITY_DEFAULT.
         """
+    @typing.overload
+    def read_bytes_async[*UserData](
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallbackWithData[InputStream, *UserData] | None,
+        *user_data: *UserData,
+    ) -> None: ...
+    @typing.overload
+    def read_bytes_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallbackWithData[InputStream] | None,
+    ) -> None: ...
     def read_bytes_finish(self, result: AsyncResult) -> GLib.Bytes:
         """
         Finishes an asynchronous stream read-into-GBytes operation.
@@ -23576,14 +24726,8 @@ class InputStream(GObject.Object):
         operation was partially finished when the operation was cancelled the
         partial result will be returned, without an error.
         """
-    def skip_async(
-        self,
-        count: int,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def skip_async(self, count: int, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[int]:
         """
             Request an asynchronous skip of `count` bytes from the stream.
         When the operation is finished `callback` will be called.
@@ -23609,6 +24753,24 @@ class InputStream(GObject.Object):
         implement asynchronicity, so they are optional for inheriting classes.
         However, if you override one, you must override all.
         """
+    @typing.overload
+    def skip_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def skip_async(
+        self,
+        count: int,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def skip_finish(self, result: AsyncResult) -> int:
         """
         Finishes a stream skip operation.
@@ -23826,6 +24988,7 @@ class ListModel[ObjectItemType: GObject.Object]:
     ```
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -23953,16 +25116,21 @@ class ListStore[ObjectItemType: GObject.Object](GObject.Object):
     with a fast path for the common case of iterating the list linearly.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items contained in this list store. Items must be
-        subclasses of GObject.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items contained in this list store.
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items contained in this list store. Items must be
+            subclasses of GObject.
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items contained in this list store.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -24153,6 +25321,7 @@ class LoadableIcon(builtins.object):
     to load icons from streams.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -24168,18 +25337,21 @@ class LoadableIcon(builtins.object):
             Loads a loadable icon. For the asynchronous version of this function,
         see `g_loadable_icon_load_async`.
         """
-    def load_async(
-        self,
-        size: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def load_async(self, size: int, cancellable: Cancellable | None = None) -> gi._gi.Async[tuple[InputStream, str]]:
         """
             Loads an icon asynchronously. To finish this function, see
         `g_loadable_icon_load_finish`. For the synchronous, blocking
         version of this function, see `g_loadable_icon_load`.
         """
+    @typing.overload
+    def load_async(
+        self, size: int, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def load_async(
+        self, size: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def load_finish(self, res: AsyncResult) -> tuple[InputStream, str]:
         """
         Finishes an asynchronous icon load started in `g_loadable_icon_load_async`.
@@ -24361,6 +25533,7 @@ class MemoryMonitor(builtins.object):
     signal, and unref the `GMemoryMonitor` itself when exiting.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -24423,19 +25596,26 @@ class MemoryOutputStream(OutputStream):
     [iface`Gio`.PollableOutputStream]: it always polls as ready.
     """
 
+    @typing.type_check_only
     class Props(OutputStream.Props):
-        data: object | None
-        """
-        Pointer to buffer where data will be written.
-        """
-        data_size: int  # [data-size]: changed because contained invalid characters
-        """
-        Size of data written to the buffer.
-        """
-        size: int
-        """
-        Current size of the data buffer.
-        """
+        @builtins.property
+        def data(self) -> object | None:
+            """
+            Pointer to buffer where data will be written.
+            """
+            ...
+        @builtins.property
+        def data_size(self) -> int:
+            """
+            Size of data written to the buffer.
+            """
+            ...
+        @builtins.property
+        def size(self) -> int:
+            """
+            Current size of the data buffer.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -25557,6 +26737,7 @@ class Mount(builtins.object):
     filled with any error information.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -25576,37 +26757,63 @@ class Mount(builtins.object):
         Checks if `mount` can be unmounted.
         """
     @deprecated("deprecated")
-    def eject(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def eject(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Ejects a mount. This is an asynchronous operation, and is
         finished by calling `g_mount_eject_finish` with the `mount`
         and GAsyncResult data returned in the `callback`.
         """
     @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
+    @deprecated("deprecated")
     def eject_finish(self, result: AsyncResult) -> bool:
         """
             Finishes ejecting a mount. If any errors occurred during the operation,
         `error` will be set to contain the errors and False will be returned.
         """
+    @typing.overload
     def eject_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Ejects a mount. This is an asynchronous operation, and is
         finished by calling `g_mount_eject_with_operation_finish` with the `mount`
         and GAsyncResult data returned in the `callback`.
         """
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def eject_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes ejecting a mount. If any errors occurred during the operation,
@@ -25656,13 +26863,8 @@ class Mount(builtins.object):
         """
         Gets the volume for the `mount`.
         """
-    def guess_content_type(
-        self,
-        force_rescan: bool,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def guess_content_type(self, force_rescan: bool, cancellable: Cancellable | None = None) -> gi._gi.Async[list[str]]:
         """
             Tries to guess the type of content stored on `mount`. Returns one or
         more textual identifiers of well-known content types (typically
@@ -25676,6 +26878,18 @@ class Mount(builtins.object):
         is finished by calling `g_mount_guess_content_type_finish` with the
         `mount` and GAsyncResult data returned in the `callback`.
         """
+    @typing.overload
+    def guess_content_type(
+        self,
+        force_rescan: bool,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def guess_content_type(
+        self, force_rescan: bool, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def guess_content_type_finish(self, result: AsyncResult) -> list[str]:
         """
             Finishes guessing content types of `mount`. If any errors occurred
@@ -25722,14 +26936,13 @@ class Mount(builtins.object):
         manage shadow mounts (and shadows the underlying mount) if the
         activation root on a GVolume is set.
         """
+    @typing.overload
     def remount(
         self,
         flags: MountMountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Remounts a mount. This is an asynchronous operation, and is
         finished by calling `g_mount_remount_finish` with the `mount`
@@ -25741,6 +26954,24 @@ class Mount(builtins.object):
         and then remounting not all backends might need to actually be
         unmounted.
         """
+    @typing.overload
+    def remount(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def remount(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def remount_finish(self, result: AsyncResult) -> bool:
         """
             Finishes remounting a mount. If any errors occurred during the operation,
@@ -25754,37 +26985,63 @@ class Mount(builtins.object):
         will need to emit the GMount::changed signal on `mount` manually.
         """
     @deprecated("deprecated")
-    def unmount(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def unmount(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Unmounts a mount. This is an asynchronous operation, and is
         finished by calling `g_mount_unmount_finish` with the `mount`
         and GAsyncResult data returned in the `callback`.
         """
     @deprecated("deprecated")
+    @typing.overload
+    def unmount(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def unmount(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
+    @deprecated("deprecated")
     def unmount_finish(self, result: AsyncResult) -> bool:
         """
             Finishes unmounting a mount. If any errors occurred during the operation,
         `error` will be set to contain the errors and False will be returned.
         """
+    @typing.overload
     def unmount_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Unmounts a mount. This is an asynchronous operation, and is
         finished by calling `g_mount_unmount_with_operation_finish` with the `mount`
         and GAsyncResult data returned in the `callback`.
         """
+    @typing.overload
+    def unmount_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def unmount_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def unmount_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes unmounting a mount. If any errors occurred during the operation,
@@ -26007,6 +27264,7 @@ class MountOperation(GObject.Object):
     improvements and auditing fixes.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         anonymous: bool
         """
@@ -26017,7 +27275,7 @@ class MountOperation(GObject.Object):
         The index of the user's choice when a question is asked during the
         mount operation. See the GMountOperation::ask-question signal.
         """
-        domain: str
+        domain: str | None
         """
         The domain to use for the mount operation.
         """
@@ -26034,7 +27292,7 @@ class MountOperation(GObject.Object):
         operating systems. For further documentation, see
         [the VeraCrypt documentation](https://www.veracrypt.fr/en/System20Encryption.html).
         """
-        password: str
+        password: str | None
         """
         The password that is used for authentication when carrying out
         the mount operation.
@@ -26048,7 +27306,7 @@ class MountOperation(GObject.Object):
         The VeraCrypt PIM value, when unlocking a VeraCrypt volume. See
         [the VeraCrypt documentation](https://www.veracrypt.fr/en/Personal20Iterations20Multiplier20(PIM).html).
         """
-        username: str
+        username: str | None
         """
         The user name that is used for authentication when carrying out
         the mount operation.
@@ -26621,19 +27879,26 @@ class NetworkAddress(GObject.Object):
     interface.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        hostname: str
-        """
-        Hostname to resolve.
-        """
-        port: int
-        """
-        Network port.
-        """
-        scheme: str
-        """
-        URI scheme.
-        """
+        @builtins.property
+        def hostname(self) -> str:
+            """
+            Hostname to resolve.
+            """
+            ...
+        @builtins.property
+        def port(self) -> int:
+            """
+            Network port.
+            """
+            ...
+        @builtins.property
+        def scheme(self) -> str | None:
+            """
+            URI scheme.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -26794,57 +28059,64 @@ class NetworkMonitor(builtins.object):
     There is also an implementation for use inside Flatpak sandboxes.
     """
 
+    @typing.type_check_only
     class Props:
-        connectivity: NetworkConnectivity
-        """
-        More detailed information about the host's network connectivity.
-        See `g_network_monitor_get_connectivity` and
-        GNetworkConnectivity for more details.
-        """
-        network_available: bool  # [network-available]: changed because contained invalid characters
-        """
-        Whether the network is considered available. That is, whether the
-        system has a default route for at least one of IPv4 or IPv6.
+        @builtins.property
+        def connectivity(self) -> NetworkConnectivity:
+            """
+            More detailed information about the host's network connectivity.
+            See `g_network_monitor_get_connectivity` and
+            GNetworkConnectivity for more details.
+            """
+            ...
+        @builtins.property
+        def network_available(self) -> bool:
+            """
+            Whether the network is considered available. That is, whether the
+            system has a default route for at least one of IPv4 or IPv6.
 
-        Real-world networks are of course much more complicated than
-        this; the machine may be connected to a wifi hotspot that
-        requires payment before allowing traffic through, or may be
-        connected to a functioning router that has lost its own upstream
-        connectivity. Some hosts might only be accessible when a VPN is
-        active. Other hosts might only be accessible when the VPN is
-        not active. Thus, it is best to use `g_network_monitor_can_reach`
-        or `g_network_monitor_can_reach_async` to test for reachability
-        on a host-by-host basis. (On the other hand, when the property is
-        False, the application can reasonably expect that no remote
-        hosts at all are reachable, and should indicate this to the user
-        in its UI.)
+            Real-world networks are of course much more complicated than
+            this; the machine may be connected to a wifi hotspot that
+            requires payment before allowing traffic through, or may be
+            connected to a functioning router that has lost its own upstream
+            connectivity. Some hosts might only be accessible when a VPN is
+            active. Other hosts might only be accessible when the VPN is
+            not active. Thus, it is best to use `g_network_monitor_can_reach`
+            or `g_network_monitor_can_reach_async` to test for reachability
+            on a host-by-host basis. (On the other hand, when the property is
+            False, the application can reasonably expect that no remote
+            hosts at all are reachable, and should indicate this to the user
+            in its UI.)
 
-        See also GNetworkMonitor::network-changed.
-        """
-        network_metered: bool  # [network-metered]: changed because contained invalid characters
-        """
-        Whether the network is considered metered.
+            See also GNetworkMonitor::network-changed.
+            """
+            ...
+        @builtins.property
+        def network_metered(self) -> bool:
+            """
+            Whether the network is considered metered.
 
-        That is, whether the
-        system has traffic flowing through the default connection that is
-        subject to limitations set by service providers. For example, traffic
-        might be billed by the amount of data transmitted, or there might be a
-        quota on the amount of traffic per month. This is typical with tethered
-        connections (3G and 4G) and in such situations, bandwidth intensive
-        applications may wish to avoid network activity where possible if it will
-        cost the user money or use up their limited quota. Anything more than a
-        few hundreds of kilobytes of data usage per hour should be avoided without
-        asking permission from the user.
+            That is, whether the
+            system has traffic flowing through the default connection that is
+            subject to limitations set by service providers. For example, traffic
+            might be billed by the amount of data transmitted, or there might be a
+            quota on the amount of traffic per month. This is typical with tethered
+            connections (3G and 4G) and in such situations, bandwidth intensive
+            applications may wish to avoid network activity where possible if it will
+            cost the user money or use up their limited quota. Anything more than a
+            few hundreds of kilobytes of data usage per hour should be avoided without
+            asking permission from the user.
 
-        If more information is required about specific devices then the
-        system network management API should be used instead (for example,
-        NetworkManager or ConnMan).
+            If more information is required about specific devices then the
+            system network management API should be used instead (for example,
+            NetworkManager or ConnMan).
 
-        If this information is not available then no networks will be
-        marked as metered.
+            If this information is not available then no networks will be
+            marked as metered.
 
-        See also GNetworkMonitor:network-available.
-        """
+            See also GNetworkMonitor:network-available.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -26874,13 +28146,10 @@ class NetworkMonitor(builtins.object):
         trying to do multicast DNS on the local network), so if you do not
         want to block, you should use `g_network_monitor_can_reach_async`.
         """
+    @typing.overload
     def can_reach_async(
-        self,
-        connectable: SocketConnectable,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, connectable: SocketConnectable, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
         """
             Asynchronously attempts to determine whether or not the host
         pointed to by `connectable` can be reached, without actually
@@ -26892,6 +28161,22 @@ class NetworkMonitor(builtins.object):
         You can then call `g_network_monitor_can_reach_finish`
         to get the result of the operation.
         """
+    @typing.overload
+    def can_reach_async(
+        self,
+        connectable: SocketConnectable,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def can_reach_async(
+        self,
+        connectable: SocketConnectable,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def can_reach_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an async network connectivity test.
@@ -27022,23 +28307,30 @@ class NetworkService(GObject.Object):
     interface.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        domain: str
-        """
-        Network domain, for example `example.com`.
-        """
-        protocol: str
-        """
-        Network protocol, for example `tcp`.
-        """
+        @builtins.property
+        def domain(self) -> str:
+            """
+            Network domain, for example `example.com`.
+            """
+            ...
+        @builtins.property
+        def protocol(self) -> str:
+            """
+            Network protocol, for example `tcp`.
+            """
+            ...
         scheme: str
         """
         Network scheme (default is to use service).
         """
-        service: str
-        """
-        Service name, for example `ldap`.
-        """
+        @builtins.property
+        def service(self) -> str:
+            """
+            Service name, for example `ldap`.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -27424,13 +28716,8 @@ class OutputStream(GObject.Object):
         cancellation (as with any error) there is no guarantee that all written
         data will reach the target.
         """
-    def close_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def close_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Requests an asynchronous close of the stream, releasing resources
         related to it. When the operation is finished `callback` will be
@@ -27443,6 +28730,18 @@ class OutputStream(GObject.Object):
         to implement asynchronicity, so they are optional for inheriting
         classes. However, if you override one you must override all.
         """
+    @typing.overload
+    def close_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def close_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def close_finish(self, result: AsyncResult) -> bool:
         """
         Closes an output stream.
@@ -27459,13 +28758,8 @@ class OutputStream(GObject.Object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
-    def flush_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def flush_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Forces an asynchronous write of all user-space buffered data for
         the given `stream`.
@@ -27475,6 +28769,18 @@ class OutputStream(GObject.Object):
         called. You can then call `g_output_stream_flush_finish` to get the
         result of the operation.
         """
+    @typing.overload
+    def flush_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def flush_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def flush_finish(self, result: AsyncResult) -> bool:
         """
         Finishes flushing an output stream.
@@ -27506,15 +28812,14 @@ class OutputStream(GObject.Object):
         """
         Splices an input stream into an output stream.
         """
+    @typing.overload
     def splice_async(
         self,
         source: InputStream,
         flags: OutputStreamSpliceFlags,
         io_priority: int,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[int]:
         """
             Splices a stream asynchronously.
         When the operation is finished `callback` will be called.
@@ -27524,6 +28829,26 @@ class OutputStream(GObject.Object):
         For the synchronous, blocking version of this function, see
         `g_output_stream_splice`.
         """
+    @typing.overload
+    def splice_async(
+        self,
+        source: InputStream,
+        flags: OutputStreamSpliceFlags,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def splice_async(
+        self,
+        source: InputStream,
+        flags: OutputStreamSpliceFlags,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def splice_finish(self, result: AsyncResult) -> int:
         """
         Finishes an asynchronous stream splice operation.
@@ -27573,14 +28898,10 @@ class OutputStream(GObject.Object):
         language then you must write your own loop around
         `g_output_stream_write`.
         """
+    @typing.overload
     def write_all_async(
-        self,
-        buffer: bytes,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, buffer: bytes, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
         the stream. When the operation is finished `callback` will be called.
@@ -27598,6 +28919,24 @@ class OutputStream(GObject.Object):
         Note that no copy of `buffer` will be made, so it must stay valid
         until `callback` is called.
         """
+    @typing.overload
+    def write_all_async(
+        self,
+        buffer: bytes,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def write_all_async(
+        self,
+        buffer: bytes,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def write_all_finish(self, result: AsyncResult) -> tuple[bool, int]:
         """
             Finishes an asynchronous stream write operation started with
@@ -27611,14 +28950,8 @@ class OutputStream(GObject.Object):
         language then you must write your own loop around
         `g_output_stream_write_async`.
         """
-    def write_async(
-        self,
-        buffer: bytes,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def write_async(self, buffer: bytes, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[int]:
         """
             Request an asynchronous write of `count` bytes from `buffer` into
         the stream. When the operation is finished `callback` will be called.
@@ -27656,6 +28989,24 @@ class OutputStream(GObject.Object):
         for a GBytes version that will automatically hold a reference to
         the contents (without copying) for the duration of the call.
         """
+    @typing.overload
+    def write_async(
+        self,
+        buffer: bytes,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def write_async(
+        self,
+        buffer: bytes,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def write_bytes(self, bytes: GLib.Bytes, cancellable: Cancellable | None = None) -> int:
         """
             A wrapper function for `g_output_stream_write` which takes a
@@ -27670,14 +29021,10 @@ class OutputStream(GObject.Object):
         GBytes instance multiple times potentially can result in duplicated
         data in the output stream.
         """
+    @typing.overload
     def write_bytes_async(
-        self,
-        bytes: GLib.Bytes,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, bytes: GLib.Bytes, io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[int]:
         """
             This function is similar to `g_output_stream_write_async`, but
         takes a GBytes as input.  Due to the refcounted nature of GBytes,
@@ -27693,6 +29040,24 @@ class OutputStream(GObject.Object):
         For the synchronous, blocking version of this function, see
         `g_output_stream_write_bytes`.
         """
+    @typing.overload
+    def write_bytes_async(
+        self,
+        bytes: GLib.Bytes,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def write_bytes_async(
+        self,
+        bytes: GLib.Bytes,
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def write_bytes_finish(self, result: AsyncResult) -> int:
         """
         Finishes a stream write-from-GBytes operation.
@@ -27752,14 +29117,10 @@ class OutputStream(GObject.Object):
         The content of the individual elements of `vectors` might be changed by this
         function.
         """
+    @typing.overload
     def writev_all_async(
-        self,
-        vectors: list[OutputVector],
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, vectors: list[OutputVector], io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
         the stream. When the operation is finished `callback` will be called.
@@ -27778,6 +29139,24 @@ class OutputStream(GObject.Object):
         until `callback` is called. The content of the individual elements
         of `vectors` might be changed by this function.
         """
+    @typing.overload
+    def writev_all_async(
+        self,
+        vectors: list[OutputVector],
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def writev_all_async(
+        self,
+        vectors: list[OutputVector],
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def writev_all_finish(self, result: AsyncResult) -> tuple[bool, int]:
         """
             Finishes an asynchronous stream write operation started with
@@ -27791,14 +29170,10 @@ class OutputStream(GObject.Object):
         language then you must write your own loop around
         `g_output_stream_writev_async`.
         """
+    @typing.overload
     def writev_async(
-        self,
-        vectors: list[OutputVector],
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, vectors: list[OutputVector], io_priority: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, int]]:
         """
             Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
         the stream. When the operation is finished `callback` will be called.
@@ -27831,6 +29206,24 @@ class OutputStream(GObject.Object):
         Note that no copy of `vectors` will be made, so it must stay valid
         until `callback` is called.
         """
+    @typing.overload
+    def writev_async(
+        self,
+        vectors: list[OutputVector],
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def writev_async(
+        self,
+        vectors: list[OutputVector],
+        io_priority: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def writev_finish(self, result: AsyncResult) -> tuple[bool, int]:
         """
         Finishes a stream writev operation.
@@ -28063,22 +29456,29 @@ class Permission(GObject.Object):
     when that button is clicked.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        allowed: bool
-        """
-        True if the caller currently has permission to perform the action that
-        `permission` represents the permission to perform.
-        """
-        can_acquire: bool  # [can-acquire]: changed because contained invalid characters
-        """
-        True if it is generally possible to acquire the permission by calling
-        `g_permission_acquire`.
-        """
-        can_release: bool  # [can-release]: changed because contained invalid characters
-        """
-        True if it is generally possible to release the permission by calling
-        `g_permission_release`.
-        """
+        @builtins.property
+        def allowed(self) -> bool:
+            """
+            True if the caller currently has permission to perform the action that
+            `permission` represents the permission to perform.
+            """
+            ...
+        @builtins.property
+        def can_acquire(self) -> bool:
+            """
+            True if it is generally possible to acquire the permission by calling
+            `g_permission_acquire`.
+            """
+            ...
+        @builtins.property
+        def can_release(self) -> bool:
+            """
+            True if it is generally possible to release the permission by calling
+            `g_permission_release`.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -28112,18 +29512,20 @@ class Permission(GObject.Object):
         user interaction is required).  See `g_permission_acquire_async` for
         the non-blocking version.
         """
-    def acquire_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def acquire_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Attempts to acquire the permission represented by `permission`.
 
         This is the first half of the asynchronous version of
         `g_permission_acquire`.
         """
+    @typing.overload
+    def acquire_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def acquire_async(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def acquire_finish(self, result: AsyncResult) -> bool:
         """
             Collects the result of attempting to acquire the permission
@@ -28176,18 +29578,20 @@ class Permission(GObject.Object):
         user interaction is required).  See `g_permission_release_async` for
         the non-blocking version.
         """
-    def release_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def release_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Attempts to release the permission represented by `permission`.
 
         This is the first half of the asynchronous version of
         `g_permission_release`.
         """
+    @typing.overload
+    def release_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def release_async(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def release_finish(self, result: AsyncResult) -> bool:
         """
             Collects the result of attempting to release the permission
@@ -28313,6 +29717,7 @@ class PollableInputStream(builtins.object):
     undefined.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -28434,6 +29839,7 @@ class PollableOutputStream(builtins.object):
     undefined.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -28609,11 +30015,14 @@ class PowerProfileMonitor(builtins.object):
     `GPowerProfileMonitor` itself when exiting.
     """
 
+    @typing.type_check_only
     class Props:
-        power_saver_enabled: bool  # [power-saver-enabled]: changed because contained invalid characters
-        """
-        Whether “Power Saver” mode is enabled on the system.
-        """
+        @builtins.property
+        def power_saver_enabled(self) -> bool:
+            """
+            Whether “Power Saver” mode is enabled on the system.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -28718,51 +30127,51 @@ class PropertyAction(GObject.Object):
     use with [method`Gio`.Settings.bind].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        enabled: bool
-        """
-        If `action` is currently enabled.
+        @builtins.property
+        def enabled(self) -> bool:
+            """
+            If `action` is currently enabled.
 
-        If the action is disabled then calls to `g_action_activate` and
-        `g_action_change_state` have no effect.
-        """
-        invert_boolean: bool  # [invert-boolean]: changed because contained invalid characters
-        """
-        If True, the state of the action will be the negation of the
-        property value, provided the property is boolean.
-        """
-        name: str
-        """
-        The name of the action.  This is mostly meaningful for identifying
-        the action once it has been added to a GActionMap.
-        """
-        object: GObject.Object | None
-        """
-        The object to wrap a property on.
-
-        The object must be a non-None GObject with properties.
-        """
-        parameter_type: GLib.VariantType | None  # [parameter-type]: changed because contained invalid characters
-        """
-        The type of the parameter that must be given when activating the
-        action.
-        """
-        property_name: str  # [property-name]: changed because contained invalid characters
-        """
-        The name of the property to wrap on the object.
-
-        The property must exist on the passed-in object and it must be
-        readable and writable (and not construct-only).
-        """
-        state: GLib.Variant | None
-        """
-        The state of the action, or None if the action is stateless.
-        """
-        state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
-        """
-        The GVariantType of the state that the action has, or None if the
-        action is stateless.
-        """
+            If the action is disabled then calls to `g_action_activate` and
+            `g_action_change_state` have no effect.
+            """
+            ...
+        @builtins.property
+        def invert_boolean(self) -> bool:
+            """
+            If True, the state of the action will be the negation of the
+            property value, provided the property is boolean.
+            """
+            ...
+        @builtins.property
+        def name(self) -> str:
+            """
+            The name of the action.  This is mostly meaningful for identifying
+            the action once it has been added to a GActionMap.
+            """
+            ...
+        @builtins.property
+        def parameter_type(self) -> GLib.VariantType | None:
+            """
+            The type of the parameter that must be given when activating the
+            action.
+            """
+            ...
+        @builtins.property
+        def state(self) -> GLib.Variant | None:
+            """
+            The state of the action, or None if the action is stateless.
+            """
+            ...
+        @builtins.property
+        def state_type(self) -> GLib.VariantType | None:
+            """
+            The GVariantType of the state that the action has, or None if the
+            action is stateless.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -28881,6 +30290,7 @@ class Proxy(builtins.object):
     [method`Gio`.IOExtensionPoint.get_extension_by_name].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -28902,17 +30312,31 @@ class Proxy(builtins.object):
 
         [note from gi-stub-gen] Proxy has a connect() method which shadows the signal connect() method to add handlers to GObject.Signals. You can still connect to signals using: GObject.Object.connect(object, 'signal-name', handler)
         """
+    @typing.overload
+    def connect_async(
+        self, connection: IOStream, proxy_address: ProxyAddress, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[IOStream]:
+        """
+        Asynchronous version of `g_proxy_connect`.
+        """
+    @typing.overload
+    def connect_async(
+        self,
+        connection: IOStream,
+        proxy_address: ProxyAddress,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
     def connect_async(
         self,
         connection: IOStream,
         proxy_address: ProxyAddress,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
-        """
-        Asynchronous version of `g_proxy_connect`.
-        """
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def connect_finish(self, result: AsyncResult) -> IOStream:
         """
         See `g_proxy_connect`.
@@ -28939,37 +30363,52 @@ class ProxyAddress(InetSocketAddress):
     A [class`Gio`.InetSocketAddress] representing a connection via a proxy server.
     """
 
+    @typing.type_check_only
     class Props(InetSocketAddress.Props):
-        destination_hostname: str  # [destination-hostname]: changed because contained invalid characters
-        """
-        The proxy destination hostname.
-        """
-        destination_port: int  # [destination-port]: changed because contained invalid characters
-        """
-        The proxy destination port.
-        """
-        destination_protocol: str  # [destination-protocol]: changed because contained invalid characters
-        """
-        The protocol being spoke to the destination host, or None if
-        the GProxyAddress doesn't know.
-        """
-        password: str
-        """
-        The proxy password.
-        """
-        protocol: str
-        """
-        The proxy protocol.
-        """
-        uri: str
-        """
-        The URI string that the proxy was constructed from (or None
-        if the creator didn't specify this).
-        """
-        username: str
-        """
-        The proxy username.
-        """
+        @builtins.property
+        def destination_hostname(self) -> str:
+            """
+            The proxy destination hostname.
+            """
+            ...
+        @builtins.property
+        def destination_port(self) -> int:
+            """
+            The proxy destination port.
+            """
+            ...
+        @builtins.property
+        def destination_protocol(self) -> str:
+            """
+            The protocol being spoke to the destination host, or None if
+            the GProxyAddress doesn't know.
+            """
+            ...
+        @builtins.property
+        def password(self) -> str | None:
+            """
+            The proxy password.
+            """
+            ...
+        @builtins.property
+        def protocol(self) -> str:
+            """
+            The proxy protocol.
+            """
+            ...
+        @builtins.property
+        def uri(self) -> str | None:
+            """
+            The URI string that the proxy was constructed from (or None
+            if the creator didn't specify this).
+            """
+            ...
+        @builtins.property
+        def username(self) -> str | None:
+            """
+            The proxy username.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -29177,24 +30616,31 @@ class ProxyAddressEnumerator(SocketAddressEnumerator):
     [class`Gio`.SocketAddressEnumerator] instance with one.
     """
 
+    @typing.type_check_only
     class Props(SocketAddressEnumerator.Props):
-        connectable: SocketConnectable | None
-        """
-        The connectable being enumerated.
-        """
-        default_port: int  # [default-port]: changed because contained invalid characters
-        """
-        The default port to use if GProxyAddressEnumerator:uri does not
-        specify one.
-        """
+        @builtins.property
+        def connectable(self) -> SocketConnectable | None:
+            """
+            The connectable being enumerated.
+            """
+            ...
+        @builtins.property
+        def default_port(self) -> int:
+            """
+            The default port to use if GProxyAddressEnumerator:uri does not
+            specify one.
+            """
+            ...
         proxy_resolver: ProxyResolver | None  # [proxy-resolver]: changed because contained invalid characters
         """
         The proxy resolver to use.
         """
-        uri: str
-        """
-        The destination URI. Use `none://` for a generic socket.
-        """
+        @builtins.property
+        def uri(self) -> str:
+            """
+            The destination URI. Use `none://` for a generic socket.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -29329,6 +30775,7 @@ class ProxyResolver(builtins.object):
     GIO comes with an implementation for use inside Flatpak portals.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -29368,17 +30815,20 @@ class ProxyResolver(builtins.object):
         Direct connection should not be attempted unless it is part of the
         returned array of proxies.
         """
-    def lookup_async(
-        self,
-        uri: str,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def lookup_async(self, uri: str, cancellable: Cancellable | None = None) -> gi._gi.Async[list[str]]:
         """
             Asynchronous lookup of proxy. See `g_proxy_resolver_lookup` for more
         details.
         """
+    @typing.overload
+    def lookup_async(
+        self, uri: str, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def lookup_async(
+        self, uri: str, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def lookup_finish(self, result: AsyncResult) -> list[str]:
         """
             Call this function to obtain the array of proxy URIs when
@@ -29445,6 +30895,7 @@ class RemoteActionGroup(builtins.object):
     invocations that arrive by way of D-Bus.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -29524,6 +30975,7 @@ class Resolver(GObject.Object):
     different platforms and situations.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         timeout: int
         """
@@ -29576,18 +31028,27 @@ class Resolver(GObject.Object):
         operation, in which case `error` (if non-None) will be set to
         G_IO_ERROR_CANCELLED.
         """
+    @typing.overload
     def lookup_by_address_async(
-        self,
-        address: InetAddress,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, address: InetAddress, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[str]:
         """
             Begins asynchronously reverse-resolving `address` to determine its
         associated hostname, and eventually calls `callback`, which must
         call `g_resolver_lookup_by_address_finish` to get the final result.
         """
+    @typing.overload
+    def lookup_by_address_async(
+        self,
+        address: InetAddress,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_by_address_async(
+        self, address: InetAddress, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def lookup_by_address_finish(self, result: AsyncResult) -> str:
         """
             Retrieves the result of a previous call to
@@ -29623,19 +31084,28 @@ class Resolver(GObject.Object):
         address, it may be easier to create a GNetworkAddress and use its
         GSocketConnectable interface.
         """
+    @typing.overload
     def lookup_by_name_async(
-        self,
-        hostname: str,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, hostname: str, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[list[InetAddress]]:
         """
             Begins asynchronously resolving `hostname` to determine its
         associated IP address(es), and eventually calls `callback`, which
         must call `g_resolver_lookup_by_name_finish` to get the result.
         See `g_resolver_lookup_by_name` for more details.
         """
+    @typing.overload
+    def lookup_by_name_async(
+        self,
+        hostname: str,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_by_name_async(
+        self, hostname: str, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def lookup_by_name_finish(self, result: AsyncResult) -> list[InetAddress]:
         """
             Retrieves the result of a call to
@@ -29653,20 +31123,34 @@ class Resolver(GObject.Object):
         the lookup behavior with `flags`. For example this can be used to limit
         results with G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY.
         """
+    @typing.overload
     def lookup_by_name_with_flags_async(
-        self,
-        hostname: str,
-        flags: ResolverNameLookupFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, hostname: str, flags: ResolverNameLookupFlags, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[list[InetAddress]]:
         """
             Begins asynchronously resolving `hostname` to determine its
         associated IP address(es), and eventually calls `callback`, which
         must call `g_resolver_lookup_by_name_with_flags_finish` to get the result.
         See `g_resolver_lookup_by_name` for more details.
         """
+    @typing.overload
+    def lookup_by_name_with_flags_async(
+        self,
+        hostname: str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_by_name_with_flags_async(
+        self,
+        hostname: str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_by_name_with_flags_finish(self, result: AsyncResult) -> list[InetAddress]:
         """
             Retrieves the result of a call to
@@ -29691,20 +31175,34 @@ class Resolver(GObject.Object):
         operation, in which case `error` (if non-None) will be set to
         G_IO_ERROR_CANCELLED.
         """
+    @typing.overload
     def lookup_records_async(
-        self,
-        rrname: str,
-        record_type: ResolverRecordType,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, rrname: str, record_type: ResolverRecordType, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[list[GLib.Variant]]:
         """
             Begins asynchronously performing a DNS lookup for the given
         `rrname`, and eventually calls `callback`, which must call
         `g_resolver_lookup_records_finish` to get the final result. See
         `g_resolver_lookup_records` for more details.
         """
+    @typing.overload
+    def lookup_records_async(
+        self,
+        rrname: str,
+        record_type: ResolverRecordType,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_records_async(
+        self,
+        rrname: str,
+        record_type: ResolverRecordType,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_records_finish(self, result: AsyncResult) -> list[GLib.Variant]:
         """
             Retrieves the result of a previous call to
@@ -29742,15 +31240,10 @@ class Resolver(GObject.Object):
         to create a GNetworkService and use its GSocketConnectable
         interface.
         """
+    @typing.overload
     def lookup_service_async(
-        self,
-        service: str,
-        protocol: str,
-        domain: str,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, service: str, protocol: str, domain: str, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[list[SrvTarget]]:
         """
             Begins asynchronously performing a DNS SRV lookup for the given
         `service` and `protocol` in the given `domain`, and eventually calls
@@ -29758,6 +31251,26 @@ class Resolver(GObject.Object):
         get the final result. See `g_resolver_lookup_service` for more
         details.
         """
+    @typing.overload
+    def lookup_service_async(
+        self,
+        service: str,
+        protocol: str,
+        domain: str,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_service_async(
+        self,
+        service: str,
+        protocol: str,
+        domain: str,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_service_finish(self, result: AsyncResult) -> list[SrvTarget]:
         """
             Retrieves the result of a previous call to
@@ -30268,6 +31781,7 @@ class Seekable(builtins.object):
     data will usually cause the stream to resize by introducing zero bytes.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -30651,52 +32165,67 @@ class Settings(GObject.Object):
     `EXTRA_DIST`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        backend: SettingsBackend | None
-        """
-        The name of the context that the settings are stored in.
-        """
-        delay_apply: bool  # [delay-apply]: changed because contained invalid characters
-        """
-        Whether the GSettings object is in 'delay-apply' mode. See
-        `g_settings_delay` for details.
-        """
-        has_unapplied: bool  # [has-unapplied]: changed because contained invalid characters
-        """
-        If this property is True, the GSettings object has outstanding
-        changes that will be applied when `g_settings_apply` is called.
-        """
-        path: str
-        """
-        The path within the backend where the settings are stored.
-        """
-        schema: str
-        """
-        The name of the schema that describes the types of keys
-        for this GSettings object.
+        @builtins.property
+        def backend(self) -> SettingsBackend | None:
+            """
+            The name of the context that the settings are stored in.
+            """
+            ...
+        @builtins.property
+        def delay_apply(self) -> bool:
+            """
+            Whether the GSettings object is in 'delay-apply' mode. See
+            `g_settings_delay` for details.
+            """
+            ...
+        @builtins.property
+        def has_unapplied(self) -> bool:
+            """
+            If this property is True, the GSettings object has outstanding
+            changes that will be applied when `g_settings_apply` is called.
+            """
+            ...
+        @builtins.property
+        def path(self) -> str:
+            """
+            The path within the backend where the settings are stored.
+            """
+            ...
+        @builtins.property
+        def schema(self) -> str:
+            """
+            The name of the schema that describes the types of keys
+            for this GSettings object.
 
-        The type of this property is *not* GSettingsSchema.
-        GSettingsSchema has only existed since version 2.32 and
-        unfortunately this name was used in previous versions to refer to
-        the schema ID rather than the schema itself.  Take care to use the
-        'settings-schema' property if you wish to pass in a
-        GSettingsSchema.
-        """
-        schema_id: str  # [schema-id]: changed because contained invalid characters
-        """
-        The name of the schema that describes the types of keys
-        for this GSettings object.
-        """
-        settings_schema: SettingsSchema | None  # [settings-schema]: changed because contained invalid characters
-        """
-        The GSettingsSchema describing the types of keys for this
-        GSettings object.
+            The type of this property is *not* GSettingsSchema.
+            GSettingsSchema has only existed since version 2.32 and
+            unfortunately this name was used in previous versions to refer to
+            the schema ID rather than the schema itself.  Take care to use the
+            'settings-schema' property if you wish to pass in a
+            GSettingsSchema.
+            """
+            ...
+        @builtins.property
+        def schema_id(self) -> str:
+            """
+            The name of the schema that describes the types of keys
+            for this GSettings object.
+            """
+            ...
+        @builtins.property
+        def settings_schema(self) -> SettingsSchema | None:
+            """
+            The GSettingsSchema describing the types of keys for this
+            GSettings object.
 
-        Ideally, this property would be called 'schema'.  GSettingsSchema
-        has only existed since version 2.32, however, and before then the
-        'schema' property was used to refer to the ID of the schema rather
-        than the schema itself.  Take care.
-        """
+            Ideally, this property would be called 'schema'.  GSettingsSchema
+            has only existed since version 2.32, however, and before then the
+            'schema' property was used to refer to the ID of the schema rather
+            than the schema itself.  Take care.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -32192,6 +33721,7 @@ class SimpleAction(GObject.Object):
     purposes of adding it to a [class`Gio`.SimpleActionGroup].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         enabled: bool
         """
@@ -32200,25 +33730,35 @@ class SimpleAction(GObject.Object):
         If the action is disabled then calls to `g_action_activate` and
         `g_action_change_state` have no effect.
         """
-        name: str
-        """
-        The name of the action. This is mostly meaningful for identifying
-        the action once it has been added to a GSimpleActionGroup.
-        """
-        parameter_type: GLib.VariantType | None  # [parameter-type]: changed because contained invalid characters
-        """
-        The type of the parameter that must be given when activating the
-        action.
-        """
-        state: GLib.Variant | None
-        """
-        The state of the action, or None if the action is stateless.
-        """
-        state_type: GLib.VariantType | None  # [state-type]: changed because contained invalid characters
-        """
-        The GVariantType of the state that the action has, or None if the
-        action is stateless.
-        """
+        @builtins.property
+        def name(self) -> str:
+            """
+            The name of the action. This is mostly meaningful for identifying
+            the action once it has been added to a GSimpleActionGroup.
+            """
+            ...
+        @builtins.property
+        def parameter_type(self) -> GLib.VariantType | None:
+            """
+            The type of the parameter that must be given when activating the
+            action.
+            """
+            ...
+        @builtins.property
+        def state(self) -> GLib.Variant | None:
+            """
+            The state of the action, or None if the action is stateless.
+            """
+            ...
+        @state.setter
+        def state(self, value: GLib.Variant) -> None: ...
+        @builtins.property
+        def state_type(self) -> GLib.VariantType | None:
+            """
+            The GVariantType of the state that the action has, or None if the
+            action is stateless.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -32875,15 +34415,20 @@ class SimpleIOStream(IOStream):
     take advantage of the methods provided by [class`Gio`.IOStream].
     """
 
+    @typing.type_check_only
     class Props(IOStream.Props):
-        input_stream: InputStream | None  # [input-stream]: changed because contained invalid characters
-        """
-        The [class`Gio`.InputStream] to read from.
-        """
-        output_stream: OutputStream | None  # [output-stream]: changed because contained invalid characters
-        """
-        The [class`Gio`.OutputStream] to write to.
-        """
+        @builtins.property
+        def input_stream(self) -> InputStream | None:
+            """
+            The [class`Gio`.InputStream] to read from.
+            """
+            ...
+        @builtins.property
+        def output_stream(self) -> OutputStream | None:
+            """
+            The [class`Gio`.OutputStream] to write to.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -33021,54 +34566,63 @@ class SimpleProxyResolver(GObject.Object):
     with [method`Gio`.SocketClient.set_proxy_resolver].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        default_proxy: str  # [default-proxy]: changed because contained invalid characters
-        """
-        The default proxy URI that will be used for any URI that doesn't
-        match GSimpleProxyResolver:ignore-hosts, and doesn't match any
-        of the schemes set with `g_simple_proxy_resolver_set_uri_proxy`.
+        @builtins.property
+        def default_proxy(self) -> str:
+            """
+            The default proxy URI that will be used for any URI that doesn't
+            match GSimpleProxyResolver:ignore-hosts, and doesn't match any
+            of the schemes set with `g_simple_proxy_resolver_set_uri_proxy`.
 
-        Note that as a special case, if this URI starts with
-        "socks://", GSimpleProxyResolver will treat it as referring
-        to all three of the socks5, socks4a, and socks4 proxy types.
-        """
-        ignore_hosts: list | None  # [ignore-hosts]: changed because contained invalid characters
-        """
-        A list of hostnames and IP addresses that the resolver should
-        allow direct connections to.
+            Note that as a special case, if this URI starts with
+            "socks://", GSimpleProxyResolver will treat it as referring
+            to all three of the socks5, socks4a, and socks4 proxy types.
+            """
+            ...
+        @default_proxy.setter
+        def default_proxy(self, value: str | None) -> None: ...
+        @builtins.property
+        def ignore_hosts(self) -> list[str] | None:
+            """
+            A list of hostnames and IP addresses that the resolver should
+            allow direct connections to.
 
-        Entries can be in one of 4 formats:
+            Entries can be in one of 4 formats:
 
-        - A hostname, such as "example.com", ".example.com", or
-          "*.example.com", any of which match "example.com" or
-          any subdomain of it.
+            - A hostname, such as "example.com", ".example.com", or
+              "*.example.com", any of which match "example.com" or
+              any subdomain of it.
 
-        - An IPv4 or IPv6 address, such as "192.168.1.1",
-          which matches only that address.
+            - An IPv4 or IPv6 address, such as "192.168.1.1",
+              which matches only that address.
 
-        - A hostname or IP address followed by a port, such as
-          "example.com:80", which matches whatever the hostname or IP
-          address would match, but only for URLs with the (explicitly)
-          indicated port. In the case of an IPv6 address, the address
-          part must appear in brackets: "[::1]:443"
+            - A hostname or IP address followed by a port, such as
+              "example.com:80", which matches whatever the hostname or IP
+              address would match, but only for URLs with the (explicitly)
+              indicated port. In the case of an IPv6 address, the address
+              part must appear in brackets: "[::1]:443"
 
-        - An IP address range, given by a base address and prefix length,
-          such as "fe80::/10", which matches any address in that range.
+            - An IP address range, given by a base address and prefix length,
+              such as "fe80::/10", which matches any address in that range.
 
-        Note that when dealing with Unicode hostnames, the matching is
-        done against the ASCII form of the name.
+            Note that when dealing with Unicode hostnames, the matching is
+            done against the ASCII form of the name.
 
-        Also note that hostname exclusions apply only to connections made
-        to hosts identified by name, and IP address exclusions apply only
-        to connections made to hosts identified by address. That is, if
-        example.com has an address of 192.168.1.1, and the :ignore-hosts list
-        contains only "192.168.1.1", then a connection to "example.com"
-        (eg, via a GNetworkAddress) will use the proxy, and a connection to
-        "192.168.1.1" (eg, via a GInetSocketAddress) will not.
+            Also note that hostname exclusions apply only to connections made
+            to hosts identified by name, and IP address exclusions apply only
+            to connections made to hosts identified by address. That is, if
+            example.com has an address of 192.168.1.1, and the :ignore-hosts list
+            contains only "192.168.1.1", then a connection to "example.com"
+            (eg, via a GNetworkAddress) will use the proxy, and a connection to
+            "192.168.1.1" (eg, via a GInetSocketAddress) will not.
 
-        These rules match the "ignore-hosts"/"noproxy" rules most
-        commonly used by other applications.
-        """
+            These rules match the "ignore-hosts"/"noproxy" rules most
+            commonly used by other applications.
+            """
+            ...
+        @ignore_hosts.setter
+        def ignore_hosts(self, value: list[str]) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -33239,6 +34793,7 @@ class Socket(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         blocking: bool
         """
@@ -33248,14 +34803,18 @@ class Socket(GObject.Object):
         """
         Whether the socket should allow sending to broadcast addresses.
         """
-        family: SocketFamily
-        """
-        The socket’s address family.
-        """
-        fd: int
-        """
-        The socket’s file descriptor.
-        """
+        @builtins.property
+        def family(self) -> SocketFamily:
+            """
+            The socket’s address family.
+            """
+            ...
+        @builtins.property
+        def fd(self) -> int:
+            """
+            The socket’s file descriptor.
+            """
+            ...
         keepalive: bool
         """
         Whether to keep the connection alive by sending periodic pings.
@@ -33264,10 +34823,12 @@ class Socket(GObject.Object):
         """
         The number of outstanding connections in the listen queue.
         """
-        local_address: SocketAddress | None  # [local-address]: changed because contained invalid characters
-        """
-        The local address the socket is bound to.
-        """
+        @builtins.property
+        def local_address(self) -> SocketAddress:
+            """
+            The local address the socket is bound to.
+            """
+            ...
         multicast_loopback: bool  # [multicast-loopback]: changed because contained invalid characters
         """
         Whether outgoing multicast packets loop back to the local host.
@@ -33276,14 +34837,18 @@ class Socket(GObject.Object):
         """
         Time-to-live out outgoing multicast packets
         """
-        protocol: SocketProtocol
-        """
-        The ID of the protocol to use, or `-1` for unknown.
-        """
-        remote_address: SocketAddress | None  # [remote-address]: changed because contained invalid characters
-        """
-        The remote address the socket is connected to.
-        """
+        @builtins.property
+        def protocol(self) -> SocketProtocol:
+            """
+            The ID of the protocol to use, or `-1` for unknown.
+            """
+            ...
+        @builtins.property
+        def remote_address(self) -> SocketAddress:
+            """
+            The remote address the socket is connected to.
+            """
+            ...
         timeout: int
         """
         The timeout in seconds on socket I/O
@@ -33292,10 +34857,12 @@ class Socket(GObject.Object):
         """
         Time-to-live for outgoing unicast packets
         """
-        type: SocketType
-        """
-        The socket’s type.
-        """
+        @builtins.property
+        def type(self) -> SocketType:
+            """
+            The socket’s type.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -34208,11 +35775,14 @@ class SocketAddress(GObject.Object):
     internet sockets, or [class`Gio`.UnixSocketAddress] for UNIX domain sockets.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        family: SocketFamily
-        """
-        The family of the socket address.
-        """
+        @builtins.property
+        def family(self) -> SocketFamily:
+            """
+            The family of the socket address.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -34357,12 +35927,8 @@ class SocketAddressEnumerator(GObject.Object):
         internal errors (other than `cancellable` being triggered) will be
         ignored.
         """
-    def next_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def next_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[SocketAddress | None]:
         """
             Asynchronously retrieves the next GSocketAddress from `enumerator`
         and then calls `callback`, which must call
@@ -34370,6 +35936,12 @@ class SocketAddressEnumerator(GObject.Object):
 
         It is an error to call this multiple times before the previous callback has finished.
         """
+    @typing.overload
+    def next_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def next_async(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def next_finish(self, result: AsyncResult) -> SocketAddress | None:
         """
             Retrieves the result of a completed call to
@@ -34482,6 +36054,7 @@ class SocketClient(GObject.Object):
     can just create a new one any time you need one.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         enable_proxy: bool  # [enable-proxy]: changed because contained invalid characters
         """
@@ -34499,10 +36072,14 @@ class SocketClient(GObject.Object):
         """
         The protocol to use for socket construction, or `0` for default.
         """
-        proxy_resolver: ProxyResolver | None  # [proxy-resolver]: changed because contained invalid characters
-        """
-        The proxy resolver to use
-        """
+        @builtins.property
+        def proxy_resolver(self) -> ProxyResolver:
+            """
+            The proxy resolver to use
+            """
+            ...
+        @proxy_resolver.setter
+        def proxy_resolver(self, value: ProxyResolver | None) -> None: ...
         timeout: int
         """
         The I/O timeout for sockets, in seconds, or `0` for none.
@@ -34607,13 +36184,10 @@ class SocketClient(GObject.Object):
 
         [note from gi-stub-gen] SocketClient has a connect() method which shadows the signal connect() method to add handlers to GObject.Signals. You can still connect to signals using: GObject.Object.connect(object, 'signal-name', handler)
         """
+    @typing.overload
     def connect_async(
-        self,
-        connectable: SocketConnectable,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, connectable: SocketConnectable, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[SocketConnection]:
         """
             This is the asynchronous version of `g_socket_client_connect`.
 
@@ -34630,6 +36204,22 @@ class SocketClient(GObject.Object):
         called. You can then call `g_socket_client_connect_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def connect_async(
+        self,
+        connectable: SocketConnectable,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def connect_async(
+        self,
+        connectable: SocketConnectable,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def connect_finish(self, result: AsyncResult) -> SocketConnection:
         """
         Finishes an async connect operation. See `g_socket_client_connect_async`
@@ -34669,14 +36259,10 @@ class SocketClient(GObject.Object):
         connectable) None is returned and `error` (if non-None) is set
         accordingly.
         """
+    @typing.overload
     def connect_to_host_async(
-        self,
-        host_and_port: str,
-        default_port: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, host_and_port: str, default_port: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[SocketConnection]:
         """
             This is the asynchronous version of `g_socket_client_connect_to_host`.
 
@@ -34684,6 +36270,24 @@ class SocketClient(GObject.Object):
         called. You can then call `g_socket_client_connect_to_host_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def connect_to_host_async(
+        self,
+        host_and_port: str,
+        default_port: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def connect_to_host_async(
+        self,
+        host_and_port: str,
+        default_port: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def connect_to_host_finish(self, result: AsyncResult) -> SocketConnection:
         """
         Finishes an async connect operation. See `g_socket_client_connect_to_host_async`
@@ -34705,18 +36309,27 @@ class SocketClient(GObject.Object):
         connectable) None is returned and `error` (if non-None) is set
         accordingly.
         """
+    @typing.overload
     def connect_to_service_async(
-        self,
-        domain: str,
-        service: str,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, domain: str, service: str, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[SocketConnection]:
         """
             This is the asynchronous version of
         `g_socket_client_connect_to_service`.
         """
+    @typing.overload
+    def connect_to_service_async(
+        self,
+        domain: str,
+        service: str,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def connect_to_service_async(
+        self, domain: str, service: str, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def connect_to_service_finish(self, result: AsyncResult) -> SocketConnection:
         """
         Finishes an async connect operation. See `g_socket_client_connect_to_service_async`
@@ -34745,14 +36358,10 @@ class SocketClient(GObject.Object):
         connectable) None is returned and `error` (if non-None) is set
         accordingly.
         """
+    @typing.overload
     def connect_to_uri_async(
-        self,
-        uri: str,
-        default_port: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, uri: str, default_port: int, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[SocketConnection]:
         """
             This is the asynchronous version of `g_socket_client_connect_to_uri`.
 
@@ -34760,6 +36369,24 @@ class SocketClient(GObject.Object):
         called. You can then call `g_socket_client_connect_to_uri_finish` to get
         the result of the operation.
         """
+    @typing.overload
+    def connect_to_uri_async(
+        self,
+        uri: str,
+        default_port: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def connect_to_uri_async(
+        self,
+        uri: str,
+        default_port: int,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def connect_to_uri_finish(self, result: AsyncResult) -> SocketConnection:
         """
         Finishes an async connect operation. See `g_socket_client_connect_to_uri_async`
@@ -35018,6 +36645,7 @@ class SocketConnectable(builtins.object):
     ```
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -35102,11 +36730,14 @@ class SocketConnection(IOStream):
     underlying [class`Gio`.Socket].
     """
 
+    @typing.type_check_only
     class Props(IOStream.Props):
-        socket: Socket | None
-        """
-        The underlying [class`Gio`.Socket].
-        """
+        @builtins.property
+        def socket(self) -> Socket:
+            """
+            The underlying [class`Gio`.Socket].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -35128,13 +36759,8 @@ class SocketConnection(IOStream):
 
         [note from gi-stub-gen] SocketConnection has a connect() method which shadows the signal connect() method to add handlers to GObject.Signals. You can still connect to signals using: GObject.Object.connect(object, 'signal-name', handler)
         """
-    def connect_async(
-        self,
-        address: SocketAddress,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def connect_async(self, address: SocketAddress, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously connect `connection` to the specified remote address.
 
@@ -35147,6 +36773,18 @@ class SocketConnection(IOStream):
 
         Use `g_socket_connection_connect_finish` to retrieve the result.
         """
+    @typing.overload
+    def connect_async(
+        self,
+        address: SocketAddress,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def connect_async(
+        self, address: SocketAddress, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def connect_finish(self, result: AsyncResult) -> bool:
         """
         Gets the result of a `g_socket_connection_connect_async` call.
@@ -35389,6 +37027,7 @@ class SocketListener(GObject.Object):
     subclasses of `GSocketListener` that make this even easier.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         listen_backlog: int  # [listen-backlog]: changed because contained invalid characters
         """
@@ -35423,12 +37062,10 @@ class SocketListener(GObject.Object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def accept_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[SocketConnection, GObject.Object | None]]:
         """
             This is the asynchronous version of `g_socket_listener_accept`.
 
@@ -35436,6 +37073,12 @@ class SocketListener(GObject.Object):
         called. You can then call `g_socket_listener_accept_finish`
         to get the result of the operation.
         """
+    @typing.overload
+    def accept_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def accept_async(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def accept_finish(self, result: AsyncResult) -> tuple[SocketConnection, GObject.Object | None]:
         """
         Finishes an async accept operation. See `g_socket_listener_accept_async`
@@ -35457,12 +37100,10 @@ class SocketListener(GObject.Object):
         triggering the cancellable object from another thread. If the operation
         was cancelled, the error G_IO_ERROR_CANCELLED will be returned.
         """
+    @typing.overload
     def accept_socket_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[Socket, GObject.Object | None]]:
         """
             This is the asynchronous version of `g_socket_listener_accept_socket`.
 
@@ -35470,6 +37111,14 @@ class SocketListener(GObject.Object):
         called. You can then call `g_socket_listener_accept_socket_finish`
         to get the result of the operation.
         """
+    @typing.overload
+    def accept_socket_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def accept_socket_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def accept_socket_finish(self, result: AsyncResult) -> tuple[Socket, GObject.Object | None]:
         """
         Finishes an async accept operation. See `g_socket_listener_accept_socket_async`
@@ -35684,6 +37333,7 @@ class SocketService(SocketListener):
     handle incoming clients.
     """
 
+    @typing.type_check_only
     class Props(SocketListener.Props):
         active: bool
         """
@@ -36029,19 +37679,6 @@ class Subprocess(GObject.Object):
     are similar to the familiar `WIFEXITED`-style POSIX macros).
     """
 
-    class Props(GObject.Object.Props):
-        argv: list | None
-        """
-        Argument vector.
-        """
-        flags: SubprocessFlags
-        """
-        Subprocess flags.
-        """
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Methods
     def __init__(self, argv: list | None = None, flags: SubprocessFlags | None = SubprocessFlags.NONE) -> None:
         """
@@ -36093,17 +37730,30 @@ class Subprocess(GObject.Object):
         attempt to interact with the pipes while the operation is in progress
         (either from another thread or if using the asynchronous version).
         """
+    @typing.overload
     def communicate_async(
-        self,
-        stdin_buf: GLib.Bytes | None = None,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, stdin_buf: GLib.Bytes | None = None, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, GLib.Bytes | None, GLib.Bytes | None]]:
         """
             Asynchronous version of `g_subprocess_communicate`.  Complete
         invocation with `g_subprocess_communicate_finish`.
         """
+    @typing.overload
+    def communicate_async(
+        self,
+        stdin_buf: GLib.Bytes | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def communicate_async(
+        self,
+        stdin_buf: GLib.Bytes | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def communicate_finish(self, result: AsyncResult) -> tuple[bool, GLib.Bytes | None, GLib.Bytes | None]:
         """
         Complete an invocation of `g_subprocess_communicate_async`.
@@ -36118,17 +37768,30 @@ class Subprocess(GObject.Object):
         On error, `stdout_buf` and `stderr_buf` will be set to undefined values and
         should not be used.
         """
+    @typing.overload
     def communicate_utf8_async(
-        self,
-        stdin_buf: str | None = None,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, stdin_buf: str | None = None, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[tuple[bool, str | None, str | None]]:
         """
             Asynchronous version of `g_subprocess_communicate_utf8`.  Complete
         invocation with `g_subprocess_communicate_utf8_finish`.
         """
+    @typing.overload
+    def communicate_utf8_async(
+        self,
+        stdin_buf: str | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def communicate_utf8_async(
+        self,
+        stdin_buf: str | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def communicate_utf8_finish(self, result: AsyncResult) -> tuple[bool, str | None, str | None]:
         """
         Complete an invocation of `g_subprocess_communicate_utf8_async`.
@@ -36260,32 +37923,38 @@ class Subprocess(GObject.Object):
         Cancelling `cancellable` doesn't kill the subprocess.  Call
         `g_subprocess_force_exit` if it is desirable.
         """
-    def wait_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def wait_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Wait for the subprocess to terminate.
 
         This is the asynchronous version of `g_subprocess_wait`.
         """
+    @typing.overload
+    def wait_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def wait_async(self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None) -> None: ...
     def wait_check(self, cancellable: Cancellable | None = None) -> bool:
         """
         Combines `g_subprocess_wait` with `g_spawn_check_wait_status`.
         """
-    def wait_check_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def wait_check_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Combines `g_subprocess_wait_async` with `g_spawn_check_wait_status`.
 
         This is the asynchronous version of `g_subprocess_wait_check`.
         """
+    @typing.overload
+    def wait_check_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def wait_check_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def wait_check_finish(self, result: AsyncResult) -> bool:
         """
             Collects the result of a previous call to
@@ -36356,15 +38025,6 @@ class SubprocessLauncher(GObject.Object):
     options.  It can also be used to launch multiple subprocesses with
     a similar configuration.
     """
-
-    class Props(GObject.Object.Props):
-        flags: SubprocessFlags
-        """
-        [flags`Gio`.SubprocessFlags] for launched processes.
-        """
-
-    @builtins.property
-    def props(self) -> Props: ...
 
     # gi Methods
     def __init__(self, flags: SubprocessFlags | None = SubprocessFlags.NONE) -> None:
@@ -37142,28 +38802,31 @@ class Task(GObject.Object):
       context when the task is finalized
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        completed: bool
-        """
-        Whether the task has completed, meaning its callback (if set) has been
-        invoked.
+        @builtins.property
+        def completed(self) -> bool:
+            """
+            Whether the task has completed, meaning its callback (if set) has been
+            invoked.
 
-        This can only happen after `g_task_return_pointer`,
-        `g_task_return_error` or one of the other return functions have been called
-        on the task. However, it is not guaranteed to happen immediately after
-        those functions are called, as the task’s callback may need to be scheduled
-        to run in a different thread.
+            This can only happen after `g_task_return_pointer`,
+            `g_task_return_error` or one of the other return functions have been called
+            on the task. However, it is not guaranteed to happen immediately after
+            those functions are called, as the task’s callback may need to be scheduled
+            to run in a different thread.
 
-        That means it is **not safe** to use this property to track whether a
-        return function has been called on the GTask. Callers must do that
-        tracking themselves, typically by linking the lifetime of the GTask to the
-        control flow of their code.
+            That means it is **not safe** to use this property to track whether a
+            return function has been called on the GTask. Callers must do that
+            tracking themselves, typically by linking the lifetime of the GTask to the
+            control flow of their code.
 
-        This property is guaranteed to change from False to True exactly once.
+            This property is guaranteed to change from False to True exactly once.
 
-        The GObject::notify signal for this change is emitted in the same main
-        context as the task’s callback, immediately after that callback is invoked.
-        """
+            The GObject::notify signal for this change is emitted in the same main
+            context as the task’s callback, immediately after that callback is invoked.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -37573,6 +39236,7 @@ class TcpConnection(SocketConnection):
     for TCP/IP sockets.
     """
 
+    @typing.type_check_only
     class Props(SocketConnection.Props):
         graceful_disconnect: bool  # [graceful-disconnect]: changed because contained invalid characters
         """
@@ -37676,11 +39340,14 @@ class TcpWrapperConnection(TcpConnection):
     [class`Gio`.SocketConnection].
     """
 
+    @typing.type_check_only
     class Props(TcpConnection.Props):
-        base_io_stream: IOStream | None  # [base-io-stream]: changed because contained invalid characters
-        """
-        The wrapped [class`Gio`.IOStream].
-        """
+        @builtins.property
+        def base_io_stream(self) -> IOStream:
+            """
+            The wrapped [class`Gio`.IOStream].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -37866,11 +39533,14 @@ class TestDBus(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        flags: TestDBusFlags
-        """
-        GTestDBusFlags specifying the behaviour of the D-Bus session.
-        """
+        @builtins.property
+        def flags(self) -> TestDBusFlags:
+            """
+            GTestDBusFlags specifying the behaviour of the D-Bus session.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -37981,33 +39651,34 @@ class ThemedIcon(GObject.Object):
     themes that inherit other themes.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        name: str
-        """
-        The icon name.
-        """
-        names: list | None
-        """
-        A None-terminated array of icon names.
-        """
-        use_default_fallbacks: bool  # [use-default-fallbacks]: changed because contained invalid characters
-        """
-        Whether to use the default fallbacks found by shortening the icon name
-        at '-' characters. If the "names" array has more than one element,
-        ignores any past the first.
+        @builtins.property
+        def names(self) -> list[str]:
+            """
+            A None-terminated array of icon names.
+            """
+            ...
+        @builtins.property
+        def use_default_fallbacks(self) -> bool:
+            """
+            Whether to use the default fallbacks found by shortening the icon name
+            at '-' characters. If the "names" array has more than one element,
+            ignores any past the first.
 
-        For example, if the icon name was "gnome-dev-cdrom-audio", the array
-        would become
-        |[<!-- language="C" -->
-        {
-          "gnome-dev-cdrom-audio",
-          "gnome-dev-cdrom",
-          "gnome-dev",
-          "gnome",
-          None
-        };
-        ]|
-        """
+            For example, if the icon name was "gnome-dev-cdrom-audio", the array
+            would become
+            |[<!-- language="C" -->
+            {
+              "gnome-dev-cdrom-audio",
+              "gnome-dev-cdrom",
+              "gnome-dev",
+              "gnome",
+              None
+            };
+            ]|
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -38187,11 +39858,14 @@ class ThreadedSocketService(SocketService):
     handler.
     """
 
+    @typing.type_check_only
     class Props(SocketService.Props):
-        max_threads: int  # [max-threads]: changed because contained invalid characters
-        """
-        The maximum number of threads handling clients for this service.
-        """
+        @builtins.property
+        def max_threads(self) -> int:
+            """
+            The maximum number of threads handling clients for this service.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -38320,6 +39994,7 @@ class TlsBackend(builtins.object):
     by a TLS backend.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -38451,132 +40126,149 @@ class TlsCertificate(GObject.Object):
     [iface`Gio`.TlsServerConnection]).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        certificate: bytes | None
-        """
-        The DER (binary) encoded representation of the certificate.
-        This property and the GTlsCertificate:certificate-pem property
-        represent the same data, just in different forms.
-        """
-        certificate_pem: str  # [certificate-pem]: changed because contained invalid characters
-        """
-        The PEM (ASCII) encoded representation of the certificate.
-        This property and the GTlsCertificate:certificate
-        property represent the same data, just in different forms.
-        """
-        dns_names: list | None  # [dns-names]: changed because contained invalid characters
-        """
-        The DNS names from the certificate's Subject Alternative Names (SANs),
-        None if unavailable.
-        """
-        ip_addresses: list | None  # [ip-addresses]: changed because contained invalid characters
-        """
-        The IP addresses from the certificate's Subject Alternative Names (SANs),
-        None if unavailable.
-        """
-        issuer: TlsCertificate | None
-        """
-        A GTlsCertificate representing the entity that issued this
-        certificate. If None, this means that the certificate is either
-        self-signed, or else the certificate of the issuer is not
-        available.
+        @builtins.property
+        def certificate(self) -> bytes | None:
+            """
+            The DER (binary) encoded representation of the certificate.
+            This property and the GTlsCertificate:certificate-pem property
+            represent the same data, just in different forms.
+            """
+            ...
+        @builtins.property
+        def certificate_pem(self) -> str:
+            """
+            The PEM (ASCII) encoded representation of the certificate.
+            This property and the GTlsCertificate:certificate
+            property represent the same data, just in different forms.
+            """
+            ...
+        @builtins.property
+        def dns_names(self) -> list[GLib.Bytes] | None:
+            """
+            The DNS names from the certificate's Subject Alternative Names (SANs),
+            None if unavailable.
+            """
+            ...
+        @builtins.property
+        def ip_addresses(self) -> list[InetAddress] | None:
+            """
+            The IP addresses from the certificate's Subject Alternative Names (SANs),
+            None if unavailable.
+            """
+            ...
+        @builtins.property
+        def issuer(self) -> TlsCertificate | None:
+            """
+            A GTlsCertificate representing the entity that issued this
+            certificate. If None, this means that the certificate is either
+            self-signed, or else the certificate of the issuer is not
+            available.
 
-        Beware the issuer certificate may not be the same as the
-        certificate that would actually be used to construct a valid
-        certification path during certificate verification.
-        [RFC 4158](https://datatracker.ietf.org/doc/html/rfc4158) explains
-        why an issuer certificate cannot be naively assumed to be part of the
-        the certification path (though GLib's TLS backends may not follow the
-        path building strategies outlined in this RFC). Due to the complexity
-        of certification path building, GLib does not provide any way to know
-        which certification path will actually be used. Accordingly, this
-        property cannot be used to make security-related decisions. Only
-        GLib itself should make security decisions about TLS certificates.
-        """
-        issuer_name: str  # [issuer-name]: changed because contained invalid characters
-        """
-        The issuer from the certificate,
-        None if unavailable.
-        """
-        not_valid_after: GLib.DateTime | None  # [not-valid-after]: changed because contained invalid characters
-        """
-        The time at which this cert is no longer valid,
-        None if unavailable.
-        """
-        not_valid_before: GLib.DateTime | None  # [not-valid-before]: changed because contained invalid characters
-        """
-        The time at which this cert is considered to be valid,
-        None if unavailable.
-        """
-        password: str
-        """
-        An optional password used when constructed with GTlsCertificate:pkcs12-data.
-        """
-        pkcs11_uri: str  # [pkcs11-uri]: changed because contained invalid characters
-        """
-        A URI referencing the [PKCS #11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html)
-        objects containing an X.509 certificate and optionally a private key.
+            Beware the issuer certificate may not be the same as the
+            certificate that would actually be used to construct a valid
+            certification path during certificate verification.
+            [RFC 4158](https://datatracker.ietf.org/doc/html/rfc4158) explains
+            why an issuer certificate cannot be naively assumed to be part of the
+            the certification path (though GLib's TLS backends may not follow the
+            path building strategies outlined in this RFC). Due to the complexity
+            of certification path building, GLib does not provide any way to know
+            which certification path will actually be used. Accordingly, this
+            property cannot be used to make security-related decisions. Only
+            GLib itself should make security decisions about TLS certificates.
+            """
+            ...
+        @builtins.property
+        def issuer_name(self) -> str | None:
+            """
+            The issuer from the certificate,
+            None if unavailable.
+            """
+            ...
+        @builtins.property
+        def not_valid_after(self) -> GLib.DateTime | None:
+            """
+            The time at which this cert is no longer valid,
+            None if unavailable.
+            """
+            ...
+        @builtins.property
+        def not_valid_before(self) -> GLib.DateTime | None:
+            """
+            The time at which this cert is considered to be valid,
+            None if unavailable.
+            """
+            ...
+        @builtins.property
+        def pkcs11_uri(self) -> str:
+            """
+            A URI referencing the [PKCS #11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html)
+            objects containing an X.509 certificate and optionally a private key.
 
-        If None, the certificate is either not backed by PKCS #11 or the
-        GTlsBackend does not support PKCS #11.
-        """
-        pkcs12_data: bytes | None  # [pkcs12-data]: changed because contained invalid characters
-        """
-        The PKCS #12 formatted data used to construct the object.
+            If None, the certificate is either not backed by PKCS #11 or the
+            GTlsBackend does not support PKCS #11.
+            """
+            ...
+        @builtins.property
+        def private_key(self) -> bytes | None:
+            """
+            The DER (binary) encoded representation of the certificate's
+            private key, in either [PKCS #1 format](https://datatracker.ietf.org/doc/html/rfc8017)
+            or unencrypted [PKCS #8 format.](https://datatracker.ietf.org/doc/html/rfc5208)
+            PKCS #8 format is supported since 2.32; earlier releases only
+            support PKCS #1. You can use the `openssl rsa` tool to convert
+            PKCS #8 keys to PKCS #1.
 
-        See also: `g_tls_certificate_new_from_pkcs12`
-        """
-        private_key: bytes | None  # [private-key]: changed because contained invalid characters
-        """
-        The DER (binary) encoded representation of the certificate's
-        private key, in either [PKCS #1 format](https://datatracker.ietf.org/doc/html/rfc8017)
-        or unencrypted [PKCS #8 format.](https://datatracker.ietf.org/doc/html/rfc5208)
-        PKCS #8 format is supported since 2.32; earlier releases only
-        support PKCS #1. You can use the `openssl rsa` tool to convert
-        PKCS #8 keys to PKCS #1.
+            This property (or the GTlsCertificate:private-key-pem property)
+            can be set when constructing a key (for example, from a file).
+            Since GLib 2.70, it is now also readable; however, be aware that if
+            the private key is backed by a PKCS #11 URI – for example, if it
+            is stored on a smartcard – then this property will be None. If so,
+            the private key must be referenced via its PKCS #11 URI,
+            GTlsCertificate:private-key-pkcs11-uri. You must check both
+            properties to see if the certificate really has a private key.
+            When this property is read, the output format will be unencrypted
+            PKCS #8.
+            """
+            ...
+        @builtins.property
+        def private_key_pem(self) -> str:
+            """
+            The PEM (ASCII) encoded representation of the certificate's
+            private key in either [PKCS #1 format](https://datatracker.ietf.org/doc/html/rfc8017)
+            ("`BEGIN RSA PRIVATE KEY`") or unencrypted
+            [PKCS #8 format](https://datatracker.ietf.org/doc/html/rfc5208)
+            ("`BEGIN PRIVATE KEY`"). PKCS #8 format is supported since 2.32;
+            earlier releases only support PKCS #1. You can use the `openssl rsa`
+            tool to convert PKCS #8 keys to PKCS #1.
 
-        This property (or the GTlsCertificate:private-key-pem property)
-        can be set when constructing a key (for example, from a file).
-        Since GLib 2.70, it is now also readable; however, be aware that if
-        the private key is backed by a PKCS #11 URI – for example, if it
-        is stored on a smartcard – then this property will be None. If so,
-        the private key must be referenced via its PKCS #11 URI,
-        GTlsCertificate:private-key-pkcs11-uri. You must check both
-        properties to see if the certificate really has a private key.
-        When this property is read, the output format will be unencrypted
-        PKCS #8.
-        """
-        private_key_pem: str  # [private-key-pem]: changed because contained invalid characters
-        """
-        The PEM (ASCII) encoded representation of the certificate's
-        private key in either [PKCS #1 format](https://datatracker.ietf.org/doc/html/rfc8017)
-        ("`BEGIN RSA PRIVATE KEY`") or unencrypted
-        [PKCS #8 format](https://datatracker.ietf.org/doc/html/rfc5208)
-        ("`BEGIN PRIVATE KEY`"). PKCS #8 format is supported since 2.32;
-        earlier releases only support PKCS #1. You can use the `openssl rsa`
-        tool to convert PKCS #8 keys to PKCS #1.
-
-        This property (or the GTlsCertificate:private-key property)
-        can be set when constructing a key (for example, from a file).
-        Since GLib 2.70, it is now also readable; however, be aware that if
-        the private key is backed by a PKCS #11 URI - for example, if it
-        is stored on a smartcard - then this property will be None. If so,
-        the private key must be referenced via its PKCS #11 URI,
-        GTlsCertificate:private-key-pkcs11-uri. You must check both
-        properties to see if the certificate really has a private key.
-        When this property is read, the output format will be unencrypted
-        PKCS #8.
-        """
-        private_key_pkcs11_uri: str  # [private-key-pkcs11-uri]: changed because contained invalid characters
-        """
-        A URI referencing a [PKCS #11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html)
-        object containing a private key.
-        """
-        subject_name: str  # [subject-name]: changed because contained invalid characters
-        """
-        The subject from the cert,
-        None if unavailable.
-        """
+            This property (or the GTlsCertificate:private-key property)
+            can be set when constructing a key (for example, from a file).
+            Since GLib 2.70, it is now also readable; however, be aware that if
+            the private key is backed by a PKCS #11 URI - for example, if it
+            is stored on a smartcard - then this property will be None. If so,
+            the private key must be referenced via its PKCS #11 URI,
+            GTlsCertificate:private-key-pkcs11-uri. You must check both
+            properties to see if the certificate really has a private key.
+            When this property is read, the output format will be unencrypted
+            PKCS #8.
+            """
+            ...
+        @builtins.property
+        def private_key_pkcs11_uri(self) -> str:
+            """
+            A URI referencing a [PKCS #11](https://docs.oasis-open.org/pkcs11/pkcs11-base/v3.0/os/pkcs11-base-v3.0-os.html)
+            object containing a private key.
+            """
+            ...
+        @builtins.property
+        def subject_name(self) -> str | None:
+            """
+            The subject from the cert,
+            None if unavailable.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -38989,34 +40681,41 @@ class TlsClientConnection(builtins.object):
     [class`Gio`.TlsConnection], representing a client-side TLS connection.
     """
 
+    @typing.type_check_only
     class Props:
-        accepted_cas: list | None  # [accepted-cas]: changed because contained invalid characters
-        """
-        A list of the distinguished names of the Certificate Authorities
-        that the server will accept client certificates signed by. If the
-        server requests a client certificate during the handshake, then
-        this property will be set after the handshake completes.
+        @builtins.property
+        def accepted_cas(self) -> list[bytes]:
+            """
+            A list of the distinguished names of the Certificate Authorities
+            that the server will accept client certificates signed by. If the
+            server requests a client certificate during the handshake, then
+            this property will be set after the handshake completes.
 
-        Each item in the list is a GByteArray which contains the complete
-        subject DN of the certificate authority.
-        """
-        server_identity: SocketConnectable | None  # [server-identity]: changed because contained invalid characters
-        """
-        A GSocketConnectable describing the identity of the server that
-        is expected on the other end of the connection.
+            Each item in the list is a GByteArray which contains the complete
+            subject DN of the certificate authority.
+            """
+            ...
+        @builtins.property
+        def server_identity(self) -> SocketConnectable | None:
+            """
+            A GSocketConnectable describing the identity of the server that
+            is expected on the other end of the connection.
 
-        If the G_TLS_CERTIFICATE_BAD_IDENTITY flag is set in
-        GTlsClientConnection:validation-flags, this object will be used
-        to determine the expected identify of the remote end of the
-        connection; if GTlsClientConnection:server-identity is not set,
-        or does not match the identity presented by the server, then the
-        G_TLS_CERTIFICATE_BAD_IDENTITY validation will fail.
+            If the G_TLS_CERTIFICATE_BAD_IDENTITY flag is set in
+            GTlsClientConnection:validation-flags, this object will be used
+            to determine the expected identify of the remote end of the
+            connection; if GTlsClientConnection:server-identity is not set,
+            or does not match the identity presented by the server, then the
+            G_TLS_CERTIFICATE_BAD_IDENTITY validation will fail.
 
-        In addition to its use in verifying the server certificate,
-        this is also used to give a hint to the server about what
-        certificate we expect, which is useful for servers that serve
-        virtual hosts.
-        """
+            In addition to its use in verifying the server certificate,
+            this is also used to give a hint to the server about what
+            certificate we expect, which is useful for servers that serve
+            virtual hosts.
+            """
+            ...
+        @server_identity.setter
+        def server_identity(self, value: SocketConnectable) -> None: ...
         use_ssl3: bool  # [use-ssl3]: changed because contained invalid characters
         """
         SSL 3.0 is no longer supported. See
@@ -39221,30 +40920,39 @@ class TlsConnection(IOStream):
     For DTLS (Datagram TLS) support, see [iface`Gio`.DtlsConnection].
     """
 
+    @typing.type_check_only
     class Props(IOStream.Props):
-        advertised_protocols: list | None  # [advertised-protocols]: changed because contained invalid characters
+        advertised_protocols: list[str] | None  # [advertised-protocols]: changed because contained invalid characters
         """
         The list of application-layer protocols that the connection
         advertises that it is willing to speak. See
         `g_tls_connection_set_advertised_protocols`.
         """
-        base_io_stream: IOStream | None  # [base-io-stream]: changed because contained invalid characters
-        """
-        The GIOStream that the connection wraps. The connection holds a reference
-        to this stream, and may run operations on the stream from other threads
-        throughout its lifetime. Consequently, after the GIOStream has been
-        constructed, application code may only run its own operations on this
-        stream when no GIOStream operations are running.
-        """
-        certificate: TlsCertificate | None
-        """
-        The connection's certificate; see
-        `g_tls_connection_set_certificate`.
-        """
-        ciphersuite_name: str  # [ciphersuite-name]: changed because contained invalid characters
-        """
-        The name of the TLS ciphersuite in use. See `g_tls_connection_get_ciphersuite_name`.
-        """
+        @builtins.property
+        def base_io_stream(self) -> IOStream | None:
+            """
+            The GIOStream that the connection wraps. The connection holds a reference
+            to this stream, and may run operations on the stream from other threads
+            throughout its lifetime. Consequently, after the GIOStream has been
+            constructed, application code may only run its own operations on this
+            stream when no GIOStream operations are running.
+            """
+            ...
+        @builtins.property
+        def certificate(self) -> TlsCertificate | None:
+            """
+            The connection's certificate; see
+            `g_tls_connection_set_certificate`.
+            """
+            ...
+        @certificate.setter
+        def certificate(self, value: TlsCertificate) -> None: ...
+        @builtins.property
+        def ciphersuite_name(self) -> str | None:
+            """
+            The name of the TLS ciphersuite in use. See `g_tls_connection_get_ciphersuite_name`.
+            """
+            ...
         database: TlsDatabase | None
         """
         The certificate database to use when verifying this TLS connection.
@@ -39270,43 +40978,49 @@ class TlsConnection(IOStream):
         database need to interact with the user. This will be used to prompt the
         user for passwords where necessary.
         """
-        negotiated_protocol: str  # [negotiated-protocol]: changed because contained invalid characters
-        """
-        The application-layer protocol negotiated during the TLS
-        handshake. See `g_tls_connection_get_negotiated_protocol`.
-        """
-        peer_certificate: TlsCertificate | None  # [peer-certificate]: changed because contained invalid characters
-        """
-        The connection's peer's certificate, after the TLS handshake has
-        completed or failed. Note in particular that this is not yet set
-        during the emission of GTlsConnection::accept-certificate.
+        @builtins.property
+        def negotiated_protocol(self) -> str | None:
+            """
+            The application-layer protocol negotiated during the TLS
+            handshake. See `g_tls_connection_get_negotiated_protocol`.
+            """
+            ...
+        @builtins.property
+        def peer_certificate(self) -> TlsCertificate | None:
+            """
+            The connection's peer's certificate, after the TLS handshake has
+            completed or failed. Note in particular that this is not yet set
+            during the emission of GTlsConnection::accept-certificate.
 
-        (You can watch for a GObject::notify signal on this property to
-        detect when a handshake has occurred.)
-        """
-        peer_certificate_errors: (
-            TlsCertificateFlags  # [peer-certificate-errors]: changed because contained invalid characters
-        )
-        """
-        The errors noticed while verifying
-        GTlsConnection:peer-certificate. Normally this should be 0, but
-        it may not be if GTlsClientConnection:validation-flags is not
-        G_TLS_CERTIFICATE_VALIDATE_ALL, or if
-        GTlsConnection::accept-certificate overrode the default
-        behavior.
+            (You can watch for a GObject::notify signal on this property to
+            detect when a handshake has occurred.)
+            """
+            ...
+        @builtins.property
+        def peer_certificate_errors(self) -> TlsCertificateFlags:
+            """
+            The errors noticed while verifying
+            GTlsConnection:peer-certificate. Normally this should be 0, but
+            it may not be if GTlsClientConnection:validation-flags is not
+            G_TLS_CERTIFICATE_VALIDATE_ALL, or if
+            GTlsConnection::accept-certificate overrode the default
+            behavior.
 
-        GLib guarantees that if certificate verification fails, at least
-        one error will be set, but it does not guarantee that all possible
-        errors will be set. Accordingly, you may not safely decide to
-        ignore any particular type of error. For example, it would be
-        incorrect to mask G_TLS_CERTIFICATE_EXPIRED if you want to allow
-        expired certificates, because this could potentially be the only
-        error flag set even if other problems exist with the certificate.
-        """
-        protocol_version: TlsProtocolVersion  # [protocol-version]: changed because contained invalid characters
-        """
-        The TLS protocol version in use. See `g_tls_connection_get_protocol_version`.
-        """
+            GLib guarantees that if certificate verification fails, at least
+            one error will be set, but it does not guarantee that all possible
+            errors will be set. Accordingly, you may not safely decide to
+            ignore any particular type of error. For example, it would be
+            incorrect to mask G_TLS_CERTIFICATE_EXPIRED if you want to allow
+            expired certificates, because this could potentially be the only
+            error flag set even if other problems exist with the certificate.
+            """
+            ...
+        @builtins.property
+        def protocol_version(self) -> TlsProtocolVersion:
+            """
+            The TLS protocol version in use. See `g_tls_connection_get_protocol_version`.
+            """
+            ...
         rehandshake_mode: TlsRehandshakeMode  # [rehandshake-mode]: changed because contained invalid characters
         """
         The rehandshaking mode. See
@@ -39479,17 +41193,24 @@ class TlsConnection(IOStream):
         GTlsConnection::accept_certificate may be emitted during the
         handshake.
         """
-    def handshake_async(
-        self,
-        io_priority: int,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def handshake_async(self, io_priority: int, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously performs a TLS handshake on `conn`. See
         `g_tls_connection_handshake` for more information.
         """
+    @typing.overload
+    def handshake_async(
+        self,
+        io_priority: int,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def handshake_async(
+        self, io_priority: int, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def handshake_finish(self, result: AsyncResult) -> bool:
         """
             Finish an asynchronous TLS handshake operation. See
@@ -39928,19 +41649,38 @@ class TlsDatabase(GObject.Object):
         This function can block, use `g_tls_database_lookup_certificate_for_handle_async` to perform
         the lookup operation asynchronously.
         """
+    @typing.overload
     def lookup_certificate_for_handle_async(
         self,
         handle: str,
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[TlsCertificate]:
         """
             Asynchronously look up a certificate by its handle in the database. See
         `g_tls_database_lookup_certificate_for_handle` for more information.
         """
+    @typing.overload
+    def lookup_certificate_for_handle_async(
+        self,
+        handle: str,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_certificate_for_handle_async(
+        self,
+        handle: str,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_certificate_for_handle_finish(self, result: AsyncResult) -> TlsCertificate:
         """
             Finish an asynchronous lookup of a certificate by its handle. See
@@ -39978,19 +41718,38 @@ class TlsDatabase(GObject.Object):
         security-related decisions. Only GLib itself should make security
         decisions about TLS certificates.
         """
+    @typing.overload
     def lookup_certificate_issuer_async(
         self,
         certificate: TlsCertificate,
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[TlsCertificate]:
         """
             Asynchronously look up the issuer of `certificate` in the database. See
         `g_tls_database_lookup_certificate_issuer` for more information.
         """
+    @typing.overload
+    def lookup_certificate_issuer_async(
+        self,
+        certificate: TlsCertificate,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_certificate_issuer_async(
+        self,
+        certificate: TlsCertificate,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_certificate_issuer_finish(self, result: AsyncResult) -> TlsCertificate:
         """
             Finish an asynchronous lookup issuer operation. See
@@ -40009,15 +41768,14 @@ class TlsDatabase(GObject.Object):
         This function can block, use `g_tls_database_lookup_certificates_issued_by_async` to perform
         the lookup operation asynchronously.
         """
+    @typing.overload
     def lookup_certificates_issued_by_async(
         self,
         issuer_raw_dn: bytes,
         interaction: TlsInteraction | None,
         flags: TlsDatabaseLookupFlags,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[list[TlsCertificate]]:
         """
             Asynchronously look up certificates issued by this issuer in the database. See
         `g_tls_database_lookup_certificates_issued_by` for more information.
@@ -40026,6 +41784,26 @@ class TlsDatabase(GObject.Object):
         of this asynchronous operation. The byte array should not be modified during
         this time.
         """
+    @typing.overload
+    def lookup_certificates_issued_by_async(
+        self,
+        issuer_raw_dn: bytes,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def lookup_certificates_issued_by_async(
+        self,
+        issuer_raw_dn: bytes,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseLookupFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def lookup_certificates_issued_by_finish(self, result: AsyncResult) -> list[TlsCertificate]:
         """
             Finish an asynchronous lookup of certificates. See
@@ -40102,6 +41880,7 @@ class TlsDatabase(GObject.Object):
         This function can block. Use `g_tls_database_verify_chain_async` to
         perform the verification operation asynchronously.
         """
+    @typing.overload
     def verify_chain_async(
         self,
         chain: TlsCertificate,
@@ -40110,14 +41889,36 @@ class TlsDatabase(GObject.Object):
         interaction: TlsInteraction | None,
         flags: TlsDatabaseVerifyFlags,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[TlsCertificateFlags]:
         """
             Asynchronously determines the validity of a certificate chain after
         looking up and adding any missing certificates to the chain. See
         `g_tls_database_verify_chain` for more information.
         """
+    @typing.overload
+    def verify_chain_async(
+        self,
+        chain: TlsCertificate,
+        purpose: str,
+        identity: SocketConnectable | None,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseVerifyFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def verify_chain_async(
+        self,
+        chain: TlsCertificate,
+        purpose: str,
+        identity: SocketConnectable | None,
+        interaction: TlsInteraction | None,
+        flags: TlsDatabaseVerifyFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def verify_chain_finish(self, result: AsyncResult) -> TlsCertificateFlags:
         """
             Finish an asynchronous verify chain operation. See
@@ -40375,6 +42176,7 @@ class TlsFileDatabase(builtins.object):
     TLS library specific subtypes implement.
     """
 
+    @typing.type_check_only
     class Props:
         anchors: str
         """
@@ -40479,13 +42281,10 @@ class TlsInteraction(GObject.Object):
         contains a G_IO_ERROR_CANCELLED error code. Certain implementations may
         not support immediate cancellation.
         """
+    @typing.overload
     def ask_password_async(
-        self,
-        password: TlsPassword,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, password: TlsPassword, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[TlsInteractionResult]:
         """
             Run asynchronous interaction to ask the user for a password. In general,
         `g_tls_interaction_invoke_ask_password` should be used instead of this
@@ -40503,6 +42302,18 @@ class TlsInteraction(GObject.Object):
 
         Certain implementations may not support immediate cancellation.
         """
+    @typing.overload
+    def ask_password_async(
+        self,
+        password: TlsPassword,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def ask_password_async(
+        self, password: TlsPassword, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def ask_password_finish(self, result: AsyncResult) -> TlsInteractionResult:
         """
             Complete an ask password user interaction request. This should be once
@@ -40585,14 +42396,10 @@ class TlsInteraction(GObject.Object):
         contains a G_IO_ERROR_CANCELLED error code. Certain implementations may
         not support immediate cancellation.
         """
+    @typing.overload
     def request_certificate_async(
-        self,
-        connection: TlsConnection,
-        flags: TlsCertificateRequestFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, connection: TlsConnection, flags: TlsCertificateRequestFlags, cancellable: Cancellable | None = None
+    ) -> gi._gi.Async[TlsInteractionResult]:
         """
             Run asynchronous interaction to ask the user for a certificate to use with
         the connection. In general, `g_tls_interaction_invoke_request_certificate` should
@@ -40603,6 +42410,24 @@ class TlsInteraction(GObject.Object):
         when the operation completes. Alternatively the user may abort this certificate
         request, which will usually abort the TLS connection.
         """
+    @typing.overload
+    def request_certificate_async(
+        self,
+        connection: TlsConnection,
+        flags: TlsCertificateRequestFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def request_certificate_async(
+        self,
+        connection: TlsConnection,
+        flags: TlsCertificateRequestFlags,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def request_certificate_finish(self, result: AsyncResult) -> TlsInteractionResult:
         """
             Complete a request certificate user interaction request. This should be once
@@ -40758,6 +42583,7 @@ class TlsPassword(GObject.Object):
     user interaction such as unlocking a key storage token.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         description: str
         """
@@ -40954,6 +42780,7 @@ class TlsServerConnection(builtins.object):
     [class`Gio`.TlsConnection], representing a server-side TLS connection.
     """
 
+    @typing.type_check_only
     class Props:
         authentication_mode: (
             TlsAuthenticationMode  # [authentication-mode]: changed because contained invalid characters
@@ -41056,12 +42883,8 @@ class UnixConnection(SocketConnection):
         Other ways to exchange credentials with a foreign peer includes the
         GUnixCredentialsMessage type and `g_socket_get_credentials` function.
         """
-    def receive_credentials_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def receive_credentials_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[Credentials]:
         """
             Asynchronously receive credentials.
 
@@ -41071,6 +42894,14 @@ class UnixConnection(SocketConnection):
         When the operation is finished, `callback` will be called. You can then call
         `g_unix_connection_receive_credentials_finish` to get the result of the operation.
         """
+    @typing.overload
+    def receive_credentials_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def receive_credentials_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def receive_credentials_finish(self, result: AsyncResult) -> Credentials:
         """
             Finishes an asynchronous receive credentials operation started with
@@ -41108,12 +42939,8 @@ class UnixConnection(SocketConnection):
         Other ways to exchange credentials with a foreign peer includes the
         GUnixCredentialsMessage type and `g_socket_get_credentials` function.
         """
-    def send_credentials_async(
-        self,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def send_credentials_async(self, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Asynchronously send credentials.
 
@@ -41123,6 +42950,14 @@ class UnixConnection(SocketConnection):
         When the operation is finished, `callback` will be called. You can then call
         `g_unix_connection_send_credentials_finish` to get the result of the operation.
         """
+    @typing.overload
+    def send_credentials_async(
+        self, cancellable: Cancellable | None, callback: AsyncReadyCallback | None, *user_data: object | None
+    ) -> None: ...
+    @typing.overload
+    def send_credentials_async(
+        self, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
     def send_credentials_finish(self, result: AsyncResult) -> bool:
         """
             Finishes an asynchronous send credentials operation started with
@@ -41210,11 +43045,14 @@ class UnixCredentialsMessage(SocketControlMessage):
     when using it. This is no longer necessary since GLib 2.72.
     """
 
+    @typing.type_check_only
     class Props(SocketControlMessage.Props):
-        credentials: Credentials | None
-        """
-        The credentials stored in the message.
-        """
+        @builtins.property
+        def credentials(self) -> Credentials:
+            """
+            The credentials stored in the message.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -41533,23 +43371,32 @@ class UnixSocketAddress(SocketAddress):
     when using it. This is no longer necessary since GLib 2.72.
     """
 
+    @typing.type_check_only
     class Props(SocketAddress.Props):
-        abstract: bool
-        """
-        Whether or not this is an abstract address
-        """
-        address_type: UnixSocketAddressType  # [address-type]: changed because contained invalid characters
-        """
-        The type of Unix socket address.
-        """
-        path: str
-        """
-        Unix socket path.
-        """
-        path_as_array: bytes | None  # [path-as-array]: changed because contained invalid characters
-        """
-        Unix socket path, as a byte array.
-        """
+        @builtins.property
+        def abstract(self) -> bool:
+            """
+            Whether or not this is an abstract address
+            """
+            ...
+        @builtins.property
+        def address_type(self) -> UnixSocketAddressType:
+            """
+            The type of Unix socket address.
+            """
+            ...
+        @builtins.property
+        def path(self) -> str:
+            """
+            Unix socket path.
+            """
+            ...
+        @builtins.property
+        def path_as_array(self) -> bytes | None:
+            """
+            Unix socket path, as a byte array.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -41992,6 +43839,7 @@ class Volume(builtins.object):
     ``libhal_manager_find_device_string_match``.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -42011,37 +43859,63 @@ class Volume(builtins.object):
         Checks if a volume can be mounted.
         """
     @deprecated("deprecated")
-    def eject(
-        self,
-        flags: MountUnmountFlags,
-        cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def eject(self, flags: MountUnmountFlags, cancellable: Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Ejects a volume. This is an asynchronous operation, and is
         finished by calling `g_volume_eject_finish` with the `volume`
         and GAsyncResult returned in the `callback`.
         """
     @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self,
+        flags: MountUnmountFlags,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @deprecated("deprecated")
+    @typing.overload
+    def eject(
+        self, flags: MountUnmountFlags, cancellable: Cancellable | None = None, *, callback: AsyncReadyCallback | None
+    ) -> None: ...
+    @deprecated("deprecated")
     def eject_finish(self, result: AsyncResult) -> bool:
         """
             Finishes ejecting a volume. If any errors occurred during the operation,
         `error` will be set to contain the errors and False will be returned.
         """
+    @typing.overload
     def eject_with_operation(
         self,
         flags: MountUnmountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Ejects a volume. This is an asynchronous operation, and is
         finished by calling `g_volume_eject_with_operation_finish` with the `volume`
         and GAsyncResult data returned in the `callback`.
         """
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def eject_with_operation(
+        self,
+        flags: MountUnmountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def eject_with_operation_finish(self, result: AsyncResult) -> bool:
         """
             Finishes ejecting a volume. If any errors occurred during the operation,
@@ -42118,19 +43992,36 @@ class Volume(builtins.object):
         considered an opaque string. Returns None if there is no UUID
         available.
         """
+    @typing.overload
     def mount(
         self,
         flags: MountMountFlags,
         mount_operation: MountOperation | None = None,
         cancellable: Cancellable | None = None,
-        callback: AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             Mounts a volume. This is an asynchronous operation, and is
         finished by calling `g_volume_mount_finish` with the `volume`
         and GAsyncResult returned in the `callback`.
         """
+    @typing.overload
+    def mount(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None,
+        cancellable: Cancellable | None,
+        callback: AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def mount(
+        self,
+        flags: MountMountFlags,
+        mount_operation: MountOperation | None = None,
+        cancellable: Cancellable | None = None,
+        *,
+        callback: AsyncReadyCallback | None,
+    ) -> None: ...
     def mount_finish(self, result: AsyncResult) -> bool:
         """
             Finishes mounting a volume. If any errors occurred during the operation,
@@ -42701,6 +44592,7 @@ class ZlibCompressor(GObject.Object):
     compresses data using zlib.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         file_info: FileInfo | None  # [file-info]: changed because contained invalid characters
         """
@@ -42708,15 +44600,19 @@ class ZlibCompressor(GObject.Object):
         G_ZLIB_COMPRESSOR_FORMAT_GZIP, the compressor will write the file name
         and modification time from the file info to the GZIP header.
         """
-        format: ZlibCompressorFormat
-        """
-        The format of the compressed data.
-        """
-        level: int
-        """
-        The level of compression from `0` (no compression) to `9` (most
-        compression). `-1` for the default level.
-        """
+        @builtins.property
+        def format(self) -> ZlibCompressorFormat:
+            """
+            The format of the compressed data.
+            """
+            ...
+        @builtins.property
+        def level(self) -> int:
+            """
+            The level of compression from `0` (no compression) to `9` (most
+            compression). `-1` for the default level.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -42807,18 +44703,23 @@ class ZlibDecompressor(GObject.Object):
     decompresses data compressed with zlib.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        file_info: FileInfo | None  # [file-info]: changed because contained invalid characters
-        """
-        A GFileInfo containing the information found in the GZIP header
-        of the data stream processed, or None if the header was not yet
-        fully processed, is not present at all, or the compressor's
-        GZlibDecompressor:format property is not G_ZLIB_COMPRESSOR_FORMAT_GZIP.
-        """
-        format: ZlibCompressorFormat
-        """
-        The format of the compressed data.
-        """
+        @builtins.property
+        def file_info(self) -> FileInfo | None:
+            """
+            A GFileInfo containing the information found in the GZIP header
+            of the data stream processed, or None if the header was not yet
+            fully processed, is not present at all, or the compressor's
+            GZlibDecompressor:format property is not G_ZLIB_COMPRESSOR_FORMAT_GZIP.
+            """
+            ...
+        @builtins.property
+        def format(self) -> ZlibCompressorFormat:
+            """
+            The format of the compressed data.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -45025,6 +46926,20 @@ class FileProgressCallback(typing.Protocol):
         current_num_bytes: int,
         total_num_bytes: int,
         data: object | None = None,
+    ) -> None: ...
+
+class AsyncReadyCallbackWithData[Source, *UserData](typing.Protocol):
+    """
+    This callback was used in:
+        Gio.load_contents_async, Gio.read_bytes_async
+    """
+    #  source_object
+    def __call__(
+        self,
+        source_object: Source,
+        res: AsyncResult,
+        /,
+        *data: *UserData,
     ) -> None: ...
 
 class FileMeasureProgressCallback(typing.Protocol):

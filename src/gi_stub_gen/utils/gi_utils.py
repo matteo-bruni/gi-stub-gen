@@ -1,8 +1,9 @@
 import importlib
 from typing import Any
 import gi
-import gi._gi as GI  # type: ignore
-from gi._gi import Repository  # pyright: ignore[reportMissingImports]
+import gi._gi as GI
+from gi._gi import Repository
+from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi.repository import GObject, GLib  # pyright: ignore[reportMissingModuleSource]
 from gi.repository import GIRepository
 
@@ -72,7 +73,7 @@ MAP_GI_GTYPE_TO_TYPE = {
 
 
 def get_safe_gi_array_length(
-    gi_type: GI.TypeInfo,
+    gi_type: GI.TypeInfo | GIRepository.TypeInfo | GIRepositoryCallableAdapter,
 ) -> int:
     """
     get_array_length was previously available in all GI.TypeInfo objects
@@ -93,7 +94,7 @@ def get_safe_gi_array_length(
         return -1
 
     try:
-        array_length = gi_type.get_array_length()
+        array_length = getattr(gi_type, "get_array_length")()
         if isinstance(array_length, tuple):
             if len(array_length) == 2 and isinstance(array_length[0], bool):
                 return array_length[1] if array_length[0] else -1
@@ -103,7 +104,7 @@ def get_safe_gi_array_length(
         pass
 
     try:
-        array_length = gi_type.get_array_length_index()
+        array_length = getattr(gi_type, "get_array_length_index")()
         if isinstance(array_length, tuple):
             if len(array_length) == 2 and isinstance(array_length[0], bool):
                 return array_length[1] if array_length[0] else -1
@@ -170,7 +171,7 @@ def get_safe_gi_arg_closure_index(
 
 def get_gi_type_info(
     obj: Any,
-) -> GI.TypeInfo:
+) -> GI.TypeInfo | GIRepository.TypeInfo | GIRepositoryCallableAdapter:
     """
     Recovers safely the TypeInfo.
     Handles the discrepancy between PyGObject versions (get_type vs get_type_info).
@@ -190,7 +191,7 @@ def get_gi_type_info(
     raise AttributeError(f"Could not recover TypeInfo from object: {obj} ({type(obj)})")
 
 
-def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
+def gi_type_is_callback(gi_type_info: GI.TypeInfo | GIRepository.TypeInfo | GIRepositoryCallableAdapter) -> bool:
     """
     Check if the gi type is a callback.
 
@@ -208,7 +209,7 @@ def gi_type_is_callback(gi_type_info: GI.TypeInfo) -> bool:
 
 # GObject.ClosureMarshal
 def gi_type_to_py_type(
-    gi_type_info: GI.TypeInfo,
+    gi_type_info: GI.TypeInfo | GIRepository.TypeInfo | GIRepositoryCallableAdapter,
 ):
     """
     Map a gi type to a python type
@@ -234,10 +235,11 @@ def gi_type_to_py_type(
         # TODO: return parse_struct_info_schema
         # with namespace
         iface = gi_type_info.get_interface()
-        ns = iface.get_namespace()
-        iface_name = iface.get_name()
         if not iface:
             raise ValueError("Invalid interface")
+        ns = iface.get_namespace()
+        iface_name = iface.get_name()
+        assert iface_name is not None, "Interface has no name"
 
         if isinstance(iface, (GI.CallbackInfo, GIRepository.CallbackInfo)):
             # cant return the type, will not work since
@@ -287,15 +289,20 @@ def gi_type_to_py_type(
 
     if py_type is list:
         # internal type:
-        if gi_type_info.get_param_type(0).get_tag() == 3:
+        element = gi_type_info.get_param_type(0)
+        assert element is not None, "Container has no element type"
+        if element.get_tag() == 3:
             # list[uint8] is actually bytes
             return bytes
 
-        return list[gi_type_to_py_type(gi_type_info.get_param_type(0))]
+        return list[gi_type_to_py_type(element)]
 
     if py_type is dict:
-        key_type = gi_type_to_py_type(gi_type_info.get_param_type(0))
-        value_type = gi_type_to_py_type(gi_type_info.get_param_type(1))
+        key = gi_type_info.get_param_type(0)
+        value = gi_type_info.get_param_type(1)
+        assert key is not None and value is not None, "Mapping has no key/value type"
+        key_type = gi_type_to_py_type(key)
+        value_type = gi_type_to_py_type(value)
         return dict[key_type, value_type]
 
     return py_type

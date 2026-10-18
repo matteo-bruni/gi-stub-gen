@@ -8,7 +8,7 @@ def on_open(app: Gtk.Application, files: list[Gio.File], hint: str) -> None:
 
 
 def consume(app: Gtk.Application, pad: Gst.Pad) -> None:
-    assert_type(app.props.application_id, str)
+    assert_type(app.props.application_id, str | None)
     assert_type(pad.get_direction(), Gst.PadDirection)
     assert_type(Gst.PadDirection.SRC.value_nick, str)
     assert_type(Gst.MapFlags.READ.first_value_nick, str)
@@ -25,3 +25,83 @@ def consume(app: Gtk.Application, pad: Gst.Pad) -> None:
     app.props.application_id = "org.example.Probe"
     pad.set_active(True)
 
+
+
+from gi import _gi
+
+
+def internal_info(info: _gi.FunctionInfo, task: _gi.Async[int]) -> None:
+    assert_type(info.get_arguments(), tuple[_gi.ArgInfo, ...])
+    assert_type(info.get_return_type().get_tag_as_string(), str)
+    assert_type(info.get_finish_func(), _gi.FunctionInfo | None)
+    assert_type(task.result(), int)
+    assert_type(_gi.enum_add(GObject.TYPE_ENUM), type[GObject.GEnum])
+
+
+async def internal_await(task: _gi.Async[int]) -> None:
+    assert_type(await task, int)
+
+
+def properties(connection: Gio.DBusConnection) -> None:
+    assert_type(connection.props.closed, bool)
+    assert_type(connection.props.flags, Gio.DBusConnectionFlags)
+    connection.props.exit_on_close = False
+
+
+def inherited_properties(obj: Gst.Object, binding: Gst.ControlBinding) -> None:
+    assert_type(obj.props.name, str | None)
+    obj.props.name = "renamed"
+    assert_type(binding.props.name, str)
+
+
+from functools import partial
+
+
+def probe(a: Gst.Pad, b: Gst.PadProbeInfo) -> Gst.PadProbeReturn:
+    return Gst.PadProbeReturn.OK
+
+
+def probe_data(a: Gst.Pad, b: Gst.PadProbeInfo, number: int, label: str) -> Gst.PadProbeReturn:
+    return Gst.PadProbeReturn.OK
+
+
+class Probe:
+    def method(self, renamed: Gst.Pad, info: Gst.PadProbeInfo, count: int) -> Gst.PadProbeReturn:
+        return Gst.PadProbeReturn.OK
+
+    def __call__(self, renamed: Gst.Pad, info: Gst.PadProbeInfo) -> Gst.PadProbeReturn:
+        return Gst.PadProbeReturn.OK
+
+
+def ready_file(changed_name: Gio.File, result: Gio.AsyncResult, value: int) -> None:
+    changed_name.load_contents_finish(result)
+
+
+def ready_stream(stream: Gio.InputStream, result: Gio.AsyncResult) -> None:
+    stream.read_bytes_finish(result)
+
+
+def callback_consumers(pad: Gst.Pad, file: Gio.File, stream: Gio.InputStream) -> None:
+    pad.add_probe(Gst.PadProbeType.BUFFER, probe)
+    pad.add_probe(Gst.PadProbeType.BUFFER, Probe())
+    pad.add_probe(Gst.PadProbeType.BUFFER, Probe().method, 42)
+    pad.add_probe(Gst.PadProbeType.BUFFER, probe_data, 42, "label")
+    pad.add_probe(Gst.PadProbeType.BUFFER, partial(probe_data, number=42, label="label"))
+    file.load_contents_async(None, ready_file, 42)
+    stream.read_bytes_async(3, 0, None, ready_stream)
+
+
+from gi.repository import GLib
+
+
+async def async_consumers(stream: Gio.MemoryInputStream, file: Gio.File) -> None:
+    assert_type(stream.read_bytes_async(3, 0), _gi.Async[GLib.Bytes])
+    assert_type(stream.read_bytes_async(3, 0, None), _gi.Async[GLib.Bytes])
+    assert_type(stream.read_bytes_async(count=3, io_priority=0), _gi.Async[GLib.Bytes])
+    assert_type(stream.read_bytes_async(3, 0, None, None), None)
+    assert_type(stream.read_bytes_async(3, 0, callback=None), None)
+    assert_type(stream.read_bytes_async(3, 0, callback=ready_stream), None)
+    assert_type(stream.read_bytes_async(3, 0, None, ready_stream), None)
+    assert_type(await stream.read_bytes_async(3, 0), GLib.Bytes)
+    assert_type(file.load_contents_async(), _gi.Async[tuple[bool, bytes, str | None]])
+    assert_type(file.load_contents_async(callback=None), None)

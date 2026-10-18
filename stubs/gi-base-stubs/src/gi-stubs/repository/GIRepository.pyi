@@ -562,6 +562,7 @@ class BaseInfo(builtins.object, metaclass=GObject.GType):
     ```
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property

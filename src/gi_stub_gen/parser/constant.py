@@ -3,10 +3,10 @@ import enum
 
 # import gi
 
-import gi._gi as GI  # type: ignore
+import gi._gi as GI
 from gi_stub_gen.utils.gi_utils import catch_gi_deprecation_warnings  # type: ignore
 
-# from gi._gi import Repository  # type: ignore
+# from gi._gi import Repository
 from gi.repository import GObject
 from typing import Any
 from gi_stub_gen.schema.constant import VariableSchema

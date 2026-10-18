@@ -75,6 +75,17 @@ and runtime behavior checks. Do not merely update the expectation to keep a
 redundant override. These tests check installed libraries, not upstream releases
 automatically.
 
+Recheck `overrides/private_gi.py`, `tests/test_private_gi_stub.py` and
+`tests/test_async.py` on PyGObject upgrades. `_gi` coverage is deliberately
+bounded; do not add a catch-all `__getattr__` or alias public GObject bases to it.
+Async overloads require finish metadata, not a name suffix; omitted callback
+and explicit `None` have different returns. Keep constructors and hidden Python
+wrappers excluded until verified. Compare Props access constraints and callback
+`TypeVarTuple` consumers with both checkers. The `ty-misses:` fixture markers
+record known false negatives, not permission to ignore new errors; revisit them
+on checker updates. See `docs/Typing_features.md` for evidence and inherited
+property conflicts that must not be hidden by weakening types.
+
 ### Development loop
 
 1. Start with `git status --short` and preserve all pre-existing user changes.
@@ -97,7 +108,7 @@ automatically.
 ### Required source type checking
 
 Every Python code change must include a type check of the affected source code
-using Pyright or ty, in the running devcontainer as `hunter` from `/code` with
+using Pyright or ty, in the running devcontainer as the devcontainer user from `/code` with
 the `/opt/uv/venv` environment. Check the full generator when changing shared
 models, parsers or their interfaces. For example:
 
@@ -135,6 +146,13 @@ Do not weaken useful stub types or add blanket ignores to accommodate a new
 checker. ty remains a secondary, evolving checker; its full-stub diagnostics
 are not all established API defects. Neither checker replaces a direct Pylance
 completion/hover check.
+
+Pyrefly is an optional third checker, pinned by `pyrefly_version` in `justfile`.
+Use `just check-types-pyrefly` for sources/tests/examples, `just pyrefly` for
+generated stubs, or `just pyrefly-check <paths>` for a focused check. These use
+the project interpreter without installing Pyrefly into the development venv.
+Keep its diagnostics visible; it does not replace the required Pyright/ty checks
+or constitute a passing gate until its findings have been assessed.
 
 This devcontainer already contains GStreamer and its Python bindings, so use
 `just build-gst` directly. `just build-gst-in-container` is for building from a

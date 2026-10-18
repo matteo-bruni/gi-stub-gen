@@ -2378,35 +2378,46 @@ class Binding(Object):
     binding, source, and target instances to drop.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        flags: BindingFlags
-        """
-        Flags to be used to control the GBinding
-        """
-        source: Object | None
-        """
-        The GObject. that should be used as the source of the binding
-        """
-        source_property: str  # [source-property]: changed because contained invalid characters
-        """
-        The name of the property of GBinding:source that should be used
-        as the source of the binding.
+        @builtins.property
+        def flags(self) -> BindingFlags:
+            """
+            Flags to be used to control the GBinding
+            """
+            ...
+        @builtins.property
+        def source(self) -> Object | None:
+            """
+            The GObject. that should be used as the source of the binding
+            """
+            ...
+        @builtins.property
+        def source_property(self) -> str:
+            """
+            The name of the property of GBinding:source that should be used
+            as the source of the binding.
 
-        This should be in [canonical form][canonical-parameter-names] to get the
-        best performance.
-        """
-        target: Object | None
-        """
-        The GObject. that should be used as the target of the binding
-        """
-        target_property: str  # [target-property]: changed because contained invalid characters
-        """
-        The name of the property of GBinding:target that should be used
-        as the target of the binding.
+            This should be in [canonical form][canonical-parameter-names] to get the
+            best performance.
+            """
+            ...
+        @builtins.property
+        def target(self) -> Object | None:
+            """
+            The GObject. that should be used as the target of the binding
+            """
+            ...
+        @builtins.property
+        def target_property(self) -> str:
+            """
+            The name of the property of GBinding:target that should be used
+            as the target of the binding.
 
-        This should be in [canonical form][canonical-parameter-names] to get the
-        best performance.
-        """
+            This should be in [canonical form][canonical-parameter-names] to get the
+            best performance.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -2553,6 +2564,7 @@ class BindingGroup(Object):
     with [method`GObject`.BindingGroup.set_source].
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         source: Object | None
         """
@@ -3311,6 +3323,7 @@ class FlagsValue(GPointer, metaclass=GType):
 class Float(builtins.float, metaclass=GType): ...
 
 class GBoxed(builtins.object, metaclass=GType):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -3492,6 +3505,7 @@ class GFlags(enum.IntFlag, metaclass=_GFlagsMeta):
         """
 
 class GInterface(builtins.object, metaclass=GType):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -3504,6 +3518,7 @@ class GObjectWeakRef(builtins.object):
     Alias to gi._gi.GObjectWeakRef. May Be incomplete since gi._gi is a private module.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -3521,6 +3536,7 @@ class GObjectWeakRef(builtins.object):
         """
 
 class GPointer(builtins.object, metaclass=GType):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -3703,6 +3719,7 @@ class Object(builtins.object):
     by ``G_ADD_PRIVATE``.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -4650,6 +4667,7 @@ class ParamSpec(builtins.object, metaclass=GType):
     efficient, and is the ‘canonical form’. Using `_` is discouraged.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -5572,15 +5590,18 @@ class SignalGroup(Object):
     all of the signals will be transitioned correctly.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         target: Object | None
         """
         The target instance used when connecting signals.
         """
-        target_type: GType  # [target-type]: changed because contained invalid characters
-        """
-        The GType of the target property.
-        """
+        @builtins.property
+        def target_type(self) -> GType:
+            """
+            The GType of the target property.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -6295,6 +6316,7 @@ class TypePlugin(builtins.object, metaclass=GType):
     unloading. It even handles multiple registered types per module.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property

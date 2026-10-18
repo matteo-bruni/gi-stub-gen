@@ -17,4 +17,6 @@ class ClassOverride(TypedDict, total=False):
     super: list[str]
     methods: dict[str, FunctionSchema | None]
     fields: dict[str, ClassFieldSchema | None]
+    property_comments: dict[str, str]
+    """Inline comments on selected Props declarations; property types and flags stay parsed."""
     method_transforms: dict[str, MethodTransform]

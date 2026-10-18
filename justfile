@@ -6,6 +6,7 @@ set dotenv-load
 # Verified versions; update regularly using the procedure in AGENTS.md.
 ty_version := "0.0.89"
 pyright_version := "1.1.414"
+pyrefly_version := "1.4.0"
 
 # python code to find gi overrides paths
 
@@ -130,6 +131,17 @@ pyright *args:
 
 check-types:
     just pyright --pythonpath "$(uv run --group gst --locked python -c 'import sys; print(sys.executable)')" src/gi_stub_gen tests examples
+
+# Optional additional checker, using the project's interpreter and installed packages.
+pyrefly-check *args:
+    uvx pyrefly=={{pyrefly_version}} check --preset default --python-interpreter-path "$(uv run --group gst --locked python -c 'import sys; print(sys.executable)')" {{args}}
+
+check-types-pyrefly:
+    just pyrefly-check src/gi_stub_gen tests examples
+
+# Check generated stubs without suppressing Pyrefly diagnostics.
+pyrefly:
+    just pyrefly-check stubs
 
 ty-check *args:
     uvx ty=={{ty_version}} check {{args}}

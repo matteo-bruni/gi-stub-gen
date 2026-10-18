@@ -7,7 +7,7 @@ from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.schema import BaseSchema
 from gi_stub_gen.schema.function import FunctionSchema
 from gi_stub_gen.utils.utils import sanitize_variable_name
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
+import gi._gi as GI
 from gi.repository import GObject
 from typing import Literal, Any
 
@@ -50,6 +50,8 @@ class EnumFieldSchema(BaseSchema):
         # KEEPING THIS CODE FOR FUTURE REFERENCE
 
         field_name = value_info.get_name()
+        unescaped_name = value_info.get_name_unescaped()
+        assert field_name is not None and unescaped_name is not None
         line_comment = None
         if value_info.get_name_unescaped() != value_info.get_name():
             # GLib.IOCondition.IN has get_name_unescaped "in" and get_name "in_"
@@ -57,7 +59,7 @@ class EnumFieldSchema(BaseSchema):
             # because even if they are keywords they are valid as class fields
             # we just check again if there are other issues with the name
             field_name, line_comment = sanitize_variable_name(
-                value_info.get_name_unescaped(),
+                unescaped_name,
                 keyword_check=False,
             )
             # if value_info.get_name_unescaped() == "in":
@@ -71,7 +73,7 @@ class EnumFieldSchema(BaseSchema):
             # so we add a generic sanitization step
             # keyword are fine as class fields
             field_name, line_comment = sanitize_variable_name(
-                value_info.get_name(),
+                field_name,
                 keyword_check=False,
             )
 

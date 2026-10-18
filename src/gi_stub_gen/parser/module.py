@@ -15,7 +15,7 @@ import logging
 
 
 from types import ModuleType
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
+import gi._gi as GI
 
 from typing import TYPE_CHECKING
 from collections.abc import Callable
@@ -54,6 +54,11 @@ def parse_module(
         tuple[Module, dict[str, list[str]]]: A tuple containing the parsed Module object and a dictionary of unknown types.
 
     """
+    if m.__name__ == "gi._gi":
+        from gi_stub_gen.parser.private_gi import parse_private_gi
+
+        return parse_private_gi(m), {}
+
     module_attributes = dir(m)
     module_name = m.__name__
     # module_name = m.__name__.split(".")[-1]

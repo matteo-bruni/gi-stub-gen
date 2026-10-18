@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-import gi._gi as GI  # type: ignore
+import gi._gi as GI
 from gi_stub_gen.schema.function import FunctionSchema, FunctionArgumentSchema, CallbackSchema
 from gi_stub_gen.adapter import GIRepositoryCallableAdapter
 from gi_stub_gen.manager.gir_docs import GIRDocs
@@ -44,11 +44,12 @@ def parse_function(
 
     # this has happened in i.repository.GstVideo.VideoChromaResample
     # there is a function with an empty name ???
-    if attribute.get_name() == "":
+    function_name = attribute.get_name()
+    if not function_name:
         logger.error("Found function with an empty name!?!, skipping...")
         return None
 
-    function_key = (attribute.get_namespace(), attribute.get_name())
+    function_key = (attribute.get_namespace(), function_name)
     if function_key in KNOWN_UNSUPPORTED_GI_FUNCTIONS:
         logger.warning(
             "Skipping %s.%s: %s",
@@ -106,7 +107,7 @@ def _is_marshaled_gvalue_return(
 
 
 def parse_argument(
-    obj: GIRepository.ArgInfo,
+    obj: GI.ArgInfo | GIRepositoryCallableAdapter,
     direction: Literal["IN", "OUT", "INOUT"],
     variadic: bool = False,  # i.e in case of (*args) -> (arg0, arg1, ...)
     gir_type: GirTypeMetadata | None = None,
@@ -117,13 +118,16 @@ def parse_argument(
     """Construct an argument and its optional callback with the same document context."""
     found_callback: CallbackSchema | None = None
 
-    function_namespace: str = obj.get_container().get_namespace()
+    container = obj.get_container()
+    assert container is not None, "Argument has no callable container"
+    function_namespace: str = container.get_namespace()
     annotation_namespace = render_namespace or function_namespace
     argument_namespace: str = obj.get_namespace()
     argument_name = obj.get_name()
     assert argument_name is not None, "Argument name is None"
 
-    gi_type: GIRepository.TypeInfo = get_gi_type_info(obj)
+    gi_type = get_gi_type_info(obj)
+    assert isinstance(gi_type, (GI.TypeInfo, GIRepositoryCallableAdapter))
     type_hint_namespace: str | None
     type_hint_name: str
     type_hint_comment: str | None = None
@@ -141,7 +145,7 @@ def parse_argument(
     if is_callback:
         # Get the interface (The actual CallbackInfo)
         cb_info = gi_type.get_interface()
-        assert cb_info is not None, "CallbackInfo is None for Callback type"
+        assert isinstance(cb_info, (GI.CallbackInfo, GIRepositoryCallableAdapter)), "Invalid callback interface"
 
         cb_name = cb_info.get_name()
         assert cb_name is not None, "CallbackInfo has no name"
@@ -153,7 +157,7 @@ def parse_argument(
         type_hint_name = cb_name
 
         # retrieve the cb return type
-        cb_schema = parse_callable(cb_info, docs=docs, render_namespace=annotation_namespace)  # type: ignore
+        cb_schema = parse_callable(cb_info, docs=docs, render_namespace=annotation_namespace)
         type_hint_cb_return_name = cb_schema.return_hint
         type_hint_cb_return_namespace = cb_schema.return_hint_namespace
         type_imports.update(cb_schema.return_type_imports)
@@ -214,8 +218,7 @@ def parse_argument(
         py_type_name=type_hint_name,
         type_imports=type_imports,
         is_deprecated=gi_type.is_deprecated(),
-        # shortcut: internal PyGObject adds this helper; replace public hints with Protocols when modeled.
-        tag_as_string=gi_type.get_tag_as_string(),  # pyright: ignore[reportAttributeAccessIssue]
+        tag_as_string=gi_type.get_tag_as_string(),
         get_array_length=array_length,
         line_comment=type_hint_comment,
         is_caller_allocates=is_caller_allocates,
@@ -229,20 +232,13 @@ def parse_argument(
 
 
 def parse_callable(
-    obj: GIRepository.FunctionInfo | GIRepository.CallbackInfo | GIRepository.SignalInfo | GIRepositoryCallableAdapter,
+    obj: GI.FunctionInfo | GI.CallbackInfo | GI.SignalInfo | GIRepositoryCallableAdapter,
     docstring: str | None = None,
     docs: GIRDocs | None = None,
     render_namespace: str | None = None,
+    include_async: bool = True,
 ) -> FunctionSchema:
     """Construct a callable, qualifying nested types for its destination module when supplied."""
-    # Note cant do isinstance on GIRepository.FunctionInfo!!
-    # they are different object, we use GIRepository.FunctionInfo
-    # just for the type hinting
-    # when parsing existing object we pass through pygobject that enhance the gi objects
-    # adding pythonic methods and properties but removes somes of the original gi types
-    # for example GIRepository.FunctionInfo has the c methods get_n_args and get_arg
-    # while pygobject removes them adding instead get_arguments() that return a list of ArgInfo
-
     function_type: str
     if isinstance(obj, GI.SignalInfo):
         function_type = "SignalInfo"
@@ -285,8 +281,7 @@ def parse_callable(
     """callbacks found during function argument parsing"""
 
     # first loop to identify indices to skip
-    # shortcut: internal PyGObject/adapters expose get_arguments; replace public hints with Protocols when modeled.
-    obj_arguments = list(obj.get_arguments())  # pyright: ignore[reportAttributeAccessIssue]
+    obj_arguments = list(obj.get_arguments())
     closure_indices = set()
     for i, arg in enumerate(obj_arguments):
         arg_type = get_gi_type_info(arg)
@@ -381,7 +376,7 @@ def parse_callable(
     is_setter = False
     is_async = False
     wrap_vfunc = False
-    is_method = obj.is_method() if hasattr(obj, "is_method") else False  # SignalInfo has no is_method()
+    is_method = getattr(obj, "is_method", lambda: False)()  # SignalInfo has no is_method()
 
     if function_type == "FunctionInfo":
         flags = obj.get_flags()  # type: ignore
@@ -469,4 +464,11 @@ def parse_callable(
         is_overload=True if function_type == "SignalInfo" else False,
     )
     to_return._gi_callbacks = args_as_callbacks_found
+    from gi_stub_gen.parser.callback import specialize_callback
+
+    specialize_callback(to_return, container_name)
+    if include_async and isinstance(obj, GI.FunctionInfo):
+        from gi_stub_gen.parser.async_ import add_async_overloads
+
+        add_async_overloads(obj, to_return, docs)
     return to_return

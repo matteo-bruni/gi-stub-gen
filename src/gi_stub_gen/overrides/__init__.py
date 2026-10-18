@@ -124,6 +124,16 @@ CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
         },
     },
     "gi.repository.Gst": {
+        "ControlBinding": {
+            "property_comments": {
+                "name": (
+                    "pyright: ignore[reportIncompatibleVariableOverride]  "
+                    "# ty: ignore[invalid-property-type-override]  "
+                    "# pyrefly: ignore[bad-override]  "
+                    "# Native construct-only property restricts its mutable parent."
+                ),
+            },
+        },
         "Fraction": {
             "methods": GST_FRACTION_METHODS,
             "fields": {

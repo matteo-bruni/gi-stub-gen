@@ -31,6 +31,16 @@ class ClassPropSchema(BaseSchema):
     is_deprecated: bool
     readable: bool
     writable: bool
+    construct_only: bool = False
+    """Allow assignment only during construction, even if the native WRITABLE flag is set."""
+    write_type_hint_name: str | None = None
+    """Setter type without its namespace; None reuses the complete getter annotation."""
+    write_type_hint_namespace: str | None = None
+    """Namespace of the setter type, or None for a builtin or unqualified type."""
+    write_may_be_null: bool | None = None
+    """Whether the setter accepts None; unset when no separate write annotation is supplied."""
+    type_imports: set[str] = Field(default_factory=set)
+    """Imports needed by accessor annotations, including types nested inside containers."""
 
     docstring: str | None
 
@@ -38,6 +48,9 @@ class ClassPropSchema(BaseSchema):
     """line comment for the property. 
     Can be used to add annotations like # type: ignore
     or to explain if the name was sanitized."""
+
+    declaration_comment: str | None = None
+    """Explicit override comment on the attribute/getter declaration, separate from name sanitization."""
 
     # type_hint_full: str
     # """type hint in template (with namespace if different from parent)"""
@@ -67,6 +80,26 @@ class ClassPropSchema(BaseSchema):
             hint = f"{hint} | None"
 
         return hint
+
+    def render_write_annotation(self, namespace: str) -> str:
+        """Return the setter annotation, falling back to the property type."""
+        if self.write_type_hint_name is None:
+            return self.render_type_annotation(namespace)
+        return self.model_copy(update={
+            "type_hint_name": self.write_type_hint_name,
+            "type_hint_namespace": self.write_type_hint_namespace,
+            "may_be_null": self.write_may_be_null,
+        }).render_type_annotation(namespace)
+
+    @property
+    def can_write(self) -> bool:
+        return self.writable and not self.construct_only
+
+    def uses_attribute_annotation(self, namespace: str) -> bool:
+        return (
+            self.readable and self.can_write
+            and self.render_type_annotation(namespace) == self.render_write_annotation(namespace)
+        )
 
 
 class ClassFieldSchema(BaseSchema):
@@ -177,7 +210,12 @@ class ClassSchema(BaseSchema):
         gi_imports.update(self.additional_required_imports)
         if self.required_gi_import:
             gi_imports.add(self.required_gi_import)
+        if self.allow_synthetic_props or self.props:
+            gi_imports.add("typing")
         for prop in self.props:
+            gi_imports.update(prop.type_imports)
+            if prop.write_type_hint_namespace:
+                gi_imports.add(prop.write_type_hint_namespace)
             if prop.type_hint_namespace:
                 gi_imports.add(prop.type_hint_namespace)
         for attr in self.fields:
@@ -247,7 +285,7 @@ class ClassSchema(BaseSchema):
         """Return stub text as a string."""
         return TemplateManager.render_master(
             "class_props.jinja",
-            props=self.props,
+            props=[prop for prop in self.props if prop.readable or prop.can_write],
             props_super_class=self.render_props_base(),
             allow_synthetic_props=self.allow_synthetic_props,
         )

@@ -1,4 +1,4 @@
-import gi._gi as GI  # type: ignore
+import gi._gi as GI
 import gi
 from gi.repository import GIRepository
 
@@ -63,6 +63,7 @@ def gi_parse_field(
 
     if gi_type_is_callback(field_gi_type_info):
         cb_info = field_gi_type_info.get_interface()
+        assert cb_info is not None, "Callback interface is missing"
         cb_namespace = cb_info.get_namespace()
         cb_info_name = cb_info.get_name()
         assert cb_info_name is not None
@@ -83,6 +84,7 @@ def gi_parse_field(
             # with GI.CallbackInfo used in parse_callable
             cb_info = GIRepositoryCallableAdapter(cb_info)
 
+        assert isinstance(cb_info, (GI.CallbackInfo, GIRepositoryCallableAdapter))
         cb_schema = parse_callable(cb_info, docs=docs, render_namespace=current_namespace)
         found_callback = CallbackSchema(
             name=cb_name,
@@ -122,7 +124,7 @@ def gi_parse_field(
 
 
 def should_expose_class_field(
-    field_info: GIRepository.FieldInfo,
+    field_info: GIRepository.FieldInfo | GI.FieldInfo,
 ) -> bool:
     """
     Determines if a class field should be exposed in the generated stub.

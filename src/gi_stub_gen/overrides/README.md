@@ -56,6 +56,22 @@ Those helpers belong to PyGObject's internal info objects; the
 `GIRepositoryCallableAdapter` normalizes the internal parsing interface without
 adding them to the public GIRepository stubs.
 
+The base build now generates a bounded `gi._gi` stub from `private_gi.py` through
+the normal schemas/templates. Its C signatures are checked against PyGObject
+3.58.1 sources; generation checks member presence. Recheck these declarations
+on upgrades, including integer tag results and Async's omitted-callback behavior.
+`callbacks.py` selects only the three verified call sites that use the precise
+`WithData` Protocol variants; other sites retain their original Protocol/fallback.
+See [typing features and verification](../../../docs/Typing_features.md).
+
+`ControlBinding.property_comments["name"]` documents a native inheritance
+exception verified with GStreamer 1.28.3: `Object.name` is writable, but
+`ControlBinding.name` is construct-only. Its getter has a local override
+diagnostic suppression for Pyright, ty and Pyrefly; writes remain forbidden.
+The runtime/consumer tests in `test_props_access.py` and `tests/typing/` retain
+these constraints. Revisit the comment if the runtime flags or checker rules
+change; never make this property writable merely to satisfy inheritance.
+
 Tests must distinguish runtime members from typing-only support. Check registry
 key/model name agreement, member existence, precedence, independent results,
 runtime behavior and rendered signatures. Review generated diffs separately

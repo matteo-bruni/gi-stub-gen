@@ -1,10 +1,9 @@
-from gi.repository import GIRepository
-import gi._gi as GI  # type: ignore
+import gi._gi as GI
 
 
 def get_all_signals_flattened(
-    info: GIRepository.BaseInfo,
-) -> list[GIRepository.SignalInfo]:
+    info: GI.BaseInfo,
+) -> list[GI.SignalInfo]:
     """
     Recursively fetch all signals for a given GI Info.
     Handles both:
@@ -12,7 +11,7 @@ def get_all_signals_flattened(
     - Interfaces (fetching only their own signals, as they don't have parents)
     """
     # Use a dictionary to avoid duplicates (keys are signal names)
-    collected_signals: dict[str, GIRepository.SignalInfo] = {}
+    collected_signals: dict[str, GI.SignalInfo] = {}
 
     current = info
 
@@ -21,17 +20,17 @@ def get_all_signals_flattened(
         if hasattr(current, "get_signals"):
             for sig in current.get_signals():  # type: ignore
                 name = sig.get_name()
-                if name not in collected_signals:
+                if name is not None and name not in collected_signals:
                     collected_signals[name] = sig
 
         # 2. Logic for Classes (ObjectInfo)
-        if isinstance(current, (GIRepository.ObjectInfo, GI.ObjectInfo)):
+        if isinstance(current, GI.ObjectInfo):
             # A class implements interfaces: we must grab their signals too.
             # (e.g., Gtk.Editable signals for a Gtk.Entry)
             for iface in current.get_interfaces():  # type: ignore
                 for sig in iface.get_signals():
                     name = sig.get_name()
-                    if name not in collected_signals:
+                    if name is not None and name not in collected_signals:
                         collected_signals[name] = sig
 
             assert hasattr(current, "get_parent"), (
@@ -41,7 +40,7 @@ def get_all_signals_flattened(
             current = current.get_parent()  # type: ignore
 
         # 3. Logic for Interfaces (InterfaceInfo)
-        elif isinstance(current, (GIRepository.InterfaceInfo, GI.InterfaceInfo)):
+        elif isinstance(current, GI.InterfaceInfo):
             # Interfaces do not inherit from other classes via 'get_parent'.
             # We collected their signals in step 1, now we stop to avoid AttributeError.
             current = None

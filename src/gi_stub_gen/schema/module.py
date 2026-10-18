@@ -86,6 +86,9 @@ class ModuleSchema(BaseSchema):
         valid_gi_imports: set[str] = set()
         not_gi_imports: set[str] = set()
         for gi_import in gi_imports:
+            if gi_import == "gi._gi":
+                not_gi_imports.add(gi_import)
+                continue
             if gi_import.startswith("gi._"):
                 logger.debug(f"Skipping private gi module: {gi_import}")
                 # skip private gi modules

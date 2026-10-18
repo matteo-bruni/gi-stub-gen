@@ -18,7 +18,7 @@ from gi_stub_gen.utils.utils import (
     is_py_builtin_type,
 )
 
-import gi._gi as GI  # pyright: ignore[reportMissingImports]
+import gi._gi as GI
 from gi.repository import GObject
 
 

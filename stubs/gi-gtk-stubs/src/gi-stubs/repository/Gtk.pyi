@@ -17,6 +17,7 @@ import builtins
 import collections.abc
 import enum
 import gi
+import gi._gi
 import typing
 
 # gi.repository imports needed by this Stub
@@ -846,14 +847,13 @@ def show_uri(
     ...
 
 @deprecated("deprecated")
+@typing.overload
 def show_uri_full(
     parent: Window | None,
     uri: str,
     timestamp: int,
     cancellable: Gio.Cancellable | None = None,
-    callback: Gio.AsyncReadyCallback | None = None,  # type: ignore
-    *user_data: object | None,
-) -> None:
+) -> gi._gi.Async[bool]:
     """
     This function launches the default application for showing
     a given uri.
@@ -866,6 +866,26 @@ def show_uri_full(
     """
     ...
 
+@deprecated("deprecated")
+@typing.overload
+def show_uri_full(
+    parent: Window | None,
+    uri: str,
+    timestamp: int,
+    cancellable: Gio.Cancellable | None,
+    callback: Gio.AsyncReadyCallback | None,
+    *user_data: object | None,
+) -> None: ...
+@deprecated("deprecated")
+@typing.overload
+def show_uri_full(
+    parent: Window | None,
+    uri: str,
+    timestamp: int,
+    cancellable: Gio.Cancellable | None = None,
+    *,
+    callback: Gio.AsyncReadyCallback | None,
+) -> None: ...
 @deprecated("deprecated")
 def show_uri_full_finish(
     parent: Window,
@@ -5171,11 +5191,14 @@ class ATContext(GObject.Object):
     changes in `GtkAccessible`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        accessible: Accessible | None
-        """
-        The `GtkAccessible` that created the `GtkATContext` instance.
-        """
+        @builtins.property
+        def accessible(self) -> Accessible:
+            """
+            The `GtkAccessible` that created the `GtkATContext` instance.
+            """
+            ...
         accessible_role: AccessibleRole  # [accessible-role]: changed because contained invalid characters
         """
         The accessible role used by the AT context.
@@ -5325,8 +5348,9 @@ class AboutDialog(Window):
     class `.aboutdialog`.
     """
 
+    @typing.type_check_only
     class Props(Window.Props):
-        artists: list | None
+        artists: list[str]
         """
         The people who contributed artwork to the program, as a `None`-terminated
         array of strings.
@@ -5334,14 +5358,14 @@ class AboutDialog(Window):
         Each string may contain email addresses and URLs, which will be displayed
         as links.
         """
-        authors: list | None
+        authors: list[str]
         """
         The authors of the program, as a `None`-terminated array of strings.
 
         Each string may contain email addresses and URLs, which will be displayed
         as links, see the introduction for more details.
         """
-        comments: str
+        comments: str | None
         """
         Comments about the program.
 
@@ -5349,18 +5373,18 @@ class AboutDialog(Window):
         should be a short explanation of the main purpose of the program,
         not a detailed list of features.
         """
-        copyright: str
+        copyright: str | None
         """
         Copyright information for the program.
         """
-        documenters: list | None
+        documenters: list[str]
         """
         The people documenting the program, as a `None`-terminated array of strings.
 
         Each string may contain email addresses and URLs, which will be displayed
         as links, see the introduction for more details.
         """
-        license: str
+        license: str | None
         """
         The license of the program, as free-form text.
 
@@ -5402,20 +5426,20 @@ class AboutDialog(Window):
         If it is `None`, the default window icon set with
         [func`Gtk`.Window.set_default_icon_name] will be used.
         """
-        logo_icon_name: str  # [logo-icon-name]: changed because contained invalid characters
+        logo_icon_name: str | None  # [logo-icon-name]: changed because contained invalid characters
         """
         A named icon to use as the logo for the about box.
 
         This property overrides the [property`Gtk`.AboutDialog:logo] property.
         """
-        program_name: str  # [program-name]: changed because contained invalid characters
+        program_name: str | None  # [program-name]: changed because contained invalid characters
         """
         The name of the program.
 
         If this is not set, it defaults to the value returned by
         ``g_get_application_name``.
         """
-        system_information: str  # [system-information]: changed because contained invalid characters
+        system_information: str | None  # [system-information]: changed because contained invalid characters
         """
         Information about the system on which the program is running.
 
@@ -5427,7 +5451,7 @@ class AboutDialog(Window):
         and email references in the form `<mail-to`some`.body>`, and these will
         be converted into clickable links.
         """
-        translator_credits: str  # [translator-credits]: changed because contained invalid characters
+        translator_credits: str | None  # [translator-credits]: changed because contained invalid characters
         """
         Credits to the translators.
 
@@ -5436,20 +5460,24 @@ class AboutDialog(Window):
         The string may contain email addresses and URLs, which will be displayed
         as links, see the introduction for more details.
         """
-        version: str
+        version: str | None
         """
         The version of the program.
         """
-        website: str
+        website: str | None
         """
         The URL for the link to the website of the program.
 
         This should be a string starting with `http://` or `https://`.
         """
-        website_label: str  # [website-label]: changed because contained invalid characters
-        """
-        The label for the link to the website of the program.
-        """
+        @builtins.property
+        def website_label(self) -> str | None:
+            """
+            The label for the link to the website of the program.
+            """
+            ...
+        @website_label.setter
+        def website_label(self, value: str) -> None: ...
         wrap_license: bool  # [wrap-license]: changed because contained invalid characters
         """
         Whether to wrap the text in the license dialog.
@@ -6413,6 +6441,7 @@ class Accessible(builtins.object):
     updating the sibling by [method`Gtk`.Accessible.update_next_accessible_sibling].
     """
 
+    @typing.type_check_only
     class Props:
         accessible_role: AccessibleRole  # [accessible-role]: changed because contained invalid characters
         """
@@ -6672,6 +6701,7 @@ class AccessibleRange(builtins.object):
     - `GTK_ACCESSIBLE_PROPERTY_VALUE_TEXT`
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -6702,6 +6732,7 @@ class AccessibleText(builtins.object):
     objects containing simple, unformatted text.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -6819,6 +6850,7 @@ class ActionBar(Widget):
     Each of the boxes contains children packed for that side.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         revealed: bool
         """
@@ -7266,9 +7298,13 @@ class Actionable(builtins.object):
     as well.
     """
 
+    @typing.type_check_only
     class Props:
-        action_name: str  # [action-name]: changed because contained invalid characters
-        action_target: GLib.Variant | None  # [action-target]: changed because contained invalid characters
+        action_name: str | None  # [action-name]: changed because contained invalid characters
+        @builtins.property
+        def action_target(self) -> GLib.Variant | None: ...
+        @action_target.setter
+        def action_target(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -7430,6 +7466,7 @@ class Adjustment(GObject.InitiallyUnowned):
     it is left up to the owner of the `GtkAdjustment` to control the value.
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
         lower: float
         """
@@ -7729,17 +7766,22 @@ class AlertDialog(GObject.Object):
     [method`Gtk`.AlertDialog.show].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        buttons: list | None
-        """
-        Labels for buttons to show in the alert.
+        @builtins.property
+        def buttons(self) -> list[str] | None:
+            """
+            Labels for buttons to show in the alert.
 
-        The labels should be translated and may contain
-        a _ to indicate the mnemonic character.
+            The labels should be translated and may contain
+            a _ to indicate the mnemonic character.
 
-        If this property is not set, then a 'Close' button is
-        automatically created.
-        """
+            If this property is not set, then a 'Close' button is
+            automatically created.
+            """
+            ...
+        @buttons.setter
+        def buttons(self, value: list[str]) -> None: ...
         cancel_button: int  # [cancel-button]: changed because contained invalid characters
         """
         This property determines what happens when the Escape key is
@@ -7793,13 +7835,8 @@ class AlertDialog(GObject.Object):
         """
         Initialize AlertDialog object with properties.
         """
-    def choose(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def choose(self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None) -> gi._gi.Async[int]:
         """
             This function shows the alert to the user.
 
@@ -7811,6 +7848,22 @@ class AlertDialog(GObject.Object):
         does not have more than one button. A simpler API for
         this case is [method`Gtk`.AlertDialog.show].
         """
+    @typing.overload
+    def choose(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def choose_finish(self, result: Gio.AsyncResult) -> int:
         """
             Finishes the [method`Gtk`.AlertDialog.choose] call
@@ -7952,15 +8005,20 @@ class AlternativeTrigger(ShortcutTrigger):
     This can be cascaded to combine more than two triggers.
     """
 
+    @typing.type_check_only
     class Props(ShortcutTrigger.Props):
-        first: ShortcutTrigger | None
-        """
-        The first `GtkShortcutTrigger` to check.
-        """
-        second: ShortcutTrigger | None
-        """
-        The second `GtkShortcutTrigger` to check.
-        """
+        @builtins.property
+        def first(self) -> ShortcutTrigger:
+            """
+            The first `GtkShortcutTrigger` to check.
+            """
+            ...
+        @builtins.property
+        def second(self) -> ShortcutTrigger:
+            """
+            The second `GtkShortcutTrigger` to check.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -8133,13 +8191,16 @@ class AppChooser(builtins.object):
     use [method`Gtk`.AppChooser.get_app_info].
     """
 
+    @typing.type_check_only
     class Props:
-        content_type: str  # [content-type]: changed because contained invalid characters
-        """
-        The content type of the `GtkAppChooser` object.
+        @builtins.property
+        def content_type(self) -> str:
+            """
+            The content type of the `GtkAppChooser` object.
 
-        See `GContentType` for more information about content types.
-        """
+            See `GContentType` for more information about content types.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -8210,14 +8271,19 @@ class AppChooserButton(Widget):
     `GtkAppChooserButton` has a single CSS node with the name “appchooserbutton”.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        heading: str
-        """
-        The text to show at the top of the dialog that can be
-        opened from the button.
+        @builtins.property
+        def heading(self) -> str | None:
+            """
+            The text to show at the top of the dialog that can be
+            opened from the button.
 
-        The string may contain Pango markup.
-        """
+            The string may contain Pango markup.
+            """
+            ...
+        @heading.setter
+        def heading(self, value: str) -> None: ...
         modal: bool
         """
         Whether the app chooser dialog should be modal.
@@ -8783,20 +8849,27 @@ class AppChooserDialog(Dialog):
     class `.appchooser`.
     """
 
+    @typing.type_check_only
     class Props(Dialog.Props):
-        gfile: Gio.File | None
-        """
-        The GFile used by the `GtkAppChooserDialog`.
+        @builtins.property
+        def gfile(self) -> Gio.File | None:
+            """
+            The GFile used by the `GtkAppChooserDialog`.
 
-        The dialog's `GtkAppChooserWidget` content type will
-        be guessed from the file, if present.
-        """
-        heading: str
-        """
-        The text to show at the top of the dialog.
+            The dialog's `GtkAppChooserWidget` content type will
+            be guessed from the file, if present.
+            """
+            ...
+        @builtins.property
+        def heading(self) -> str | None:
+            """
+            The text to show at the top of the dialog.
 
-        The string may contain Pango markup.
-        """
+            The string may contain Pango markup.
+            """
+            ...
+        @heading.setter
+        def heading(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -9512,12 +9585,17 @@ class AppChooserWidget(Widget):
     `GtkAppChooserWidget` has a single CSS node with name appchooser.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        default_text: str  # [default-text]: changed because contained invalid characters
-        """
-        The text that appears in the widget when there are no applications
-        for the given content type.
-        """
+        @builtins.property
+        def default_text(self) -> str | None:
+            """
+            The text that appears in the widget when there are no applications
+            for the given content type.
+            """
+            ...
+        @default_text.setter
+        def default_text(self, value: str) -> None: ...
         show_all: bool  # [show-all]: changed because contained invalid characters
         """
         If True, the app chooser presents all applications
@@ -10161,11 +10239,14 @@ class Application(Gio.Application):
     [Getting Started with GTK: Basics](getting_started.html#basics)
     """
 
+    @typing.type_check_only
     class Props(Gio.Application.Props):
-        active_window: Window | None  # [active-window]: changed because contained invalid characters
-        """
-        The currently focused window of the application.
-        """
+        @builtins.property
+        def active_window(self) -> Window | None:
+            """
+            The currently focused window of the application.
+            """
+            ...
         menubar: Gio.MenuModel | None
         """
         The `GMenuModel` to be used for the application's menu bar.
@@ -10177,17 +10258,19 @@ class Application(Gio.Application):
         This will make GTK track the session state (such as the
         [property`Gtk`.Application:screensaver-active] property).
         """
-        screensaver_active: bool  # [screensaver-active]: changed because contained invalid characters
-        """
-        This property is `True` if GTK believes that the screensaver is
-        currently active.
+        @builtins.property
+        def screensaver_active(self) -> bool:
+            """
+            This property is `True` if GTK believes that the screensaver is
+            currently active.
 
-        GTK only tracks session state (including this) when
-        [property`Gtk`.Application:register-session] is set to True.
+            GTK only tracks session state (including this) when
+            [property`Gtk`.Application:register-session] is set to True.
 
-        Tracking the screensaver state is currently only supported on
-        Linux.
-        """
+            Tracking the screensaver state is currently only supported on
+            Linux.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -10840,6 +10923,7 @@ class ApplicationWindow(Window):
     ```
     """
 
+    @typing.type_check_only
     class Props(Window.Props):
         show_menubar: bool  # [show-menubar]: changed because contained invalid characters
         """
@@ -11558,6 +11642,7 @@ class AspectFrame(Widget):
     Starting from GTK 4.12, `GtkAspectFrame` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -12096,19 +12181,24 @@ class Assistant(Window):
     class .assistant.
     """
 
+    @typing.type_check_only
     class Props(Window.Props):
-        pages: Gio.ListModel | None
-        """
-        `GListModel` containing the pages.
-        """
-        use_header_bar: int  # [use-header-bar]: changed because contained invalid characters
-        """
-        True if the assistant uses a `GtkHeaderBar` for action buttons
-        instead of the action-area.
+        @builtins.property
+        def pages(self) -> Gio.ListModel:
+            """
+            `GListModel` containing the pages.
+            """
+            ...
+        @builtins.property
+        def use_header_bar(self) -> int:
+            """
+            True if the assistant uses a `GtkHeaderBar` for action buttons
+            instead of the action-area.
 
-        For technical reasons, this property is declared as an integer
-        property, but you should only set it to True or False.
-        """
+            For technical reasons, this property is declared as an integer
+            property, but you should only set it to True or False.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -12952,11 +13042,14 @@ class AssistantPage(GObject.Object):
     `GtkAssistantPage` is an auxiliary object used by `GtkAssistant.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        child: Widget | None
-        """
-        The child widget.
-        """
+        @builtins.property
+        def child(self) -> Widget:
+            """
+            The child widget.
+            """
+            ...
         complete: bool
         """
         Whether all required fields are filled in.
@@ -13376,31 +13469,40 @@ class BookmarkList(GObject.Object):
     (stringv).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        attributes: str
+        attributes: str | None
         """
         The attributes to query.
         """
-        filename: str
-        """
-        The bookmark file to load.
-        """
+        @builtins.property
+        def filename(self) -> str:
+            """
+            The bookmark file to load.
+            """
+            ...
         io_priority: int  # [io-priority]: changed because contained invalid characters
         """
         Priority used when loading.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        loading: bool
-        """
-        True if files are being loaded.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def loading(self) -> bool:
+            """
+            True if files are being loaded.
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -13535,6 +13637,7 @@ class BoolFilter(Filter):
     to determine whether to include items.
     """
 
+    @typing.type_check_only
     class Props(Filter.Props):
         expression: Expression | None
         """
@@ -13718,6 +13821,7 @@ class Box(Widget):
     Starting from GTK 4.12, `GtkBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         baseline_child: int  # [baseline-child]: changed because contained invalid characters
         """
@@ -14264,6 +14368,7 @@ class BoxLayout(LayoutManager):
     you can use the [property`Gtk`.BoxLayout:spacing] property.
     """
 
+    @typing.type_check_only
     class Props(LayoutManager.Props):
         baseline_child: int  # [baseline-child]: changed because contained invalid characters
         """
@@ -14432,6 +14537,7 @@ class Buildable(builtins.object):
     `GtkBuilder` XML format or run any extra routines at deserialization time.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -15000,16 +15106,21 @@ class Builder(GObject.Object):
     for details.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         current_object: GObject.Object | None  # [current-object]: changed because contained invalid characters
         """
         The object the builder is evaluating for.
         """
-        scope: BuilderScope | None
-        """
-        The scope the builder is operating in
-        """
-        translation_domain: str  # [translation-domain]: changed because contained invalid characters
+        @builtins.property
+        def scope(self) -> BuilderScope:
+            """
+            The scope the builder is operating in
+            """
+            ...
+        @scope.setter
+        def scope(self, value: BuilderScope | None) -> None: ...
+        translation_domain: str | None  # [translation-domain]: changed because contained invalid characters
         """
         The translation domain used when translating property values that
         have been marked as translatable.
@@ -15469,19 +15580,26 @@ class BuilderListItemFactory(ListItemFactory):
     ```
     """
 
+    @typing.type_check_only
     class Props(ListItemFactory.Props):
-        bytes: GLib.Bytes | None
-        """
-        `GBytes` containing the UI definition.
-        """
-        resource: str
-        """
-        Path of the resource containing the UI definition.
-        """
-        scope: BuilderScope | None
-        """
-        `GtkBuilderScope` to use when instantiating listitems
-        """
+        @builtins.property
+        def bytes(self) -> GLib.Bytes:
+            """
+            `GBytes` containing the UI definition.
+            """
+            ...
+        @builtins.property
+        def resource(self) -> str | None:
+            """
+            Path of the resource containing the UI definition.
+            """
+            ...
+        @builtins.property
+        def scope(self) -> BuilderScope | None:
+            """
+            `GtkBuilderScope` to use when instantiating listitems
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -15595,6 +15713,7 @@ class BuilderScope(builtins.object):
     as that class implements support for automatic lookups from C symbols.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -15678,6 +15797,7 @@ class Button(Widget):
     `GtkButton` uses the Gtk.ACCESSIBLE_ROLE_BUTTON role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         can_shrink: bool  # [can-shrink]: changed because contained invalid characters
         """
@@ -15697,14 +15817,22 @@ class Button(Widget):
         """
         Whether the button has a frame.
         """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        The name of the icon used to automatically populate the button.
-        """
-        label: str
-        """
-        Text of the label inside the button, if the button contains a label widget.
-        """
+        @builtins.property
+        def icon_name(self) -> str | None:
+            """
+            The name of the icon used to automatically populate the button.
+            """
+            ...
+        @icon_name.setter
+        def icon_name(self, value: str) -> None: ...
+        @builtins.property
+        def label(self) -> str | None:
+            """
+            Text of the label inside the button, if the button contains a label widget.
+            """
+            ...
+        @label.setter
+        def label(self, value: str) -> None: ...
         use_underline: bool  # [use-underline]: changed because contained invalid characters
         """
         If set, an underline in the text indicates that the following character is
@@ -16430,6 +16558,7 @@ class Calendar(Widget):
     Marked day labels get the :selected state assigned.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         day: int
         """
@@ -17381,21 +17510,26 @@ class CellArea(GObject.InitiallyUnowned):
     [method`Gtk`.CellArea.cell_get] or [method`Gtk`.CellArea.cell_get_valist].
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
-        edit_widget: CellEditable | None  # [edit-widget]: changed because contained invalid characters
-        """
-        The widget currently editing the edited cell
+        @builtins.property
+        def edit_widget(self) -> CellEditable | None:
+            """
+            The widget currently editing the edited cell
 
-        This property is read-only and only changes as
-        a result of a call `Gtk.CellArea.activate_cell`.
-        """
-        edited_cell: CellRenderer | None  # [edited-cell]: changed because contained invalid characters
-        """
-        The cell in the area that is currently edited
+            This property is read-only and only changes as
+            a result of a call `Gtk.CellArea.activate_cell`.
+            """
+            ...
+        @builtins.property
+        def edited_cell(self) -> CellRenderer | None:
+            """
+            The cell in the area that is currently edited
 
-        This property is read-only and only changes as
-        a result of a call `Gtk.CellArea.activate_cell`.
-        """
+            This property is read-only and only changes as
+            a result of a call `Gtk.CellArea.activate_cell`.
+            """
+            ...
         focus_cell: CellRenderer | None  # [focus-cell]: changed because contained invalid characters
         """
         The cell in the area that currently has focus
@@ -18059,6 +18193,7 @@ class CellAreaBox(CellArea):
     argument to `Gtk.CellAreaBox.pack_start` and `Gtk.CellAreaBox.pack_end`.
     """
 
+    @typing.type_check_only
     class Props(CellArea.Props):
         spacing: int
         """
@@ -18377,35 +18512,46 @@ class CellAreaContext(GObject.Object):
     such as `Gtk.CellArea.render` and `Gtk.CellArea.event`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        area: CellArea | None
-        """
-        The `GtkCellArea` this context was created by
-        """
-        minimum_height: int  # [minimum-height]: changed because contained invalid characters
-        """
-        The minimum height for the `GtkCellArea` in this context
-        for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.CellArea.get_preferred_height`.
-        """
-        minimum_width: int  # [minimum-width]: changed because contained invalid characters
-        """
-        The minimum width for the `GtkCellArea` in this context
-        for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.CellArea.get_preferred_width`.
-        """
-        natural_height: int  # [natural-height]: changed because contained invalid characters
-        """
-        The natural height for the `GtkCellArea` in this context
-        for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.CellArea.get_preferred_height`.
-        """
-        natural_width: int  # [natural-width]: changed because contained invalid characters
-        """
-        The natural width for the `GtkCellArea` in this context
-        for all `GtkTreeModel` rows that this context was requested
-        for using `Gtk.CellArea.get_preferred_width`.
-        """
+        @builtins.property
+        def area(self) -> CellArea:
+            """
+            The `GtkCellArea` this context was created by
+            """
+            ...
+        @builtins.property
+        def minimum_height(self) -> int:
+            """
+            The minimum height for the `GtkCellArea` in this context
+            for all `GtkTreeModel` rows that this context was requested
+            for using `Gtk.CellArea.get_preferred_height`.
+            """
+            ...
+        @builtins.property
+        def minimum_width(self) -> int:
+            """
+            The minimum width for the `GtkCellArea` in this context
+            for all `GtkTreeModel` rows that this context was requested
+            for using `Gtk.CellArea.get_preferred_width`.
+            """
+            ...
+        @builtins.property
+        def natural_height(self) -> int:
+            """
+            The natural height for the `GtkCellArea` in this context
+            for all `GtkTreeModel` rows that this context was requested
+            for using `Gtk.CellArea.get_preferred_height`.
+            """
+            ...
+        @builtins.property
+        def natural_width(self) -> int:
+            """
+            The natural width for the `GtkCellArea` in this context
+            for all `GtkTreeModel` rows that this context was requested
+            for using `Gtk.CellArea.get_preferred_width`.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -18663,6 +18809,7 @@ class CellEditable(builtins.object):
     temporary widgets should be configured for editing, get the new value, etc.
     """
 
+    @typing.type_check_only
     class Props:
         editing_canceled: bool  # [editing-canceled]: changed because contained invalid characters
         """
@@ -18883,6 +19030,7 @@ class CellLayout(builtins.object):
     for your class.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -19066,14 +19214,20 @@ class CellRenderer(GObject.InitiallyUnowned):
     has been set or not. You should not set them independently.
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
-        cell_background: str  # [cell-background]: changed because contained invalid characters
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def cell_background(self) -> typing.Never: ...
+        @cell_background.setter
+        def cell_background(self, value: str) -> None: ...
         cell_background_rgba: Gdk.RGBA | None  # [cell-background-rgba]: changed because contained invalid characters
         """
         Cell background as a `GdkRGBA`
         """
         cell_background_set: bool  # [cell-background-set]: changed because contained invalid characters
-        editing: bool
+        @builtins.property
+        def editing(self) -> bool: ...
         height: int
         is_expanded: bool  # [is-expanded]: changed because contained invalid characters
         is_expander: bool  # [is-expander]: changed because contained invalid characters
@@ -19572,6 +19726,7 @@ class CellRendererAccel(CellRendererText):
     the accelerator can be changed by simply typing the new combination.
     """
 
+    @typing.type_check_only
     class Props(CellRendererText.Props):
         accel_key: int  # [accel-key]: changed because contained invalid characters
         """
@@ -20273,6 +20428,7 @@ class CellRendererCombo(CellRendererText):
     can be set in a handler for the `GtkCellRenderer::editing-started` signal.
     """
 
+    @typing.type_check_only
     class Props(CellRendererText.Props):
         has_entry: bool  # [has-entry]: changed because contained invalid characters
         """
@@ -20910,6 +21066,7 @@ class CellRendererPixbuf(CellRenderer):
     pixbuf, it renders that one.
     """
 
+    @typing.type_check_only
     class Props(CellRenderer.Props):
         gicon: Gio.Icon | None
         """
@@ -20926,7 +21083,11 @@ class CellRendererPixbuf(CellRenderer):
         """
         The `GtkIconSize` value that specifies the size of the rendered icon.
         """
-        pixbuf: GdkPixbuf.Pixbuf | None
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def pixbuf(self) -> typing.Never: ...
+        @pixbuf.setter
+        def pixbuf(self, value: GdkPixbuf.Pixbuf | None) -> None: ...
         pixbuf_expander_closed: (
             GdkPixbuf.Pixbuf | None
         )  # [pixbuf-expander-closed]: changed because contained invalid characters
@@ -21177,6 +21338,7 @@ class CellRendererProgress(CellRenderer):
     Additionally, it can display a text on top of the progress bar.
     """
 
+    @typing.type_check_only
     class Props(CellRenderer.Props):
         inverted: bool
         pulse: int
@@ -21460,6 +21622,7 @@ class CellRendererSpin(CellRendererText):
     can be set in a handler for the `GtkCellRenderer::editing-started` signal.
     """
 
+    @typing.type_check_only
     class Props(CellRendererText.Props):
         adjustment: Adjustment | None
         """
@@ -22060,6 +22223,7 @@ class CellRendererSpinner(CellRenderer):
     `Gtk.TreeViewColumn.add_attribute`.
     """
 
+    @typing.type_check_only
     class Props(CellRenderer.Props):
         active: bool
         pulse: int
@@ -22282,6 +22446,7 @@ class CellRendererText(CellRenderer):
     the `GtkCellRendererText` allows to edit its text using an entry.
     """
 
+    @typing.type_check_only
     class Props(CellRenderer.Props):
         align_set: bool  # [align-set]: changed because contained invalid characters
         alignment: Pango.Alignment
@@ -22293,7 +22458,11 @@ class CellRendererText(CellRenderer):
         on the other hand, sets the horizontal alignment of the whole text.
         """
         attributes: Pango.AttrList | None
-        background: str
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def background(self) -> typing.Never: ...
+        @background.setter
+        def background(self, value: str) -> None: ...
         background_rgba: Gdk.RGBA | None  # [background-rgba]: changed because contained invalid characters
         """
         Background color as a `GdkRGBA`
@@ -22313,7 +22482,11 @@ class CellRendererText(CellRenderer):
         family_set: bool  # [family-set]: changed because contained invalid characters
         font: str
         font_desc: Pango.FontDescription | None  # [font-desc]: changed because contained invalid characters
-        foreground: str
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def foreground(self) -> typing.Never: ...
+        @foreground.setter
+        def foreground(self, value: str) -> None: ...
         foreground_rgba: Gdk.RGBA | None  # [foreground-rgba]: changed because contained invalid characters
         """
         Foreground color as a `GdkRGBA`
@@ -22321,7 +22494,11 @@ class CellRendererText(CellRenderer):
         foreground_set: bool  # [foreground-set]: changed because contained invalid characters
         language: str
         language_set: bool  # [language-set]: changed because contained invalid characters
-        markup: str
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def markup(self) -> typing.Never: ...
+        @markup.setter
+        def markup(self, value: str) -> None: ...
         max_width_chars: int  # [max-width-chars]: changed because contained invalid characters
         """
         The desired maximum width of the cell, in characters. If this property
@@ -22977,6 +23154,7 @@ class CellRendererToggle(CellRenderer):
     When activated, it emits the `GtkCellRendererToggle::toggled` signal.
     """
 
+    @typing.type_check_only
     class Props(CellRenderer.Props):
         activatable: bool
         active: bool
@@ -23266,31 +23444,36 @@ class CellView(Widget):
     GtkCellView has a single CSS node with name cellview.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        cell_area: CellArea | None  # [cell-area]: changed because contained invalid characters
-        """
-        The `GtkCellArea` rendering cells
+        @builtins.property
+        def cell_area(self) -> CellArea | None:
+            """
+            The `GtkCellArea` rendering cells
 
-        If no area is specified when creating the cell view with `Gtk.CellView.new_with_context`
-        a horizontally oriented `GtkCellArea`Box will be used.
+            If no area is specified when creating the cell view with `Gtk.CellView.new_with_context`
+            a horizontally oriented `GtkCellArea`Box will be used.
 
-        since 3.0
-        """
-        cell_area_context: CellAreaContext | None  # [cell-area-context]: changed because contained invalid characters
-        """
-        The `GtkCellAreaContext` used to compute the geometry of the cell view.
+            since 3.0
+            """
+            ...
+        @builtins.property
+        def cell_area_context(self) -> CellAreaContext | None:
+            """
+            The `GtkCellAreaContext` used to compute the geometry of the cell view.
 
-        A group of cell views can be assigned the same context in order to
-        ensure the sizes and cell alignments match across all the views with
-        the same context.
+            A group of cell views can be assigned the same context in order to
+            ensure the sizes and cell alignments match across all the views with
+            the same context.
 
-        `GtkComboBox` menus uses this to assign the same context to all cell views
-        in the menu items for a single menu (each submenu creates its own
-        context since the size of each submenu does not depend on parent
-        or sibling menus).
+            `GtkComboBox` menus uses this to assign the same context to all cell views
+            in the menu items for a single menu (each submenu creates its own
+            context since the size of each submenu does not depend on parent
+            or sibling menus).
 
-        since 3.0
-        """
+            since 3.0
+            """
+            ...
         draw_sensitive: bool  # [draw-sensitive]: changed because contained invalid characters
         """
         Whether all cells should be draw as sensitive for this view regardless
@@ -23901,6 +24084,7 @@ class CenterBox(Widget):
     Starting from GTK 4.12, `GtkCenterBox` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         baseline_position: BaselinePosition  # [baseline-position]: changed because contained invalid characters
         """
@@ -24440,6 +24624,7 @@ class CenterLayout(LayoutManager):
     The center widget is centered regarding the full width of the layout's.
     """
 
+    @typing.type_check_only
     class Props(LayoutManager.Props):
         shrink_center_last: bool  # [shrink-center-last]: changed because contained invalid characters
         """
@@ -24622,6 +24807,7 @@ class CheckButton(Widget):
     `GtkCheckButton` uses the Gtk.ACCESSIBLE_ROLE_CHECKBOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         active: bool
         """
@@ -24634,10 +24820,15 @@ class CheckButton(Widget):
         """
         The child widget.
         """
-        group: CheckButton | None
-        """
-        The check button whose group this widget belongs to.
-        """
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def group(self) -> typing.Never:
+            """
+            The check button whose group this widget belongs to.
+            """
+            ...
+        @group.setter
+        def group(self, value: CheckButton | None) -> None: ...
         inconsistent: bool
         """
         If the check button is in an “in between” state.
@@ -24645,7 +24836,7 @@ class CheckButton(Widget):
         The inconsistent state only affects visual appearance,
         not the semantics of the button.
         """
-        label: str
+        label: str | None
         """
         Text of the label inside the check button, if it contains a label widget.
         """
@@ -25300,6 +25491,7 @@ class ColorButton(Widget):
     it gets the .color style class.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         modal: bool
         """
@@ -25821,14 +26013,19 @@ class ColorChooser(builtins.object):
     [class`Gtk`.ColorButton].
     """
 
+    @typing.type_check_only
     class Props:
-        rgba: Gdk.RGBA | None
-        """
-        The currently selected color, as a `GdkRGBA` struct.
+        @builtins.property
+        def rgba(self) -> None:
+            """
+            The currently selected color, as a `GdkRGBA` struct.
 
-        The property can be set to change the current selection
-        programmatically.
-        """
+            The property can be set to change the current selection
+            programmatically.
+            """
+            ...
+        @rgba.setter
+        def rgba(self, value: Gdk.RGBA) -> None: ...
         use_alpha: bool  # [use-alpha]: changed because contained invalid characters
         """
         Whether colors may have alpha (translucency).
@@ -25948,6 +26145,7 @@ class ColorChooserDialog(Dialog):
     class `.colorchooser`.
     """
 
+    @typing.type_check_only
     class Props(Dialog.Props):
         show_editor: bool  # [show-editor]: changed because contained invalid characters
 
@@ -26652,6 +26850,7 @@ class ColorChooserWidget(Widget):
     `GtkColorChooserWidget` has a single CSS node with name colorchooser.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         show_editor: bool  # [show-editor]: changed because contained invalid characters
         """
@@ -27089,6 +27288,7 @@ class ColorDialog(GObject.Object):
     that uses `GtkColorDialog` and presents the results.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         modal: bool
         """
@@ -27115,14 +27315,13 @@ class ColorDialog(GObject.Object):
         """
         Initialize ColorDialog object with properties.
         """
+    @typing.overload
     def choose_rgba(
         self,
         parent: Window | None = None,
         initial_color: Gdk.RGBA | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[Gdk.RGBA | None]:
         """
             This function initiates a color choice operation by
         presenting a color chooser dialog to the user.
@@ -27131,6 +27330,24 @@ class ColorDialog(GObject.Object):
         It should call [method`Gtk`.ColorDialog.choose_rgba_finish]
         to obtain the result.
         """
+    @typing.overload
+    def choose_rgba(
+        self,
+        parent: Window | None,
+        initial_color: Gdk.RGBA | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose_rgba(
+        self,
+        parent: Window | None = None,
+        initial_color: Gdk.RGBA | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def choose_rgba_finish(self, result: Gio.AsyncResult) -> Gdk.RGBA | None:
         """
             Finishes the [method`Gtk`.ColorDialog.choose_rgba] call and
@@ -27236,13 +27453,18 @@ class ColorDialogButton(Widget):
     it gets the .color style class.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        dialog: ColorDialog | None
-        """
-        The `GtkColorDialog` that contains parameters for
-        the color chooser dialog.
-        """
-        rgba: Gdk.RGBA | None
+        @builtins.property
+        def dialog(self) -> ColorDialog | None:
+            """
+            The `GtkColorDialog` that contains parameters for
+            the color chooser dialog.
+            """
+            ...
+        @dialog.setter
+        def dialog(self, value: ColorDialog) -> None: ...
+        rgba: Gdk.RGBA
         """
         The selected color.
 
@@ -27768,11 +27990,14 @@ class ColumnView(Widget):
     the Gtk.ACCESSIBLE_ROLE_GRID_CELL role
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        columns: Gio.ListModel | None
-        """
-        The list of columns.
-        """
+        @builtins.property
+        def columns(self) -> Gio.ListModel:
+            """
+            The list of columns.
+            """
+            ...
         enable_rubberband: bool  # [enable-rubberband]: changed because contained invalid characters
         """
         Allow rubberband selection.
@@ -27805,10 +28030,12 @@ class ColumnView(Widget):
         """
         Activate rows on single click and select them on hover.
         """
-        sorter: Sorter | None
-        """
-        Sorter with the sorting choices of the user.
-        """
+        @builtins.property
+        def sorter(self) -> Sorter | None:
+            """
+            Sorter with the sorting choices of the user.
+            """
+            ...
         tab_behavior: ListTabBehavior  # [tab-behavior]: changed because contained invalid characters
         """
         Behavior of the <kbd>Tab</kbd> key
@@ -28511,6 +28738,7 @@ class ColumnViewCell(ListItem):
        The [property`Gtk`.ColumnViewCell:item] property is not None.
     """
 
+    @typing.type_check_only
     class Props(ListItem.Props):
         child: Widget | None
         """
@@ -28520,18 +28748,24 @@ class ColumnViewCell(ListItem):
         """
         If the item can be focused with the keyboard.
         """
-        item: GObject.Object | None
-        """
-        Displayed item.
-        """
-        position: int
-        """
-        Position of the item.
-        """
-        selected: bool
-        """
-        If the item is currently selected.
-        """
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            Displayed item.
+            """
+            ...
+        @builtins.property
+        def position(self) -> int:
+            """
+            Position of the item.
+            """
+            ...
+        @builtins.property
+        def selected(self) -> bool:
+            """
+            If the item is currently selected.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -28694,11 +28928,14 @@ class ColumnViewColumn(GObject.Object):
     by clicking on the column header.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        column_view: ColumnView | None  # [column-view]: changed because contained invalid characters
-        """
-        The `GtkColumnView` this column is a part of.
-        """
+        @builtins.property
+        def column_view(self) -> ColumnView | None:
+            """
+            The `GtkColumnView` this column is a part of.
+            """
+            ...
         expand: bool
         """
         Column gets share of extra width allocated to the view.
@@ -28716,7 +28953,7 @@ class ColumnViewColumn(GObject.Object):
         """
         Menu model used to create the context menu for the column header.
         """
-        id: str
+        id: str | None
         """
         An ID for the column.
 
@@ -28734,7 +28971,7 @@ class ColumnViewColumn(GObject.Object):
         """
         Sorter for sorting items according to this column.
         """
-        title: str
+        title: str | None
         """
         Title displayed in the header.
         """
@@ -28989,6 +29226,7 @@ class ColumnViewRow(GObject.Object):
     see [method`GtkColumnViewColumn`.set_factory] and [class`GtkColumnViewCell`].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         accessible_description: str  # [accessible-description]: changed because contained invalid characters
         """
@@ -29006,22 +29244,28 @@ class ColumnViewRow(GObject.Object):
         """
         If the row can be focused with the keyboard.
         """
-        item: GObject.Object | None
-        """
-        The item for this row.
-        """
-        position: int
-        """
-        Position of the row.
-        """
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            The item for this row.
+            """
+            ...
+        @builtins.property
+        def position(self) -> int:
+            """
+            Position of the row.
+            """
+            ...
         selectable: bool
         """
         If the row can be selected by the user.
         """
-        selected: bool
-        """
-        If the item in the row is currently selected.
-        """
+        @builtins.property
+        def selected(self) -> bool:
+            """
+            If the item in the row is currently selected.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -29237,24 +29481,27 @@ class ColumnViewSorter(Sorter):
     ```
     """
 
+    @typing.type_check_only
     class Props(Sorter.Props):
-        primary_sort_column: (
-            ColumnViewColumn | None
-        )  # [primary-sort-column]: changed because contained invalid characters
-        """
-        The primary sort column.
+        @builtins.property
+        def primary_sort_column(self) -> ColumnViewColumn | None:
+            """
+            The primary sort column.
 
-        The primary sort column is the one that displays the triangle
-        in a column view header.
-        """
-        primary_sort_order: SortType  # [primary-sort-order]: changed because contained invalid characters
-        """
-        The primary sort order.
+            The primary sort column is the one that displays the triangle
+            in a column view header.
+            """
+            ...
+        @builtins.property
+        def primary_sort_order(self) -> SortType:
+            """
+            The primary sort order.
 
-        The primary sort order determines whether the triangle displayed
-        in the column view header of the primary sort column points upwards
-        or downwards.
-        """
+            The primary sort order determines whether the triangle displayed
+            in the column view header of the primary sort column points upwards
+            or downwards.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -29404,6 +29651,7 @@ class ComboBox(Widget):
     `GtkComboBox` uses the Gtk.ACCESSIBLE_ROLE_COMBO_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         active: int
         """
@@ -29414,7 +29662,7 @@ class ComboBox(Widget):
         `gtk_tree_path_get_indices (path)[0]`, where `path` is the
         [struct`Gtk`.TreePath] of the active item.
         """
-        active_id: str  # [active-id]: changed because contained invalid characters
+        active_id: str | None  # [active-id]: changed because contained invalid characters
         """
         The value of the ID column of the active row.
         """
@@ -29434,10 +29682,12 @@ class ComboBox(Widget):
         This is property only relevant if the combo was created with
         [property`Gtk`.ComboBox:has-entry] is True.
         """
-        has_entry: bool  # [has-entry]: changed because contained invalid characters
-        """
-        Whether the combo box has an entry.
-        """
+        @builtins.property
+        def has_entry(self) -> bool:
+            """
+            Whether the combo box has an entry.
+            """
+            ...
         has_frame: bool  # [has-frame]: changed because contained invalid characters
         """
         The `has-frame` property controls whether a frame is drawn around the entry.
@@ -29456,13 +29706,15 @@ class ComboBox(Widget):
         Whether the popup's width should be a fixed width matching the
         allocated width of the combo box.
         """
-        popup_shown: bool  # [popup-shown]: changed because contained invalid characters
-        """
-        Whether the combo boxes dropdown is popped up.
+        @builtins.property
+        def popup_shown(self) -> bool:
+            """
+            Whether the combo boxes dropdown is popped up.
 
-        Note that this property is mainly useful, because
-        it allows you to connect to notify::popup-shown.
-        """
+            Note that this property is mainly useful, because
+            it allows you to connect to notify::popup-shown.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -31027,53 +31279,70 @@ class Constraint(GObject.Object):
     instance are immutable after creation.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        constant: float
-        """
-        The constant value to be added to the [property`Gtk`.Constraint:source-attribute].
-        """
-        multiplier: float
-        """
-        The multiplication factor to be applied to
-        the [property`Gtk`.Constraint:source-attribute].
-        """
-        relation: ConstraintRelation
-        """
-        The order relation between the terms of the constraint.
-        """
-        source: ConstraintTarget | None
-        """
-        The source of the constraint.
+        @builtins.property
+        def constant(self) -> float:
+            """
+            The constant value to be added to the [property`Gtk`.Constraint:source-attribute].
+            """
+            ...
+        @builtins.property
+        def multiplier(self) -> float:
+            """
+            The multiplication factor to be applied to
+            the [property`Gtk`.Constraint:source-attribute].
+            """
+            ...
+        @builtins.property
+        def relation(self) -> ConstraintRelation:
+            """
+            The order relation between the terms of the constraint.
+            """
+            ...
+        @builtins.property
+        def source(self) -> ConstraintTarget | None:
+            """
+            The source of the constraint.
 
-        The constraint will set the [property`Gtk`.Constraint:target-attribute]
-        property of the target using the [property`Gtk`.Constraint:source-attribute]
-        property of the source.
-        """
-        source_attribute: ConstraintAttribute  # [source-attribute]: changed because contained invalid characters
-        """
-        The attribute of the [property`Gtk`.Constraint:source] read by the
-        constraint.
-        """
-        strength: int
-        """
-        The strength of the constraint.
+            The constraint will set the [property`Gtk`.Constraint:target-attribute]
+            property of the target using the [property`Gtk`.Constraint:source-attribute]
+            property of the source.
+            """
+            ...
+        @builtins.property
+        def source_attribute(self) -> ConstraintAttribute:
+            """
+            The attribute of the [property`Gtk`.Constraint:source] read by the
+            constraint.
+            """
+            ...
+        @builtins.property
+        def strength(self) -> int:
+            """
+            The strength of the constraint.
 
-        The strength can be expressed either using one of the symbolic values
-        of the [enum`Gtk`.ConstraintStrength] enumeration, or any positive integer
-        value.
-        """
-        target: ConstraintTarget | None
-        """
-        The target of the constraint.
+            The strength can be expressed either using one of the symbolic values
+            of the [enum`Gtk`.ConstraintStrength] enumeration, or any positive integer
+            value.
+            """
+            ...
+        @builtins.property
+        def target(self) -> ConstraintTarget | None:
+            """
+            The target of the constraint.
 
-        The constraint will set the [property`Gtk`.Constraint:target-attribute]
-        property of the target using the [property`Gtk`.Constraint:source-attribute]
-        property of the source widget.
-        """
-        target_attribute: ConstraintAttribute  # [target-attribute]: changed because contained invalid characters
-        """
-        The attribute of the [property`Gtk`.Constraint:target] set by the constraint.
-        """
+            The constraint will set the [property`Gtk`.Constraint:target-attribute]
+            property of the target using the [property`Gtk`.Constraint:source-attribute]
+            property of the source widget.
+            """
+            ...
+        @builtins.property
+        def target_attribute(self) -> ConstraintAttribute:
+            """
+            The attribute of the [property`Gtk`.Constraint:target] set by the constraint.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -31279,6 +31548,7 @@ class ConstraintGuide(GObject.Object):
     Unlike a `GtkWidget`, a `GtkConstraintGuide` will not be drawn.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         max_height: int  # [max-height]: changed because contained invalid characters
         """
@@ -31296,7 +31566,7 @@ class ConstraintGuide(GObject.Object):
         """
         The minimum width of the guide.
         """
-        name: str
+        name: str | None
         """
         A name that identifies the `GtkConstraintGuide`, for debugging.
         """
@@ -31801,6 +32071,7 @@ class ConstraintTarget(builtins.object):
     Besides `GtkWidget`, it is also implemented by `GtkConstraintGuide`.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -32385,28 +32656,31 @@ class Dialog(Window):
     `GtkDialog` uses the Gtk.ACCESSIBLE_ROLE_DIALOG role.
     """
 
+    @typing.type_check_only
     class Props(Window.Props):
-        use_header_bar: int  # [use-header-bar]: changed because contained invalid characters
-        """
-        True if the dialog uses a headerbar for action buttons
-        instead of the action-area.
+        @builtins.property
+        def use_header_bar(self) -> int:
+            """
+            True if the dialog uses a headerbar for action buttons
+            instead of the action-area.
 
-        For technical reasons, this property is declared as an integer
-        property, but you should only set it to True or False.
+            For technical reasons, this property is declared as an integer
+            property, but you should only set it to True or False.
 
-        ## Creating a dialog with headerbar
+            ## Creating a dialog with headerbar
 
-        Builtin `GtkDialog` subclasses such as [class`Gtk`.ColorChooserDialog]
-        set this property according to platform conventions (using the
-        [property`Gtk`.Settings:gtk-dialogs-use-header] setting).
+            Builtin `GtkDialog` subclasses such as [class`Gtk`.ColorChooserDialog]
+            set this property according to platform conventions (using the
+            [property`Gtk`.Settings:gtk-dialogs-use-header] setting).
 
-        Here is how you can achieve the same:
+            Here is how you can achieve the same:
 
-        ```c
-        g_object_get (settings, "gtk-dialogs-use-header", &header, None);
-        dialog = g_object_new (GTK_TYPE_DIALOG, header, True, None);
-        ```
-        """
+            ```c
+            g_object_get (settings, "gtk-dialogs-use-header", &header, None);
+            dialog = g_object_new (GTK_TYPE_DIALOG, header, True, None);
+            ```
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -33202,15 +33476,18 @@ class DirectoryList(GObject.Object):
     or similar.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        attributes: str
+        attributes: str | None
         """
         The attributes to query.
         """
-        error: GLib.Error | None
-        """
-        Error encountered while loading files.
-        """
+        @builtins.property
+        def error(self) -> GLib.Error | None:
+            """
+            Error encountered while loading files.
+            """
+            ...
         file: Gio.File | None
         """
         File to query.
@@ -33219,22 +33496,28 @@ class DirectoryList(GObject.Object):
         """
         Priority used when loading.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        loading: bool
-        """
-        True if files are being loaded.
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def loading(self) -> bool:
+            """
+            True if files are being loaded.
+            """
+            ...
         monitored: bool
         """
         True if the directory is monitored for changed.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -33441,6 +33724,7 @@ class DragIcon(Widget):
     Keep in mind that drag icons do not allow user input.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -33948,6 +34232,7 @@ class DragSource(GestureSingle):
     data after it has been transferred.
     """
 
+    @typing.type_check_only
     class Props(GestureSingle.Props):
         actions: Gdk.DragAction
         """
@@ -34306,6 +34591,7 @@ class DrawingArea(Widget):
     creating your own `GtkWidget` subclass.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         content_height: int  # [content-height]: changed because contained invalid characters
         """
@@ -34808,43 +35094,50 @@ class DropControllerMotion(EventController):
     for that purpose.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        contains_pointer: bool  # [contains-pointer]: changed because contained invalid characters
-        """
-        Whether the pointer of a Drag-and-Drop operation is in
-        the controller's widget or a descendant.
+        @builtins.property
+        def contains_pointer(self) -> bool:
+            """
+            Whether the pointer of a Drag-and-Drop operation is in
+            the controller's widget or a descendant.
 
-        See also [property`Gtk`.DropControllerMotion:is-pointer].
+            See also [property`Gtk`.DropControllerMotion:is-pointer].
 
-        When handling crossing events, this property is updated
-        before [signal`Gtk`.DropControllerMotion::enter], but after
-        [signal`Gtk`.DropControllerMotion::leave] is emitted.
-        """
-        drop: Gdk.Drop | None
-        """
-        The ongoing drop operation over the controller's widget or
-        its descendant.
+            When handling crossing events, this property is updated
+            before [signal`Gtk`.DropControllerMotion::enter], but after
+            [signal`Gtk`.DropControllerMotion::leave] is emitted.
+            """
+            ...
+        @builtins.property
+        def drop(self) -> Gdk.Drop | None:
+            """
+            The ongoing drop operation over the controller's widget or
+            its descendant.
 
-        If no drop operation is going on, this property returns None.
+            If no drop operation is going on, this property returns None.
 
-        The event controller should not modify the `drop`, but it might
-        want to query its properties.
+            The event controller should not modify the `drop`, but it might
+            want to query its properties.
 
-        When handling crossing events, this property is updated
-        before [signal`Gtk`.DropControllerMotion::enter], but after
-        [signal`Gtk`.DropControllerMotion::leave] is emitted.
-        """
-        is_pointer: bool  # [is-pointer]: changed because contained invalid characters
-        """
-        Whether the pointer is in the controllers widget itself,
-        as opposed to in a descendent widget.
+            When handling crossing events, this property is updated
+            before [signal`Gtk`.DropControllerMotion::enter], but after
+            [signal`Gtk`.DropControllerMotion::leave] is emitted.
+            """
+            ...
+        @builtins.property
+        def is_pointer(self) -> bool:
+            """
+            Whether the pointer is in the controllers widget itself,
+            as opposed to in a descendent widget.
 
-        See also [property`Gtk`.DropControllerMotion:contains-pointer].
+            See also [property`Gtk`.DropControllerMotion:contains-pointer].
 
-        When handling crossing events, this property is updated
-        before [signal`Gtk`.DropControllerMotion::enter], but after
-        [signal`Gtk`.DropControllerMotion::leave] is emitted.
-        """
+            When handling crossing events, this property is updated
+            before [signal`Gtk`.DropControllerMotion::enter], but after
+            [signal`Gtk`.DropControllerMotion::leave] is emitted.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -35040,6 +35333,7 @@ class DropDown(Widget):
     `GtkDropDown` uses the Gtk.ACCESSIBLE_ROLE_COMBO_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         enable_search: bool  # [enable-search]: changed because contained invalid characters
         """
@@ -35086,10 +35380,12 @@ class DropDown(Widget):
         If no item is selected, the property has the value
         Gtk.INVALID_LIST_POSITION.
         """
-        selected_item: GObject.Object | None  # [selected-item]: changed because contained invalid characters
-        """
-        The selected item.
-        """
+        @builtins.property
+        def selected_item(self) -> GObject.Object | None:
+            """
+            The selected item.
+            """
+            ...
         show_arrow: bool  # [show-arrow]: changed because contained invalid characters
         """
         Whether to show an arrow within the GtkDropDown widget.
@@ -35753,19 +36049,24 @@ class DropTarget(EventController):
     use [class`Gtk`.DropControllerMotion].
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
         actions: Gdk.DragAction
         """
         The `GdkDragActions` that this drop target supports.
         """
-        current_drop: Gdk.Drop | None  # [current-drop]: changed because contained invalid characters
-        """
-        The `GdkDrop` that is currently being performed.
-        """
-        formats: Gdk.ContentFormats | None
-        """
-        The `GdkContentFormats` that determine the supported data formats.
-        """
+        @builtins.property
+        def current_drop(self) -> Gdk.Drop | None:
+            """
+            The `GdkDrop` that is currently being performed.
+            """
+            ...
+        @builtins.property
+        def formats(self) -> Gdk.ContentFormats | None:
+            """
+            The `GdkContentFormats` that determine the supported data formats.
+            """
+            ...
         preload: bool
         """
         Whether the drop data should be preloaded when the pointer is only
@@ -35787,18 +36088,20 @@ class DropTarget(EventController):
         And for local-only Drag-and-Drop operations, no data transfer is done,
         so enabling it there is free.
         """
-        value: GObject.Value | None
-        """
-        The value for this drop operation.
+        @builtins.property
+        def value(self) -> GObject.Value | None:
+            """
+            The value for this drop operation.
 
-        This is None if the data has not been loaded yet or no drop
-        operation is going on.
+            This is None if the data has not been loaded yet or no drop
+            operation is going on.
 
-        Data may be available before the [signal`Gtk`.DropTarget::drop]
-        signal gets emitted - for example when the [property`Gtk`.DropTarget:preload]
-        property is set. You can use the ::notify signal to be notified
-        of available data.
-        """
+            Data may be available before the [signal`Gtk`.DropTarget::drop]
+            signal gets emitted - for example when the [property`Gtk`.DropTarget:preload]
+            property is set. You can use the ::notify signal to be notified
+            of available data.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -36085,6 +36388,7 @@ class DropTargetAsync(EventController):
     state, which can be used by themes to style the widget as a drop target.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
         actions: Gdk.DragAction
         """
@@ -36424,11 +36728,14 @@ class Editable(builtins.object):
     to them on the delegate obtained via [method`Gtk`.Editable.get_delegate].
     """
 
+    @typing.type_check_only
     class Props:
-        cursor_position: int  # [cursor-position]: changed because contained invalid characters
-        """
-        The current position of the insertion cursor in chars.
-        """
+        @builtins.property
+        def cursor_position(self) -> int:
+            """
+            The current position of the insertion cursor in chars.
+            """
+            ...
         editable: bool
         """
         Whether the entry contents can be edited.
@@ -36441,10 +36748,12 @@ class Editable(builtins.object):
         """
         The desired maximum width of the entry, in characters.
         """
-        selection_bound: int  # [selection-bound]: changed because contained invalid characters
-        """
-        The position of the opposite end of the selection from the cursor in chars.
-        """
+        @builtins.property
+        def selection_bound(self) -> int:
+            """
+            The position of the opposite end of the selection from the cursor in chars.
+            """
+            ...
         text: str
         """
         The contents of the entry.
@@ -36889,6 +37198,7 @@ class EditableLabel(Widget):
     see [class`Gtk`.Text].
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         editing: bool
         """
@@ -37977,21 +38287,26 @@ class Entry(Widget):
     `GtkEntry` uses the Gtk.ACCESSIBLE_ROLE_TEXT_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activates_default: bool  # [activates-default]: changed because contained invalid characters
         """
         Whether to activate the default widget when Enter is pressed.
         """
-        attributes: Pango.AttrList | None
-        """
-        A list of Pango attributes to apply to the text of the entry.
+        @builtins.property
+        def attributes(self) -> Pango.AttrList | None:
+            """
+            A list of Pango attributes to apply to the text of the entry.
 
-        This is mainly useful to change the size or weight of the text.
+            This is mainly useful to change the size or weight of the text.
 
-        The `PangoAttribute`'s `start_index` and `end_index` must refer to the
-        [class`Gtk`.EntryBuffer] text, i.e. without the preedit string.
-        """
-        buffer: EntryBuffer | None
+            The `PangoAttribute`'s `start_index` and `end_index` must refer to the
+            [class`Gtk`.EntryBuffer] text, i.e. without the preedit string.
+            """
+            ...
+        @attributes.setter
+        def attributes(self, value: Pango.AttrList) -> None: ...
+        buffer: EntryBuffer
         """
         The buffer object which actually stores the text.
         """
@@ -38039,7 +38354,7 @@ class Entry(Widget):
         Gtk.INPUT_PURPOSE_PIN is independent from setting
         [property`Gtk`.Entry:visibility].
         """
-        invisible_char: int  # [invisible-char]: changed because contained invalid characters
+        invisible_char: str  # [invisible-char]: changed because contained invalid characters
         """
         The character to use when masking entry contents (“password mode”).
         """
@@ -38055,7 +38370,7 @@ class Entry(Widget):
         """
         If text is overwritten when typing in the `GtkEntry`.
         """
-        placeholder_text: str  # [placeholder-text]: changed because contained invalid characters
+        placeholder_text: str | None  # [placeholder-text]: changed because contained invalid characters
         """
         The text that will be displayed in the `GtkEntry` when it is empty
         and unfocused.
@@ -38096,12 +38411,12 @@ class Entry(Widget):
         An icon should be set insensitive if the action that would trigger
         when clicked is currently not available.
         """
-        primary_icon_storage_type: (
-            ImageType  # [primary-icon-storage-type]: changed because contained invalid characters
-        )
-        """
-        The representation which is used for the primary icon of the entry.
-        """
+        @builtins.property
+        def primary_icon_storage_type(self) -> ImageType:
+            """
+            The representation which is used for the primary icon of the entry.
+            """
+            ...
         primary_icon_tooltip_markup: str  # [primary-icon-tooltip-markup]: changed because contained invalid characters
         """
         The contents of the tooltip on the primary icon, with markup.
@@ -38125,10 +38440,12 @@ class Entry(Widget):
 
         See [method`Gtk`.Entry.progress_pulse].
         """
-        scroll_offset: int  # [scroll-offset]: changed because contained invalid characters
-        """
-        Number of pixels of the entry scrolled off the screen to the left.
-        """
+        @builtins.property
+        def scroll_offset(self) -> int:
+            """
+            Number of pixels of the entry scrolled off the screen to the left.
+            """
+            ...
         secondary_icon_activatable: bool  # [secondary-icon-activatable]: changed because contained invalid characters
         """
         Whether the secondary icon is activatable.
@@ -38165,12 +38482,12 @@ class Entry(Widget):
         An icon should be set insensitive if the action that would trigger
         when clicked is currently not available.
         """
-        secondary_icon_storage_type: (
-            ImageType  # [secondary-icon-storage-type]: changed because contained invalid characters
-        )
-        """
-        The representation which is used for the secondary icon of the entry.
-        """
+        @builtins.property
+        def secondary_icon_storage_type(self) -> ImageType:
+            """
+            The representation which is used for the secondary icon of the entry.
+            """
+            ...
         secondary_icon_tooltip_markup: (
             str  # [secondary-icon-tooltip-markup]: changed because contained invalid characters
         )
@@ -38187,10 +38504,12 @@ class Entry(Widget):
         """
         show_emoji_icon: bool  # [show-emoji-icon]: changed because contained invalid characters
         tabs: Pango.TabArray | None
-        text_length: int  # [text-length]: changed because contained invalid characters
-        """
-        The length of the text in the `GtkEntry`.
-        """
+        @builtins.property
+        def text_length(self) -> int:
+            """
+            The length of the text in the `GtkEntry`.
+            """
+            ...
         truncate_multiline: bool  # [truncate-multiline]: changed because contained invalid characters
         """
         When True, pasted multi-line text is truncated to the first line.
@@ -39460,11 +39779,14 @@ class EntryBuffer(GObject.Object):
     integrate with an application’s concept of undo/redo.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        length: int
-        """
-        The length (in characters) of the text in buffer.
-        """
+        @builtins.property
+        def length(self) -> int:
+            """
+            The length (in characters) of the text in buffer.
+            """
+            ...
         max_length: int  # [max-length]: changed because contained invalid characters
         """
         The maximum length (in characters) of the text in the buffer.
@@ -39779,15 +40101,18 @@ class EntryCompletion(GObject.Object):
     matching iter.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        cell_area: CellArea | None  # [cell-area]: changed because contained invalid characters
-        """
-        The `GtkCellArea` used to layout cell renderers in the treeview column.
+        @builtins.property
+        def cell_area(self) -> CellArea | None:
+            """
+            The `GtkCellArea` used to layout cell renderers in the treeview column.
 
-        If no area is specified when creating the entry completion with
-        [ctor`Gtk`.EntryCompletion.new_with_area], a horizontally oriented
-        [class`Gtk`.CellAreaBox] will be used.
-        """
+            If no area is specified when creating the entry completion with
+            [ctor`Gtk`.EntryCompletion.new_with_area], a horizontally oriented
+            [class`Gtk`.CellAreaBox] will be used.
+            """
+            ...
         inline_completion: bool  # [inline-completion]: changed because contained invalid characters
         """
         Determines whether the common prefix of the possible completions
@@ -40184,8 +40509,9 @@ class EventController(GObject.Object):
     phases of event propagation.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        name: str
+        name: str | None
         """
         The name for this controller, typically used for debugging purposes.
         """
@@ -40197,10 +40523,12 @@ class EventController(GObject.Object):
         """
         The propagation phase at which this controller will handle events.
         """
-        widget: Widget | None
-        """
-        The widget receiving the `GdkEvents` that the controller will handle.
-        """
+        @builtins.property
+        def widget(self) -> Widget:
+            """
+            The widget receiving the `GdkEvents` that the controller will handle.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -40342,29 +40670,34 @@ class EventControllerFocus(EventController):
     that is rooted at the controllers widget.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        contains_focus: bool  # [contains-focus]: changed because contained invalid characters
-        """
-        True if focus is contained in the controllers widget.
+        @builtins.property
+        def contains_focus(self) -> bool:
+            """
+            True if focus is contained in the controllers widget.
 
-        See [property`Gtk`.EventControllerFocus:is-focus] for whether
-        the focus is in the widget itself or inside a descendent.
+            See [property`Gtk`.EventControllerFocus:is-focus] for whether
+            the focus is in the widget itself or inside a descendent.
 
-        When handling focus events, this property is updated
-        before [signal`Gtk`.EventControllerFocus::enter] or
-        [signal`Gtk`.EventControllerFocus::leave] are emitted.
-        """
-        is_focus: bool  # [is-focus]: changed because contained invalid characters
-        """
-        True if focus is in the controllers widget itself,
-        as opposed to in a descendent widget.
+            When handling focus events, this property is updated
+            before [signal`Gtk`.EventControllerFocus::enter] or
+            [signal`Gtk`.EventControllerFocus::leave] are emitted.
+            """
+            ...
+        @builtins.property
+        def is_focus(self) -> bool:
+            """
+            True if focus is in the controllers widget itself,
+            as opposed to in a descendent widget.
 
-        See also [property`Gtk`.EventControllerFocus:contains-focus].
+            See also [property`Gtk`.EventControllerFocus:contains-focus].
 
-        When handling focus events, this property is updated
-        before [signal`Gtk`.EventControllerFocus::enter] or
-        [signal`Gtk`.EventControllerFocus::leave] are emitted.
-        """
+            When handling focus events, this property is updated
+            before [signal`Gtk`.EventControllerFocus::enter] or
+            [signal`Gtk`.EventControllerFocus::leave] are emitted.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -40725,28 +41058,33 @@ class EventControllerMotion(EventController):
     moves over the widget.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        contains_pointer: bool  # [contains-pointer]: changed because contained invalid characters
-        """
-        Whether the pointer is in the controllers widget or a descendant.
+        @builtins.property
+        def contains_pointer(self) -> bool:
+            """
+            Whether the pointer is in the controllers widget or a descendant.
 
-        See also [property`Gtk`.EventControllerMotion:is-pointer].
+            See also [property`Gtk`.EventControllerMotion:is-pointer].
 
-        When handling crossing events, this property is updated
-        before [signal`Gtk`.EventControllerMotion::enter], but after
-        [signal`Gtk`.EventControllerMotion::leave] is emitted.
-        """
-        is_pointer: bool  # [is-pointer]: changed because contained invalid characters
-        """
-        Whether the pointer is in the controllers widget itself,
-        as opposed to in a descendent widget.
+            When handling crossing events, this property is updated
+            before [signal`Gtk`.EventControllerMotion::enter], but after
+            [signal`Gtk`.EventControllerMotion::leave] is emitted.
+            """
+            ...
+        @builtins.property
+        def is_pointer(self) -> bool:
+            """
+            Whether the pointer is in the controllers widget itself,
+            as opposed to in a descendent widget.
 
-        See also [property`Gtk`.EventControllerMotion:contains-pointer].
+            See also [property`Gtk`.EventControllerMotion:contains-pointer].
 
-        When handling crossing events, this property is updated
-        before [signal`Gtk`.EventControllerMotion::enter], but after
-        [signal`Gtk`.EventControllerMotion::leave] is emitted.
-        """
+            When handling crossing events, this property is updated
+            before [signal`Gtk`.EventControllerMotion::enter], but after
+            [signal`Gtk`.EventControllerMotion::leave] is emitted.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -40905,6 +41243,7 @@ class EventControllerScroll(EventController):
     motion that was received.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
         flags: EventControllerScrollFlags
         """
@@ -41224,6 +41563,7 @@ class Expander(Widget):
     `GtkExpander` uses the Gtk.ACCESSIBLE_ROLE_BUTTON role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -41233,7 +41573,7 @@ class Expander(Widget):
         """
         Whether the expander has been opened to reveal the child.
         """
-        label: str
+        label: str | None
         """
         The text of the expanders label.
         """
@@ -41947,6 +42287,7 @@ class Expression(builtins.object, metaclass=GObject.GType):
     ```
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -42103,6 +42444,7 @@ class FileChooser(builtins.object):
     be rendered as a combo box.
     """
 
+    @typing.type_check_only
     class Props:
         action: FileChooserAction
         """
@@ -42113,30 +42455,38 @@ class FileChooser(builtins.object):
         Whether a file chooser not in Gtk.FILE_CHOOSER_ACTION_OPEN mode
         will offer the user to create new folders.
         """
-        filter: FileFilter | None
-        """
-        The current filter for selecting files that are displayed.
-        """
-        filters: Gio.ListModel | None
-        """
-        A `GListModel` containing the filters that have been
-        added with `Gtk.FileChooser.add_filter`.
+        @builtins.property
+        def filter(self) -> FileFilter | None:
+            """
+            The current filter for selecting files that are displayed.
+            """
+            ...
+        @filter.setter
+        def filter(self, value: FileFilter) -> None: ...
+        @builtins.property
+        def filters(self) -> Gio.ListModel:
+            """
+            A `GListModel` containing the filters that have been
+            added with `Gtk.FileChooser.add_filter`.
 
-        The returned object should not be modified. It may
-        or may not be updated for later changes.
-        """
+            The returned object should not be modified. It may
+            or may not be updated for later changes.
+            """
+            ...
         select_multiple: bool  # [select-multiple]: changed because contained invalid characters
         """
         Whether to allow multiple files to be selected.
         """
-        shortcut_folders: Gio.ListModel | None  # [shortcut-folders]: changed because contained invalid characters
-        """
-        A `GListModel` containing the shortcut folders that have been
-        added with `Gtk.FileChooser.add_shortcut_folder`.
+        @builtins.property
+        def shortcut_folders(self) -> Gio.ListModel:
+            """
+            A `GListModel` containing the shortcut folders that have been
+            added with `Gtk.FileChooser.add_shortcut_folder`.
 
-        The returned object should not be modified. It may
-        or may not be updated for later changes.
-        """
+            The returned object should not be modified. It may
+            or may not be updated for later changes.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -43421,13 +43771,14 @@ class FileChooserNative(NativeDialog):
     * Shortcut folders.
     """
 
+    @typing.type_check_only
     class Props(NativeDialog.Props):
-        accept_label: str  # [accept-label]: changed because contained invalid characters
+        accept_label: str | None  # [accept-label]: changed because contained invalid characters
         """
         The text used for the label on the accept button in the dialog, or
         None to use the default text.
         """
-        cancel_label: str  # [cancel-label]: changed because contained invalid characters
+        cancel_label: str | None  # [cancel-label]: changed because contained invalid characters
         """
         The text used for the label on the cancel button in the dialog, or
         None to use the default text.
@@ -43628,13 +43979,17 @@ class FileChooserWidget(Widget):
     `GtkFileChooserWidget` has a single CSS node with name filechooser.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         search_mode: bool  # [search-mode]: changed because contained invalid characters
-        show_time: bool  # [show-time]: changed because contained invalid characters
-        """
-        Whether to show the time.
-        """
-        subtitle: str
+        @builtins.property
+        def show_time(self) -> bool:
+            """
+            Whether to show the time.
+            """
+            ...
+        @builtins.property
+        def subtitle(self) -> str: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -44297,8 +44652,9 @@ class FileDialog(GObject.Object):
     [method`Gtk`.FileDialog.open_finish].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        accept_label: str  # [accept-label]: changed because contained invalid characters
+        accept_label: str | None  # [accept-label]: changed because contained invalid characters
         """
         Label for the file chooser's accept button.
         """
@@ -44333,7 +44689,7 @@ class FileDialog(GObject.Object):
         The initial folder, that is, the directory that is initially
         opened in the file chooser dialog
         """
-        initial_name: str  # [initial-name]: changed because contained invalid characters
+        initial_name: str | None  # [initial-name]: changed because contained invalid characters
         """
         The initial name, that is, the filename that is initially
         selected in the file chooser dialog.
@@ -44401,13 +44757,10 @@ class FileDialog(GObject.Object):
             Returns the title that will be shown on the
         file chooser dialog.
         """
+    @typing.overload
     def open(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.File | None]:
         """
             This function initiates a file selection operation by
         presenting a file chooser dialog to the user.
@@ -44416,18 +44769,31 @@ class FileDialog(GObject.Object):
         It should call [method`Gtk`.FileDialog.open_finish]
         to obtain the result.
         """
+    @typing.overload
+    def open(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def open(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def open_finish(self, result: Gio.AsyncResult) -> Gio.File | None:
         """
             Finishes the [method`Gtk`.FileDialog.open] call and
         returns the resulting file.
         """
+    @typing.overload
     def open_multiple(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.ListModel | None]:
         """
             This function initiates a multi-file selection operation by
         presenting a file chooser dialog to the user.
@@ -44439,18 +44805,31 @@ class FileDialog(GObject.Object):
         It should call [method`Gtk`.FileDialog.open_multiple_finish]
         to obtain the result.
         """
+    @typing.overload
+    def open_multiple(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def open_multiple(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def open_multiple_finish(self, result: Gio.AsyncResult) -> Gio.ListModel | None:
         """
             Finishes the [method`Gtk`.FileDialog.open] call and
         returns the resulting files in a `GListModel`.
         """
+    @typing.overload
     def save(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.File | None]:
         """
             This function initiates a file save operation by
         presenting a file chooser dialog to the user.
@@ -44459,18 +44838,31 @@ class FileDialog(GObject.Object):
         It should call [method`Gtk`.FileDialog.save_finish]
         to obtain the result.
         """
+    @typing.overload
+    def save(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def save(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def save_finish(self, result: Gio.AsyncResult) -> Gio.File | None:
         """
             Finishes the [method`Gtk`.FileDialog.save] call and
         returns the resulting file.
         """
+    @typing.overload
     def select_folder(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.File | None]:
         """
             This function initiates a directory selection operation by
         presenting a file chooser dialog to the user.
@@ -44483,18 +44875,31 @@ class FileDialog(GObject.Object):
         It should call [method`Gtk`.FileDialog.select_folder_finish]
         to obtain the result.
         """
+    @typing.overload
+    def select_folder(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def select_folder(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def select_folder_finish(self, result: Gio.AsyncResult) -> Gio.File | None:
         """
             Finishes the [method`Gtk`.FileDialog.select_folder] call and
         returns the resulting file.
         """
+    @typing.overload
     def select_multiple_folders(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.ListModel | None]:
         """
             This function initiates a multi-directory selection operation by
         presenting a file chooser dialog to the user.
@@ -44506,6 +44911,22 @@ class FileDialog(GObject.Object):
         It should call [method`Gtk`.FileDialog.select_multiple_folders_finish]
         to obtain the result.
         """
+    @typing.overload
+    def select_multiple_folders(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def select_multiple_folders(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def select_multiple_folders_finish(self, result: Gio.AsyncResult) -> Gio.ListModel | None:
         """
             Finishes the [method`Gtk`.FileDialog.select_multiple_folders]
@@ -44704,25 +45125,14 @@ class FileFilter(Filter):
     ```
     """
 
+    @typing.type_check_only
     class Props(Filter.Props):
-        mime_types: list | None  # [mime-types]: changed because contained invalid characters
-        """
-        The MIME types that this filter matches.
-        """
-        name: str
+        name: str | None
         """
         The human-readable name of the filter.
 
         This is the string that will be displayed in the file chooser
         user interface if there is a selectable list of filters.
-        """
-        patterns: list | None
-        """
-        The patterns that this filter matches.
-        """
-        suffixes: list | None
-        """
-        The suffixes that this filter matches.
         """
 
     @builtins.property
@@ -44901,6 +45311,7 @@ class FileLauncher(GObject.Object):
     To launch uris that don't represent files, use [class`Gtk`.UriLauncher].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         always_ask: bool  # [always-ask]: changed because contained invalid characters
         """
@@ -44938,13 +45349,8 @@ class FileLauncher(GObject.Object):
         """
         Returns whether to make the file writable for the handler.
         """
-    def launch(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def launch(self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Launch an application to open the file.
 
@@ -44954,18 +45360,31 @@ class FileLauncher(GObject.Object):
         It should call [method`Gtk`.FileLauncher.launch_finish] to obtain
         the result.
         """
+    @typing.overload
+    def launch(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def launch(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def launch_finish(self, result: Gio.AsyncResult) -> bool:
         """
             Finishes the [method`Gtk`.FileLauncher.launch] call and
         returns the result.
         """
+    @typing.overload
     def open_containing_folder(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[bool]:
         """
             Launch a file manager to show the file in its parent directory.
 
@@ -44976,6 +45395,22 @@ class FileLauncher(GObject.Object):
         It should call [method`Gtk`.FileLauncher.open_containing_folder_finish]
         to obtain the result.
         """
+    @typing.overload
+    def open_containing_folder(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def open_containing_folder(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def open_containing_folder_finish(self, result: Gio.AsyncResult) -> bool:
         """
             Finishes the [method`Gtk`.FileLauncher.open_containing_folder]
@@ -45198,6 +45633,7 @@ class FilterListModel(GObject.Object):
     `GtkFilterListModel` passes through sections from the underlying model.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         filter: Filter | None
         """
@@ -45207,22 +45643,28 @@ class FilterListModel(GObject.Object):
         """
         If the model should filter items incrementally.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The model being filtered.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
-        pending: int
-        """
-        Number of items not yet filtered.
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
+        @builtins.property
+        def pending(self) -> int:
+            """
+            Number of items not yet filtered.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -45926,11 +46368,16 @@ class FixedLayoutChild(LayoutChild):
     `GtkLayoutChild` subclass for children in a `GtkFixedLayout`.
     """
 
+    @typing.type_check_only
     class Props(LayoutChild.Props):
-        transform: Gsk.Transform | None
-        """
-        The transform of the child.
-        """
+        @builtins.property
+        def transform(self) -> Gsk.Transform | None:
+            """
+            The transform of the child.
+            """
+            ...
+        @transform.setter
+        def transform(self, value: Gsk.Transform) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -46006,19 +46453,24 @@ class FlattenListModel(GObject.Object):
     it into a single model. Each list model becomes a section in the single model.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The model being flattened.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -46158,6 +46610,7 @@ class FlowBox(Widget):
     uses the Gtk.ACCESSIBLE_ROLE_GRID_CELL role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         accept_unpaired_release: bool  # [accept-unpaired-release]: changed because contained invalid characters
         activate_on_single_click: bool  # [activate-on-single-click]: changed because contained invalid characters
@@ -46996,6 +47449,7 @@ class FlowBoxChild(Widget):
     `GtkFlowBoxChild` is the kind of widget that can be added to a `GtkFlowBox`.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -47488,6 +47942,7 @@ class FontButton(Widget):
     contains a button node with the .font style class.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         modal: bool
         """
@@ -48070,22 +48525,33 @@ class FontChooser(builtins.object):
     [class`Gtk`.FontButton].
     """
 
+    @typing.type_check_only
     class Props:
-        font: str
-        """
-        The font description as a string, e.g. "Sans Italic 12".
-        """
-        font_desc: Pango.FontDescription | None  # [font-desc]: changed because contained invalid characters
-        """
-        The font description as a `PangoFontDescription`.
-        """
-        font_features: str  # [font-features]: changed because contained invalid characters
-        """
-        The selected font features.
+        @builtins.property
+        def font(self) -> str | None:
+            """
+            The font description as a string, e.g. "Sans Italic 12".
+            """
+            ...
+        @font.setter
+        def font(self, value: str) -> None: ...
+        @builtins.property
+        def font_desc(self) -> Pango.FontDescription | None:
+            """
+            The font description as a `PangoFontDescription`.
+            """
+            ...
+        @font_desc.setter
+        def font_desc(self, value: Pango.FontDescription) -> None: ...
+        @builtins.property
+        def font_features(self) -> str:
+            """
+            The selected font features.
 
-        The format of the string is compatible with
-        CSS and with Pango attributes.
-        """
+            The format of the string is compatible with
+            CSS and with Pango attributes.
+            """
+            ...
         language: str
         """
         The language for which the font features were selected.
@@ -49092,16 +49558,19 @@ class FontChooserWidget(Widget):
     `GtkFontChooserWidget` has a single CSS node with name fontchooser.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        tweak_action: Gio.Action | None  # [tweak-action]: changed because contained invalid characters
-        """
-        A toggle action that can be used to switch to the tweak page
-        of the font chooser widget, which lets the user tweak the
-        OpenType features and variation axes of the selected font.
+        @builtins.property
+        def tweak_action(self) -> Gio.Action | None:
+            """
+            A toggle action that can be used to switch to the tweak page
+            of the font chooser widget, which lets the user tweak the
+            OpenType features and variation axes of the selected font.
 
-        The action will be enabled or disabled depending on whether
-        the selected font has any features or axes.
-        """
+            The action will be enabled or disabled depending on whether
+            the selected font has any features or axes.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -49570,6 +50039,7 @@ class FontDialog(GObject.Object):
     that uses `GtkFontDialog` and presents the results.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         filter: Filter | None
         """
@@ -49583,10 +50053,14 @@ class FontDialog(GObject.Object):
         A custom font map can be used to present application-specific
         fonts instead of or in addition to the normal system fonts.
         """
-        language: Pango.Language | None
-        """
-        The language for which the font features are selected.
-        """
+        @builtins.property
+        def language(self) -> Pango.Language | None:
+            """
+            The language for which the font features are selected.
+            """
+            ...
+        @language.setter
+        def language(self, value: Pango.Language) -> None: ...
         modal: bool
         """
         Whether the font chooser dialog is modal.
@@ -49612,14 +50086,13 @@ class FontDialog(GObject.Object):
         """
         Initialize FontDialog object with properties.
         """
+    @typing.overload
     def choose_face(
         self,
         parent: Window | None = None,
         initial_value: Pango.FontFace | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[Pango.FontFace | None]:
         """
             This function initiates a font selection operation by
         presenting a dialog to the user for selecting a font face
@@ -49629,19 +50102,36 @@ class FontDialog(GObject.Object):
         It should call [method`Gtk`.FontDialog.choose_face_finish]
         to obtain the result.
         """
+    @typing.overload
+    def choose_face(
+        self,
+        parent: Window | None,
+        initial_value: Pango.FontFace | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose_face(
+        self,
+        parent: Window | None = None,
+        initial_value: Pango.FontFace | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def choose_face_finish(self, result: Gio.AsyncResult) -> Pango.FontFace | None:
         """
             Finishes the [method`Gtk`.FontDialog.choose_face] call
         and returns the resulting font face.
         """
+    @typing.overload
     def choose_family(
         self,
         parent: Window | None = None,
         initial_value: Pango.FontFamily | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[Pango.FontFamily | None]:
         """
             This function initiates a font selection operation by
         presenting a dialog to the user for selecting a font family.
@@ -49650,6 +50140,24 @@ class FontDialog(GObject.Object):
         It should call [method`Gtk`.FontDialog.choose_family_finish]
         to obtain the result.
         """
+    @typing.overload
+    def choose_family(
+        self,
+        parent: Window | None,
+        initial_value: Pango.FontFamily | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose_family(
+        self,
+        parent: Window | None = None,
+        initial_value: Pango.FontFamily | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def choose_family_finish(self, result: Gio.AsyncResult) -> Pango.FontFamily | None:
         """
             Finishes the [method`Gtk`.FontDialog.choose_family] call
@@ -49659,14 +50167,13 @@ class FontDialog(GObject.Object):
         not finished successfully, the value passed as `initial_value`
         to [method`Gtk`.FontDialog.choose_family] is returned.
         """
+    @typing.overload
     def choose_font(
         self,
         parent: Window | None = None,
         initial_value: Pango.FontDescription | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[Pango.FontDescription | None]:
         """
             This function initiates a font selection operation by
         presenting a dialog to the user for selecting a font.
@@ -49678,14 +50185,31 @@ class FontDialog(GObject.Object):
         If you want to let the user select font features as well,
         use [method`Gtk`.FontDialog.choose_font_and_features] instead.
         """
+    @typing.overload
+    def choose_font(
+        self,
+        parent: Window | None,
+        initial_value: Pango.FontDescription | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose_font(
+        self,
+        parent: Window | None = None,
+        initial_value: Pango.FontDescription | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
+    @typing.overload
     def choose_font_and_features(
         self,
         parent: Window | None = None,
         initial_value: Pango.FontDescription | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[tuple[bool, Pango.FontDescription, str, Pango.Language]]:
         """
             This function initiates a font selection operation by
         presenting a dialog to the user for selecting a font and
@@ -49698,6 +50222,24 @@ class FontDialog(GObject.Object):
         It should call [method`Gtk`.FontDialog.choose_font_and_features_finish]
         to obtain the result.
         """
+    @typing.overload
+    def choose_font_and_features(
+        self,
+        parent: Window | None,
+        initial_value: Pango.FontDescription | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def choose_font_and_features(
+        self,
+        parent: Window | None = None,
+        initial_value: Pango.FontDescription | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def choose_font_and_features_finish(
         self, result: Gio.AsyncResult
     ) -> tuple[bool, Pango.FontDescription, str, Pango.Language]:
@@ -49847,24 +50389,33 @@ class FontDialogButton(Widget):
     contains a button node with the .font style class.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        dialog: FontDialog | None
-        """
-        The `GtkFontDialog` that contains parameters for
-        the font chooser dialog.
-        """
-        font_desc: Pango.FontDescription | None  # [font-desc]: changed because contained invalid characters
-        """
-        The selected font.
+        @builtins.property
+        def dialog(self) -> FontDialog | None:
+            """
+            The `GtkFontDialog` that contains parameters for
+            the font chooser dialog.
+            """
+            ...
+        @dialog.setter
+        def dialog(self, value: FontDialog) -> None: ...
+        @builtins.property
+        def font_desc(self) -> Pango.FontDescription | None:
+            """
+            The selected font.
 
-        This property can be set to give the button its initial
-        font, and it will be updated to reflect the users choice
-        in the font chooser dialog.
+            This property can be set to give the button its initial
+            font, and it will be updated to reflect the users choice
+            in the font chooser dialog.
 
-        Listen to `notify::font-desc` to get informed about changes
-        to the buttons font.
-        """
-        font_features: str  # [font-features]: changed because contained invalid characters
+            Listen to `notify::font-desc` to get informed about changes
+            to the buttons font.
+            """
+            ...
+        @font_desc.setter
+        def font_desc(self, value: Pango.FontDescription) -> None: ...
+        font_features: str | None  # [font-features]: changed because contained invalid characters
         """
         The selected font features.
 
@@ -50484,12 +51035,13 @@ class Frame(Widget):
     `GtkFrame` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
         The child widget.
         """
-        label: str
+        label: str | None
         """
         Text of the frame's label.
         """
@@ -51093,15 +51645,18 @@ class GLArea(Widget):
     you should use the [signal`Gtk`.GLArea::create-context] signal.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         allowed_apis: Gdk.GLAPI  # [allowed-apis]: changed because contained invalid characters
         """
         The allowed APIs.
         """
-        api: Gdk.GLAPI
-        """
-        The API currently in use.
-        """
+        @builtins.property
+        def api(self) -> Gdk.GLAPI:
+            """
+            The API currently in use.
+            """
+            ...
         auto_render: bool  # [auto-render]: changed because contained invalid characters
         """
         If set to True the ::render signal will be emitted every time
@@ -51115,14 +51670,16 @@ class GLArea(Widget):
         This mode is useful when the scene changes seldom, but takes a long time
         to redraw.
         """
-        context: Gdk.GLContext | None
-        """
-        The `GdkGLContext` used by the `GtkGLArea` widget.
+        @builtins.property
+        def context(self) -> Gdk.GLContext | None:
+            """
+            The `GdkGLContext` used by the `GtkGLArea` widget.
 
-        The `GtkGLArea` widget is responsible for creating the `GdkGLContext`
-        instance. If you need to render with other kinds of buffers (stencil,
-        depth, etc), use render buffers.
-        """
+            The `GtkGLArea` widget is responsible for creating the `GdkGLContext`
+            instance. If you need to render with other kinds of buffers (stencil,
+            depth, etc), use render buffers.
+            """
+            ...
         has_depth_buffer: bool  # [has-depth-buffer]: changed because contained invalid characters
         """
         If set to True the widget will allocate and enable a depth buffer for the
@@ -51908,12 +52465,15 @@ class Gesture(EventController):
       GDK_TOUCHPAD_SWIPE and GDK_TOUCHPAD_PINCH are handled by the `GtkGesture`
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        n_points: int  # [n-points]: changed because contained invalid characters
-        """
-        The number of touch points that trigger
-        recognition on this gesture.
-        """
+        @builtins.property
+        def n_points(self) -> int:
+            """
+            The number of touch points that trigger
+            recognition on this gesture.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -52666,6 +53226,7 @@ class GestureLongPress(GestureSingle):
     property.
     """
 
+    @typing.type_check_only
     class Props(GestureSingle.Props):
         delay_factor: float  # [delay-factor]: changed because contained invalid characters
         """
@@ -52865,6 +53426,7 @@ class GesturePan(GestureDrag):
     events are received, containing the offset in the given axis.
     """
 
+    @typing.type_check_only
     class Props(GestureDrag.Props):
         orientation: Orientation
         """
@@ -53211,6 +53773,7 @@ class GestureSingle(Gesture):
     [method`Gtk`.GestureSingle.get_current_button].
     """
 
+    @typing.type_check_only
     class Props(Gesture.Props):
         button: int
         """
@@ -53411,6 +53974,7 @@ class GestureStylus(GestureSingle):
     stylus events.
     """
 
+    @typing.type_check_only
     class Props(GestureSingle.Props):
         stylus_only: bool  # [stylus-only]: changed because contained invalid characters
         """
@@ -54008,6 +54572,7 @@ class GraphicsOffload(Widget):
     The GTK inspector provides a visual debugging tool for graphics offload.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -54527,6 +55092,7 @@ class Grid(Widget):
     Starting from GTK 4.12, `GtkGrid` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         baseline_row: int  # [baseline-row]: changed because contained invalid characters
         """
@@ -55149,6 +55715,7 @@ class GridLayout(LayoutManager):
     single row or column, you should consider using `GtkBoxLayout`.
     """
 
+    @typing.type_check_only
     class Props(LayoutManager.Props):
         baseline_row: int  # [baseline-row]: changed because contained invalid characters
         """
@@ -55312,6 +55879,7 @@ class GridLayoutChild(LayoutChild):
     `GtkLayoutChild` subclass for children in a `GtkGridLayout`.
     """
 
+    @typing.type_check_only
     class Props(LayoutChild.Props):
         column: int
         """
@@ -55483,6 +56051,7 @@ class GridView(ListBase):
     use the Gtk.ACCESSIBLE_ROLE_GRID_CELL role.
     """
 
+    @typing.type_check_only
     class Props(ListBase.Props):
         enable_rubberband: bool  # [enable-rubberband]: changed because contained invalid characters
         """
@@ -56174,8 +56743,9 @@ class HeaderBar(Widget):
     `GtkHeaderBar` uses the Gtk.ACCESSIBLE_ROLE_GROUP role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        decoration_layout: str  # [decoration-layout]: changed because contained invalid characters
+        decoration_layout: str | None  # [decoration-layout]: changed because contained invalid characters
         """
         The decoration layout for buttons.
 
@@ -56705,6 +57275,7 @@ class IMContext(GObject.Object):
     [class`Gtk`.IMMulticontext].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         input_hints: InputHints  # [input-hints]: changed because contained invalid characters
         """
@@ -57566,19 +58137,26 @@ class IconPaintable(GObject.Object):
     `GtkIconPaintable` implements `GdkPaintable`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        file: Gio.File | None
-        """
-        The file representing the icon, if any.
-        """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        The icon name that was chosen during lookup.
-        """
-        is_symbolic: bool  # [is-symbolic]: changed because contained invalid characters
-        """
-        Whether the icon is symbolic or not.
-        """
+        @builtins.property
+        def file(self) -> Gio.File | None:
+            """
+            The file representing the icon, if any.
+            """
+            ...
+        @builtins.property
+        def icon_name(self) -> str | None:
+            """
+            The icon name that was chosen during lookup.
+            """
+            ...
+        @builtins.property
+        def is_symbolic(self) -> bool:
+            """
+            Whether the icon is symbolic or not.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -57718,16 +58296,19 @@ class IconTheme(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         display: Gdk.Display | None
         """
         The display that this icon theme object is attached to.
         """
-        icon_names: list | None  # [icon-names]: changed because contained invalid characters
-        """
-        The icon names that are supported by the icon theme.
-        """
-        resource_path: list | None  # [resource-path]: changed because contained invalid characters
+        @builtins.property
+        def icon_names(self) -> list[str]:
+            """
+            The icon names that are supported by the icon theme.
+            """
+            ...
+        resource_path: list[str] | None  # [resource-path]: changed because contained invalid characters
         """
         Resource paths that will be looked at when looking for icons,
         similar to search paths.
@@ -57738,7 +58319,7 @@ class IconTheme(GObject.Object):
         Icons that are directly placed in the resource path instead
         of a subdirectory are also considered as ultimate fallback.
         """
-        search_path: list | None  # [search-path]: changed because contained invalid characters
+        search_path: list[str] | None  # [search-path]: changed because contained invalid characters
         """
         The search path for this icon theme.
 
@@ -57748,14 +58329,18 @@ class IconTheme(GObject.Object):
         from multiple of the path elements are combined to allow themes
         to be extended by adding icons in the user’s home directory.)
         """
-        theme_name: str  # [theme-name]: changed because contained invalid characters
-        """
-        The name of the icon theme that is being used.
+        @builtins.property
+        def theme_name(self) -> str:
+            """
+            The name of the icon theme that is being used.
 
-        Unless set to a different value, this will be the value of
-        the `GtkSettings:gtk-icon-theme-name` property of the `GtkSettings`
-        object associated to the display of the icontheme object.
-        """
+            Unless set to a different value, this will be the value of
+            the `GtkSettings:gtk-icon-theme-name` property of the `GtkSettings`
+            object associated to the display of the icontheme object.
+            """
+            ...
+        @theme_name.setter
+        def theme_name(self, value: str | None) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -58025,19 +58610,22 @@ class IconView(Widget):
     For rubberband selection, a subnode with name rubberband is used.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activate_on_single_click: bool  # [activate-on-single-click]: changed because contained invalid characters
         """
         The activate-on-single-click property specifies whether the "item-activated" signal
         will be emitted after a single click.
         """
-        cell_area: CellArea | None  # [cell-area]: changed because contained invalid characters
-        """
-        The `GtkCellArea` used to layout cell renderers for this view.
+        @builtins.property
+        def cell_area(self) -> CellArea | None:
+            """
+            The `GtkCellArea` used to layout cell renderers for this view.
 
-        If no area is specified when creating the icon view with `Gtk.IconView.new_with_area`
-        a `GtkCellAreaBox` will be used.
-        """
+            If no area is specified when creating the icon view with `Gtk.IconView.new_with_area`
+            a `GtkCellAreaBox` will be used.
+            """
+            ...
         column_spacing: int  # [column-spacing]: changed because contained invalid characters
         """
         The column-spacing property specifies the space which is inserted between
@@ -59304,6 +59892,7 @@ class Image(Widget):
     `GtkImage` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         file: str
         """
@@ -59316,12 +59905,16 @@ class Image(Widget):
         For themed icons, If the icon theme is changed, the image will be updated
         automatically.
         """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        The name of the icon in the icon theme.
+        @builtins.property
+        def icon_name(self) -> str | None:
+            """
+            The name of the icon in the icon theme.
 
-        If the icon theme is changed, the image will be updated automatically.
-        """
+            If the icon theme is changed, the image will be updated automatically.
+            """
+            ...
+        @icon_name.setter
+        def icon_name(self, value: str) -> None: ...
         icon_size: IconSize  # [icon-size]: changed because contained invalid characters
         """
         The symbolic size to display icons at.
@@ -59342,10 +59935,12 @@ class Image(Widget):
         """
         A path to a resource file to display.
         """
-        storage_type: ImageType  # [storage-type]: changed because contained invalid characters
-        """
-        The representation being used for image data.
-        """
+        @builtins.property
+        def storage_type(self) -> ImageType:
+            """
+            The representation being used for image data.
+            """
+            ...
         use_fallback: bool  # [use-fallback]: changed because contained invalid characters
         """
         Whether the icon displayed in the `GtkImage` will use
@@ -60106,6 +60701,7 @@ class InfoBar(Widget):
     style class applied.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         message_type: MessageType  # [message-type]: changed because contained invalid characters
         """
@@ -60673,21 +61269,27 @@ class Inscription(Widget):
     where the text doesn't fit exactly in the allocated space.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         attributes: Pango.AttrList | None
         """
         A list of style attributes to apply to the text of the inscription.
         """
-        markup: str
-        """
-        Utility property that sets both the [property`Gtk`.Inscription:text] and
-        [property`Gtk`.Inscription:attributes] properties, mainly intended for use in
-        GtkBuilder ui files to ease translation support and bindings.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def markup(self) -> typing.Never:
+            """
+            Utility property that sets both the [property`Gtk`.Inscription:text] and
+            [property`Gtk`.Inscription:attributes] properties, mainly intended for use in
+            GtkBuilder ui files to ease translation support and bindings.
 
-        This function uses [func`Pango`.parse_markup] to parse the markup into text and
-        attributes. The markup must be valid. If you cannot ensure that, consider using
-        [func`Pango`.parse_markup] and setting the two properties yourself.
-        """
+            This function uses [func`Pango`.parse_markup] to parse the markup into text and
+            attributes. The markup must be valid. If you cannot ensure that, consider using
+            [func`Pango`.parse_markup] and setting the two properties yourself.
+            """
+            ...
+        @markup.setter
+        def markup(self, value: str | None) -> None: ...
         min_chars: int  # [min-chars]: changed because contained invalid characters
         """
         The number of characters that should fit into the inscription at minimum.
@@ -60737,7 +61339,7 @@ class Inscription(Widget):
         that value will be used. In particular, for the default value of 0, this will always
         be the case.
         """
-        text: str
+        text: str | None
         """
         The displayed text.
         """
@@ -61361,15 +61963,20 @@ class KeyvalTrigger(ShortcutTrigger):
     A `GtkShortcutTrigger` that triggers when a specific keyval and modifiers are pressed.
     """
 
+    @typing.type_check_only
     class Props(ShortcutTrigger.Props):
-        keyval: int
-        """
-        The key value for the trigger.
-        """
-        modifiers: Gdk.ModifierType
-        """
-        The key modifiers for the trigger.
-        """
+        @builtins.property
+        def keyval(self) -> int:
+            """
+            The key value for the trigger.
+            """
+            ...
+        @builtins.property
+        def modifiers(self) -> Gdk.ModifierType:
+            """
+            The key modifiers for the trigger.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -61622,6 +62229,7 @@ class Label(Widget):
     [method`Gtk`.Label.get_current_uri] function.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         attributes: Pango.AttrList | None
         """
@@ -61684,10 +62292,12 @@ class Label(Widget):
         [property`Gtk`.Label:width-chars] and [property`Gtk`.Label:max-width-chars]
         determine the width of ellipsized and wrapped labels.
         """
-        mnemonic_keyval: int  # [mnemonic-keyval]: changed because contained invalid characters
-        """
-        The mnemonic accelerator key for the label.
-        """
+        @builtins.property
+        def mnemonic_keyval(self) -> int:
+            """
+            The mnemonic accelerator key for the label.
+            """
+            ...
         mnemonic_widget: Widget | None  # [mnemonic-widget]: changed because contained invalid characters
         """
         The widget to be activated when the labels mnemonic key is pressed.
@@ -62812,15 +63422,20 @@ class LayoutChild(GObject.Object):
     of a layout.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        child_widget: Widget | None  # [child-widget]: changed because contained invalid characters
-        """
-        The widget that is associated to the `GtkLayoutChild` instance.
-        """
-        layout_manager: LayoutManager | None  # [layout-manager]: changed because contained invalid characters
-        """
-        The layout manager that created the `GtkLayoutChild` instance.
-        """
+        @builtins.property
+        def child_widget(self) -> Widget:
+            """
+            The widget that is associated to the `GtkLayoutChild` instance.
+            """
+            ...
+        @builtins.property
+        def layout_manager(self) -> LayoutManager:
+            """
+            The layout manager that created the `GtkLayoutChild` instance.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -63195,6 +63810,7 @@ class LevelBar(Widget):
     `GtkLevelBar` uses the Gtk.ACCESSIBLE_ROLE_METER role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         inverted: bool
         """
@@ -63788,6 +64404,7 @@ class LinkButton(Button):
     `GtkLinkButton` uses the Gtk.ACCESSIBLE_ROLE_LINK role.
     """
 
+    @typing.type_check_only
     class Props(Button.Props):
         uri: str
         """
@@ -64328,6 +64945,7 @@ class ListBase(Widget):
     `GtkListBase` is the abstract base class for GTK's list widgets.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         orientation: Orientation
         """
@@ -64803,6 +65421,7 @@ class ListBox(Widget):
     the Gtk.ACCESSIBLE_ROLE_LIST_ITEM role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         accept_unpaired_release: bool  # [accept-unpaired-release]: changed because contained invalid characters
         """
@@ -65576,6 +66195,7 @@ class ListBoxRow(Widget):
     `GtkListBoxRow` is the kind of widget that can be added to a `GtkListBox`.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activatable: bool
         """
@@ -66128,27 +66748,36 @@ class ListHeader(GObject.Object):
     for managing the header instead of individual items.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         child: Widget | None
         """
         Widget used for display.
         """
-        end: int
-        """
-        The first position no longer part of this section.
-        """
-        item: GObject.Object | None
-        """
-        The item at the start of the section.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        Number of items in this section.
-        """
-        start: int
-        """
-        First position of items in this section.
-        """
+        @builtins.property
+        def end(self) -> int:
+            """
+            The first position no longer part of this section.
+            """
+            ...
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            The item at the start of the section.
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            Number of items in this section.
+            """
+            ...
+        @builtins.property
+        def start(self) -> int:
+            """
+            First position of items in this section.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -66269,6 +66898,7 @@ class ListItem(GObject.Object):
        The [property`Gtk`.ListItem:item] property is not None.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         accessible_description: str  # [accessible-description]: changed because contained invalid characters
         """
@@ -66290,22 +66920,28 @@ class ListItem(GObject.Object):
         """
         If the item can be focused with the keyboard.
         """
-        item: GObject.Object | None
-        """
-        Displayed item.
-        """
-        position: int
-        """
-        Position of the item.
-        """
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            Displayed item.
+            """
+            ...
+        @builtins.property
+        def position(self) -> int:
+            """
+            Position of the item.
+            """
+            ...
         selectable: bool
         """
         If the item can be selected by the user.
         """
-        selected: bool
-        """
-        If the item is currently selected.
-        """
+        @builtins.property
+        def selected(self) -> bool:
+            """
+            If the item is currently selected.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -67131,6 +67767,7 @@ class ListView(ListBase):
     items use the Gtk.ACCESSIBLE_ROLE_LIST_ITEM role.
     """
 
+    @typing.type_check_only
     class Props(ListBase.Props):
         enable_rubberband: bool  # [enable-rubberband]: changed because contained invalid characters
         """
@@ -67780,6 +68417,7 @@ class LockButton(Button):
     [property`Gtk`.LockButton:tooltip-not-authorized] properties.
     """
 
+    @typing.type_check_only
     class Props(Button.Props):
         permission: Gio.Permission | None
         """
@@ -68352,23 +68990,32 @@ class MapListModel(GObject.Object):
     `GtkMapListModel` passes through sections from the underlying model.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        has_map: bool  # [has-map]: changed because contained invalid characters
-        """
-        If a map is set for this model
-        """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        model: Gio.ListModel | None
-        """
-        The model being mapped.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def has_map(self) -> bool:
+            """
+            If a map is set for this model
+            """
+            ...
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def model(self) -> Gio.ListModel | None:
+            """
+            The model being mapped.
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -68498,6 +69145,7 @@ class MediaControls(Widget):
     Usually, `GtkMediaControls` is used as part of [class`Gtk`.Video].
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         media_stream: MediaStream | None  # [media-stream]: changed because contained invalid characters
         """
@@ -68920,6 +69568,7 @@ class MediaFile(MediaStream):
     GTK itself includes an implementation using GStreamer.
     """
 
+    @typing.type_check_only
     class Props(MediaStream.Props):
         file: Gio.File | None
         """
@@ -69250,28 +69899,39 @@ class MediaStream(GObject.Object):
     [method`Gtk`.MediaStream.error_valist].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        duration: int
-        """
-        The stream's duration in microseconds or 0 if unknown.
-        """
-        ended: bool
-        """
-        Set when playback has finished.
-        """
-        error: GLib.Error | None
-        """
-        None for a properly working stream or the `GError`
-        that the stream is in.
-        """
-        has_audio: bool  # [has-audio]: changed because contained invalid characters
-        """
-        Whether the stream contains audio.
-        """
-        has_video: bool  # [has-video]: changed because contained invalid characters
-        """
-        Whether the stream contains video.
-        """
+        @builtins.property
+        def duration(self) -> int:
+            """
+            The stream's duration in microseconds or 0 if unknown.
+            """
+            ...
+        @builtins.property
+        def ended(self) -> None:
+            """
+            Set when playback has finished.
+            """
+            ...
+        @builtins.property
+        def error(self) -> GLib.Error | None:
+            """
+            None for a properly working stream or the `GError`
+            that the stream is in.
+            """
+            ...
+        @builtins.property
+        def has_audio(self) -> bool:
+            """
+            Whether the stream contains audio.
+            """
+            ...
+        @builtins.property
+        def has_video(self) -> bool:
+            """
+            Whether the stream contains video.
+            """
+            ...
         loop: bool
         """
         Try to restart the media from the beginning once it ended.
@@ -69289,18 +69949,24 @@ class MediaStream(GObject.Object):
         Whether the stream has finished initializing and existence of
         audio and video is known.
         """
-        seekable: bool
-        """
-        Set unless the stream is known to not support seeking.
-        """
-        seeking: bool
-        """
-        Set while a seek is in progress.
-        """
-        timestamp: int
-        """
-        The current presentation timestamp in microseconds.
-        """
+        @builtins.property
+        def seekable(self) -> bool:
+            """
+            Set unless the stream is known to not support seeking.
+            """
+            ...
+        @builtins.property
+        def seeking(self) -> bool:
+            """
+            Set while a seek is in progress.
+            """
+            ...
+        @builtins.property
+        def timestamp(self) -> int:
+            """
+            The current presentation timestamp in microseconds.
+            """
+            ...
         volume: float
         """
         Volume of the audio stream.
@@ -69833,6 +70499,7 @@ class MenuButton(Widget):
     `GtkMenuButton` uses the Gtk.ACCESSIBLE_ROLE_BUTTON role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         active: bool
         """
@@ -69860,14 +70527,22 @@ class MenuButton(Widget):
         """
         Whether the button has a frame.
         """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        The name of the icon used to automatically populate the button.
-        """
-        label: str
-        """
-        The label for the button.
-        """
+        @builtins.property
+        def icon_name(self) -> str | None:
+            """
+            The name of the icon used to automatically populate the button.
+            """
+            ...
+        @icon_name.setter
+        def icon_name(self, value: str) -> None: ...
+        @builtins.property
+        def label(self) -> str | None:
+            """
+            The label for the button.
+            """
+            ...
+        @label.setter
+        def label(self, value: str) -> None: ...
         menu_model: Gio.MenuModel | None  # [menu-model]: changed because contained invalid characters
         """
         The `GMenuModel` from which the popup will be created.
@@ -69875,10 +70550,14 @@ class MenuButton(Widget):
         See [method`Gtk`.MenuButton.set_menu_model] for the interaction
         with the [property`Gtk`.MenuButton:popover] property.
         """
-        popover: Popover | None
-        """
-        The `GtkPopover` that will be popped up when the button is clicked.
-        """
+        @builtins.property
+        def popover(self) -> Popover | None:
+            """
+            The `GtkPopover` that will be popped up when the button is clicked.
+            """
+            ...
+        @popover.setter
+        def popover(self, value: Widget | None) -> None: ...
         primary: bool
         """
         Whether the menu button acts as a primary menu.
@@ -70618,15 +71297,17 @@ class MessageDialog(Dialog):
     the message area as an internal child with the name “message_area”.
     """
 
+    @typing.type_check_only
     class Props(Dialog.Props):
-        buttons: ButtonsType
-        message_area: Widget | None  # [message-area]: changed because contained invalid characters
-        """
-        The `GtkBox` that corresponds to the message area of this dialog.
+        @builtins.property
+        def message_area(self) -> Widget:
+            """
+            The `GtkBox` that corresponds to the message area of this dialog.
 
-        See [method`Gtk`.MessageDialog.get_message_area] for a detailed
-        description of this area.
-        """
+            See [method`Gtk`.MessageDialog.get_message_area] for a detailed
+            description of this area.
+            """
+            ...
         message_type: MessageType  # [message-type]: changed because contained invalid characters
         """
         The type of the message.
@@ -71384,11 +72065,14 @@ class MnemonicTrigger(ShortcutTrigger):
     pressed together with the mnemonic key.
     """
 
+    @typing.type_check_only
     class Props(ShortcutTrigger.Props):
-        keyval: int
-        """
-        The key value for the trigger.
-        """
+        @builtins.property
+        def keyval(self) -> int:
+            """
+            The key value for the trigger.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -71460,15 +72144,18 @@ class MountOperation(Gio.MountOperation):
     enter passwords, ask questions or show processes blocking unmount.
     """
 
+    @typing.type_check_only
     class Props(Gio.MountOperation.Props):
-        display: Gdk.Display | None
+        display: Gdk.Display
         """
         The display where dialogs will be shown.
         """
-        is_showing: bool  # [is-showing]: changed because contained invalid characters
-        """
-        Whether a dialog is currently shown.
-        """
+        @builtins.property
+        def is_showing(self) -> bool:
+            """
+            Whether a dialog is currently shown.
+            """
+            ...
         parent: Window | None
         """
         The parent window.
@@ -71747,15 +72434,20 @@ class MultiFilter(Filter):
     `GtkMultiFilter` is the base class for filters that combine multiple filters.
     """
 
+    @typing.type_check_only
     class Props(Filter.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -71827,19 +72519,24 @@ class MultiSelection(GObject.Object):
     elements.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The list managed by this selection.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -71943,15 +72640,20 @@ class MultiSorter(Sorter):
     the second is tried next, and so on.
     """
 
+    @typing.type_check_only
     class Props(Sorter.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -72045,11 +72747,14 @@ class NamedAction(ShortcutAction):
     A `GtkShortcutAction` that activates an action by name.
     """
 
+    @typing.type_check_only
     class Props(ShortcutAction.Props):
-        action_name: str  # [action-name]: changed because contained invalid characters
-        """
-        The name of the action to activate.
-        """
+        @builtins.property
+        def action_name(self) -> str:
+            """
+            The name of the action to activate.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -72125,6 +72830,7 @@ class Native(builtins.object):
     renderer, use [method`Gtk`.Native.get_renderer].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -72189,15 +72895,20 @@ class NativeDialog(GObject.Object):
     object.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         modal: bool
         """
         Whether the window should be modal with respect to its transient parent.
         """
-        title: str
-        """
-        The title of the dialog window
-        """
+        @builtins.property
+        def title(self) -> str | None:
+            """
+            The title of the dialog window
+            """
+            ...
+        @title.setter
+        def title(self, value: str) -> None: ...
         transient_for: Window | None  # [transient-for]: changed because contained invalid characters
         """
         The transient parent of the dialog, or None for none.
@@ -72451,19 +73162,24 @@ class NoSelection(GObject.Object):
     `GtkNoSelection` passes through sections from the underlying model.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The model being managed.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -72654,23 +73370,30 @@ class Notebook(Widget):
      - Gtk.ACCESSIBLE_ROLE_TAB_PANEL for each page
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         enable_popup: bool  # [enable-popup]: changed because contained invalid characters
         """
         If True, pressing the right mouse button on the notebook shows a page switching menu.
         """
-        group_name: str  # [group-name]: changed because contained invalid characters
+        group_name: str | None  # [group-name]: changed because contained invalid characters
         """
         Group name for tab drag and drop.
         """
-        page: int
-        """
-        The index of the current page.
-        """
-        pages: Gio.ListModel | None
-        """
-        A selection model with the pages.
-        """
+        @builtins.property
+        def page(self) -> NotebookPage:
+            """
+            The index of the current page.
+            """
+            ...
+        @page.setter
+        def page(self, value: int) -> None: ...
+        @builtins.property
+        def pages(self) -> Gio.ListModel:
+            """
+            A selection model with the pages.
+            """
+            ...
         scrollable: bool
         """
         If True, scroll arrows are added if there are too many pages to fit.
@@ -73510,19 +74233,24 @@ class NotebookPage(GObject.Object):
     `GtkNotebookPage` is an auxiliary object used by `GtkNotebook`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        child: Widget | None
-        """
-        The child for this page.
-        """
+        @builtins.property
+        def child(self) -> Widget:
+            """
+            The child for this page.
+            """
+            ...
         detachable: bool
         """
         Whether the tab is detachable.
         """
-        menu: Widget | None
-        """
-        The label widget displayed in the child's menu entry.
-        """
+        @builtins.property
+        def menu(self) -> Widget | None:
+            """
+            The label widget displayed in the child's menu entry.
+            """
+            ...
         menu_label: str  # [menu-label]: changed because contained invalid characters
         """
         The text of the menu widget.
@@ -73535,10 +74263,12 @@ class NotebookPage(GObject.Object):
         """
         Whether the tab is reorderable by user action.
         """
-        tab: Widget | None
-        """
-        The tab widget for this page.
-        """
+        @builtins.property
+        def tab(self) -> Widget | None:
+            """
+            The tab widget for this page.
+            """
+            ...
         tab_expand: bool  # [tab-expand]: changed because contained invalid characters
         """
         Whether to expand the child's tab.
@@ -73702,6 +74432,7 @@ class NumericSorter(Sorter):
     [class`Gtk`.Expression].
     """
 
+    @typing.type_check_only
     class Props(Sorter.Props):
         expression: Expression | None
         """
@@ -73845,6 +74576,7 @@ class Orientable(builtins.object):
     the value of the [property`Gtk`.Orientable:orientation] property.
     """
 
+    @typing.type_check_only
     class Props:
         orientation: Orientation
         """
@@ -73922,6 +74654,7 @@ class Overlay(Widget):
     “.left”, “.right”, “.top”, and/or “.bottom” according to their position.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -74433,6 +75166,7 @@ class OverlayLayoutChild(LayoutChild):
     `GtkLayoutChild` subclass for children in a `GtkOverlayLayout`.
     """
 
+    @typing.type_check_only
     class Props(LayoutChild.Props):
         clip_overlay: bool  # [clip-overlay]: changed because contained invalid characters
         """
@@ -74606,9 +75340,12 @@ class PadController(EventController):
     is required that those are made stateful and accepting this `GVariantType`.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        action_group: Gio.ActionGroup | None  # [action-group]: changed because contained invalid characters
-        pad: Gdk.Device | None
+        @builtins.property
+        def action_group(self) -> Gio.ActionGroup | None: ...
+        @builtins.property
+        def pad(self) -> Gdk.Device | None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -75718,27 +76455,32 @@ class Paned(Widget):
     ```
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         end_child: Widget | None  # [end-child]: changed because contained invalid characters
         """
         The second child.
         """
-        max_position: int  # [max-position]: changed because contained invalid characters
-        """
-        The largest possible value for the [property`Gtk`.Paned:position]
-        property.
+        @builtins.property
+        def max_position(self) -> int:
+            """
+            The largest possible value for the [property`Gtk`.Paned:position]
+            property.
 
-        This property is derived from the size and shrinkability
-        of the widget's children.
-        """
-        min_position: int  # [min-position]: changed because contained invalid characters
-        """
-        The smallest possible value for the [property`Gtk`.Paned:position]
-        property.
+            This property is derived from the size and shrinkability
+            of the widget's children.
+            """
+            ...
+        @builtins.property
+        def min_position(self) -> int:
+            """
+            The smallest possible value for the [property`Gtk`.Paned:position]
+            property.
 
-        This property is derived from the size and shrinkability
-        of the widget's children.
-        """
+            This property is derived from the size and shrinkability
+            of the widget's children.
+            """
+            ...
         position: int
         """
         Position of the separator in pixels, from the left/top.
@@ -76661,6 +77403,7 @@ class PasswordEntry(Widget):
     `GtkPasswordEntry` uses the Gtk.ACCESSIBLE_ROLE_TEXT_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activates_default: bool  # [activates-default]: changed because contained invalid characters
         """
@@ -77337,8 +78080,9 @@ class Picture(Widget):
     `GtkPicture` uses the `GTK_ACCESSIBLE_ROLE_IMG` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        alternative_text: str  # [alternative-text]: changed because contained invalid characters
+        alternative_text: str | None  # [alternative-text]: changed because contained invalid characters
         """
         The alternative textual description for the picture.
         """
@@ -78070,6 +78814,7 @@ class Popover(Widget):
     used) and no box-shadow.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         autohide: bool
         """
@@ -78097,10 +78842,14 @@ class Popover(Widget):
         """
         Whether mnemonics are currently visible in this popover.
         """
-        pointing_to: Gdk.Rectangle | None  # [pointing-to]: changed because contained invalid characters
-        """
-        Rectangle in the parent widget that the popover points to.
-        """
+        @builtins.property
+        def pointing_to(self) -> bool:
+            """
+            Rectangle in the parent widget that the popover points to.
+            """
+            ...
+        @pointing_to.setter
+        def pointing_to(self, value: Gdk.Rectangle | None) -> None: ...
         position: PositionType
         """
         How to place the popover, relative to its parent.
@@ -78839,6 +79588,7 @@ class PopoverMenu(Popover):
     action they are connected to.
     """
 
+    @typing.type_check_only
     class Props(Popover.Props):
         flags: PopoverMenuFlags
         """
@@ -79437,6 +80187,7 @@ class PopoverMenuBar(Widget):
     the menus use the Gtk.ACCESSIBLE_ROLE_MENU role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         menu_model: Gio.MenuModel | None  # [menu-model]: changed because contained invalid characters
         """
@@ -80020,6 +80771,7 @@ class PrintDialog(GObject.Object):
     and the results can be obtained by calling the corresponding finish methods.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         accept_label: str  # [accept-label]: changed because contained invalid characters
         """
@@ -80030,11 +80782,11 @@ class PrintDialog(GObject.Object):
         """
         Whether the print dialog is modal.
         """
-        page_setup: PageSetup | None  # [page-setup]: changed because contained invalid characters
+        page_setup: PageSetup  # [page-setup]: changed because contained invalid characters
         """
         The page setup to use.
         """
-        print_settings: PrintSettings | None  # [print-settings]: changed because contained invalid characters
+        print_settings: PrintSettings  # [print-settings]: changed because contained invalid characters
         """
         The print settings to use.
         """
@@ -80083,23 +80835,36 @@ class PrintDialog(GObject.Object):
             Returns the title that will be shown on the
         print dialog.
         """
+    @typing.overload
+    def print_(
+        self, parent: Window | None = None, setup: PrintSetup | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[Gio.OutputStream | None]: ...
+    @typing.overload
+    def print_(
+        self,
+        parent: Window | None,
+        setup: PrintSetup | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
     def print_(
         self,
         parent: Window | None = None,
         setup: PrintSetup | None = None,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
     ) -> None: ...
+    @typing.overload
     def print_file(
         self,
         parent: Window | None,
         setup: PrintSetup | None,
         file: Gio.File,
         cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    ) -> gi._gi.Async[bool]:
         """
             This function prints a file.
 
@@ -80109,6 +80874,26 @@ class PrintDialog(GObject.Object):
         The `callback` will be called when the printing is done. It should call
         [method`Gtk`.PrintDialog.print_file_finish] to obtain the results.
         """
+    @typing.overload
+    def print_file(
+        self,
+        parent: Window | None,
+        setup: PrintSetup | None,
+        file: Gio.File,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def print_file(
+        self,
+        parent: Window | None,
+        setup: PrintSetup | None,
+        file: Gio.File,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def print_file_finish(self, result: Gio.AsyncResult) -> bool:
         """
             Finishes the [method`Gtk`.PrintDialog.print_file] call and
@@ -80153,13 +80938,10 @@ class PrintDialog(GObject.Object):
         """
         Sets the title that will be shown on the print dialog.
         """
+    @typing.overload
     def setup(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+        self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None
+    ) -> gi._gi.Async[PrintSetup | None]:
         """
             This function presents a print dialog to let the user select a printer,
         and set up print settings and page setup.
@@ -80175,6 +80957,22 @@ class PrintDialog(GObject.Object):
         on a page), then call [method`Gtk`.PrintDialog.print] on `self`
         to do the printing without further user interaction.
         """
+    @typing.overload
+    def setup(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def setup(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def setup_finish(self, result: Gio.AsyncResult) -> PrintSetup | None:
         """
             Finishes the [method`Gtk`.PrintDialog.setup] call.
@@ -80264,23 +81062,32 @@ class PrintJob(GObject.Object):
     via [method`Gtk`.PrintJob.set_source_file].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        page_setup: PageSetup | None  # [page-setup]: changed because contained invalid characters
-        """
-        Page setup.
-        """
-        printer: Printer | None
-        """
-        The printer to send the job to.
-        """
-        settings: PrintSettings | None
-        """
-        Printer settings.
-        """
-        title: str
-        """
-        The title of the print job.
-        """
+        @builtins.property
+        def page_setup(self) -> PageSetup | None:
+            """
+            Page setup.
+            """
+            ...
+        @builtins.property
+        def printer(self) -> Printer:
+            """
+            The printer to send the job to.
+            """
+            ...
+        @builtins.property
+        def settings(self) -> PrintSettings:
+            """
+            Printer settings.
+            """
+            ...
+        @builtins.property
+        def title(self) -> str:
+            """
+            The title of the print job.
+            """
+            ...
         track_print_status: bool  # [track-print-status]: changed because contained invalid characters
         """
         True if the print job will continue to emit status-changed
@@ -80592,6 +81399,7 @@ class PrintOperation(GObject.Object):
     are useful when implementing a print preview.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         allow_async: bool  # [allow-async]: changed because contained invalid characters
         """
@@ -80615,22 +81423,30 @@ class PrintOperation(GObject.Object):
 
         Note that this only makes sense for pre-paginated documents.
         """
-        custom_tab_label: str  # [custom-tab-label]: changed because contained invalid characters
-        """
-        Used as the label of the tab containing custom widgets.
+        @builtins.property
+        def custom_tab_label(self) -> str:
+            """
+            Used as the label of the tab containing custom widgets.
 
-        Note that this property may be ignored on some platforms.
+            Note that this property may be ignored on some platforms.
 
-        If this is None, GTK uses a default label.
-        """
-        default_page_setup: PageSetup | None  # [default-page-setup]: changed because contained invalid characters
-        """
-        The `GtkPageSetup` used by default.
+            If this is None, GTK uses a default label.
+            """
+            ...
+        @custom_tab_label.setter
+        def custom_tab_label(self, value: str | None) -> None: ...
+        @builtins.property
+        def default_page_setup(self) -> PageSetup:
+            """
+            The `GtkPageSetup` used by default.
 
-        This page setup will be used by [method`Gtk`.PrintOperation.run],
-        but it can be overridden on a per-page basis by connecting
-        to the [signal`Gtk`.PrintOperation::request-page-setup] signal.
-        """
+            This page setup will be used by [method`Gtk`.PrintOperation.run],
+            but it can be overridden on a per-page basis by connecting
+            to the [signal`Gtk`.PrintOperation::request-page-setup] signal.
+            """
+            ...
+        @default_page_setup.setter
+        def default_page_setup(self, value: PageSetup | None) -> None: ...
         embed_page_setup: bool  # [embed-page-setup]: changed because contained invalid characters
         """
         If True, page size combo box and orientation combo box
@@ -80678,19 +81494,21 @@ class PrintOperation(GObject.Object):
         if the user chooses to print all pages, the last ::draw-page signal
         will be for page `n_pages` - 1.
         """
-        n_pages_to_print: int  # [n-pages-to-print]: changed because contained invalid characters
-        """
-        The number of pages that will be printed.
+        @builtins.property
+        def n_pages_to_print(self) -> int:
+            """
+            The number of pages that will be printed.
 
-        Note that this value is set during print preparation phase
-        (Gtk.PRINT_STATUS_PREPARING), so this value should never be
-        get before the data generation phase (Gtk.PRINT_STATUS_GENERATING_DATA).
-        You can connect to the [signal`Gtk`.PrintOperation::status-changed] signal
-        and call [method`Gtk`.PrintOperation.get_n_pages_to_print] when
-        print status is Gtk.PRINT_STATUS_GENERATING_DATA.
+            Note that this value is set during print preparation phase
+            (Gtk.PRINT_STATUS_PREPARING), so this value should never be
+            get before the data generation phase (Gtk.PRINT_STATUS_GENERATING_DATA).
+            You can connect to the [signal`Gtk`.PrintOperation::status-changed] signal
+            and call [method`Gtk`.PrintOperation.get_n_pages_to_print] when
+            print status is Gtk.PRINT_STATUS_GENERATING_DATA.
 
-        This is typically used to track the progress of print operation.
-        """
+            This is typically used to track the progress of print operation.
+            """
+            ...
         print_settings: PrintSettings | None  # [print-settings]: changed because contained invalid characters
         """
         The `GtkPrintSettings` used for initializing the dialog.
@@ -80704,20 +81522,24 @@ class PrintOperation(GObject.Object):
         Determines whether to show a progress dialog during the
         print operation.
         """
-        status: PrintStatus
-        """
-        The status of the print operation.
-        """
-        status_string: str  # [status-string]: changed because contained invalid characters
-        """
-        A string representation of the status of the print operation.
+        @builtins.property
+        def status(self) -> PrintStatus:
+            """
+            The status of the print operation.
+            """
+            ...
+        @builtins.property
+        def status_string(self) -> str:
+            """
+            A string representation of the status of the print operation.
 
-        The string is translated and suitable for displaying the print
-        status e.g. in a `GtkStatusbar`.
+            The string is translated and suitable for displaying the print
+            status e.g. in a `GtkStatusbar`.
 
-        See the [property`Gtk`.PrintOperation:status] property for a status
-        value that is suitable for programmatic use.
-        """
+            See the [property`Gtk`.PrintOperation:status] property for a status
+            value that is suitable for programmatic use.
+            """
+            ...
         support_selection: bool  # [support-selection]: changed because contained invalid characters
         """
         If True, the print operation will support print of selection.
@@ -81623,6 +82445,7 @@ class PrintOperationPreview(builtins.object):
     [class`Gtk`.PrintOperation].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -82253,6 +83076,7 @@ class PrintUnixDialog(Dialog):
     dialog and print are added.
     """
 
+    @typing.type_check_only
     class Props(Dialog.Props):
         current_page: int  # [current-page]: changed because contained invalid characters
         """
@@ -82270,7 +83094,7 @@ class PrintUnixDialog(Dialog):
         """
         Capabilities the application can handle.
         """
-        page_setup: PageSetup | None  # [page-setup]: changed because contained invalid characters
+        page_setup: PageSetup  # [page-setup]: changed because contained invalid characters
         """
         The `GtkPageSetup` object to use.
         """
@@ -82278,10 +83102,12 @@ class PrintUnixDialog(Dialog):
         """
         The `GtkPrintSettings` object used for this dialog.
         """
-        selected_printer: Printer | None  # [selected-printer]: changed because contained invalid characters
-        """
-        The `GtkPrinter` which is selected.
-        """
+        @builtins.property
+        def selected_printer(self) -> Printer | None:
+            """
+            The `GtkPrinter` which is selected.
+            """
+            ...
         support_selection: bool  # [support-selection]: changed because contained invalid characters
         """
         Whether the dialog supports selection.
@@ -83075,50 +83901,71 @@ class Printer(GObject.Object):
     a [class`Gtk`.PrintJob] object, which lets you print to the printer.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        accepting_jobs: bool  # [accepting-jobs]: changed because contained invalid characters
-        """
-        True if the printer is accepting jobs.
-        """
-        accepts_pdf: bool  # [accepts-pdf]: changed because contained invalid characters
-        """
-        True if this printer can accept PDF.
-        """
-        accepts_ps: bool  # [accepts-ps]: changed because contained invalid characters
-        """
-        True if this printer can accept PostScript.
-        """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        Icon name to use for the printer.
-        """
-        is_virtual: bool  # [is-virtual]: changed because contained invalid characters
-        """
-        False if this represents a real hardware device.
-        """
-        job_count: int  # [job-count]: changed because contained invalid characters
-        """
-        Number of jobs queued in the printer.
-        """
-        location: str
-        """
-        Information about the location of the printer.
-        """
-        name: str
-        """
-        The name of the printer.
-        """
-        paused: bool
-        """
-        True if this printer is paused.
+        @builtins.property
+        def accepting_jobs(self) -> bool:
+            """
+            True if the printer is accepting jobs.
+            """
+            ...
+        @builtins.property
+        def accepts_pdf(self) -> bool:
+            """
+            True if this printer can accept PDF.
+            """
+            ...
+        @builtins.property
+        def accepts_ps(self) -> bool:
+            """
+            True if this printer can accept PostScript.
+            """
+            ...
+        @builtins.property
+        def icon_name(self) -> str:
+            """
+            Icon name to use for the printer.
+            """
+            ...
+        @builtins.property
+        def is_virtual(self) -> bool:
+            """
+            False if this represents a real hardware device.
+            """
+            ...
+        @builtins.property
+        def job_count(self) -> int:
+            """
+            Number of jobs queued in the printer.
+            """
+            ...
+        @builtins.property
+        def location(self) -> str:
+            """
+            Information about the location of the printer.
+            """
+            ...
+        @builtins.property
+        def name(self) -> str:
+            """
+            The name of the printer.
+            """
+            ...
+        @builtins.property
+        def paused(self) -> bool:
+            """
+            True if this printer is paused.
 
-        A paused printer still accepts jobs, but it does
-        not print them.
-        """
-        state_message: str  # [state-message]: changed because contained invalid characters
-        """
-        String giving the current status of the printer.
-        """
+            A paused printer still accepts jobs, but it does
+            not print them.
+            """
+            ...
+        @builtins.property
+        def state_message(self) -> str:
+            """
+            String giving the current status of the printer.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -83426,6 +84273,7 @@ class ProgressBar(Widget):
     `GtkProgressBar` uses the Gtk.ACCESSIBLE_ROLE_PROGRESS_BAR role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         ellipsize: Pango.EllipsizeMode
         """
@@ -83464,7 +84312,7 @@ class ProgressBar(Widget):
         (even if the actual text is blank), set [property`Gtk`.ProgressBar:show-text]
         to True and [property`Gtk`.ProgressBar:text] to the empty string (not None).
         """
-        text: str
+        text: str | None
         """
         Text to be displayed in the progress bar.
         """
@@ -84081,8 +84929,9 @@ class Range(Widget):
     “fill level” on range widgets. See [method`Gtk`.Range.set_fill_level].
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        adjustment: Adjustment | None
+        adjustment: Adjustment
         """
         The adjustment that is controlled by the range.
         """
@@ -85061,16 +85910,21 @@ class RecentManager(GObject.Object):
     property.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        filename: str
-        """
-        The full path to the file to be used to store and read the
-        recently used resources list
-        """
-        size: int
-        """
-        The size of the recently used resources list.
-        """
+        @builtins.property
+        def filename(self) -> str:
+            """
+            The full path to the file to be used to store and read the
+            recently used resources list
+            """
+            ...
+        @builtins.property
+        def size(self) -> int:
+            """
+            The size of the recently used resources list.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -85338,15 +86192,18 @@ class Revealer(Widget):
     tree, regardless of the state of the revealer widget.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
         The child widget.
         """
-        child_revealed: bool  # [child-revealed]: changed because contained invalid characters
-        """
-        Whether the child is revealed and the animation target reached.
-        """
+        @builtins.property
+        def child_revealed(self) -> bool:
+            """
+            Whether the child is revealed and the animation target reached.
+            """
+            ...
         reveal_child: bool  # [reveal-child]: changed because contained invalid characters
         """
         Whether the revealer should reveal the child.
@@ -85850,6 +86707,7 @@ class Root(builtins.object):
     hierarchy, with [method`Gtk`.Root.set_focus] and [method`Gtk`.Root.get_focus].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -85971,6 +86829,7 @@ class Scale(Range):
     `GtkScale` uses the Gtk.ACCESSIBLE_ROLE_SLIDER role.
     """
 
+    @typing.type_check_only
     class Props(Range.Props):
         digits: int
         """
@@ -86635,12 +87494,15 @@ class ScaleButton(Widget):
     style class, and contains a `button` node with a `.toggle` style class.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        active: bool
-        """
-        If the scale button should be pressed in.
-        """
-        adjustment: Adjustment | None
+        @builtins.property
+        def active(self) -> bool:
+            """
+            If the scale button should be pressed in.
+            """
+            ...
+        adjustment: Adjustment
         """
         The `GtkAdjustment` that is used as the model.
         """
@@ -86648,25 +87510,29 @@ class ScaleButton(Widget):
         """
         If the scale button has a frame.
         """
-        icons: list | None
-        """
-        The names of the icons to be used by the scale button.
+        @builtins.property
+        def icons(self) -> list[str] | None:
+            """
+            The names of the icons to be used by the scale button.
 
-        The first item in the array will be used in the button
-        when the current value is the lowest value, the second
-        item for the highest value. All the subsequent icons will
-        be used for all the other values, spread evenly over the
-        range of values.
+            The first item in the array will be used in the button
+            when the current value is the lowest value, the second
+            item for the highest value. All the subsequent icons will
+            be used for all the other values, spread evenly over the
+            range of values.
 
-        If there's only one icon name in the `icons` array, it will
-        be used for all the values. If only two icon names are in
-        the `icons` array, the first one will be used for the bottom
-        50% of the scale, and the second one for the top 50%.
+            If there's only one icon name in the `icons` array, it will
+            be used for all the values. If only two icon names are in
+            the `icons` array, the first one will be used for the bottom
+            50% of the scale, and the second one for the top 50%.
 
-        It is recommended to use at least 3 icons so that the
-        `GtkScaleButton` reflects the current value of the scale
-        better for the users.
-        """
+            It is recommended to use at least 3 icons so that the
+            `GtkScaleButton` reflects the current value of the scale
+            better for the users.
+            """
+            ...
+        @icons.setter
+        def icons(self, value: list[str]) -> None: ...
         value: float
         """
         The value of the scale.
@@ -87315,6 +88181,7 @@ class Scrollable(builtins.object):
       signal, the scrollable widget should scroll its contents.
     """
 
+    @typing.type_check_only
     class Props:
         hadjustment: Adjustment | None
         """
@@ -87486,11 +88353,16 @@ class Scrollbar(Widget):
     `GtkScrollbar` uses the Gtk.ACCESSIBLE_ROLE_SCROLLBAR role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        adjustment: Adjustment | None
-        """
-        The `GtkAdjustment` controlled by this scrollbar.
-        """
+        @builtins.property
+        def adjustment(self) -> Adjustment:
+            """
+            The `GtkAdjustment` controlled by this scrollbar.
+            """
+            ...
+        @adjustment.setter
+        def adjustment(self, value: Adjustment | None) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -87972,6 +88844,7 @@ class ScrolledWindow(Widget):
     Starting from GTK 4.12, `GtkScrolledWindow` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -87981,7 +88854,10 @@ class ScrolledWindow(Widget):
         [iface`Gtk`.Scrollable], the scrolled window will add the child to
         a [class`Gtk`.Viewport] and then set the viewport as the child.
         """
-        hadjustment: Adjustment | None
+        @builtins.property
+        def hadjustment(self) -> Adjustment: ...
+        @hadjustment.setter
+        def hadjustment(self, value: Adjustment | None) -> None: ...
         has_frame: bool  # [has-frame]: changed because contained invalid characters
         """
         Whether to draw a frame around the contents.
@@ -88042,7 +88918,10 @@ class ScrolledWindow(Widget):
         This is useful in cases where an attempt should be made to allocate exactly
         enough space for the natural size of the child.
         """
-        vadjustment: Adjustment | None
+        @builtins.property
+        def vadjustment(self) -> Adjustment: ...
+        @vadjustment.setter
+        def vadjustment(self, value: Adjustment | None) -> None: ...
         vscrollbar_policy: PolicyType  # [vscrollbar-policy]: changed because contained invalid characters
         """
         When the vertical scrollbar is displayed.
@@ -88864,6 +89743,7 @@ class SearchBar(Widget):
     `GtkSearchBar` uses the Gtk.ACCESSIBLE_ROLE_SEARCH role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -89403,6 +90283,7 @@ class SearchEntry(Widget):
     `GtkSearchEntry` uses the Gtk.ACCESSIBLE_ROLE_SEARCH_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activates_default: bool  # [activates-default]: changed because contained invalid characters
         """
@@ -89418,7 +90299,7 @@ class SearchEntry(Widget):
         The purpose for the `GtkSearchEntry` input used to alter the
         behaviour of input methods.
         """
-        placeholder_text: str  # [placeholder-text]: changed because contained invalid characters
+        placeholder_text: str | None  # [placeholder-text]: changed because contained invalid characters
         """
         The text that will be displayed in the `GtkSearchEntry`
         when it is empty and unfocused.
@@ -90077,6 +90958,7 @@ class SectionModel(builtins.object):
     that range are invalidated, too.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -90146,19 +91028,24 @@ class SelectionFilterModel(GObject.Object):
     a `GtkSelectionModel`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: SelectionModel | None
         """
         The model being filtered.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -90284,6 +91171,7 @@ class SelectionModel(builtins.object):
     when an item was selected is to listen to the signals that indicate selection.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -90921,6 +91809,7 @@ class Settings(GObject.Object):
     convenient to use [method`Gtk`.Widget.get_settings].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         gtk_alternative_button_order: (
             bool  # [gtk-alternative-button-order]: changed because contained invalid characters
@@ -91787,6 +92676,7 @@ class Shortcut(GObject.Object):
     for display purposes or by allowing shortcuts to be configured.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         action: ShortcutAction | None
         """
@@ -92033,23 +92923,24 @@ class ShortcutController(EventController):
     for triggers.
     """
 
+    @typing.type_check_only
     class Props(EventController.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         mnemonic_modifiers: Gdk.ModifierType  # [mnemonic-modifiers]: changed because contained invalid characters
         """
         The modifiers that need to be pressed to allow mnemonics activation.
         """
-        model: Gio.ListModel | None
-        """
-        A list model to take shortcuts from.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
         scope: ShortcutScope
         """
         What scope the shortcuts will be handled in.
@@ -92246,18 +93137,27 @@ class ShortcutLabel(Widget):
     The main use case for `GtkShortcutLabel` is inside a [class`Gtk`.ShortcutsWindow].
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        accelerator: str
-        """
-        The accelerator that `self` displays.
+        @builtins.property
+        def accelerator(self) -> str | None:
+            """
+            The accelerator that `self` displays.
 
-        See [property`Gtk`.ShortcutsShortcut:accelerator]
-        for the accepted syntax.
-        """
-        disabled_text: str  # [disabled-text]: changed because contained invalid characters
-        """
-        The text that is displayed when no accelerator is set.
-        """
+            See [property`Gtk`.ShortcutsShortcut:accelerator]
+            for the accepted syntax.
+            """
+            ...
+        @accelerator.setter
+        def accelerator(self, value: str) -> None: ...
+        @builtins.property
+        def disabled_text(self) -> str | None:
+            """
+            The text that is displayed when no accelerator is set.
+            """
+            ...
+        @disabled_text.setter
+        def disabled_text(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -92692,6 +93592,7 @@ class ShortcutManager(builtins.object):
     Gtk.SHORTCUT_SCOPE_MANAGED.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -92879,29 +93780,42 @@ class ShortcutsGroup(Box):
     [method`Gtk`.ShortcutsGroup.add_shortcut].
     """
 
+    @typing.type_check_only
     class Props(Box.Props):
-        accel_size_group: SizeGroup | None  # [accel-size-group]: changed because contained invalid characters
-        """
-        The size group for the accelerator portion of shortcuts in this group.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def accel_size_group(self) -> typing.Never:
+            """
+            The size group for the accelerator portion of shortcuts in this group.
 
-        This is used internally by GTK, and must not be modified by applications.
-        """
-        height: int
-        """
-        A rough measure for the number of lines in this group.
+            This is used internally by GTK, and must not be modified by applications.
+            """
+            ...
+        @accel_size_group.setter
+        def accel_size_group(self, value: SizeGroup | None) -> None: ...
+        @builtins.property
+        def height(self) -> int:
+            """
+            A rough measure for the number of lines in this group.
 
-        This is used internally by GTK, and is not useful for applications.
-        """
+            This is used internally by GTK, and is not useful for applications.
+            """
+            ...
         title: str
         """
         The title for this group of shortcuts.
         """
-        title_size_group: SizeGroup | None  # [title-size-group]: changed because contained invalid characters
-        """
-        The size group for the textual portion of shortcuts in this group.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def title_size_group(self) -> typing.Never:
+            """
+            The size group for the textual portion of shortcuts in this group.
 
-        This is used internally by GTK, and must not be modified by applications.
-        """
+            This is used internally by GTK, and must not be modified by applications.
+            """
+            ...
+        @title_size_group.setter
+        def title_size_group(self, value: SizeGroup | None) -> None: ...
         view: str
         """
         An optional view that the shortcuts in this group are relevant for.
@@ -93396,6 +94310,7 @@ class ShortcutsSection(Box):
     [method`Gtk`.ShortcutsSection.add_group].
     """
 
+    @typing.type_check_only
     class Props(Box.Props):
         max_height: int  # [max-height]: changed because contained invalid characters
         """
@@ -93900,13 +94815,19 @@ class ShortcutsShortcut(Widget):
     This widget is only meant to be used with `GtkShortcutsWindow`.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        accel_size_group: SizeGroup | None  # [accel-size-group]: changed because contained invalid characters
-        """
-        The size group for the accelerator portion of this shortcut.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def accel_size_group(self) -> typing.Never:
+            """
+            The size group for the accelerator portion of this shortcut.
 
-        This is used internally by GTK, and must not be modified by applications.
-        """
+            This is used internally by GTK, and must not be modified by applications.
+            """
+            ...
+        @accel_size_group.setter
+        def accel_size_group(self, value: SizeGroup | None) -> None: ...
         accelerator: str
         """
         The accelerator(s) represented by this object.
@@ -93989,12 +94910,17 @@ class ShortcutsShortcut(Widget):
 
         This should be a short string that can fit in a single line.
         """
-        title_size_group: SizeGroup | None  # [title-size-group]: changed because contained invalid characters
-        """
-        The size group for the textual portion of this shortcut.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def title_size_group(self) -> typing.Never:
+            """
+            The size group for the textual portion of this shortcut.
 
-        This is used internally by GTK, and must not be modified by applications.
-        """
+            This is used internally by GTK, and must not be modified by applications.
+            """
+            ...
+        @title_size_group.setter
+        def title_size_group(self, value: SizeGroup | None) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -94510,6 +95436,7 @@ class ShortcutsWindow(Window):
     class `.shortcuts`.
     """
 
+    @typing.type_check_only
     class Props(Window.Props):
         section_name: str  # [section-name]: changed because contained invalid characters
         """
@@ -95178,11 +96105,14 @@ class SignalAction(ShortcutAction):
     and they are expected to be defined with the G_SIGNAL_ACTION flag.
     """
 
+    @typing.type_check_only
     class Props(ShortcutAction.Props):
-        signal_name: str  # [signal-name]: changed because contained invalid characters
-        """
-        The name of the signal to emit.
-        """
+        @builtins.property
+        def signal_name(self) -> str:
+            """
+            The name of the signal to emit.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -95391,6 +96321,7 @@ class SingleSelection(GObject.Object):
     underlying sort model will preserve the selection.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         autoselect: bool
         """
@@ -95400,26 +96331,32 @@ class SingleSelection(GObject.Object):
         """
         If unselecting the selected item is allowed.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The model being managed.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
         selected: int
         """
         Position of the selected item.
         """
-        selected_item: GObject.Object | None  # [selected-item]: changed because contained invalid characters
-        """
-        The selected item.
-        """
+        @builtins.property
+        def selected_item(self) -> GObject.Object | None:
+            """
+            The selected item.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -95666,6 +96603,7 @@ class SizeGroup(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         mode: SizeGroupMode
         """
@@ -95766,19 +96704,24 @@ class SliceListModel(GObject.Object):
     `GtkSliceListModel` passes through sections from the underlying model.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         Child model to take slice from.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
         offset: int
         """
         Offset of slice.
@@ -96401,27 +97344,34 @@ class SortListModel(GObject.Object):
     inside their sections.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         incremental: bool
         """
         If the model should sort items incrementally.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
         model: Gio.ListModel | None
         """
         The model being sorted.
         """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
-        pending: int
-        """
-        Estimate of unsorted items remaining.
-        """
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
+        @builtins.property
+        def pending(self) -> int:
+            """
+            Estimate of unsorted items remaining.
+            """
+            ...
         section_sorter: Sorter | None  # [section-sorter]: changed because contained invalid characters
         """
         The section sorter for this model, if one is set.
@@ -96887,6 +97837,7 @@ class SpinButton(Widget):
     `GtkSpinButton` uses the Gtk.ACCESSIBLE_ROLE_SPIN_BUTTON role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activates_default: bool  # [activates-default]: changed because contained invalid characters
         """
@@ -96894,7 +97845,7 @@ class SpinButton(Widget):
 
         See [signal`Gtk`.SpinButton::activate] for what counts as activation.
         """
-        adjustment: Adjustment | None
+        adjustment: Adjustment
         """
         The adjustment that holds the value of the spin button.
         """
@@ -97761,6 +98712,7 @@ class Spinner(Widget):
     added to this node.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         spinning: bool
         """
@@ -98224,6 +99176,7 @@ class Stack(Widget):
     pages, which are the accessible parent objects of the child widgets.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         hhomogeneous: bool
         """
@@ -98233,18 +99186,22 @@ class Stack(Widget):
         """
         Whether or not the size should smoothly change during the transition.
         """
-        pages: SelectionModel | None
-        """
-        A selection model with the stack pages.
-        """
+        @builtins.property
+        def pages(self) -> SelectionModel:
+            """
+            A selection model with the stack pages.
+            """
+            ...
         transition_duration: int  # [transition-duration]: changed because contained invalid characters
         """
         The animation duration, in milliseconds.
         """
-        transition_running: bool  # [transition-running]: changed because contained invalid characters
-        """
-        Whether or not the transition is currently running.
-        """
+        @builtins.property
+        def transition_running(self) -> bool:
+            """
+            Whether or not the transition is currently running.
+            """
+            ...
         transition_type: StackTransitionType  # [transition-type]: changed because contained invalid characters
         """
         The type of animation used to transition.
@@ -98253,14 +99210,22 @@ class Stack(Widget):
         """
         True if the stack allocates the same height for all children.
         """
-        visible_child: Widget | None  # [visible-child]: changed because contained invalid characters
-        """
-        The widget currently visible in the stack.
-        """
-        visible_child_name: str  # [visible-child-name]: changed because contained invalid characters
-        """
-        The name of the widget currently visible in the stack.
-        """
+        @builtins.property
+        def visible_child(self) -> Widget | None:
+            """
+            The widget currently visible in the stack.
+            """
+            ...
+        @visible_child.setter
+        def visible_child(self, value: Widget) -> None: ...
+        @builtins.property
+        def visible_child_name(self) -> str | None:
+            """
+            The name of the widget currently visible in the stack.
+            """
+            ...
+        @visible_child_name.setter
+        def visible_child_name(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -98873,19 +99838,30 @@ class StackPage(GObject.Object):
     `GtkStackPage` is an auxiliary class used by `GtkStack`.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        child: Widget | None
-        """
-        The child that this page is for.
-        """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
-        """
-        The icon name of the child page.
-        """
-        name: str
-        """
-        The name of the child page.
-        """
+        @builtins.property
+        def child(self) -> Widget:
+            """
+            The child that this page is for.
+            """
+            ...
+        @builtins.property
+        def icon_name(self) -> str | None:
+            """
+            The icon name of the child page.
+            """
+            ...
+        @icon_name.setter
+        def icon_name(self, value: str) -> None: ...
+        @builtins.property
+        def name(self) -> str | None:
+            """
+            The name of the child page.
+            """
+            ...
+        @name.setter
+        def name(self, value: str) -> None: ...
         needs_attention: bool  # [needs-attention]: changed because contained invalid characters
         """
         Whether the page requires the user attention.
@@ -98894,10 +99870,14 @@ class StackPage(GObject.Object):
         appearance of the corresponding button when a page needs
         attention and it is not the current one.
         """
-        title: str
-        """
-        The title of the child page.
-        """
+        @builtins.property
+        def title(self) -> str | None:
+            """
+            The title of the child page.
+            """
+            ...
+        @title.setter
+        def title(self, value: str) -> None: ...
         use_underline: bool  # [use-underline]: changed because contained invalid characters
         """
         If set, an underline in the title indicates a mnemonic.
@@ -99069,11 +100049,16 @@ class StackSidebar(Widget):
     pages.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        stack: Stack | None
-        """
-        The stack.
-        """
+        @builtins.property
+        def stack(self) -> Stack | None:
+            """
+            The stack.
+            """
+            ...
+        @stack.setter
+        def stack(self, value: Stack) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -99513,6 +100498,7 @@ class StackSwitcher(Widget):
     ``Gtk.Orientable.set_orientation``.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         stack: Stack | None
         """
@@ -100416,6 +101402,7 @@ class StringFilter(Filter):
     [method`Gtk`.StringFilter.set_ignore_case].
     """
 
+    @typing.type_check_only
     class Props(Filter.Props):
         expression: Expression | None
         """
@@ -100429,7 +101416,7 @@ class StringFilter(Filter):
         """
         If exact matches are necessary or if substrings are allowed.
         """
-        search: str
+        search: str | None
         """
         The search term.
         """
@@ -100586,16 +101573,20 @@ class StringList(GObject.Object):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
-        strings: list | None
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -100725,11 +101716,14 @@ class StringObject(GObject.Object):
     for property bindings and expressions.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        string: str
-        """
-        The string.
-        """
+        @builtins.property
+        def string(self) -> str:
+            """
+            The string.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -100795,6 +101789,7 @@ class StringSorter(Sorter):
     [class`Gtk`.Expression].
     """
 
+    @typing.type_check_only
     class Props(Sorter.Props):
         collation: Collation
         """
@@ -100960,8 +101955,9 @@ class StyleContext(GObject.Object):
     Gtk.STYLE_PROVIDER_PRIORITY_USER priority.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        display: Gdk.Display | None
+        display: Gdk.Display
 
     @builtins.property
     def props(self) -> Props: ...
@@ -101202,6 +102198,7 @@ class StyleProvider(builtins.object):
     [class`Gtk`.CssProvider].
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -101263,6 +102260,7 @@ class Switch(Widget):
     `GtkSwitch` uses the Gtk.ACCESSIBLE_ROLE_SWITCH role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         active: bool
         """
@@ -101760,6 +102758,7 @@ class SymbolicPaintable(builtins.object):
     More colors may be added in the future.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -101862,6 +102861,7 @@ class Text(Widget):
     to accessibility.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activates_default: bool  # [activates-default]: changed because contained invalid characters
         """
@@ -101876,7 +102876,7 @@ class Text(Widget):
         The `PangoAttribute`'s `start_index` and `end_index` must refer to the
         `GtkEntryBuffer` text, i.e. without the preedit string.
         """
-        buffer: EntryBuffer | None
+        buffer: EntryBuffer
         """
         The `GtkEntryBuffer` object which stores the text.
         """
@@ -101915,7 +102915,7 @@ class Text(Widget):
         Gtk.INPUT_PURPOSE_PIN is independent from setting
         [property`Gtk`.Text:visibility].
         """
-        invisible_char: int  # [invisible-char]: changed because contained invalid characters
+        invisible_char: str  # [invisible-char]: changed because contained invalid characters
         """
         The character to used when masking contents (in “password mode”).
         """
@@ -101933,7 +102933,7 @@ class Text(Widget):
         """
         If text is overwritten when typing in the `GtkText`.
         """
-        placeholder_text: str  # [placeholder-text]: changed because contained invalid characters
+        placeholder_text: str | None  # [placeholder-text]: changed because contained invalid characters
         """
         The text that will be displayed in the `GtkText` when it is empty
         and unfocused.
@@ -101942,10 +102942,12 @@ class Text(Widget):
         """
         Whether the widget should grow and shrink with the content.
         """
-        scroll_offset: int  # [scroll-offset]: changed because contained invalid characters
-        """
-        Number of pixels scrolled of the screen to the left.
-        """
+        @builtins.property
+        def scroll_offset(self) -> int:
+            """
+            Number of pixels scrolled of the screen to the left.
+            """
+            ...
         tabs: Pango.TabArray | None
         """
         A list of tabstops to apply to the text of the `GtkText`.
@@ -102986,34 +103988,45 @@ class TextBuffer(GObject.Object):
     content, see [method`Gtk`.TextBuffer.set_enable_undo].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        can_redo: bool  # [can-redo]: changed because contained invalid characters
-        """
-        Denotes that the buffer can reapply the last undone action.
-        """
-        can_undo: bool  # [can-undo]: changed because contained invalid characters
-        """
-        Denotes that the buffer can undo the last applied action.
-        """
-        cursor_position: int  # [cursor-position]: changed because contained invalid characters
-        """
-        The position of the insert mark.
+        @builtins.property
+        def can_redo(self) -> bool:
+            """
+            Denotes that the buffer can reapply the last undone action.
+            """
+            ...
+        @builtins.property
+        def can_undo(self) -> bool:
+            """
+            Denotes that the buffer can undo the last applied action.
+            """
+            ...
+        @builtins.property
+        def cursor_position(self) -> int:
+            """
+            The position of the insert mark.
 
-        This is an offset from the beginning of the buffer.
-        It is useful for getting notified when the cursor moves.
-        """
+            This is an offset from the beginning of the buffer.
+            It is useful for getting notified when the cursor moves.
+            """
+            ...
         enable_undo: bool  # [enable-undo]: changed because contained invalid characters
         """
         Denotes if support for undoing and redoing changes to the buffer is allowed.
         """
-        has_selection: bool  # [has-selection]: changed because contained invalid characters
-        """
-        Whether the buffer has some text currently selected.
-        """
-        tag_table: TextTagTable | None  # [tag-table]: changed because contained invalid characters
-        """
-        The GtkTextTagTable for the buffer.
-        """
+        @builtins.property
+        def has_selection(self) -> bool:
+            """
+            Whether the buffer has some text currently selected.
+            """
+            ...
+        @builtins.property
+        def tag_table(self) -> TextTagTable:
+            """
+            The GtkTextTagTable for the buffer.
+            """
+            ...
         text: str
         """
         The text content of the buffer.
@@ -105253,19 +106266,24 @@ class TextMark(GObject.Object):
     function.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        left_gravity: bool  # [left-gravity]: changed because contained invalid characters
-        """
-        Whether the mark has left gravity.
+        @builtins.property
+        def left_gravity(self) -> bool:
+            """
+            Whether the mark has left gravity.
 
-        When text is inserted at the mark’s current location, if the mark
-        has left gravity it will be moved to the left of the newly-inserted
-        text, otherwise to the right.
-        """
-        name: str
-        """
-        The name of the mark or None if the mark is anonymous.
-        """
+            When text is inserted at the mark’s current location, if the mark
+            has left gravity it will be moved to the left of the newly-inserted
+            text, otherwise to the right.
+            """
+            ...
+        @builtins.property
+        def name(self) -> str | None:
+            """
+            The name of the mark or None if the mark is anonymous.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -105393,6 +106411,7 @@ class TextTag(GObject.Object):
     They are maintained by GTK and you should not set them independently.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         accumulative_margin: bool  # [accumulative-margin]: changed because contained invalid characters
         """
@@ -105407,10 +106426,15 @@ class TextTag(GObject.Object):
         Whether breaks are allowed.
         """
         allow_breaks_set: bool  # [allow-breaks-set]: changed because contained invalid characters
-        background: str
-        """
-        Background color as a string.
-        """
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def background(self) -> typing.Never:
+            """
+            Background color as a string.
+            """
+            ...
+        @background.setter
+        def background(self, value: str) -> None: ...
         background_full_height: bool  # [background-full-height]: changed because contained invalid characters
         """
         Whether the background color fills the entire line height
@@ -105460,10 +106484,15 @@ class TextTag(GObject.Object):
         OpenType font features, as a string.
         """
         font_features_set: bool  # [font-features-set]: changed because contained invalid characters
-        foreground: str
-        """
-        Foreground color as a string.
-        """
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def foreground(self) -> typing.Never:
+            """
+            Foreground color as a string.
+            """
+            ...
+        @foreground.setter
+        def foreground(self, value: str) -> None: ...
         foreground_rgba: Gdk.RGBA | None  # [foreground-rgba]: changed because contained invalid characters
         """
         Foreground color as a `GdkRGBA`.
@@ -105523,12 +106552,14 @@ class TextTag(GObject.Object):
         Factor to scale line height by.
         """
         line_height_set: bool  # [line-height-set]: changed because contained invalid characters
-        name: str
-        """
-        The name used to refer to the tag.
+        @builtins.property
+        def name(self) -> str:
+            """
+            The name used to refer to the tag.
 
-        None for anonymous tags.
-        """
+            None for anonymous tags.
+            """
+            ...
         overline: Pango.Overline
         """
         Style of overline for this text.
@@ -105541,10 +106572,15 @@ class TextTag(GObject.Object):
         """
         overline_rgba_set: bool  # [overline-rgba-set]: changed because contained invalid characters
         overline_set: bool  # [overline-set]: changed because contained invalid characters
-        paragraph_background: str  # [paragraph-background]: changed because contained invalid characters
-        """
-        The paragraph background color as a string.
-        """
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def paragraph_background(self) -> typing.Never:
+            """
+            The paragraph background color as a string.
+            """
+            ...
+        @paragraph_background.setter
+        def paragraph_background(self, value: str) -> None: ...
         paragraph_background_rgba: (
             Gdk.RGBA | None
         )  # [paragraph-background-rgba]: changed because contained invalid characters
@@ -106643,6 +107679,7 @@ class TextView(Widget):
     `GtkTextView` uses the Gtk.ACCESSIBLE_ROLE_TEXT_BOX role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         accepts_tab: bool  # [accepts-tab]: changed because contained invalid characters
         """
@@ -106658,19 +107695,27 @@ class TextView(Widget):
 
         Don't confuse this property with [property`Gtk`.Widget:margin-bottom].
         """
-        buffer: TextBuffer | None
-        """
-        The buffer which is displayed.
-        """
+        @builtins.property
+        def buffer(self) -> TextBuffer:
+            """
+            The buffer which is displayed.
+            """
+            ...
+        @buffer.setter
+        def buffer(self, value: TextBuffer | None) -> None: ...
         cursor_visible: bool  # [cursor-visible]: changed because contained invalid characters
         """
         If the insertion cursor is shown.
         """
         editable: bool
-        extra_menu: Gio.MenuModel | None  # [extra-menu]: changed because contained invalid characters
-        """
-        A menu model whose contents will be appended to the context menu.
-        """
+        @builtins.property
+        def extra_menu(self) -> Gio.MenuModel:
+            """
+            A menu model whose contents will be appended to the context menu.
+            """
+            ...
+        @extra_menu.setter
+        def extra_menu(self, value: Gio.MenuModel | None) -> None: ...
         im_module: str  # [im-module]: changed because contained invalid characters
         """
         Which IM (input method) module should be used for this text_view.
@@ -106735,7 +107780,10 @@ class TextView(Widget):
         the value set here is padding, and it is applied in addition
         to the padding from the theme.
         """
-        tabs: Pango.TabArray | None
+        @builtins.property
+        def tabs(self) -> Pango.TabArray | None: ...
+        @tabs.setter
+        def tabs(self, value: Pango.TabArray) -> None: ...
         top_margin: int  # [top-margin]: changed because contained invalid characters
         """
         The top margin for text in the text view.
@@ -108414,15 +109462,21 @@ class ToggleButton(Button):
     ```
     """
 
+    @typing.type_check_only
     class Props(Button.Props):
         active: bool
         """
         If the toggle button should be pressed in.
         """
-        group: ToggleButton | None
-        """
-        The toggle button whose group this widget belongs to.
-        """
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def group(self) -> typing.Never:
+            """
+            The toggle button whose group this widget belongs to.
+            """
+            ...
+        @group.setter
+        def group(self, value: ToggleButton | None) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -109091,6 +110145,7 @@ class TreeDragDest(builtins.object, metaclass=GObject.GType):
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -109144,6 +110199,7 @@ class TreeDragSource(builtins.object, metaclass=GObject.GType):
     Interface for Drag-and-Drop destinations in `GtkTreeView`.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -109259,6 +110315,7 @@ class TreeExpander(Widget):
     Toggling it will change the `GTK_ACCESSIBLE_STATE_EXPANDED` state.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -109281,10 +110338,12 @@ class TreeExpander(Widget):
         """
         TreeExpander indents the child by the width of an expander-icon if it is not expandable.
         """
-        item: GObject.Object | None
-        """
-        The item held by this expander's row.
-        """
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            The item held by this expander's row.
+            """
+            ...
         list_row: TreeListRow | None  # [list-row]: changed because contained invalid characters
         """
         The list row to track for expander state.
@@ -109825,31 +110884,40 @@ class TreeListModel(GObject.Object):
     `GtkTreeListModel` is a list model that can create child models on demand.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         autoexpand: bool
         """
         If all rows should be expanded by default.
         """
-        item_type: GObject.GType  # [item-type]: changed because contained invalid characters
-        """
-        The type of items. See [method`Gio`.ListModel.get_item_type].
-        """
-        model: Gio.ListModel | None
-        """
-        The root model displayed.
-        """
-        n_items: int  # [n-items]: changed because contained invalid characters
-        """
-        The number of items. See [method`Gio`.ListModel.get_n_items].
-        """
-        passthrough: bool
-        """
-        Gets whether the model is in passthrough mode.
+        @builtins.property
+        def item_type(self) -> GObject.GType:
+            """
+            The type of items. See [method`Gio`.ListModel.get_item_type].
+            """
+            ...
+        @builtins.property
+        def model(self) -> Gio.ListModel:
+            """
+            The root model displayed.
+            """
+            ...
+        @builtins.property
+        def n_items(self) -> int:
+            """
+            The number of items. See [method`Gio`.ListModel.get_n_items].
+            """
+            ...
+        @builtins.property
+        def passthrough(self) -> bool:
+            """
+            Gets whether the model is in passthrough mode.
 
-        If False, the `GListModel` functions for this object return custom
-        [class`Gtk`.TreeListRow] objects. If True, the values of the child
-        models are pass through unmodified.
-        """
+            If False, the `GListModel` functions for this object return custom
+            [class`Gtk`.TreeListRow] objects. If True, the values of the child
+            models are pass through unmodified.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -110017,27 +111085,36 @@ class TreeListRow(GObject.Object):
     makes it possible to sort trees properly.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        children: Gio.ListModel | None
-        """
-        The model holding the row's children.
-        """
-        depth: int
-        """
-        The depth in the tree of this row.
-        """
-        expandable: bool
-        """
-        If this row can ever be expanded.
-        """
+        @builtins.property
+        def children(self) -> Gio.ListModel | None:
+            """
+            The model holding the row's children.
+            """
+            ...
+        @builtins.property
+        def depth(self) -> int:
+            """
+            The depth in the tree of this row.
+            """
+            ...
+        @builtins.property
+        def expandable(self) -> bool:
+            """
+            If this row can ever be expanded.
+            """
+            ...
         expanded: bool
         """
         If this row is currently expanded.
         """
-        item: GObject.Object | None
-        """
-        The item held in this row.
-        """
+        @builtins.property
+        def item(self) -> GObject.Object | None:
+            """
+            The item held in this row.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -110191,6 +111268,7 @@ class TreeListRowSorter(Sorter):
     ```
     """
 
+    @typing.type_check_only
     class Props(Sorter.Props):
         sorter: Sorter | None
         """
@@ -110467,6 +111545,7 @@ class TreeModel(builtins.object):
       is always referenced when any view is attached).
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -110936,9 +112015,12 @@ class TreeModelFilter(GObject.Object):
     yourself.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        child_model: TreeModel | None  # [child-model]: changed because contained invalid characters
-        virtual_root: TreePath | None  # [virtual-root]: changed because contained invalid characters
+        @builtins.property
+        def child_model(self) -> TreeModel | None: ...
+        @builtins.property
+        def virtual_root(self) -> TreePath | None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -111285,6 +112367,7 @@ class TreeModelIface(GObject.GPointer, metaclass=GObject.GType):
         """
 
 class TreeModelRow(builtins.object):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -111323,6 +112406,7 @@ class TreeModelRow(builtins.object):
     ) -> typing.Any: ...
 
 class TreeModelRowIter(builtins.object):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -111441,8 +112525,10 @@ class TreeModelSort(GObject.Object):
     ]|
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        model: TreeModel | None
+        @builtins.property
+        def model(self) -> TreeModel: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -111905,6 +112991,7 @@ class TreeSelection(GObject.Object):
     select_row on an already selected row).
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         mode: SelectionMode
         """
@@ -112094,6 +113181,7 @@ class TreeSortable(builtins.object):
     to sort the model.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -112726,6 +113814,7 @@ class TreeView(Widget):
     For the drop target location during DND, a subnode with name `dndtarget` is used.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         activate_on_single_click: bool  # [activate-on-single-click]: changed because contained invalid characters
         """
@@ -114387,15 +115476,18 @@ class TreeViewColumn(GObject.InitiallyUnowned):
     about the CSS node structure for treeviews and their headers.
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
         alignment: float
-        cell_area: CellArea | None  # [cell-area]: changed because contained invalid characters
-        """
-        The `GtkCellArea` used to layout cell renderers for this column.
+        @builtins.property
+        def cell_area(self) -> CellArea | None:
+            """
+            The `GtkCellArea` used to layout cell renderers for this column.
 
-        If no area is specified when creating the tree view column with `Gtk.TreeViewColumn.new_with_area`
-        a horizontally oriented `GtkCellAreaBox` will be used.
-        """
+            If no area is specified when creating the tree view column with `Gtk.TreeViewColumn.new_with_area`
+            a horizontally oriented `GtkCellAreaBox` will be used.
+            """
+            ...
         clickable: bool
         expand: bool
         fixed_width: int  # [fixed-width]: changed because contained invalid characters
@@ -114415,8 +115507,10 @@ class TreeViewColumn(GObject.InitiallyUnowned):
         title: str
         visible: bool
         widget: Widget | None
-        width: int
-        x_offset: int  # [x-offset]: changed because contained invalid characters
+        @builtins.property
+        def width(self) -> int: ...
+        @builtins.property
+        def x_offset(self) -> int: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -114977,8 +116071,9 @@ class UriLauncher(GObject.Object):
     To launch a file, use [class`Gtk`.FileLauncher].
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
-        uri: str
+        uri: str | None
         """
         The uri to launch.
         """
@@ -114995,13 +116090,8 @@ class UriLauncher(GObject.Object):
         """
         Gets the uri that will be opened.
         """
-    def launch(
-        self,
-        parent: Window | None = None,
-        cancellable: Gio.Cancellable | None = None,
-        callback: Gio.AsyncReadyCallback | None = None,
-        *user_data: object | None,
-    ) -> None:
+    @typing.overload
+    def launch(self, parent: Window | None = None, cancellable: Gio.Cancellable | None = None) -> gi._gi.Async[bool]:
         """
             Launch an application to open the uri.
 
@@ -115011,6 +116101,22 @@ class UriLauncher(GObject.Object):
         It should call [method`Gtk`.UriLauncher.launch_finish] to obtain
         the result.
         """
+    @typing.overload
+    def launch(
+        self,
+        parent: Window | None,
+        cancellable: Gio.Cancellable | None,
+        callback: Gio.AsyncReadyCallback | None,
+        *user_data: object | None,
+    ) -> None: ...
+    @typing.overload
+    def launch(
+        self,
+        parent: Window | None = None,
+        cancellable: Gio.Cancellable | None = None,
+        *,
+        callback: Gio.AsyncReadyCallback | None,
+    ) -> None: ...
     def launch_finish(self, result: Gio.AsyncResult) -> bool:
         """
             Finishes the [method`Gtk`.UriLauncher.launch] call and
@@ -115078,6 +116184,7 @@ class Video(Widget):
     such as Gstreamer directly.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         autoplay: bool
         """
@@ -115668,6 +116775,7 @@ class Viewport(Widget):
     Starting from GTK 4.12, `GtkViewport` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """
@@ -116150,6 +117258,7 @@ class VolumeButton(ScaleButton):
     ![An example GtkVolumeButton](volumebutton.png)
     """
 
+    @typing.type_check_only
     class Props(ScaleButton.Props):
         use_symbolic: bool  # [use-symbolic]: changed because contained invalid characters
         """
@@ -117016,6 +118125,7 @@ class Widget(GObject.InitiallyUnowned):
     ```
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
         can_focus: bool  # [can-focus]: changed because contained invalid characters
         """
@@ -117029,17 +118139,19 @@ class Widget(GObject.InitiallyUnowned):
         """
         Whether the widget can receive pointer events.
         """
-        css_classes: list | None  # [css-classes]: changed because contained invalid characters
+        css_classes: list[str]  # [css-classes]: changed because contained invalid characters
         """
         A list of css classes applied to this widget.
         """
-        css_name: str  # [css-name]: changed because contained invalid characters
-        """
-        The name of this widget in the CSS tree.
+        @builtins.property
+        def css_name(self) -> str:
+            """
+            The name of this widget in the CSS tree.
 
-        This property is meant to be set by widget implementations,
-        typically in their instance init function.
-        """
+            This property is meant to be set by widget implementations,
+            typically in their instance init function.
+            """
+            ...
         cursor: Gdk.Cursor | None
         """
         The cursor used by `widget`.
@@ -117058,14 +118170,18 @@ class Widget(GObject.InitiallyUnowned):
         """
         How to distribute horizontal space if widget gets extra space.
         """
-        has_default: bool  # [has-default]: changed because contained invalid characters
-        """
-        Whether the widget is the default widget.
-        """
-        has_focus: bool  # [has-focus]: changed because contained invalid characters
-        """
-        Whether the widget has the input focus.
-        """
+        @builtins.property
+        def has_default(self) -> bool:
+            """
+            Whether the widget is the default widget.
+            """
+            ...
+        @builtins.property
+        def has_focus(self) -> bool:
+            """
+            Whether the widget has the input focus.
+            """
+            ...
         has_tooltip: bool  # [has-tooltip]: changed because contained invalid characters
         """
         Enables or disables the emission of the ::query-tooltip signal on `widget`.
@@ -117149,29 +118265,35 @@ class Widget(GObject.InitiallyUnowned):
         This property is meant to be set by widget implementations,
         typically in their instance init function.
         """
-        parent: Widget | None
-        """
-        The parent widget of this widget.
-        """
+        @builtins.property
+        def parent(self) -> Widget | None:
+            """
+            The parent widget of this widget.
+            """
+            ...
         receives_default: bool  # [receives-default]: changed because contained invalid characters
         """
         Whether the widget will receive the default action when it is focused.
         """
-        root: Root | None
-        """
-        The `GtkRoot` widget of the widget tree containing this widget.
+        @builtins.property
+        def root(self) -> Root | None:
+            """
+            The `GtkRoot` widget of the widget tree containing this widget.
 
-        This will be None if the widget is not contained in a root widget.
-        """
-        scale_factor: int  # [scale-factor]: changed because contained invalid characters
-        """
-        The scale factor of the widget.
-        """
+            This will be None if the widget is not contained in a root widget.
+            """
+            ...
+        @builtins.property
+        def scale_factor(self) -> int:
+            """
+            The scale factor of the widget.
+            """
+            ...
         sensitive: bool
         """
         Whether the widget responds to input.
         """
-        tooltip_markup: str  # [tooltip-markup]: changed because contained invalid characters
+        tooltip_markup: str | None  # [tooltip-markup]: changed because contained invalid characters
         """
         Sets the text of tooltip to be the given string, which is marked up
         with Pango markup.
@@ -117187,7 +118309,7 @@ class Widget(GObject.InitiallyUnowned):
         Note that if both [property`Gtk`.Widget:tooltip-text] and
         [property`Gtk`.Widget:tooltip-markup] are set, the last one wins.
         """
-        tooltip_text: str  # [tooltip-text]: changed because contained invalid characters
+        tooltip_text: str | None  # [tooltip-text]: changed because contained invalid characters
         """
         Sets the text of tooltip to be the given string.
 
@@ -120047,6 +121169,7 @@ class WidgetPaintable(GObject.Object):
     end up with an infinitely growing widget.
     """
 
+    @typing.type_check_only
     class Props(GObject.Object.Props):
         widget: Widget | None
         """
@@ -120183,6 +121306,7 @@ class Window(Widget):
     - `window.close`: Close the window.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         application: Application | None
         """
@@ -120224,10 +121348,14 @@ class Window(Widget):
         """
         If this window should be destroyed when the parent is destroyed.
         """
-        display: Gdk.Display | None
-        """
-        The display that will display this window.
-        """
+        @builtins.property
+        def display(self) -> Gdk.Display | None:
+            """
+            The display that will display this window.
+            """
+            ...
+        @display.setter
+        def display(self, value: Gdk.Display) -> None: ...
         focus_visible: bool  # [focus-visible]: changed because contained invalid characters
         """
         Whether 'focus rectangles' are currently visible in this window.
@@ -120258,16 +121386,18 @@ class Window(Widget):
         """
         If this window should be hidden when the users clicks the close button.
         """
-        icon_name: str  # [icon-name]: changed because contained invalid characters
+        icon_name: str | None  # [icon-name]: changed because contained invalid characters
         """
         Specifies the name of the themed icon to use as the window icon.
 
         See [class`Gtk`.IconTheme] for more details.
         """
-        is_active: bool  # [is-active]: changed because contained invalid characters
-        """
-        Whether the toplevel is the currently active window.
-        """
+        @builtins.property
+        def is_active(self) -> bool:
+            """
+            Whether the toplevel is the currently active window.
+            """
+            ...
         maximized: bool
         """
         Whether the window is maximized.
@@ -120293,17 +121423,24 @@ class Window(Widget):
         """
         If True, users can resize the window.
         """
-        startup_id: str  # [startup-id]: changed because contained invalid characters
-        """
-        A write-only property for setting window's startup notification identifier.
-        """
-        suspended: bool
-        """
-        Whether the window is suspended.
+        # Write-only: checkers cannot fully prohibit reads of a property.
+        @builtins.property
+        def startup_id(self) -> typing.Never:
+            """
+            A write-only property for setting window's startup notification identifier.
+            """
+            ...
+        @startup_id.setter
+        def startup_id(self, value: str) -> None: ...
+        @builtins.property
+        def suspended(self) -> bool:
+            """
+            Whether the window is suspended.
 
-        See [method`Gtk`.Window.is_suspended] for details about what suspended means.
-        """
-        title: str
+            See [method`Gtk`.Window.is_suspended] for details about what suspended means.
+            """
+            ...
+        title: str | None
         """
         The title of the window.
         """
@@ -121609,18 +122746,21 @@ class WindowControls(Widget):
     `GtkWindowControls` uses the Gtk.ACCESSIBLE_ROLE_GROUP role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
-        decoration_layout: str  # [decoration-layout]: changed because contained invalid characters
+        decoration_layout: str | None  # [decoration-layout]: changed because contained invalid characters
         """
         The decoration layout for window buttons.
 
         If this property is not set, the
         [property`Gtk`.Settings:gtk-decoration-layout] setting is used.
         """
-        empty: bool
-        """
-        Whether the widget has any window buttons.
-        """
+        @builtins.property
+        def empty(self) -> bool:
+            """
+            Whether the widget has any window buttons.
+            """
+            ...
         side: PackType
         """
         Whether the widget shows start or end side of the decoration layout.
@@ -122181,6 +123321,7 @@ class WindowHandle(Widget):
     Starting from GTK 4.12, `GtkWindowHandle` uses the `GTK_ACCESSIBLE_ROLE_GENERIC` role.
     """
 
+    @typing.type_check_only
     class Props(Widget.Props):
         child: Widget | None
         """

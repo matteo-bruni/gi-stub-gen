@@ -5988,6 +5988,7 @@ class Bin(Element):
     handler will return True.
     """
 
+    @typing.type_check_only
     class Props(Element.Props):
         async_handling: bool  # [async-handling]: changed because contained invalid characters
         """
@@ -6509,6 +6510,7 @@ class Bitmask(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a 64-bit bitmask
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -7634,20 +7636,6 @@ class Bus(Object):
     from READY to None state.
     """
 
-    class Props(Object.Props):
-        enable_async: bool  # [enable-async]: changed because contained invalid characters
-        """
-        Enables async message delivery support for bus watches,
-        `Gst.Bus.pop` and similar API. Without this only the
-        synchronous message handlers are called.
-
-        This property is used to create the child element buses
-        in Gst.Bin.
-        """
-
-    @builtins.property
-    def props(self) -> Props: ...
-
     # gi Fields
     @builtins.property
     def _gst_reserved(self) -> list[object] | None: ...
@@ -8609,6 +8597,7 @@ class ChildProxy(builtins.object):
     `child1` and `child2` implement the Gst.ChildProxy interface.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -8809,6 +8798,7 @@ class Clock(Object):
     defines the minimum number of samples before the calibration is performed.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         timeout: int
         window_size: int  # [window-size]: changed because contained invalid characters
@@ -9404,9 +9394,13 @@ class ControlBinding(Object):
     bound property.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        name: str
-        object: Object | None
+        @builtins.property
+        def name(self) -> str:  # pyright: ignore[reportIncompatibleVariableOverride]  # ty: ignore[invalid-property-type-override]  # pyrefly: ignore[bad-override]  # Native construct-only property restricts its mutable parent.
+            ...
+        @builtins.property
+        def object(self) -> Object | None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -10080,11 +10074,16 @@ class Device(Object):
     aggregated by Gst.DeviceMonitor objects.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        caps: Caps | None
-        device_class: str  # [device-class]: changed because contained invalid characters
-        display_name: str  # [display-name]: changed because contained invalid characters
-        properties: Structure | None
+        @builtins.property
+        def caps(self) -> Caps | None: ...
+        @builtins.property
+        def device_class(self) -> str: ...
+        @builtins.property
+        def display_name(self) -> str: ...
+        @builtins.property
+        def properties(self) -> Structure | None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -10328,6 +10327,7 @@ class DeviceMonitor(Object):
     ]|
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         show_all: bool  # [show-all]: changed because contained invalid characters
 
@@ -10912,6 +10912,7 @@ class DoubleRange(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a #gdouble range
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13210,6 +13211,7 @@ class FlagSet(builtins.object, metaclass=GObject.GType):
     mask indicating which of the bits in the field are explicitly set.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13255,6 +13257,7 @@ class Fraction(builtins.object, metaclass=GObject.GType):
     over an integer denominator
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13292,6 +13295,7 @@ class FractionRange(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a Gst.FractionRange range
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13652,6 +13656,7 @@ class Int64Range(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a #gint64 range
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13671,6 +13676,7 @@ class IntRange(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a #gint range
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -13966,6 +13972,7 @@ class MapInfo(builtins.object):
     Gst.BufferMapInfo and Gst.MemoryMapInfo can be used in that case.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -15986,16 +15993,21 @@ class Object(GObject.InitiallyUnowned):
       * start your pipeline
     """
 
+    @typing.type_check_only
     class Props(GObject.InitiallyUnowned.Props):
-        name: str
-        parent: Object | None
-        """
-        The parent of the object. Please note, that when changing the 'parent'
-        property, we don't emit GObject::notify and Gst.Object::deep-notify
-        signals due to locking issues. In some cases one can use
-        Gst.Bin::element-added or Gst.Bin::element-removed signals on the parent to
-        achieve a similar effect.
-        """
+        name: str | None
+        @builtins.property
+        def parent(self) -> Object | None:
+            """
+            The parent of the object. Please note, that when changing the 'parent'
+            property, we don't emit GObject::notify and Gst.Object::deep-notify
+            signals due to locking issues. In some cases one can use
+            Gst.Bin::element-added or Gst.Bin::element-removed signals on the parent to
+            achieve a similar effect.
+            """
+            ...
+        @parent.setter
+        def parent(self, value: Object) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -16383,9 +16395,12 @@ class Pad(Object):
     respectively.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        caps: Caps | None
-        direction: PadDirection
+        @builtins.property
+        def caps(self) -> Caps | None: ...
+        @builtins.property
+        def direction(self) -> PadDirection: ...
         offset: int
         """
         The offset that will be applied to the running time of the pad.
@@ -16503,11 +16518,8 @@ class Pad(Object):
 
         If you don't know what this is, you probably don't want to call it.
         """
-    def add_probe(
-        self,
-        mask: PadProbeType,
-        callback: PadProbeCallback | typing.Callable[..., PadProbeReturn],
-        *user_data: object | None,
+    def add_probe[*UserData](
+        self, mask: PadProbeType, callback: PadProbeCallbackWithData[*UserData], *user_data: *UserData
     ) -> int:
         """
             Be notified of different states of pads. The provided callback is called for
@@ -17447,6 +17459,7 @@ class PadProbeInfo(GObject.GPointer, metaclass=GObject.GType):
         """
 
 class PadProbeInfoObjectContextManager(builtins.object):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -17535,27 +17548,38 @@ class PadTemplate(Object):
     ]|
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        caps: Caps | None
-        """
-        The capabilities of the pad described by the pad template.
-        """
-        direction: PadDirection
-        """
-        The direction of the pad described by the pad template.
-        """
-        gtype: GObject.GType
-        """
-        The type of the pad described by the pad template.
-        """
-        name_template: str  # [name-template]: changed because contained invalid characters
-        """
-        The name template of the pad template.
-        """
-        presence: PadPresence
-        """
-        When the pad described by the pad template will become available.
-        """
+        @builtins.property
+        def caps(self) -> Caps:
+            """
+            The capabilities of the pad described by the pad template.
+            """
+            ...
+        @builtins.property
+        def direction(self) -> PadDirection:
+            """
+            The direction of the pad described by the pad template.
+            """
+            ...
+        @builtins.property
+        def gtype(self) -> GObject.GType:
+            """
+            The type of the pad described by the pad template.
+            """
+            ...
+        @builtins.property
+        def name_template(self) -> str:
+            """
+            The name template of the pad template.
+            """
+            ...
+        @builtins.property
+        def presence(self) -> PadPresence:
+            """
+            When the pad described by the pad template will become available.
+            """
+            ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -17940,6 +17964,7 @@ class Pipeline(Bin):
     `Gst.Element.set_start_time` method.
     """
 
+    @typing.type_check_only
     class Props(Bin.Props):
         auto_flush_bus: bool  # [auto-flush-bus]: changed because contained invalid characters
         """
@@ -18864,6 +18889,7 @@ class Preset(builtins.object, metaclass=GObject.GType):
     Presets found in those paths will be considered as "app presets".
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -20800,17 +20826,20 @@ class Stream(Object):
     pertinent to streams of data).
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         caps: Caps | None
         """
         The Gst.Caps of the Gst.Stream.
         """
         stream_flags: StreamFlags  # [stream-flags]: changed because contained invalid characters
-        stream_id: str  # [stream-id]: changed because contained invalid characters
-        """
-        The unique identifier of the Gst.Stream. Can only be set at construction
-        time.
-        """
+        @builtins.property
+        def stream_id(self) -> str | None:
+            """
+            The unique identifier of the Gst.Stream. Can only be set at construction
+            time.
+            """
+            ...
         stream_type: StreamType  # [stream-type]: changed because contained invalid characters
         """
         The Gst.StreamType of the Gst.Stream. Can only be set at construction time.
@@ -21008,11 +21037,16 @@ class StreamCollection(Object):
     GST_EVENT_SELECT_STREAMS event on a pipeline, bin or element.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
-        upstream_id: str  # [upstream-id]: changed because contained invalid characters
-        """
-        stream-id
-        """
+        @builtins.property
+        def upstream_id(self) -> str | None:
+            """
+            stream-id
+            """
+            ...
+        @upstream_id.setter
+        def upstream_id(self, value: str) -> None: ...
 
     @builtins.property
     def props(self) -> Props: ...
@@ -21859,6 +21893,7 @@ class Structure(GObject.GBoxed, metaclass=GObject.GType):
         """
 
 class StructureContextManager(builtins.object):
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -21896,6 +21931,7 @@ class SystemClock(Clock):
     wait operations.
     """
 
+    @typing.type_check_only
     class Props(Clock.Props):
         clock_type: ClockType  # [clock-type]: changed because contained invalid characters
 
@@ -22407,6 +22443,7 @@ class TagSetter(builtins.object):
     ]|
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -23104,6 +23141,7 @@ class TocSetter(builtins.object):
     with any TOC entries received from downstream.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -23150,6 +23188,7 @@ class Tracer(Object):
     contextual data, which they must not modify.
     """
 
+    @typing.type_check_only
     class Props(Object.Props):
         params: str
 
@@ -23568,6 +23607,7 @@ class URIHandler(builtins.object, metaclass=GObject.GType):
     Source and Sink plugins should implement this interface when possible.
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -23993,6 +24033,7 @@ class ValueArray(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes an ordered list of GValue
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -24076,6 +24117,7 @@ class ValueList(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes an unordered list of GValue
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -24209,6 +24251,7 @@ class ValueUniqueList(builtins.object, metaclass=GObject.GType):
     A fundamental type that describes a set of GValue
     """
 
+    @typing.type_check_only
     class Props: ...
 
     @builtins.property
@@ -25539,6 +25582,20 @@ class PadProbeCallback(typing.Protocol):
         pad: Pad,
         info: PadProbeInfo,
         *user_data: object | None,
+    ) -> PadProbeReturn: ...
+
+class PadProbeCallbackWithData[*UserData](typing.Protocol):
+    """
+    This callback was used in:
+        Gst.add_probe
+    """
+    #  pad
+    def __call__(
+        self,
+        pad: Pad,
+        info: PadProbeInfo,
+        /,
+        *user_data: *UserData,
     ) -> PadProbeReturn: ...
 
 class PadForwardFunction(typing.Protocol):

@@ -28,7 +28,7 @@ def test_closure_is_variadic_and_destroy_notifier_is_hidden():
     assert probe is not None
     assert [arg.name for arg in probe.args] == ["mask", "callback", "user_data"]
     assert probe.args[-1].is_variadic
-    assert probe.args[-1].render_parameter("Gst") == "*user_data: object | None"
+    assert probe.args[-1].render_parameter("Gst") == "*user_data: *UserData"
     assert "PadProbeCallback" in {callback.name for callback in probe._gi_callbacks}
 
 

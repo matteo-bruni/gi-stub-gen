@@ -53,6 +53,11 @@ class FunctionArgumentSchema(BaseSchema):
     is_pointer: bool
     """Whether this argument is a pointer type"""
 
+    is_required: bool = False
+    """Require the argument even when its type admits None (explicit callback overloads)."""
+    is_keyword_only: bool = False
+    """Place this parameter after a keyword-only separator when rendering the signature."""
+
     is_variadic: bool = False
     """Whether this argument is variadic (i.e., part of *args)"""
 
@@ -127,7 +132,7 @@ class FunctionArgumentSchema(BaseSchema):
         if self.is_variadic:
             return f"*{self.name}: {annotation}"
         parameter = f"{self.name}: {annotation}"
-        if not force_no_default and (self.may_be_null or self.is_optional or self.default_value is not None):
+        if not force_no_default and not self.is_required and (self.may_be_null or self.is_optional or self.default_value is not None):
             default = self.default_value if self.default_value is not None else "None"
             parameter += f" = {default}"
         return parameter
@@ -141,6 +146,13 @@ class FunctionSchema(BaseSchema):
 
     is_callback: bool
     """Whether this function is a callback"""
+
+    type_parameters: list[str] = Field(default_factory=list)
+    """PEP 695 parameter declarations, such as Source or *UserData, in declaration order."""
+    positional_only: bool = False
+    """Render fixed input parameters before / and without defaults, for native callbacks."""
+    overloads: list[FunctionSchema] = Field(default_factory=list)
+    """Alternative signatures rendered instead of this signature; empty means no overloads."""
 
     # Keep track of callbacks found during function argument parsing
     _gi_callbacks: list[CallbackSchema] = PrivateAttr(default_factory=list)
@@ -257,6 +269,8 @@ class FunctionSchema(BaseSchema):
     @property
     def required_imports(self) -> set[str]:
         gi_imports = set(self.return_type_imports)
+        for variant in self.overloads:
+            gi_imports.update(variant.required_imports)
         # check return type
         if self.return_hint_namespace:
             gi_imports.add(self.return_hint_namespace)
@@ -313,11 +327,22 @@ class FunctionSchema(BaseSchema):
 
     def render_stub(self) -> str:
         """Return stub text as a string."""
-        return TemplateManager.render_master("function.jinja", fun=self)
+        return self._render_variants("function.jinja")
 
     def render_stub_compact(self) -> str:
         """Return stub text as a string."""
-        return TemplateManager.render_master("function_compact.jinja", fun=self)
+        return self._render_variants("function_compact.jinja")
+
+    def _render_variants(self, template: str) -> str:
+        if not self.overloads:
+            return TemplateManager.render_master(template, fun=self)
+        return "\n".join(
+            TemplateManager.render_master(template, fun=variant.model_copy(update={
+                "is_class_member": self.is_class_member, "is_overload": True,
+                "docstring": self.docstring if i == 0 else None,
+            }))
+            for i, variant in enumerate(self.overloads)
+        )
 
     def render_parameter_list(self, namespace: str, one_line: bool = True) -> str:
         """
@@ -337,8 +362,8 @@ class FunctionSchema(BaseSchema):
             if arg.direction == "OUT":
                 continue
 
-            arg_repr = arg.render_parameter(namespace, force_no_default=not allow_default)
-            if not arg.is_variadic and not (arg.may_be_null or arg.is_optional or arg.default_value is not None):
+            arg_repr = arg.render_parameter(namespace, force_no_default=self.positional_only or not allow_default)
+            if not arg.is_variadic and not arg.is_keyword_only and (arg.is_required or not (arg.may_be_null or arg.is_optional or arg.default_value is not None)):
                 # Once we find a required parameter, preceding parameters cannot have defaults.
                 allow_default = False
 
@@ -348,6 +373,8 @@ class FunctionSchema(BaseSchema):
             else:
                 arg_comment = None
             argument_list.append((arg_repr, arg_comment))
+            if arg.is_keyword_only:
+                argument_list.append(("*", None))
 
         # add self or cls if method
         receiver = self.render_receiver()
@@ -356,6 +383,10 @@ class FunctionSchema(BaseSchema):
 
         # restore the order
         argument_list.reverse()
+        if self.positional_only:
+            boundary = next((i for i, (text, _) in enumerate(argument_list) if text.startswith("*")), len(argument_list))
+            if boundary:
+                argument_list.insert(boundary, ("/", None))
         return TemplateManager.render_master(
             "function_args.jinja",
             argument_list=argument_list,

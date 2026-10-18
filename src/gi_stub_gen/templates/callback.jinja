@@ -10,7 +10,7 @@ We add type ignore because if they are not parsed in their namespace they will n
 """
 {% endif %}
 {% else %}
-class {{cb.name}}(typing.Protocol):
+class {{cb.name}}{{ ('[' + cb.function.type_parameters | join(', ') + ']') if cb.function.type_parameters else '' }}(typing.Protocol):
     {% if cb.docstring or debug %}
     """
     {{ cb.debug | if_true(debug, "{}\n\n") | indent(4, blank=True) -}}

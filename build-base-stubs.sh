@@ -33,8 +33,7 @@ done
 
 # i think this should follow the pygobject version
 # we keep the patch version for the stub package versioning
-# the tool can actually create stubs for gi._gi and gi._enum too, but when i do
-# the stubs stops working (???)
+# gi._gi uses a bounded, verified declaration set rather than unrestricted discovery.
 
 # PYGOBJECT_VERSION=$(uv run python3 -c "import gi; print('.'.join(gi.__version__.split('.')[:2]))")
 PYGOBJECT_VERSION=$(uv run python3 -c "import gi; print(gi.__version__)")
@@ -51,6 +50,7 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GIRepository:3.0 \
     gi.repository.GModule:2.0 \
     gi \
+    gi._gi \
     --pkg-name ${STUB_PACKAGE_NAME} \
     --pkg-version ${PKG_GI_BASE_STUBS_VERSION} \
     --pkg-author "${STUB_AUTHOR_NAME}" \

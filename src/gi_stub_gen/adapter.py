@@ -46,7 +46,7 @@ class GIRepositoryCallableAdapter:
         self._raw = raw_info
         self._parent = parent
 
-    def get_container(self):
+    def get_container(self) -> GIRepositoryCallableAdapter | None:
         if self._parent:
             return self._parent
 
@@ -55,7 +55,7 @@ class GIRepositoryCallableAdapter:
             return GIRepositoryCallableAdapter(raw_container)
         return None
 
-    def get_arguments(self):
+    def get_arguments(self) -> list[GIRepositoryCallableAdapter]:
         if not hasattr(self._raw, "get_n_args"):
             return []
 
@@ -65,7 +65,7 @@ class GIRepositoryCallableAdapter:
             args.append(GIRepositoryCallableAdapter(raw_arg))
         return args
 
-    def get_type(self):
+    def get_type(self) -> GIRepositoryCallableAdapter:
         raw_type = None
         if hasattr(self._raw, "get_type_info"):  # pygobject v3.0
             raw_type = self._raw.get_type_info()
@@ -79,21 +79,21 @@ class GIRepositoryCallableAdapter:
 
         raise AttributeError(f"Oggetto '{self._raw}' non ha metodi type.")
 
-    def get_interface(self):
+    def get_interface(self) -> GIRepositoryCallableAdapter | None:
         """
         Intercetta type_info.get_interface() per continuare la catena.
         """
         raw_iface = self._raw.get_interface()
         return GIRepositoryCallableAdapter(raw_iface) if raw_iface else None
 
-    def get_param_type(self, index):
+    def get_param_type(self, index: int) -> GIRepositoryCallableAdapter | None:
         """
         Intercetta type_info.get_param_type(n) (per array/liste).
         """
         raw_param = self._raw.get_param_type(index)
         return GIRepositoryCallableAdapter(raw_param) if raw_param else None
 
-    def get_tag_as_string(self):
+    def get_tag_as_string(self) -> str:
         if not hasattr(self._raw, "get_tag"):
             return "unknown"
 
