@@ -210,20 +210,23 @@ def parse_module(
             (index for index, schema in enumerate(module_classes) if schema.name in {"GEnum", "GFlags"}),
             default=len(module_classes),
         )
-        enum_support_classes = [GENUM_META_SCHEMA, GFLAGS_META_SCHEMA]
+        enum_support_classes = [GENUM_META_SCHEMA.model_copy(deep=True), GFLAGS_META_SCHEMA.model_copy(deep=True)]
         if gtype_schema is not None:
             enum_support_classes.insert(0, gtype_schema)
         module_classes[enum_class_index:enum_class_index] = enum_support_classes
 
         #  add a custom Property class override
-        module_classes.append(CLASS_PROPERTY)
+        module_classes.append(CLASS_PROPERTY.model_copy(deep=True))
 
-    # add override callbacks, if defined for current module
-    from gi_stub_gen.overrides import CALLBACK_OVERRIDES
+    # Discover required callbacks in the current documentation context only.
+    from gi_stub_gen.adapter import get_callback_schema
+    from gi_stub_gen.overrides import REQUIRED_CALLBACKS
 
-    for override in CALLBACK_OVERRIDES.get(module_name, {}).values():
-        if override.name not in [cb.name for cb in callbacks_found]:
-            callbacks_found.append(override)
+    callback_names = {cb.name for cb in callbacks_found}
+    for callback_name in REQUIRED_CALLBACKS.get(module_name, ()):
+        if callback_name not in callback_names:
+            callbacks_found.append(get_callback_schema(module_name.removeprefix("gi.repository."), callback_name, docs))
+            callback_names.add(callback_name)
 
     # just filter only the callbacks used in the module
     module_callbacks: dict[str, CallbackSchema] = {}

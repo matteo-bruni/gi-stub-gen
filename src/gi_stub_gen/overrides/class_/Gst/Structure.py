@@ -1,63 +1,18 @@
-from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
+"""gst-python 1.28.3 annotates set_value as bool, but runtime returns None.
+
+Preserve the installed Python signature and the GIR documentation merged by the parser.
+"""
+
+from gi_stub_gen.overrides.types import MethodSchema
+from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 
 
-GST_STRUCTURE_SET_VALUE = FunctionSchema(
-    name="set_value",
-    namespace="Gst",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
-    docstring=None,
-    args=[
-        FunctionArgumentSchema(
-            namespace="Gst",
-            name="key",
-            direction="IN",
-            is_callback=False,
-            may_be_null=False,
-            is_optional=False,
-            is_deprecated=False,
-            is_caller_allocates=False,
-            tag_as_string="",
-            get_array_length=-1,
-            py_type_name="str",
-            py_type_namespace=None,
-            line_comment=None,
-            default_value=None,
-            is_pointer=False,
-        ),
-        FunctionArgumentSchema(
-            namespace="Gst",
-            name="value",
-            direction="IN",
-            is_callback=False,
-            may_be_null=False,
-            is_optional=False,
-            is_deprecated=False,
-            is_caller_allocates=False,
-            tag_as_string="",
-            get_array_length=-1,
-            py_type_name="Any",
-            py_type_namespace="typing",
-            line_comment=None,
-            default_value=None,
-            is_pointer=True,
-            is_marshaled_gvalue_payload=True,
-        ),
-    ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=True,
-    may_return_null=False,
-    return_hint=None,
-    return_hint_namespace=None,
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
-)
+def transform_set_value(method: MethodSchema) -> MethodSchema:
+    if not isinstance(method, BuiltinFunctionSchema):
+        raise TypeError("Gst.Structure.set_value requires a Python callable")
+    if method.return_hint_name not in {"bool", "None"}:
+        raise ValueError("Gst.Structure.set_value has an unexpected return annotation")
+    method.return_hint_name = "None"
+    method.return_hint_namespace = None
+    method.return_is_optional = False
+    return method

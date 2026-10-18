@@ -654,7 +654,7 @@ def parse_class(
     Returns:
         tuple[ClassSchema | None, list[GI.TypeInfo]]: parsed ClassSchema and list of GI.TypeInfo callbacks
     """
-    from gi_stub_gen.schema.class_ import ClassPropSchema, ClassSchema
+    from gi_stub_gen.schema.class_ import ClassPropSchema
 
     # Check if it is a class
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
@@ -1499,6 +1499,7 @@ def _assemble_class(
     from gi_stub_gen.overrides import (
         apply_method_overrides,
         apply_field_overrides,
+        apply_method_transforms,
     )
 
     gi_info = None
@@ -1527,6 +1528,7 @@ def _assemble_class(
     # ================================================================
     methods = apply_method_overrides(methods, namespace, obj.__name__)
     fields = apply_field_overrides(fields, namespace, obj.__name__)
+    methods, builtin_methods = apply_method_transforms(methods, builtin_methods, namespace, obj.__name__)
 
     # Sort after overrides are applied
     fields.sort(key=lambda x: x.name)

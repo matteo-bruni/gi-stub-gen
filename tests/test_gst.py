@@ -302,8 +302,8 @@ def test_gst_gvalue_marshalling_signatures():
     rendered = parsed_class.render_stub()
     assert "def get_value(self, fieldname: str) -> typing.Any:" in rendered
 
-    set_value = next(method for method in parsed_class.methods if method.name == "set_value")
-    assert set_value.render_parameter_list("Gst", one_line=True) == "self, key: str, value: typing.Any"
+    set_value = next(method for method in parsed_class.python_methods if method.name == "set_value")
+    assert set_value.render_parameter_list("Gst") == ["self", "key: str", "value: typing.Any"]
     assert set_value.render_return_annotation("Gst") == "None"
 
     caps, _ = parse_class("gi.repository.Gst", Gst.Caps, docs=GIRDocs())

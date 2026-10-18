@@ -1,13 +1,38 @@
 from gi_stub_gen.schema.function import FunctionArgumentSchema, FunctionSchema
 
 
-OBJECT_EMIT = FunctionSchema(
+def _make_object_method(
+    name: str, docstring: str, args: list[FunctionArgumentSchema], return_hint: str = "None"
+) -> FunctionSchema:
+    """Helper to create Object method overrides."""
+    return FunctionSchema(
+        name=name,
+        namespace="GObject",
+        is_method=True,
+        is_class_member=True,
+        is_deprecated=False,
+        deprecation_warnings=None,
+        docstring=docstring,
+        args=args,
+        is_callback=False,
+        can_throw_gerror=False,
+        is_async=False,
+        is_constructor=False,
+        is_getter=False,
+        is_setter=False,
+        may_return_null=False,
+        return_hint=return_hint,
+        return_hint_namespace="typing" if return_hint == "Any" else None,
+        skip_return=False,
+        wrap_vfunc=False,
+        line_comment=None,
+        function_type="FunctionInfo",
+        is_overload=False,
+    )
+
+
+OBJECT_EMIT = _make_object_method(
     name="emit",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Emit a signal.",
     args=[
         FunctionArgumentSchema(
@@ -45,28 +70,10 @@ OBJECT_EMIT = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="Any",
-    return_hint_namespace="typing",
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
-OBJECT_WEAK_REF = FunctionSchema(
+OBJECT_WEAK_REF = _make_object_method(
     name="weak_ref",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Creates a weak reference to the object.",
     args=[
         FunctionArgumentSchema(
@@ -87,30 +94,12 @@ OBJECT_WEAK_REF = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="Any",
-    return_hint_namespace="typing",
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
 # def get_property(self, property_name: str) -> any: ...
 
-OBJECT_GET_PROPERTY = FunctionSchema(
+OBJECT_GET_PROPERTY = _make_object_method(
     name="get_property",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Get a property value by name.",
     args=[
         FunctionArgumentSchema(
@@ -131,30 +120,12 @@ OBJECT_GET_PROPERTY = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="Any",
-    return_hint_namespace="typing",
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
 # def set_property(self, property_name: str, value: any) -> None: ...
 
-OBJECT_SET_PROPERTY = FunctionSchema(
+OBJECT_SET_PROPERTY = _make_object_method(
     name="set_property",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Set a property value by name.",
     args=[
         FunctionArgumentSchema(
@@ -192,56 +163,13 @@ OBJECT_SET_PROPERTY = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="None",
-    return_hint_namespace=None,
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
 
 
 # ============================================================================
 # Object method_descriptor methods (PyGObject C implementations)
 # ============================================================================
-
-
-def _make_object_method(
-    name: str, docstring: str, args: list[FunctionArgumentSchema], return_hint: str = "None"
-) -> FunctionSchema:
-    """Helper to create Object method overrides."""
-    return FunctionSchema(
-        name=name,
-        namespace="GObject",
-        is_method=True,
-        is_class_member=True,
-        is_deprecated=False,
-        deprecation_warnings=None,
-        docstring=docstring,
-        args=args,
-        is_callback=False,
-        can_throw_gerror=False,
-        is_async=False,
-        is_constructor=False,
-        is_getter=False,
-        is_setter=False,
-        may_return_null=False,
-        return_hint=return_hint,
-        return_hint_namespace="typing" if return_hint == "Any" else None,
-        skip_return=False,
-        wrap_vfunc=False,
-        line_comment=None,
-        function_type="FunctionInfo",
-        is_overload=False,
-    )
 
 
 OBJECT_CHAIN = _make_object_method(
@@ -287,13 +215,8 @@ OBJECT_CHAIN = _make_object_method(
 )
 
 
-OBJECT_CONNECT_AFTER = FunctionSchema(
+OBJECT_CONNECT_AFTER = _make_object_method(
     name="connect_after",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Connect a handler to a signal, to be called after the default handler.",
     args=[
         FunctionArgumentSchema(
@@ -348,20 +271,7 @@ OBJECT_CONNECT_AFTER = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="int",
-    return_hint_namespace=None,
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
 
 
@@ -451,13 +361,8 @@ OBJECT_CONNECT_OBJECT_AFTER = _make_object_method(
 )
 
 
-OBJECT_DISCONNECT_BY_FUNC = FunctionSchema(
+OBJECT_DISCONNECT_BY_FUNC = _make_object_method(
     name="disconnect_by_func",
-    namespace="GObject",
-    is_method=True,
-    is_class_member=True,
-    is_deprecated=False,
-    deprecation_warnings=None,
     docstring="Disconnect a handler by function reference.",
     args=[
         FunctionArgumentSchema(
@@ -478,20 +383,7 @@ OBJECT_DISCONNECT_BY_FUNC = FunctionSchema(
             is_pointer=False,
         ),
     ],
-    is_callback=False,
-    can_throw_gerror=False,
-    is_async=False,
-    is_constructor=False,
-    is_getter=False,
-    is_setter=False,
-    may_return_null=False,
     return_hint="None",
-    return_hint_namespace=None,
-    skip_return=False,
-    wrap_vfunc=False,
-    line_comment=None,
-    function_type="FunctionInfo",
-    is_overload=False,
 )
 
 

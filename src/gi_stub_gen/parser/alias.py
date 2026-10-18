@@ -98,9 +98,9 @@ def parse_alias(
         # that are addedd at runtime. so we fake the schema here
         #######################################################################
         if sanitized_module_name == "gi._gi" and attribute_name == "GEnum":
-            return GENUM_SCHEMA
+            return GENUM_SCHEMA.model_copy(deep=True)
         elif sanitized_module_name == "gi._gi" and attribute_name == "GFlags":
-            return GFLAG_SCHEMA
+            return GFLAG_SCHEMA.model_copy(deep=True)
         elif sanitized_module_name == "gi._propertyhelper" and attribute_name == "Property":
             # will be added later at the end of module parsing via custom overrides
             return None
