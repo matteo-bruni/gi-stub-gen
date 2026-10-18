@@ -1,3 +1,4 @@
+from types import GenericAlias
 import importlib
 from typing import Any
 import gi
@@ -295,7 +296,7 @@ def gi_type_to_py_type(
             # list[uint8] is actually bytes
             return bytes
 
-        return list[gi_type_to_py_type(element)]
+        return GenericAlias(list, gi_type_to_py_type(element))
 
     if py_type is dict:
         key = gi_type_info.get_param_type(0)

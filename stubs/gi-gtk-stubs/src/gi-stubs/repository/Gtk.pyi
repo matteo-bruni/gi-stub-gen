@@ -123742,6 +123742,7 @@ class get_at_contextAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
     ) -> ATContext | None: ...
 
@@ -123752,6 +123753,7 @@ class get_platform_stateAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
         state: AccessiblePlatformState,
     ) -> bool: ...
@@ -123763,6 +123765,7 @@ class get_accessible_parentAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
     ) -> Accessible | None: ...
 
@@ -123773,6 +123776,7 @@ class get_first_accessible_childAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
     ) -> Accessible | None: ...
 
@@ -123783,6 +123787,7 @@ class get_next_accessible_siblingAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
     ) -> Accessible | None: ...
 
@@ -123793,6 +123798,7 @@ class get_boundsAccessibleInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Accessible,
     ) -> tuple[bool, int, int, int, int]: ...
 
@@ -123803,6 +123809,7 @@ class set_current_valueAccessibleRangeInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleRange,
         value: float,
     ) -> bool: ...
@@ -123814,6 +123821,7 @@ class get_contentsAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
         start: int,
         end: int,
@@ -123826,6 +123834,7 @@ class get_contents_atAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
         offset: int,
         granularity: AccessibleTextGranularity,
@@ -123838,6 +123847,7 @@ class get_caret_positionAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
     ) -> int: ...
 
@@ -123848,6 +123858,7 @@ class get_selectionAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
     ) -> tuple[bool, list[AccessibleTextRange]]: ...
 
@@ -123858,6 +123869,7 @@ class get_attributesAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
         offset: int,
     ) -> tuple[bool, list[AccessibleTextRange], list[str], list[str]]: ...
@@ -123869,6 +123881,7 @@ class get_default_attributesAccessibleTextInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: AccessibleText,
     ) -> tuple[list[str], list[str]]: ...
 
@@ -124158,6 +124171,7 @@ class get_type_from_nameBuilderScopeInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: BuilderScope,
         builder: Builder,
         type_name: str,
@@ -124170,6 +124184,7 @@ class get_type_from_functionBuilderScopeInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: BuilderScope,
         builder: Builder,
         function_name: str,
@@ -124182,6 +124197,7 @@ class create_closureBuilderScopeInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: BuilderScope,
         builder: Builder,
         function_name: str,
@@ -125331,6 +125347,7 @@ class matchFilterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Filter,
         item: GObject.Object | None = None,
     ) -> bool: ...
@@ -125342,6 +125359,7 @@ class get_strictnessFilterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Filter,
     ) -> FilterMatch: ...
 
@@ -125954,6 +125972,7 @@ class openMediaFileClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaFile,
     ) -> None: ...
 
@@ -125964,6 +125983,7 @@ class closeMediaFileClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaFile,
     ) -> None: ...
 
@@ -125974,6 +125994,7 @@ class playMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
     ) -> bool: ...
 
@@ -125984,6 +126005,7 @@ class pauseMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
     ) -> None: ...
 
@@ -125994,6 +126016,7 @@ class seekMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
         timestamp: int,
     ) -> None: ...
@@ -126005,6 +126028,7 @@ class update_audioMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
         muted: bool,
         volume: float,
@@ -126017,6 +126041,7 @@ class realizeMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
         surface: Gdk.Surface,
     ) -> None: ...
@@ -126028,6 +126053,7 @@ class unrealizeMediaStreamClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: MediaStream,
         surface: Gdk.Surface,
     ) -> None: ...
@@ -126051,6 +126077,7 @@ class responseNativeDialogClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: NativeDialog,
         response_id: int,
     ) -> None: ...
@@ -126062,6 +126089,7 @@ class showNativeDialogClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: NativeDialog,
     ) -> None: ...
 
@@ -126072,6 +126100,7 @@ class hideNativeDialogClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: NativeDialog,
     ) -> None: ...
 
@@ -126434,6 +126463,7 @@ class get_sectionSectionModelInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: SectionModel,
         position: int,
     ) -> tuple[int, int]: ...
@@ -126557,6 +126587,7 @@ class add_controllerShortcutManagerInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: ShortcutManager,
         controller: ShortcutController,
     ) -> None: ...
@@ -126568,6 +126599,7 @@ class remove_controllerShortcutManagerInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: ShortcutManager,
         controller: ShortcutController,
     ) -> None: ...
@@ -126579,6 +126611,7 @@ class compareSorterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Sorter,
         item1: GObject.Object | None = None,
         item2: GObject.Object | None = None,
@@ -126591,6 +126624,7 @@ class get_orderSorterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Sorter,
     ) -> SorterOrder: ...
 
@@ -127105,6 +127139,7 @@ class visibleTreeModelFilterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TreeModelFilter,
         child_model: TreeModel,
         iter: TreeIter,
@@ -127117,6 +127152,7 @@ class modifyTreeModelFilterClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TreeModelFilter,
         child_model: TreeModel,
         iter: TreeIter,

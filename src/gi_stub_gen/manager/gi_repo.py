@@ -92,7 +92,17 @@ class GIRepo:
         namespace: str,
         name: str,
         namespace_version: str | None = None,
-        target_type: type[T] = ...,
+        *,
+        target_type: type[T],
+    ) -> T | None: ...
+
+    @overload
+    def find_by_name(
+        self,
+        namespace: str,
+        name: str,
+        namespace_version: str | None,
+        target_type: type[T],
     ) -> T | None: ...
 
     @overload
@@ -101,6 +111,7 @@ class GIRepo:
         namespace: str,
         name: str,
         namespace_version: str | None = None,
+        target_type: None = None,
     ) -> GIRepository.BaseInfo | None: ...
 
     def find_by_name(

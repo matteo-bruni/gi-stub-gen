@@ -1,7 +1,36 @@
+import ast
+
+from gi import _gi
 from gi.repository import Gio, Gst
 
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.manager.template import TemplateManager
+from gi_stub_gen.parser.fields import gi_parse_field
+
+
+def test_native_self_argument_is_separate_from_protocol_receiver():
+    info = getattr(Gio.TlsDatabaseClass, "__info__")
+    assert isinstance(info, _gi.StructInfo)
+    field = next(field for field in info.get_fields() if field.get_name() == "verify_chain")
+    _, callback = gi_parse_field(field, "Gio", "TlsDatabaseClass")
+    assert callback is not None
+    function = callback.function
+    assert function.input_args[0].name == "self"
+    TemplateManager.set_module_name("Gio")
+    tree = ast.parse(callback.render_stub())
+    call = next(node for node in ast.walk(tree) if isinstance(node, ast.FunctionDef))
+    assert [arg.arg for arg in call.args.args] == ["_callback", *[arg.name for arg in function.input_args]]
+    assert call.args.args[0].annotation is None
+    assert call.args.args[1].annotation is not None
+    assert ast.unparse(call.args.args[1].annotation) == "TlsDatabase"
+
+    native = function.input_args[0]
+    function.args = [native.model_copy(update={"name": name}) for name in ("self", "_callback", "_callback_")]
+    assert function.render_receiver() == "_callback__"
+    function.args = [native.model_copy(update={"direction": "OUT"})]
+    assert function.render_receiver() == "self"
+    function.args = []
+    assert function.render_receiver() == "self"
 
 
 def test_selected_callbacks_link_userdata_and_preserve_original_protocol():

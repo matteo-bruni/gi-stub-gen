@@ -1,5 +1,6 @@
 from __future__ import annotations
 import ast
+import builtins
 from dataclasses import dataclass
 import enum
 import importlib
@@ -761,6 +762,9 @@ def parse_class(
         if m_name == "__init__" and init_factory is not None:
             continue
         if m_name in override_mixin_members:
+            continue
+        if not is_local(class_to_parse, m_name) and isinstance(getattr(class_to_parse, m_name, None), FunctionType):
+            # Inherited GI info must not replace the base class's Python wrapper.
             continue
         parsed_method = parse_function(
             met,
@@ -1556,6 +1560,7 @@ def _assemble_class(
         props_ignored_super_classes=set(override_mixins),
         allow_synthetic_props=allow_synthetic_props,
         additional_required_imports=additional_required_imports or set(),
+        shadowed_builtin_types={name for name in dir(obj) if isinstance(getattr(builtins, name, None), type)},
         docstring=class_docstring,
         props=props,
         fields=fields,

@@ -5663,7 +5663,7 @@ class Allocator(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def mem_copy(self) -> MemoryCopyFunction:
         """
@@ -6012,7 +6012,7 @@ class Bin(Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def child_bus(self) -> Bus | None:
         """
@@ -7241,7 +7241,7 @@ class BufferPool(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def flushing(self) -> int:
         """
@@ -7638,7 +7638,7 @@ class Bus(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> Object | None:
         """
@@ -7685,7 +7685,7 @@ class Bus(Object):
         There can only be a single bus watch per bus, you must remove any signal
         watch before you can set another type of watch.
         """
-    def add_watch(self, priority: int, func: BusFunc, *user_data: object | None) -> int:
+    def add_watch(self, priority: int, func: BusFunc, *user_data: builtins.object | None) -> int:
         """
             Adds a bus watch to the default main context with the default priority
         ( G_PRIORITY_DEFAULT ). It is also possible to use a non-default main
@@ -7706,7 +7706,7 @@ class Bus(Object):
         The bus watch will take its own reference to the `bus`, so it is safe to unref
         `bus` using `Gst.Object.unref` after setting the bus watch.
         """
-    def async_signal_func(self, message: Message, data: object | None = None) -> bool:
+    def async_signal_func(self, message: Message, data: builtins.object | None = None) -> bool:
         """
             A helper Gst.BusFunc that can be used to convert all asynchronous messages
         into signals.
@@ -7839,7 +7839,9 @@ class Bus(Object):
         `Gst.Bus.set_flushing` sets `flushing` to False.
         """
     def set_sync_handler(
-        self, func: BusSyncHandler | None | typing.Callable[..., BusSyncReply] = None, *user_data: object | None
+        self,
+        func: BusSyncHandler | None | typing.Callable[..., BusSyncReply] = None,
+        *user_data: builtins.object | None,
     ) -> None:
         """
             Sets the synchronous handler on the bus. The function will be called
@@ -7852,7 +7854,7 @@ class Bus(Object):
         Before 1.16.3 it was not possible to replace an existing handler and
         clearing an existing handler with None was not thread-safe.
         """
-    def sync_signal_handler(self, message: Message, data: object | None = None) -> BusSyncReply:
+    def sync_signal_handler(self, message: Message, data: builtins.object | None = None) -> BusSyncReply:
         """
             A helper Gst.BusSyncHandler that can be used to convert all synchronous
         messages into signals.
@@ -8809,7 +8811,7 @@ class Clock(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> Object | None:
         """
@@ -8909,34 +8911,34 @@ class Clock(Object):
         Gets the amount of time that master and slave clocks are sampled.
         """
     @staticmethod
-    def id_compare_func(id1: object | None = None, id2: object | None = None) -> int:
+    def id_compare_func(id1: builtins.object | None = None, id2: builtins.object | None = None) -> int:
         """
             Compares the two Gst.ClockID instances. This function can be used
         as a GCompareFunc when sorting ids.
         """
     @staticmethod
-    def id_get_clock(id: object) -> Clock | None:
+    def id_get_clock(id: builtins.object) -> Clock | None:
         """
         This function returns the underlying clock.
         """
     @staticmethod
-    def id_get_time(id: object) -> int:
+    def id_get_time(id: builtins.object) -> int:
         """
         Gets the time of the clock ID
         """
     @staticmethod
-    def id_ref(id: object) -> object:
+    def id_ref(id: builtins.object) -> builtins.object:
         """
         Increases the refcount of given `id`.
         """
     @staticmethod
-    def id_unref(id: object) -> None:
+    def id_unref(id: builtins.object) -> None:
         """
             Unrefs given `id`. When the refcount reaches 0 the
         Gst.ClockID will be freed.
         """
     @staticmethod
-    def id_unschedule(id: object) -> None:
+    def id_unschedule(id: builtins.object) -> None:
         """
             Cancels an outstanding request with `id`. This can either
         be an outstanding async notification or a pending sync notification.
@@ -8944,7 +8946,7 @@ class Clock(Object):
         async notifications, you need to create a new Gst.ClockID.
         """
     @staticmethod
-    def id_uses_clock(id: object, clock: Clock) -> bool:
+    def id_uses_clock(id: builtins.object, clock: Clock) -> bool:
         """
             This function returns whether `id` uses `clock` as the underlying clock.
         `clock` can be None, in which case the return value indicates whether
@@ -8952,7 +8954,7 @@ class Clock(Object):
         no longer usable and should be freed.
         """
     @staticmethod
-    def id_wait(id: object) -> tuple[ClockReturn, int]:
+    def id_wait(id: builtins.object) -> tuple[ClockReturn, int]:
         """
             Performs a blocking wait on `id`.
         `id` should have been created with `Gst.Clock.new_single_shot_id`
@@ -8969,7 +8971,7 @@ class Clock(Object):
         before this function returned.
         """
     @staticmethod
-    def id_wait_async(id: object, func: ClockCallback, *user_data: object | None) -> ClockReturn:
+    def id_wait_async(id: builtins.object, func: ClockCallback, *user_data: builtins.object | None) -> ClockReturn:
         """
             Registers a callback on the given Gst.ClockID `id` with the given
         function and user_data. When passing a Gst.ClockID with an invalid
@@ -8990,18 +8992,18 @@ class Clock(Object):
             Checks that `clock` is the default system clock, as returned by
         `Gst.SystemClock.obtain`, and is of type Gst.CLOCK_TYPE_MONOTONIC.
         """
-    def new_periodic_id(self, start_time: int, interval: int) -> object:
+    def new_periodic_id(self, start_time: int, interval: int) -> builtins.object:
         """
             Gets an ID from `clock` to trigger a periodic notification.
         The periodic notifications will start at time `start_time` and
         will then be fired with the given `interval`.
         """
-    def new_single_shot_id(self, time: int) -> object:
+    def new_single_shot_id(self, time: int) -> builtins.object:
         """
             Gets a Gst.ClockID from `clock` to trigger a single shot
         notification at the requested time.
         """
-    def periodic_id_reinit(self, id: object, start_time: int, interval: int) -> bool:
+    def periodic_id_reinit(self, id: builtins.object, start_time: int, interval: int) -> bool:
         """
             Reinitializes the provided periodic `id` to the provided start time and
         interval. Does not modify the reference count.
@@ -9064,7 +9066,7 @@ class Clock(Object):
             Sets the amount of time, in nanoseconds, to sample master and slave
         clocks
         """
-    def single_shot_id_reinit(self, id: object, time: int) -> bool:
+    def single_shot_id_reinit(self, id: builtins.object, time: int) -> bool:
         """
             Reinitializes the provided single shot `id` to the provided time. Does not
         modify the reference count.
@@ -9573,7 +9575,7 @@ class ControlSource(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def get_value(self) -> ControlSourceGetValue:
         """
@@ -10090,7 +10092,7 @@ class Device(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Object | None:
         """
@@ -10336,7 +10338,7 @@ class DeviceMonitor(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Object | None:
         """
@@ -10503,9 +10505,9 @@ class DeviceProvider(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
-    def devices(self) -> list[object] | None:
+    def devices(self) -> list[builtins.object] | None:
         """
         a GList of the Gst.Device objects
         """
@@ -11054,7 +11056,7 @@ class Element(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def base_time(self) -> int:
         """
@@ -11195,7 +11197,7 @@ class Element(Object):
     def add_property_deep_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
     def add_property_notify_watch(self, property_name: str | None, include_value: bool) -> int: ...
     @deprecated("deprecated")
-    def call_async(self, func: ElementCallAsyncFunc, *user_data: object | None) -> None:
+    def call_async(self, func: ElementCallAsyncFunc, *user_data: builtins.object | None) -> None:
         """
             Calls `func` from another thread and passes `user_data` to it. This is to be
         used for cases when a state change has to be performed from a streaming
@@ -11253,7 +11255,7 @@ class Element(Object):
         should be printed with a fixed number of characters, preceded by 0's, such as
         by using the format \\03u instead of %u.
         """
-    def foreach_pad(self, func: ElementForeachPadFunc, *user_data: object | None) -> bool:
+    def foreach_pad(self, func: ElementForeachPadFunc, *user_data: builtins.object | None) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s pads. `func` will be called
         exactly once for each pad that exists at the time of this call, unless
@@ -11262,7 +11264,7 @@ class Element(Object):
         while pads are being iterated, this will not be taken into account until
         next time this function is used.
         """
-    def foreach_sink_pad(self, func: ElementForeachPadFunc, *user_data: object | None) -> bool:
+    def foreach_sink_pad(self, func: ElementForeachPadFunc, *user_data: builtins.object | None) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s sink pads. `func` will be
         called exactly once for each sink pad that exists at the time of this call,
@@ -11271,7 +11273,7 @@ class Element(Object):
         are removed while the sink pads are being iterated, this will not be taken
         into account until next time this function is used.
         """
-    def foreach_src_pad(self, func: ElementForeachPadFunc, *user_data: object | None) -> bool:
+    def foreach_src_pad(self, func: ElementForeachPadFunc, *user_data: builtins.object | None) -> bool:
         """
             Call `func` with `user_data` for each of `element`'s source pads. `func` will be
         called exactly once for each source pad that exists at the time of this call,
@@ -16014,9 +16016,9 @@ class Object(GObject.InitiallyUnowned):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> object | None: ...
+    def _gst_reserved(self) -> builtins.object | None: ...
     @builtins.property
-    def control_bindings(self) -> list[object] | None: ...
+    def control_bindings(self) -> list[builtins.object] | None: ...
     @builtins.property
     def control_rate(self) -> int: ...
     @builtins.property
@@ -16061,7 +16063,7 @@ class Object(GObject.InitiallyUnowned):
         The object's reference count will be incremented, and any floating
         reference will be removed (see `Gst.Object.ref_sink`)
         """
-    def call_async(self, func: ObjectCallAsyncFunc, *user_data: object | None) -> None:
+    def call_async(self, func: ObjectCallAsyncFunc, *user_data: builtins.object | None) -> None:
         """
             Equivalent to `Gst.Element.call_async` but this API allows `func` to be called
         with Gst.Object. See also `Gst.Element.call_async`
@@ -16609,7 +16611,7 @@ class Pad(Object):
         The event is sent to all pads internally linked to `pad`. This function
         takes ownership of `event`.
         """
-    def forward(self, forward: PadForwardFunction, *user_data: object | None) -> bool:
+    def forward(self, forward: PadForwardFunction, *user_data: builtins.object | None) -> bool:
         """
             Calls `forward` for all internally linked pads of `pad`. This function deals with
         dynamically changing internal pads and will make sure that the `forward`
@@ -16637,7 +16639,7 @@ class Pad(Object):
         decided at construction time so this function does not take
         the LOCK.
         """
-    def get_element_private(self) -> object | None:
+    def get_element_private(self) -> builtins.object | None:
         """
             Gets the private data of a pad.
         No locking is performed in this function.
@@ -17018,7 +17020,7 @@ class Pad(Object):
         This function takes ownership of the provided event so you should
         `Gst.Event.ref` it if you want to reuse the event after this call.
         """
-    def set_activate_function_full(self, activate: PadActivateFunction, *user_data: object | None) -> None:
+    def set_activate_function_full(self, activate: PadActivateFunction, *user_data: builtins.object | None) -> None:
         """
             Sets the given activate function for `pad`. The activate function will
         dispatch to `Gst.Pad.activate_mode` to perform the actual activation.
@@ -17026,7 +17028,9 @@ class Pad(Object):
 
         Call this function if your sink pad can start a pull-based task.
         """
-    def set_activatemode_function_full(self, activatemode: PadActivateModeFunction, *user_data: object | None) -> None:
+    def set_activatemode_function_full(
+        self, activatemode: PadActivateModeFunction, *user_data: builtins.object | None
+    ) -> None:
         """
             Sets the given activate_mode function for the pad. An activate_mode function
         prepares the element for data passing.
@@ -17044,38 +17048,38 @@ class Pad(Object):
         and a False argument.
         """
     def set_chain_function_full(
-        self, chain: PadChainFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+        self, chain: PadChainFunction | typing.Callable[..., FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
             Sets the given chain function for the pad. The chain function is called to
         process a Gst.Buffer input buffer. see Gst.PadChainFunction for more details.
         """
     def set_chain_list_function_full(
-        self, chainlist: PadChainListFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+        self, chainlist: PadChainListFunction | typing.Callable[..., FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
             Sets the given chain list function for the pad. The chainlist function is
         called to process a Gst.BufferList input buffer list. See
         Gst.PadChainListFunction for more details.
         """
-    def set_element_private(self, priv: object | None = None) -> None:
+    def set_element_private(self, priv: builtins.object | None = None) -> None:
         """
             Set the given private data gpointer on the pad.
         This function can only be used by the element that owns the pad.
         No locking is performed in this function.
         """
     def set_event_full_function_full(
-        self, event: PadEventFullFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+        self, event: PadEventFullFunction | typing.Callable[..., FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
         Sets the given event handler for the pad.
         """
-    def set_event_function_full(self, event: PadEventFunction, *user_data: object | None) -> None:
+    def set_event_function_full(self, event: PadEventFunction, *user_data: builtins.object | None) -> None:
         """
         Sets the given event handler for the pad.
         """
     def set_getrange_function_full(
-        self, get: PadGetRangeFunction | typing.Callable[..., FlowReturn], *user_data: object | None
+        self, get: PadGetRangeFunction | typing.Callable[..., FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
             Sets the given getrange function for the pad. The getrange function is
@@ -17083,13 +17087,13 @@ class Pad(Object):
         Gst.PadGetRangeFunction for a description of the getrange function.
         """
     def set_iterate_internal_links_function_full(
-        self, iterintlink: PadIterIntLinkFunction | typing.Callable[..., Iterator], *user_data: object | None
+        self, iterintlink: PadIterIntLinkFunction | typing.Callable[..., Iterator], *user_data: builtins.object | None
     ) -> None:
         """
         Sets the given internal link iterator function for the pad.
         """
     def set_link_function_full(
-        self, link: PadLinkFunction | typing.Callable[..., PadLinkReturn], *user_data: object | None
+        self, link: PadLinkFunction | typing.Callable[..., PadLinkReturn], *user_data: builtins.object | None
     ) -> None:
         """
             Sets the given link function for the pad. It will be called when
@@ -17111,11 +17115,11 @@ class Pad(Object):
         their running time adjusted. For that reason this is only reliable on
         source pads.
         """
-    def set_query_function_full(self, query: PadQueryFunction, *user_data: object | None) -> None:
+    def set_query_function_full(self, query: PadQueryFunction, *user_data: builtins.object | None) -> None:
         """
         Set the given query function for the pad.
         """
-    def set_unlink_function_full(self, unlink: PadUnlinkFunction, *user_data: object | None) -> None:
+    def set_unlink_function_full(self, unlink: PadUnlinkFunction, *user_data: builtins.object | None) -> None:
         """
             Sets the given unlink function for the pad. It will be called
         when the pad is unlinked.
@@ -17124,14 +17128,16 @@ class Pad(Object):
         function is called, so most pad functions cannot be called
         from within the callback.
         """
-    def start_task(self, func: TaskFunction, *user_data: object | None) -> bool:
+    def start_task(self, func: TaskFunction, *user_data: builtins.object | None) -> bool:
         """
             Starts a task that repeatedly calls `func` with `user_data`. This function
         is mostly used in pad activation functions to start the dataflow.
         The GST_PAD_STREAM_LOCK of `pad` will automatically be acquired
         before `func` is called.
         """
-    def sticky_events_foreach(self, foreach_func: PadStickyEventsForeachFunction, *user_data: object | None) -> None:
+    def sticky_events_foreach(
+        self, foreach_func: PadStickyEventsForeachFunction, *user_data: builtins.object | None
+    ) -> None:
         """
             Iterates all sticky events on `pad` and calls `foreach_func` for every
         event. If `foreach_func` returns False the iteration is immediately stopped.
@@ -17988,7 +17994,7 @@ class Pipeline(Bin):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def bin(self) -> Bin | None: ...
     @builtins.property
@@ -18454,7 +18460,7 @@ class Plugin(Object):
         source: str,
         package: str,
         origin: str,
-        *user_data: object | None,
+        *user_data: builtins.object | None,
     ) -> bool:
         """
             Registers a static plugin, ie. a plugin which is private to an application
@@ -18636,7 +18642,7 @@ class PluginFeature(Object):
         ]|
         """
     @staticmethod
-    def rank_compare_func(p1: object | None = None, p2: object | None = None) -> int:
+    def rank_compare_func(p1: builtins.object | None = None, p2: builtins.object | None = None) -> int:
         """
             Compares the two given Gst.PluginFeature instances. This function can be
         used as a GCompareFunc when sorting by rank and then by name.
@@ -20028,7 +20034,7 @@ class Registry(Object):
         version required.
         """
     def feature_filter(
-        self, filter: PluginFeatureFilter, first: bool, *user_data: object | None
+        self, filter: PluginFeatureFilter, first: bool, *user_data: builtins.object | None
     ) -> list[PluginFeature]:
         """
             Runs a filter against all features of the plugins in the registry
@@ -20096,7 +20102,7 @@ class Registry(Object):
         """
         Find a Gst.PluginFeature with `name` in `registry`.
         """
-    def plugin_filter(self, filter: PluginFilter, first: bool, *user_data: object | None) -> list[Plugin]:
+    def plugin_filter(self, filter: PluginFilter, first: bool, *user_data: builtins.object | None) -> list[Plugin]:
         """
             Runs a filter against all plugins in the registry and returns a GList with
         the results. If the first flag is set, only the first match is
@@ -20662,7 +20668,7 @@ class SharedTaskPool(TaskPool):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> TaskPool | None: ...
     @builtins.property
@@ -20854,7 +20860,7 @@ class Stream(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
@@ -21053,7 +21059,7 @@ class StreamCollection(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
@@ -21940,7 +21946,7 @@ class SystemClock(Clock):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def clock(self) -> Clock | None: ...
     @builtins.property
@@ -22543,7 +22549,7 @@ class Task(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def cond(self) -> GLib.Cond | None:
         """
@@ -22581,7 +22587,7 @@ class Task(Object):
     @builtins.property
     def thread(self) -> GLib.Thread | None: ...
     @builtins.property
-    def user_data(self) -> object | None:
+    def user_data(self) -> builtins.object | None:
         """
         user_data passed to the task function
         """
@@ -22633,13 +22639,13 @@ class Task(Object):
             Resume `task` in case it was paused. If the task was stopped, it will
         remain in that state and this function will return False.
         """
-    def set_enter_callback(self, enter_func: TaskThreadFunc, *user_data: object | None) -> None:
+    def set_enter_callback(self, enter_func: TaskThreadFunc, *user_data: builtins.object | None) -> None:
         """
             Call `enter_func` when the task function of `task` is entered. `user_data` will
         be passed to `enter_func` and `notify` will be called when `user_data` is no
         longer referenced.
         """
-    def set_leave_callback(self, leave_func: TaskThreadFunc, *user_data: object | None) -> None:
+    def set_leave_callback(self, leave_func: TaskThreadFunc, *user_data: builtins.object | None) -> None:
         """
             Call `leave_func` when the task function of `task` is left. `user_data` will
         be passed to `leave_func` and `notify` will be called when `user_data` is no
@@ -22764,7 +22770,7 @@ class TaskPool(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> Object | None: ...
     @builtins.property
@@ -22782,7 +22788,7 @@ class TaskPool(Object):
 
         MT safe.
         """
-    def dispose_handle(self, id: object | None = None) -> None:
+    def dispose_handle(self, id: builtins.object | None = None) -> None:
         """
             Dispose of the handle returned by `Gst.TaskPool.push`. This does
         not need to be called with the default implementation as the default
@@ -22794,7 +22800,7 @@ class TaskPool(Object):
         This method should only be called with the same `pool` instance that provided
         `id`.
         """
-    def join(self, id: object | None = None) -> None:
+    def join(self, id: builtins.object | None = None) -> None:
         """
             Join a task and/or return it to the pool. `id` is the id obtained from
         `Gst.TaskPool.push`. The default implementation does nothing, as the
@@ -22809,7 +22815,7 @@ class TaskPool(Object):
 
         MT safe.
         """
-    def push(self, func: TaskPoolFunction, *user_data: object | None) -> object | None:
+    def push(self, func: TaskPoolFunction, *user_data: builtins.object | None) -> builtins.object | None:
         """
         Start the execution of a new thread from `pool`.
         """
@@ -23197,7 +23203,7 @@ class Tracer(Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Object | None: ...
     @builtins.property
@@ -24716,6 +24722,7 @@ class resizeByteArrayInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: ByteArrayInterface,
         length: int,
     ) -> bool: ...
@@ -24954,6 +24961,7 @@ class ControlSourceGetValue(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: ControlSource,
         timestamp: int,
         value: float,
@@ -24966,6 +24974,7 @@ class ControlSourceGetValueArray(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: ControlSource,
         timestamp: int,
         interval: int,

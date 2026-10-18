@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 
+import ast
+import builtins
 import logging
 
 from typing import TYPE_CHECKING
@@ -18,6 +20,31 @@ if TYPE_CHECKING:
 
 # GObject.remove_emission_hook
 logger = logging.getLogger(__name__)
+
+
+def _qualify_builtin_annotations(text: str, member_names: set[str]) -> str:
+    """Qualify hidden builtin types in annotations, preserving other stub text."""
+    names = {name for name in member_names if isinstance(getattr(builtins, name, None), type)}
+    if not names:
+        return text
+    positions: set[tuple[int, int]] = set()
+    for node in ast.walk(ast.parse(text)):
+        annotation = None
+        if isinstance(node, (ast.arg, ast.AnnAssign)):
+            annotation = node.annotation
+        elif isinstance(node, ast.FunctionDef):
+            annotation = node.returns
+        elif isinstance(node, ast.TypeVar):
+            annotation = node.bound
+        if annotation is not None:
+            for part in ast.walk(annotation):
+                if isinstance(part, ast.Name) and part.id in names:
+                    positions.add((part.lineno - 1, part.col_offset))
+    # AST columns count UTF-8 bytes; insert from right to left without reformatting.
+    lines = text.encode("utf-8").splitlines(keepends=True)
+    for line, column in sorted(positions, reverse=True):
+        lines[line] = lines[line][:column] + b"builtins." + lines[line][column:]
+    return b"".join(lines).decode("utf-8")
 
 
 class ClassPropSchema(BaseSchema):
@@ -166,6 +193,8 @@ class ClassSchema(BaseSchema):
     props_ignored_super_classes: set[str] = Field(default_factory=set)
     allow_synthetic_props: bool = True
     additional_required_imports: set[str] = Field(default_factory=set)
+    shadowed_builtin_types: set[str] = Field(default_factory=set)
+    """Builtin type names hidden by runtime members, including inherited members."""
     docstring: str | None
     props: list[ClassPropSchema]
 
@@ -265,7 +294,12 @@ class ClassSchema(BaseSchema):
 
     def render_stub(self) -> str:
         """Return stub text as a string."""
-        return TemplateManager.render_master("class.jinja", cls_=self)
+        member_names = self.shadowed_builtin_types | {
+            member.name for member in (*self.fields, *self.props, *self.methods, *self.python_methods)
+        }
+        return _qualify_builtin_annotations(
+            TemplateManager.render_master("class.jinja", cls_=self), member_names
+        )
 
     def render_signals(self) -> str:
         """Return stub text as a string."""

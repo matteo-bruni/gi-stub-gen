@@ -15869,8 +15869,6 @@ class Idle(Source, metaclass=GObject.GType):
     def destroy(self) -> None: ...
     def get_can_recurse(self) -> bool: ...
     def get_context(self) -> MainContext | None: ...
-    @deprecated("deprecated")
-    def get_current_time(self, timeval: TimeVal) -> None: ...
     def get_id(self) -> int: ...
     def get_name(self) -> str | None: ...
     def get_priority(self) -> int: ...
@@ -15891,7 +15889,6 @@ class Idle(Source, metaclass=GObject.GType):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(self, func: SourceFunc, *data: object | None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...
@@ -19626,7 +19623,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
     contains the length of the string, not including the
       terminating nul byte.
     """
-    str: str = ...
+    str: builtins.str = ...
     """
     points to the character data. It may move as text is added.
       The `str` field is null-terminated and so
@@ -19634,7 +19631,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
     """
 
     # gi Methods
-    def append(self, val: str) -> String:
+    def append(self, val: builtins.str) -> String:
         """
             Adds a string onto the end of a GString, expanding
         it if necessary.
@@ -19644,7 +19641,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
             Adds a byte onto the end of a GString, expanding
         it if necessary.
         """
-    def append_len(self, val: str, len: int) -> String:
+    def append_len(self, val: builtins.str, len: int) -> String:
         """
             Appends `len` bytes of `val` to `string`.
 
@@ -19656,12 +19653,14 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         is considered to request the entire string length. This
         makes `g_string_append_len` equivalent to `g_string_append`.
         """
-    def append_unichar(self, wc: str) -> String:
+    def append_unichar(self, wc: builtins.str) -> String:
         """
             Converts a Unicode character into UTF-8, and appends it
         to the string.
         """
-    def append_uri_escaped(self, unescaped: str, reserved_chars_allowed: str, allow_utf8: bool) -> String:
+    def append_uri_escaped(
+        self, unescaped: builtins.str, reserved_chars_allowed: builtins.str, allow_utf8: bool
+    ) -> String:
         """
             Appends `unescaped` to `string`, escaping any characters that
         are reserved in URIs using URI-style escape sequences.
@@ -19674,7 +19673,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         """
         Converts all lowercase ASCII letters to uppercase ASCII letters.
         """
-    def assign(self, rval: str) -> String:
+    def assign(self, rval: builtins.str) -> String:
         """
             Copies the bytes from a string into a GString,
         destroying any previous contents. It is rather like
@@ -19696,7 +19695,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
             Removes `len` bytes from a GString, starting at position `pos`.
         The rest of the GString is shifted down to fill the gap.
         """
-    def free(self, free_segment: bool) -> str | None:
+    def free(self, free_segment: bool) -> builtins.str | None:
         """
             Frees the memory allocated for the GString.
         If `free_segment` is True it also frees the character data.  If
@@ -19706,7 +19705,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         Instead of passing False to this function, consider using
         `g_string_free_and_steal`.
         """
-    def free_and_steal(self) -> str:
+    def free_and_steal(self) -> builtins.str:
         """
             Frees the memory allocated for the GString.
 
@@ -19728,7 +19727,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         """
         Creates a hash code for `str`; for use with GHashTable.
         """
-    def insert(self, pos: int, val: str) -> String:
+    def insert(self, pos: int, val: builtins.str) -> String:
         """
             Inserts a copy of a string into a GString,
         expanding it if necessary.
@@ -19737,7 +19736,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         """
         Inserts a byte into a GString, expanding it if necessary.
         """
-    def insert_len(self, pos: int, val: str, len: int) -> String:
+    def insert_len(self, pos: int, val: builtins.str, len: int) -> String:
         """
             Inserts `len` bytes of `val` into `string` at `pos`.
 
@@ -19750,21 +19749,21 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
 
         If `pos` is -1, bytes are inserted at the end of the string.
         """
-    def insert_unichar(self, pos: int, wc: str) -> String:
+    def insert_unichar(self, pos: int, wc: builtins.str) -> String:
         """
             Converts a Unicode character into UTF-8, and insert it
         into the string at the given position.
         """
-    def overwrite(self, pos: int, val: str) -> String:
+    def overwrite(self, pos: int, val: builtins.str) -> String:
         """
         Overwrites part of a string, lengthening it if necessary.
         """
-    def overwrite_len(self, pos: int, val: str, len: int) -> String:
+    def overwrite_len(self, pos: int, val: builtins.str, len: int) -> String:
         """
             Overwrites part of a string, lengthening it if necessary.
         This function will work with embedded nuls.
         """
-    def prepend(self, val: str) -> String:
+    def prepend(self, val: builtins.str) -> String:
         """
             Adds a string on to the start of a GString,
         expanding it if necessary.
@@ -19774,7 +19773,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
             Adds a byte onto the start of a GString,
         expanding it if necessary.
         """
-    def prepend_len(self, val: str, len: int) -> String:
+    def prepend_len(self, val: builtins.str, len: int) -> String:
         """
             Prepends `len` bytes of `val` to `string`.
 
@@ -19786,12 +19785,12 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
         is considered to request the entire string length. This
         makes `g_string_prepend_len` equivalent to `g_string_prepend`.
         """
-    def prepend_unichar(self, wc: str) -> String:
+    def prepend_unichar(self, wc: builtins.str) -> String:
         """
             Converts a Unicode character into UTF-8, and prepends it
         to the string.
         """
-    def replace(self, find: str, replace: str, limit: int) -> int:
+    def replace(self, find: builtins.str, replace: builtins.str, limit: int) -> int:
         """
             Replaces the string `find` with the string `replace` in a GString up to
         `limit` times. If the number of instances of `find` in the GString is
@@ -19825,7 +19824,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new(
         cls,
-        init: str | None = None,
+        init: builtins.str | None = None,
     ) -> String:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -19837,7 +19836,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_len(
         cls,
-        init: str,
+        init: builtins.str,
         len: int,
     ) -> String:
         """
@@ -19856,7 +19855,7 @@ class String(GObject.GBoxed, metaclass=GObject.GType):
     @classmethod
     def new_take(
         cls,
-        init: str | None = None,
+        init: builtins.str | None = None,
     ) -> String:
         """
         [is-override: Note this method is an override in Python of the original gi implementation.]
@@ -20308,8 +20307,6 @@ class Timeout(Source, metaclass=GObject.GType):
     def destroy(self) -> None: ...
     def get_can_recurse(self) -> bool: ...
     def get_context(self) -> MainContext | None: ...
-    @deprecated("deprecated")
-    def get_current_time(self, timeval: TimeVal) -> None: ...
     def get_id(self) -> int: ...
     def get_name(self) -> str | None: ...
     def get_priority(self) -> int: ...
@@ -20330,7 +20327,6 @@ class Timeout(Source, metaclass=GObject.GType):
     def remove_child_source(self, child_source: Source) -> None: ...
     def remove_poll(self, fd: PollFD) -> None: ...
     def remove_unix_fd(self, tag: object) -> None: ...
-    def set_callback(self, func: SourceFunc, *data: object | None) -> None: ...
     def set_callback_indirect(self, callback_data: object | None, callback_funcs: SourceCallbackFuncs) -> None: ...
     def set_can_recurse(self, can_recurse: bool) -> None: ...
     def set_funcs(self, funcs: SourceFuncs) -> None: ...

@@ -1094,7 +1094,7 @@ class GLAsyncDebug(GObject.GPointer, metaclass=GObject.GType):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def callback(self) -> GLAsyncDebugLogGetMessage: ...
     @builtins.property
@@ -1116,7 +1116,7 @@ class GLAsyncDebug(GObject.GPointer, metaclass=GObject.GType):
     @builtins.property
     def state_flags(self) -> int: ...
     @builtins.property
-    def user_data(self) -> object | None: ...
+    def user_data(self) -> builtins.object | None: ...
 
     # gi Methods
     def free(self) -> None:
@@ -1167,7 +1167,7 @@ class GLBaseFilter(GstBase.BaseTransform):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -1393,7 +1393,7 @@ class GLBaseMemoryAllocator(Gst.Allocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def fallback_mem_copy(self) -> Gst.MemoryCopyFunction: ...
     @builtins.property
@@ -1509,7 +1509,7 @@ class GLBaseMixer(GstVideo.VideoAggregator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -1689,7 +1689,7 @@ class GLBaseMixerClass(GObject.GPointer, metaclass=GObject.GType):
 class GLBaseMixerPad(GstVideo.VideoAggregatorPad):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> GstVideo.VideoAggregatorPad | None:
         """
@@ -1874,7 +1874,7 @@ class GLBaseSrc(GstBase.PushSrc):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None:
         """
@@ -2146,7 +2146,7 @@ class GLBufferAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -2215,7 +2215,7 @@ class GLBufferPool(Gst.BufferPool):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def bufferpool(self) -> Gst.BufferPool | None: ...
     @builtins.property
@@ -2310,7 +2310,7 @@ class GLColorConvert(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list[object] | None: ...
+    def _reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -2460,7 +2460,7 @@ class GLContext(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list[object] | None: ...
+    def _reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def display(self) -> GLDisplay | None: ...
     @builtins.property
@@ -2537,7 +2537,7 @@ class GLContext(Gst.Object):
         Should only be called once.
         """
     @staticmethod
-    def default_get_proc_address(gl_api: GLAPI, name: str) -> object | None:
+    def default_get_proc_address(gl_api: GLAPI, name: str) -> builtins.object | None:
         """
             A default implementation of the various GetProcAddress functions that looks
         for `name` in the OpenGL shared libraries or in the current process.
@@ -2605,7 +2605,7 @@ class GLContext(Gst.Object):
         `gst_gl_context_get_gl_api` for retrieving the OpenGL api implemented by
         `context`.
         """
-    def get_proc_address(self, name: str) -> object | None:
+    def get_proc_address(self, name: str) -> builtins.object | None:
         """
             Get a function pointer to a specified opengl function, `name`.  If the the
         specific function does not exist, None is returned instead.
@@ -2628,7 +2628,7 @@ class GLContext(Gst.Object):
         ]|
         """
     @staticmethod
-    def get_proc_address_with_platform(context_type: GLPlatform, gl_api: GLAPI, name: str) -> object | None:
+    def get_proc_address_with_platform(context_type: GLPlatform, gl_api: GLAPI, name: str) -> builtins.object | None:
         """
             Attempts to use the `context_type` specific GetProcAddress implementations
         to retrieve `name`.
@@ -2671,7 +2671,7 @@ class GLContext(Gst.Object):
             Swap the front and back buffers on the window attached to `context`.
         This will display the frame on the next refresh cycle.
         """
-    def thread_add(self, func: GLContextThreadFunc, *data: object | None) -> None:
+    def thread_add(self, func: GLContextThreadFunc, *data: builtins.object | None) -> None:
         """
             Execute `func` in the OpenGL thread of `context` with `data`
 
@@ -2925,7 +2925,7 @@ class GLDisplay(Gst.Object):
     @builtins.property
     def type(self) -> GLDisplayType: ...
     @builtins.property
-    def windows(self) -> list[object] | None: ...
+    def windows(self) -> list[builtins.object] | None: ...
 
     # gi Methods
     def __init__(self, name: str | None = None, parent: Gst.Object | None = None) -> None:
@@ -2953,7 +2953,7 @@ class GLDisplay(Gst.Object):
         API supported by a GstGL.Context.
         """
     @deprecated("deprecated")
-    def find_window(self, *data: object | None, compare_func: GLib.CompareFunc) -> GLWindow | None:
+    def find_window(self, *data: builtins.object | None, compare_func: GLib.CompareFunc) -> GLWindow | None:
         """
             Execute `compare_func` over the list of windows stored by `display`.  The
         first argument to `compare_func` is the GstGL.Window being checked and the
@@ -2972,7 +2972,7 @@ class GLDisplay(Gst.Object):
         Must be called with the object lock held.
         """
     def remove_window(self, window: GLWindow) -> bool: ...
-    def retrieve_window(self, *data: object | None, compare_func: GLib.CompareFunc) -> GLWindow | None:
+    def retrieve_window(self, *data: builtins.object | None, compare_func: GLib.CompareFunc) -> GLWindow | None:
         """
             Execute `compare_func` over the list of windows stored by `display`.  The
         first argument to `compare_func` is the GstGL.Window being checked and the
@@ -3084,7 +3084,7 @@ class GLFilter(GLBaseFilter):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def default_shader(self) -> GLShader | None: ...
     @builtins.property
@@ -3157,7 +3157,7 @@ class GLFilter(GLBaseFilter):
         Calls filter_texture vfunc with correctly mapped GstGL.Memorys
         """
     def render_to_target(
-        self, input: GLMemory, output: GLMemory, func: GLFilterRenderFunc, *data: object | None
+        self, input: GLMemory, output: GLMemory, func: GLFilterRenderFunc, *data: builtins.object | None
     ) -> bool:
         """
         Transforms `input` into `output` using `func` on through FBO.
@@ -3329,9 +3329,9 @@ class GLFramebuffer(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
-    def attachments(self) -> list[object] | None: ...
+    def attachments(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -3360,7 +3360,7 @@ class GLFramebuffer(Gst.Object):
         Must be called with the same OpenGL context current that `fb` was created
         with.
         """
-    def draw_to_texture(self, mem: GLMemory, func: GLFramebufferFunc, *user_data: object | None) -> bool:
+    def draw_to_texture(self, mem: GLMemory, func: GLFramebufferFunc, *user_data: builtins.object | None) -> bool:
         """
             Perform the steps necessary to have the output of a glDraw* command in
         `func` update the contents of `mem`.
@@ -3586,7 +3586,7 @@ class GLMemoryAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -3714,7 +3714,7 @@ class GLMemoryPBOAllocator(GLMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> GLMemoryAllocator | None: ...
 
@@ -3776,7 +3776,7 @@ class GLMixer(GLBaseMixer):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def out_caps(self) -> Gst.Caps | None:
         """
@@ -3964,7 +3964,7 @@ class GLMixerClass(GObject.GPointer, metaclass=GObject.GType):
 class GLMixerPad(GLBaseMixerPad):
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def current_texture(self) -> int:
         """
@@ -4151,7 +4151,7 @@ class GLOverlayCompositor(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4404,7 +4404,7 @@ class GLRenderbufferAllocator(GLBaseMemoryAllocator):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> GLBaseMemoryAllocator | None: ...
 
@@ -4466,7 +4466,7 @@ class GLSLStage(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4608,7 +4608,7 @@ class GLShader(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -4970,7 +4970,7 @@ class GLUpload(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list[object] | None: ...
+    def _reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> GLContext | None: ...
     @builtins.property
@@ -5213,7 +5213,7 @@ class GLViewConvert(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def caps_passthrough(self) -> bool: ...
     @builtins.property
@@ -5399,11 +5399,11 @@ class GLWindow(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _reserved(self) -> list[object] | None: ...
+    def _reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def close(self) -> GLWindowCB: ...
     @builtins.property
-    def close_data(self) -> object | None: ...
+    def close_data(self) -> builtins.object | None: ...
     @builtins.property
     def close_notify(self) -> GLib.DestroyNotify: ...
     @builtins.property
@@ -5411,7 +5411,7 @@ class GLWindow(Gst.Object):
     @builtins.property
     def display(self) -> GLDisplay | None: ...
     @builtins.property
-    def draw_data(self) -> object | None: ...
+    def draw_data(self) -> builtins.object | None: ...
     @builtins.property
     def draw_notify(self) -> GLib.DestroyNotify: ...
     @builtins.property
@@ -5425,7 +5425,7 @@ class GLWindow(Gst.Object):
     @builtins.property
     def priv(self) -> GLWindowPrivate | None: ...
     @builtins.property
-    def resize_data(self) -> object | None: ...
+    def resize_data(self) -> builtins.object | None: ...
     @builtins.property
     def resize_notify(self) -> GLib.DestroyNotify: ...
 
@@ -5476,12 +5476,12 @@ class GLWindow(Gst.Object):
         Start the execution of the runloop.
         """
     def send_key_event(self, event_type: str, key_str: str) -> None: ...
-    def send_message(self, callback: GLWindowCB, *data: object | None) -> None:
+    def send_message(self, callback: GLWindowCB, *data: builtins.object | None) -> None:
         """
             Invoke `callback` with data on the window thread.  `callback` is guaranteed to
         have executed when this function returns.
         """
-    def send_message_async(self, callback: GLWindowCB, *data: object | None) -> None:
+    def send_message_async(self, callback: GLWindowCB, *data: builtins.object | None) -> None:
         """
             Invoke `callback` with `data` on the window thread.  The callback may not
         have been executed when this function returns.
@@ -5492,11 +5492,11 @@ class GLWindow(Gst.Object):
             Notify a `window` about a scroll event. A scroll signal holding the event
         coordinates will be emitted.
         """
-    def set_close_callback(self, callback: GLWindowCB, *data: object | None) -> None:
+    def set_close_callback(self, callback: GLWindowCB, *data: builtins.object | None) -> None:
         """
         Sets the callback called when the window is about to close.
         """
-    def set_draw_callback(self, callback: GLWindowCB, *data: object | None) -> None:
+    def set_draw_callback(self, callback: GLWindowCB, *data: builtins.object | None) -> None:
         """
         Sets the draw callback called every time `gst_gl_window_draw` is called
         """
@@ -5514,7 +5514,7 @@ class GLWindow(Gst.Object):
         """
         Configure whether a visible output surface is requested.
         """
-    def set_resize_callback(self, callback: GLWindowResizeCB, *data: object | None) -> None:
+    def set_resize_callback(self, callback: GLWindowResizeCB, *data: builtins.object | None) -> None:
         """
         Sets the resize callback called every time a resize of the window occurs.
         """

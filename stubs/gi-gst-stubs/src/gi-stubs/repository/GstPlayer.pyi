@@ -1056,6 +1056,7 @@ class dispatchPlayerSignalDispatcherInterfaceCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: PlayerSignalDispatcher,
         player: Player,
         emitter: PlayerSignalDispatcherFunc,

@@ -1,6 +1,38 @@
 from typing import assert_type
 
 from gi.repository import Gio, GObject, Gst, Gtk, RuntimeProbe
+from gi.repository import GLib
+
+
+def builtin_names(text: GLib.String, specs: GObject.ParamSpecPool, pool: Gst.BufferPool) -> None:
+    assert_type(text.str, str)
+    assert_type(text.assign("value"), GLib.String)
+    assert_type(specs.list_owned(GObject.TYPE_OBJECT), list[GObject.ParamSpec])
+    assert_type(pool._gst_reserved, list[object] | None)
+
+
+def source_wrappers(idle: GLib.Idle, timeout: GLib.Timeout) -> None:
+    assert_type(idle.get_current_time(), float)
+    assert_type(timeout.get_current_time(), float)
+    idle.set_callback(lambda number, text: bool(number and text), 7, "payload")
+    timeout.set_callback(lambda: False)
+
+
+def verify_chain(
+    self: Gio.TlsDatabase,
+    chain: Gio.TlsCertificate,
+    purpose: str,
+    identity: Gio.SocketConnectable | None,
+    interaction: Gio.TlsInteraction | None,
+    flags: Gio.TlsDatabaseVerifyFlags,
+    cancellable: Gio.Cancellable | None = None,
+) -> Gio.TlsCertificateFlags:
+    return Gio.TlsCertificateFlags.NO_FLAGS
+
+
+def native_callback(db: Gio.TlsDatabase, cert: Gio.TlsCertificate) -> None:
+    callback: Gio.verify_chainTlsDatabaseClassCB = verify_chain
+    assert_type(callback(db, cert, "purpose", None, None, Gio.TlsDatabaseVerifyFlags.NONE), Gio.TlsCertificateFlags)
 
 
 def on_open(app: Gtk.Application, files: list[Gio.File], hint: str) -> None:

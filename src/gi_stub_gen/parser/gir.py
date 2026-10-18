@@ -67,10 +67,7 @@ def _get_first_doc_text(
     """
     Helper to safely extract and clean the text of the first <doc> child tag.
     """
-    docs = element.findall("core:doc", namespaces=namespace)
-    if docs and docs[0].text:
-        return docs[0].text
-    return ""
+    return element.findtext("core:doc", default="", namespaces=namespace) or ""
 
 
 def _extract_function_docs(
@@ -90,14 +87,14 @@ def _extract_function_docs(
         # We iterate over <parameter> and <instance-parameter> (for methods)
         # We use findall for direct children to avoid traversing too deep or wrong nodes
         for param in parameters.findall("core:parameter", namespaces=namespace):
-            param_name = param.attrib.get("name")
+            param_name = param.get("name")
             if param_name:
                 params_docs[param_name] = _get_first_doc_text(param, namespace)
                 param_types[param_name] = _extract_type_metadata(param, namespace)
 
         # Optionally handle instance-parameter if needed (usually 'self', often ignored)
         for param in parameters.findall("core:instance-parameter", namespaces=namespace):
-            param_name = param.attrib.get("name")
+            param_name = param.get("name")
             if param_name and param_name != "self":  # Skip self usually
                 params_docs[param_name] = _get_first_doc_text(param, namespace)
 
@@ -130,12 +127,12 @@ def _extract_type_metadata(
     c_type_attr = f"{{{namespace['c']}}}type"
     c_type_element = array if array is not None else type_element
     return GirTypeMetadata(
-        name=type_element.attrib.get("name") if type_element is not None else None,
-        c_type=c_type_element.attrib.get(c_type_attr) if c_type_element is not None else None,
+        name=type_element.get("name") if type_element is not None else None,
+        c_type=c_type_element.get(c_type_attr) if c_type_element is not None else None,
         is_array=is_array,
-        element_c_type=type_element.attrib.get(c_type_attr) if is_array and type_element is not None else None,
-        transfer_ownership=element.attrib.get("transfer-ownership"),
-        caller_allocates=element.attrib.get("caller-allocates") == "1",
+        element_c_type=type_element.get(c_type_attr) if is_array and type_element is not None else None,
+        transfer_ownership=element.get("transfer-ownership"),
+        caller_allocates=element.get("caller-allocates") == "1",
     )
 
 
@@ -146,10 +143,10 @@ def parse_constants(
 ) -> dict[str, str]:
     """Parses global constants documentation."""
     constant_docs: dict[str, str] = {}
-    for f in root.xpath(path, namespaces=namespace):  # type: ignore
-        name = f.attrib.get("name")
+    for f in root.findall(path, namespaces=namespace):
+        name = f.get("name")
         if name:
-            constant_docs[name] = _get_first_doc_text(f, namespace)  # type: ignore
+            constant_docs[name] = _get_first_doc_text(f, namespace)
     return constant_docs
 
 
@@ -161,11 +158,11 @@ def parse_global_functions(
     """Parses global module functions."""
     function_docs: dict[str, GirFunctionDocs] = {}
 
-    for f in root.xpath(path, namespaces=namespace):  # type: ignore
-        name = f.attrib.get("name")
+    for f in root.findall(path, namespaces=namespace):
+        name = f.get("name")
         if not name:
             continue
-        function_docs[name] = _extract_function_docs(f, namespace)  # type: ignore
+        function_docs[name] = _extract_function_docs(f, namespace)
 
     return function_docs
 
@@ -190,17 +187,17 @@ def _parse_simple_container(
     """
     docs: dict[str, GirClassDocs] = {}
 
-    for container in root.xpath(path, namespaces=namespace):  # type: ignore
-        name = container.attrib.get("name")
+    for container in root.findall(path, namespaces=namespace):
+        name = container.get("name")
         if not name:
             continue
 
-        class_docstring = _get_first_doc_text(container, namespace)  # type: ignore
+        class_docstring = _get_first_doc_text(container, namespace)
         members_docs: dict[str, str] = {}
 
         # Use findall for performance and type safety on direct children
         for member in container.findall(member_tag, namespaces=namespace):
-            member_name = member.attrib.get("name")
+            member_name = member.get("name")
             if member_name:
                 members_docs[member_name] = _get_first_doc_text(member, namespace)
 
@@ -225,45 +222,45 @@ def parse_classes(
     """
     docs: dict[str, GirClassDocs] = {}
 
-    for container in root.xpath(path, namespaces=namespace):  # type: ignore
-        name = container.attrib.get("name")
+    for container in root.findall(path, namespaces=namespace):
+        name = container.get("name")
         if not name:
             continue
 
-        class_docstring = _get_first_doc_text(container, namespace)  # type: ignore
+        class_docstring = _get_first_doc_text(container, namespace)
 
         # 1. Parse Fields (core:field)
         fields_docs: dict[str, str] = {}
         for field in container.findall("core:field", namespaces=namespace):
-            field_name = field.attrib.get("name")
+            field_name = field.get("name")
             if field_name:
                 fields_docs[field_name] = _get_first_doc_text(field, namespace)
 
         # 2. Parse Properties (core:property)
         properties_docs: dict[str, str] = {}
         for prop in container.findall("core:property", namespaces=namespace):
-            prop_name = prop.attrib.get("name")
+            prop_name = prop.get("name")
             if prop_name:
                 properties_docs[prop_name] = _get_first_doc_text(prop, namespace)
 
         # 3. Parse Instance Methods (core:method)
         methods_docs: dict[str, GirFunctionDocs] = {}
         for method in container.findall("core:method", namespaces=namespace):
-            method_name = method.attrib.get("name")
+            method_name = method.get("name")
             if method_name:
                 methods_docs[method_name] = _extract_function_docs(method, namespace)
 
         # 4. Parse Static Methods (core:function inside the class)
         static_methods_docs: dict[str, GirFunctionDocs] = {}
         for func in container.findall("core:function", namespaces=namespace):
-            func_name = func.attrib.get("name")
+            func_name = func.get("name")
             if func_name:
                 static_methods_docs[func_name] = _extract_function_docs(func, namespace)
 
         # 5. Parse Constructors (core:constructor)
         constructors_docs: dict[str, GirFunctionDocs] = {}
         for ctor in container.findall("core:constructor", namespaces=namespace):
-            ctor_name = ctor.attrib.get("name")
+            ctor_name = ctor.get("name")
             if ctor_name:
                 constructors_docs[ctor_name] = _extract_function_docs(ctor, namespace)
 
@@ -271,7 +268,7 @@ def parse_classes(
         # Note: Signals use the 'glib' namespace, not 'core'
         signals_docs: dict[str, GirFunctionDocs] = {}
         for signal in container.findall("glib:signal", namespaces=namespace):
-            sig_name = signal.attrib.get("name")
+            sig_name = signal.get("name")
             if sig_name:
                 signals_docs[sig_name] = _extract_function_docs(signal, namespace)
 

@@ -5251,12 +5251,12 @@ class ParamSpecPool(GPointer, metaclass=GType):
         """
         Inserts a GParamSpec in the pool.
         """
-    def list(self, owner_type: GType) -> tuple[list[ParamSpec], int]:
+    def list(self, owner_type: GType) -> tuple[builtins.list[ParamSpec], int]:
         """
             Gets an array of all GParamSpecs owned by `owner_type` in
         the pool.
         """
-    def list_owned(self, owner_type: GType) -> list[ParamSpec]:
+    def list_owned(self, owner_type: GType) -> builtins.list[ParamSpec]:
         """
             Gets an GList of all GParamSpecs owned by `owner_type` in
         the pool.

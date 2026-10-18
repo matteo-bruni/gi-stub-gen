@@ -108,7 +108,7 @@ class ARGBControlBinding(Gst.ControlBinding):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def cs_a(self) -> Gst.ControlSource | None: ...
     @builtins.property
@@ -441,7 +441,7 @@ class InterpolationControlSource(TimedValueControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> TimedValueControlSource | None: ...
     @builtins.property
@@ -588,7 +588,7 @@ class LFOControlSource(Gst.ControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def lock(self) -> GLib.Mutex | None: ...
     @builtins.property
@@ -709,7 +709,7 @@ class ProxyControlBinding(Gst.ControlBinding):
 
     # gi Fields
     @builtins.property
-    def _padding(self) -> list[object] | None: ...
+    def _padding(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Gst.ControlBinding | None: ...
     @builtins.property
@@ -808,7 +808,7 @@ class TimedValueControlSource(Gst.ControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def lock(self) -> GLib.Mutex | None: ...
     @builtins.property
@@ -963,7 +963,7 @@ class TriggerControlSource(TimedValueControlSource):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> TimedValueControlSource | None: ...
     @builtins.property
@@ -1070,6 +1070,7 @@ class DirectControlBindingConvertValue(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: DirectControlBinding,
         src_value: float,
         dest_value: object | None = None,
@@ -1082,6 +1083,7 @@ class DirectControlBindingConvertGValue(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: DirectControlBinding,
         src_value: float,
         dest_value: typing.Any,

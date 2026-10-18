@@ -1548,7 +1548,7 @@ class AudioAggregator(GstBase.Aggregator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def current_caps(self) -> Gst.Caps | None:
         """
@@ -1774,7 +1774,7 @@ class AudioAggregatorConvertPad(AudioAggregatorPad):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> AudioAggregatorPad | None: ...
     @builtins.property
@@ -1947,7 +1947,7 @@ class AudioAggregatorPad(GstBase.AggregatorPad):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def info(self) -> AudioInfo | None:
         """
@@ -2160,7 +2160,7 @@ class AudioBaseSink(GstBase.BaseSink):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def buffer_time(self) -> int: ...
     @builtins.property
@@ -2246,7 +2246,7 @@ class AudioBaseSink(GstBase.BaseSink):
         Controls the sink's alignment threshold.
         """
     def set_custom_slaving_callback(
-        self, callback: AudioBaseSinkCustomSlavingCallback, *user_data: object | None
+        self, callback: AudioBaseSinkCustomSlavingCallback, *user_data: builtins.object | None
     ) -> None:
         """
             Sets the custom slaving callback. This callback will
@@ -2553,7 +2553,7 @@ class AudioBaseSrc(GstBase.PushSrc):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def buffer_time(self) -> int: ...
     @builtins.property
@@ -2944,7 +2944,7 @@ class AudioCdSrc(GstBase.PushSrc):
     @builtins.property
     def _gst_reserved1(self) -> list[int] | None: ...
     @builtins.property
-    def _gst_reserved2(self) -> list[object] | None: ...
+    def _gst_reserved2(self) -> list[builtins.object] | None: ...
     @builtins.property
     def priv(self) -> AudioCdSrcPrivate | None: ...
     @builtins.property
@@ -3243,7 +3243,7 @@ class AudioClock(Gst.SystemClock):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def clock(self) -> Gst.SystemClock | None: ...
     @builtins.property
@@ -3255,7 +3255,7 @@ class AudioClock(Gst.SystemClock):
     @builtins.property
     def time_offset(self) -> int: ...
     @builtins.property
-    def user_data(self) -> object | None: ...
+    def user_data(self) -> builtins.object | None: ...
 
     # gi Methods
     def __init__(
@@ -3600,7 +3600,7 @@ class AudioDecoder(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -4331,7 +4331,7 @@ class AudioEncoder(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -4902,7 +4902,7 @@ class AudioFilter(GstBase.BaseTransform):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def basetransform(self) -> GstBase.BaseTransform | None: ...
     @builtins.property
@@ -5366,7 +5366,7 @@ class AudioRingBuffer(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def acquired(self) -> bool:
         """
@@ -5377,7 +5377,7 @@ class AudioRingBuffer(Gst.Object):
     @builtins.property
     def callback(self) -> AudioRingBufferCallback: ...
     @builtins.property
-    def cb_data(self) -> object | None: ...
+    def cb_data(self) -> builtins.object | None: ...
     @builtins.property
     def cb_data_notify(self) -> GLib.DestroyNotify: ...
     @builtins.property
@@ -5621,7 +5621,7 @@ class AudioRingBuffer(Gst.Object):
         since it was last started. This does not include the number of samples not
         yet processed (see `gst_audio_ring_buffer_delay`).
         """
-    def set_callback(self, cb: AudioRingBufferCallback | None = None, *user_data: object | None) -> None:
+    def set_callback(self, cb: AudioRingBufferCallback | None = None, *user_data: builtins.object | None) -> None:
         """
             Sets the given callback function on the buffer. This function
         will be called every time a segment has been written to a device.
@@ -5937,7 +5937,7 @@ class AudioSink(AudioBaseSink):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> AudioBaseSink | None: ...
     @builtins.property
@@ -6335,7 +6335,7 @@ class AudioSrc(AudioBaseSrc):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> AudioBaseSrc | None: ...
     @builtins.property

@@ -202,7 +202,7 @@ class CudaAllocator(Gst.Allocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Gst.Allocator | None: ...
     @builtins.property
@@ -223,7 +223,7 @@ class CudaAllocator(Gst.Allocator):
         stream: CudaStream | None,
         info: GstVideo.VideoInfo,
         dev_ptr: int,
-        *user_data: object | None,
+        *user_data: builtins.object | None,
         notify: GLib.DestroyNotify | None = None,
     ) -> Gst.Memory:
         """
@@ -442,7 +442,7 @@ class CudaContext(Gst.Object):
             Finds the DXGI adapter LUID corresponding to the given CUDA device.
         This is useful for matching CUDA devices with Direct3D adapters on Windows.
         """
-    def get_handle(self) -> object | None:
+    def get_handle(self) -> builtins.object | None:
         """
             Get CUDA device context. Caller must not modify and/or destroy
         returned device context.
@@ -452,7 +452,7 @@ class CudaContext(Gst.Object):
         Get required texture alignment by device
         """
     @staticmethod
-    def pop(cuda_ctx: object) -> bool:
+    def pop(cuda_ctx: builtins.object) -> bool:
         """
         Pops the current CUDA context from CPU thread
         """
@@ -694,7 +694,7 @@ class CudaPoolAllocator(CudaAllocator):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def context(self) -> CudaContext | None: ...
     @builtins.property

@@ -1224,7 +1224,7 @@ class TestClock(Gst.Clock):
 
         MT safe.
         """
-    def has_id(self, id: object) -> bool:
+    def has_id(self, id: builtins.object) -> bool:
         """
             Checks whether `test_clock` was requested to provide the clock notification
         given by `id`.
@@ -1232,7 +1232,7 @@ class TestClock(Gst.Clock):
         MT safe.
         """
     @staticmethod
-    def id_list_get_latest_time(pending_list: list[object] | None = None) -> int:
+    def id_list_get_latest_time(pending_list: list[builtins.object] | None = None) -> int:
         """
             Finds the latest time inside the list.
 
@@ -1245,26 +1245,26 @@ class TestClock(Gst.Clock):
 
         MT safe.
         """
-    def peek_next_pending_id(self) -> tuple[bool, object]:
+    def peek_next_pending_id(self) -> tuple[bool, builtins.object]:
         """
             Determines if the `pending_id` is the next clock notification scheduled to
         be triggered given the current time of the `test_clock`.
 
         MT safe.
         """
-    def process_id(self, pending_id: object) -> bool:
+    def process_id(self, pending_id: builtins.object) -> bool:
         """
             Processes and releases the pending ID.
 
         MT safe.
         """
-    def process_id_list(self, pending_list: list[object] | None = None) -> int:
+    def process_id_list(self, pending_list: list[builtins.object] | None = None) -> int:
         """
             Processes and releases the pending IDs in the list.
 
         MT safe.
         """
-    def process_next_clock_id(self) -> object | None:
+    def process_next_clock_id(self) -> builtins.object | None:
         """
         MT safe.
         """
@@ -1277,14 +1277,14 @@ class TestClock(Gst.Clock):
 
         MT safe.
         """
-    def timed_wait_for_multiple_pending_ids(self, count: int, timeout_ms: int) -> tuple[bool, list[object]]:
+    def timed_wait_for_multiple_pending_ids(self, count: int, timeout_ms: int) -> tuple[bool, list[builtins.object]]:
         """
             Blocks until at least `count` clock notifications have been requested from
         `test_clock`, or the timeout expires.
 
         MT safe.
         """
-    def wait_for_multiple_pending_ids(self, count: int) -> list[object]:
+    def wait_for_multiple_pending_ids(self, count: int) -> list[builtins.object]:
         """
             Blocks until at least `count` clock notifications have been requested from
         `test_clock`. There is no timeout for this wait, see the main description of
@@ -1292,7 +1292,7 @@ class TestClock(Gst.Clock):
 
         MT safe.
         """
-    def wait_for_next_pending_id(self) -> object:
+    def wait_for_next_pending_id(self) -> builtins.object:
         """
             Waits until a clock notification is requested from `test_clock`. There is no
         timeout for this wait, see the main description of GstTestClock. A reference

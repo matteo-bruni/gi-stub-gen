@@ -55,6 +55,35 @@ async def invalid_async(stream: Gio.InputStream) -> None:
 
 
 from gi.repository import GstApp
+from gi.repository import GLib, GObject
+
+
+def invalid_builtin_names(text: GLib.String, specs: GObject.ParamSpecPool) -> None:
+    text.assign(123)  # error
+    items: list[str] = specs.list_owned(GObject.TYPE_OBJECT)  # error
+
+
+def invalid_source_wrappers(idle: GLib.Idle, timeout: GLib.Timeout) -> None:
+    idle.get_current_time(GLib.TimeVal())  # error
+    timeout.get_current_time(GLib.TimeVal())  # error
+    idle.set_callback(lambda: "wrong return")  # error
+    timeout.set_callback(lambda: "wrong return")  # error
+
+
+def missing_native_self(
+    chain: Gio.TlsCertificate,
+    purpose: str,
+    identity: Gio.SocketConnectable | None,
+    interaction: Gio.TlsInteraction | None,
+    flags: Gio.TlsDatabaseVerifyFlags,
+    cancellable: Gio.Cancellable | None = None,
+) -> Gio.TlsCertificateFlags:
+    return Gio.TlsCertificateFlags.NO_FLAGS
+
+
+def invalid_native_callback(callback: Gio.verify_chainTlsDatabaseClassCB) -> None:
+    wrong: Gio.verify_chainTlsDatabaseClassCB = missing_native_self  # error
+    callback()  # error
 
 
 def invalid_gstreamer(source: GstApp.AppSrc, sink: GstApp.AppSink) -> None:

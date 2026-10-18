@@ -40,7 +40,7 @@ class ArgKind(StrEnum):
         Factory method to convert inspect.Parameter.kind to ArgKind.
         """
         # Mapping definition (optimized via dict lookup)
-        mapping = {
+        mapping: dict[inspect._ParameterKind, ArgKind] = {
             inspect.Parameter.POSITIONAL_ONLY: cls.POSITIONAL_ONLY,
             inspect.Parameter.KEYWORD_ONLY: cls.KEYWORD_ONLY,
             inspect.Parameter.VAR_POSITIONAL: cls.VAR_POSITIONAL,

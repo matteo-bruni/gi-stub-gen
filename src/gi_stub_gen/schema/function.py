@@ -247,15 +247,17 @@ class FunctionSchema(BaseSchema):
 
     def render_receiver(self) -> str | None:
         """Return stub text, or None when absent."""
+        if self.is_callback:
+            # A native argument named self is not the Protocol instance.
+            names = {arg.name for arg in self.input_args}
+            receiver = "self" if "self" not in names else "_callback"
+            while receiver in names:
+                receiver += "_"
+            return receiver
         if self.is_method:
             return "self"
         elif self.is_constructor:
             return "cls"
-        elif self.is_callback:
-            if len(self.input_args) > 0 and self.args[0].name != "self":
-                return "self"
-            elif len(self.input_args) == 0:
-                return "self"
         return None
 
     @property

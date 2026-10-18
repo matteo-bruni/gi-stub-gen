@@ -50999,6 +50999,7 @@ class verify_chainTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         chain: TlsCertificate,
         purpose: str,
@@ -51015,6 +51016,7 @@ class verify_chain_asyncTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         chain: TlsCertificate,
         purpose: str,
@@ -51033,6 +51035,7 @@ class verify_chain_finishTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         result: AsyncResult,
     ) -> TlsCertificateFlags: ...
@@ -51044,6 +51047,7 @@ class create_certificate_handleTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         certificate: TlsCertificate,
     ) -> str | None: ...
@@ -51055,6 +51059,7 @@ class lookup_certificate_for_handleTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         handle: str,
         interaction: TlsInteraction | None,
@@ -51069,6 +51074,7 @@ class lookup_certificate_for_handle_asyncTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         handle: str,
         interaction: TlsInteraction | None,
@@ -51085,6 +51091,7 @@ class lookup_certificate_for_handle_finishTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         result: AsyncResult,
     ) -> TlsCertificate: ...
@@ -51096,6 +51103,7 @@ class lookup_certificate_issuerTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         certificate: TlsCertificate,
         interaction: TlsInteraction | None,
@@ -51110,6 +51118,7 @@ class lookup_certificate_issuer_asyncTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         certificate: TlsCertificate,
         interaction: TlsInteraction | None,
@@ -51126,6 +51135,7 @@ class lookup_certificate_issuer_finishTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         result: AsyncResult,
     ) -> TlsCertificate: ...
@@ -51137,6 +51147,7 @@ class lookup_certificates_issued_byTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         issuer_raw_dn: bytes,
         interaction: TlsInteraction | None,
@@ -51151,6 +51162,7 @@ class lookup_certificates_issued_by_asyncTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         issuer_raw_dn: bytes,
         interaction: TlsInteraction | None,
@@ -51167,6 +51179,7 @@ class lookup_certificates_issued_by_finishTlsDatabaseClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: TlsDatabase,
         result: AsyncResult,
     ) -> list[TlsCertificate]: ...

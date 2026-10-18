@@ -690,7 +690,7 @@ class TagDemux(Gst.Element):
     @builtins.property
     def priv(self) -> TagDemuxPrivate | None: ...
     @builtins.property
-    def reserved(self) -> list[object] | None: ...
+    def reserved(self) -> list[builtins.object] | None: ...
 
     # gi Methods
     def __init__(self, name: str | None = None, parent: Gst.Object | None = None) -> None:
@@ -855,7 +855,7 @@ class TagMux(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None:
         """

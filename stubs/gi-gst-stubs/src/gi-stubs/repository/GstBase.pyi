@@ -875,7 +875,7 @@ class Aggregator(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Gst.Element | None: ...
     @builtins.property
@@ -1509,7 +1509,7 @@ class AggregatorPad(Gst.Pad):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> Gst.Pad | None: ...
     @builtins.property
@@ -1867,7 +1867,7 @@ class BaseParse(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None:
         """
@@ -2571,13 +2571,13 @@ class BaseSink(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def can_activate_pull(self) -> bool: ...
     @builtins.property
     def can_activate_push(self) -> bool: ...
     @builtins.property
-    def clock_id(self) -> object | None: ...
+    def clock_id(self) -> builtins.object | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -3391,13 +3391,13 @@ class BaseSrc(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def blocksize(self) -> int: ...
     @builtins.property
     def can_activate_push(self) -> bool: ...
     @builtins.property
-    def clock_id(self) -> object | None: ...
+    def clock_id(self) -> builtins.object | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -4105,7 +4105,7 @@ class BaseTransform(Gst.Element):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def element(self) -> Gst.Element | None: ...
     @builtins.property
@@ -5580,7 +5580,7 @@ class CollectPads(Gst.Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def data(self) -> list[CollectData] | None:
         """
@@ -5641,7 +5641,7 @@ class CollectPads(Gst.Object):
         MT safe.
         """
     def clip_running_time(
-        self, cdata: CollectData, buf: Gst.Buffer, user_data: object | None = None
+        self, cdata: CollectData, buf: Gst.Buffer, user_data: builtins.object | None = None
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]:
         """
             Convenience clipping function that converts incoming buffer's timestamp
@@ -5708,7 +5708,7 @@ class CollectPads(Gst.Object):
         MT safe.
         """
     def set_buffer_function(
-        self, func: CollectPadsBufferFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+        self, func: CollectPadsBufferFunction | typing.Callable[..., Gst.FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
             Set the callback function and user data that will be called with
@@ -5719,19 +5719,21 @@ class CollectPads(Gst.Object):
         MT safe.
         """
     def set_clip_function(
-        self, clipfunc: CollectPadsClipFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+        self,
+        clipfunc: CollectPadsClipFunction | typing.Callable[..., Gst.FlowReturn],
+        *user_data: builtins.object | None,
     ) -> None:
         """
             Install a clipping function that is called right after a buffer is received
         on a pad managed by `pads`. See GstCollectPadsClipFunction for more info.
         """
-    def set_compare_function(self, func: CollectPadsCompareFunction, *user_data: object | None) -> None:
+    def set_compare_function(self, func: CollectPadsCompareFunction, *user_data: builtins.object | None) -> None:
         """
             Set the timestamp comparison function.
 
         MT safe.
         """
-    def set_event_function(self, func: CollectPadsEventFunction, *user_data: object | None) -> None:
+    def set_event_function(self, func: CollectPadsEventFunction, *user_data: builtins.object | None) -> None:
         """
             Set the event callback function and user data that will be called when
         collectpads has received an event originating from one of the collected
@@ -5742,7 +5744,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_flush_function(self, func: CollectPadsFlushFunction, *user_data: object | None) -> None:
+    def set_flush_function(self, func: CollectPadsFlushFunction, *user_data: builtins.object | None) -> None:
         """
             Install a flush function that is called when the internal
         state of all pads should be flushed as part of flushing seek
@@ -5759,7 +5761,7 @@ class CollectPads(Gst.Object):
         MT safe.
         """
     def set_function(
-        self, func: CollectPadsFunction | typing.Callable[..., Gst.FlowReturn], *user_data: object | None
+        self, func: CollectPadsFunction | typing.Callable[..., Gst.FlowReturn], *user_data: builtins.object | None
     ) -> None:
         """
             CollectPads provides a default collection algorithm that will determine
@@ -5774,7 +5776,7 @@ class CollectPads(Gst.Object):
 
         MT safe.
         """
-    def set_query_function(self, func: CollectPadsQueryFunction, *user_data: object | None) -> None:
+    def set_query_function(self, func: CollectPadsQueryFunction, *user_data: builtins.object | None) -> None:
         """
             Set the query callback function and user data that will be called after
         collectpads has received a query originating from one of the collected
@@ -5905,7 +5907,7 @@ class DataQueue(GObject.Object):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def object(self) -> GObject.Object | None:
         """
@@ -6108,7 +6110,7 @@ class PushSrc(BaseSrc):
 
     # gi Fields
     @builtins.property
-    def _gst_reserved(self) -> list[object] | None: ...
+    def _gst_reserved(self) -> list[builtins.object] | None: ...
     @builtins.property
     def parent(self) -> BaseSrc | None: ...
 
@@ -6434,6 +6436,7 @@ class create_new_padAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         templ: Gst.PadTemplate,
         req_name: str | None = None,
@@ -6447,6 +6450,7 @@ class update_src_capsAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         caps: Gst.Caps,
     ) -> tuple[Gst.FlowReturn, Gst.Caps | None]: ...
@@ -6458,6 +6462,7 @@ class fixate_src_capsAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         caps: Gst.Caps,
     ) -> Gst.Caps: ...
@@ -6469,6 +6474,7 @@ class negotiated_src_capsAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         caps: Gst.Caps,
     ) -> bool: ...
@@ -6480,6 +6486,7 @@ class decide_allocationAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         query: Gst.Query,
     ) -> bool: ...
@@ -6491,6 +6498,7 @@ class propose_allocationAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
         pad: AggregatorPad,
         decide_query: Gst.Query,
@@ -6504,6 +6512,7 @@ class negotiateAggregatorClassCB(typing.Protocol):
     """
     #  self
     def __call__(
+        _callback,
         self: Aggregator,
     ) -> bool: ...
 
