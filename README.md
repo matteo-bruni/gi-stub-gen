@@ -168,6 +168,12 @@ and `parse_argument`; `parse_function` filters supported module/class functions.
 generics. The Pydantic stub models retain data, validation, pure calculations and
 rendering methods. Simple enum and constant factories remain in their models.
 
+Manual corrections use full definitions for missing signatures and targeted
+`method_transforms` for parsed methods. Transforms prefer the effective Python
+method and run before generic adaptation. Registry models are copied deeply;
+required callbacks are resolved during parsing with the current documentation.
+See [override rules and runtime evidence](src/gi_stub_gen/overrides/README.md).
+
 Parsers accept an explicit `docs: GIRDocs | None`; `None` means no GIR documentation
 or callable metadata lookup. The CLI loads and resets the documentation manager
 for each namespace. `parse_module(module, docs=docs, on_progress=callback)` works
