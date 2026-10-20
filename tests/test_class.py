@@ -5,7 +5,7 @@ from types import ModuleType
 import gi
 from gi.repository import GObject
 from gi_stub_gen.manager.template import TemplateManager
-from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
+from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY, PROPERTY_SETTER
 import gi_stub_gen.parser.class_ as class_parser
 from gi_stub_gen.parser.class_ import parse_class
 from gi_stub_gen.schema.class_ import ClassFieldSchema
@@ -89,7 +89,11 @@ def test_gobject_property_override_renders_generic_descriptor():
     assert "maximum: typing.Any = None" in rendered
     assert "def __call__[GetterT](" in rendered
     assert "def getter[GetterT](" in rendered
-    assert "def setter(" in rendered
+    assert "setter: _PropertySetter[ValueT]" in rendered
+    setter = PROPERTY_SETTER.render_stub()
+    assert "class _PropertySetter[ValueT](typing.Protocol):" in setter
+    assert "fset: typing.Callable[[typing.Any, ValueT], None]" in setter
+    assert ") -> Property[ValueT]:" in setter
     assert ") -> Property[GetterT]:" in rendered
     assert ") -> Property[ValueT]:" in rendered
     assert rendered.count("@typing.overload") == 2

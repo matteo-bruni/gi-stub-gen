@@ -1,6 +1,6 @@
 from functools import partial
 from typing import assert_type
-from gi.repository import Atk, GioUnix, Gtk
+from gi.repository import Atk, GioUnix, GObject, Gst, Gtk
 
 
 def no_data(column: Gtk.TreeViewColumn, renderer: Gtk.CellRenderer,
@@ -38,3 +38,18 @@ def consume(inp: GioUnix.InputStream, out: GioUnix.OutputStream, obj: Atk.Object
     col.set_cell_data_func(renderer, partial(no_data))
     col.set_cell_data_func(renderer, None)
     col.set_cell_data_func(renderer, None, "ignored")
+
+
+class LocalElement(Gst.Element):
+    pass
+
+
+class LocalBin(Gst.Bin):
+    pass
+
+
+def register_elements(native_type: GObject.GType, element: type[LocalElement] | type[LocalBin]) -> None:
+    assert_type(Gst.Element.register(None, "local-element", Gst.Rank.NONE, LocalElement), bool)
+    assert_type(Gst.Element.register(None, "local-bin", Gst.Rank.NONE, LocalBin), bool)
+    Gst.Element.register(None, "local-union", Gst.Rank.NONE, element)
+    Gst.Element.register(None, "native", Gst.Rank.NONE, native_type)

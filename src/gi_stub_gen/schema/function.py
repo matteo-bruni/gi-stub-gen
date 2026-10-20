@@ -393,7 +393,7 @@ class FunctionSchema(BaseSchema):
 
         # restore the order
         argument_list.reverse()
-        if self.positional_only:
+        if self.positional_only or self.is_callback:
             boundary = next((i for i, (text, _) in enumerate(argument_list) if text.startswith("*")), len(argument_list))
             if boundary:
                 argument_list.insert(boundary, ("/", None))

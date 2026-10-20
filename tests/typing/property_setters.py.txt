@@ -1,0 +1,58 @@
+from typing import assert_type
+from gi.repository import GObject
+
+
+class Backend(GObject.GEnum):
+    FIRST = 0
+    SECOND = 1
+
+
+class Example(GObject.Object):
+    _backend: Backend = Backend.FIRST
+
+    @GObject.Property(type=Backend, default=Backend.FIRST)
+    def backend(self) -> Backend:
+        return self._backend
+
+    @backend.setter
+    def backend(self, value: Backend) -> None:
+        self._backend = value
+
+    @GObject.Property(type=int)
+    def count(self) -> int:
+        return 1
+
+    @count.setter
+    def count(self, value: int) -> None:
+        pass
+
+    @GObject.Property(type=str)
+    def label(self) -> str:
+        return "label"
+
+    @label.setter
+    def label(self, value: str) -> None:
+        pass
+
+
+def consume(backend: Backend) -> None:
+    pass
+
+
+def wrong_setter(instance: Example, value: str) -> None:
+    pass
+
+
+def check(example: Example) -> None:
+    assert_type(example.backend, Backend)
+    assert_type(example.count, int)
+    assert_type(example.label, str)
+    assert_type(Example.backend, GObject.Property[Backend])
+    consume(example.backend)
+    example.backend = Backend.SECOND
+    example.count = 2
+    example.label = "updated"
+    example.backend = "wrong"  # error
+    example.count = "wrong"  # error
+    example.label = 1  # error
+    Example.backend.setter(wrong_setter)  # error

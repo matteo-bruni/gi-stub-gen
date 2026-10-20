@@ -1,4 +1,4 @@
-from gi.repository import Atk, GioUnix, Gtk
+from gi.repository import Atk, GioUnix, GObject, Gst, Gtk
 
 
 def wrong_arity(data: int) -> None: ...
@@ -23,3 +23,10 @@ def consume(stream: GioUnix.InputStream, obj: Atk.Object,
     col.set_cell_data_func(renderer, wrong_renderer)  # error
     col.set_cell_data_func(renderer, None, 1, 2)  # error
     col.set_cell_data_func(renderer)  # error
+
+
+def invalid_element_registration() -> None:
+    Gst.Element.register(None, "plain", Gst.Rank.NONE, object)  # error
+    Gst.Element.register(None, "unrelated", Gst.Rank.NONE, GObject.Object)  # error
+    Gst.Element.register(None, "instance", Gst.Rank.NONE, Gst.Bin())  # error
+    Gst.Element.register(None, "string", Gst.Rank.NONE, "GstBin")  # error

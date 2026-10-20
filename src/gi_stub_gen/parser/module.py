@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.overrides.class_.GObject.GEnumMeta import GENUM_META_SCHEMA, GFLAGS_META_SCHEMA
-from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY
+from gi_stub_gen.overrides.class_.GObject.Property import CLASS_PROPERTY, PROPERTY_SETTER
 from gi_stub_gen.parser.alias import parse_alias
 from gi_stub_gen.parser.python_function import parse_python_function
 from gi_stub_gen.parser.constant import parse_constant
@@ -229,7 +229,7 @@ def parse_module(
         module_classes[enum_class_index:enum_class_index] = enum_support_classes
 
         #  add a custom Property class override
-        module_classes.append(CLASS_PROPERTY.model_copy(deep=True))
+        module_classes.extend(schema.model_copy(deep=True) for schema in (PROPERTY_SETTER, CLASS_PROPERTY))
 
     # Discover required callbacks in the current documentation context only.
     from gi_stub_gen.adapter import get_callback_schema

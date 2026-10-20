@@ -6416,6 +6416,7 @@ class flushAggregatorClassCB(typing.Protocol):
     def __call__(
         self,
         aggregator: Aggregator,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class clipAggregatorClassCB(typing.Protocol):
@@ -6429,6 +6430,7 @@ class clipAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.Buffer | None: ...
 
 class finish_bufferAggregatorClassCB(typing.Protocol):
@@ -6441,6 +6443,7 @@ class finish_bufferAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class sink_eventAggregatorClassCB(typing.Protocol):
@@ -6454,6 +6457,7 @@ class sink_eventAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class sink_queryAggregatorClassCB(typing.Protocol):
@@ -6467,6 +6471,7 @@ class sink_queryAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class src_eventAggregatorClassCB(typing.Protocol):
@@ -6479,6 +6484,7 @@ class src_eventAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class src_queryAggregatorClassCB(typing.Protocol):
@@ -6491,6 +6497,7 @@ class src_queryAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class src_activateAggregatorClassCB(typing.Protocol):
@@ -6504,6 +6511,7 @@ class src_activateAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         mode: Gst.PadMode,
         active: bool,
+        /,
     ) -> bool: ...
 
 class aggregateAggregatorClassCB(typing.Protocol):
@@ -6516,6 +6524,7 @@ class aggregateAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         timeout: bool,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class stopAggregatorClassCB(typing.Protocol):
@@ -6527,6 +6536,7 @@ class stopAggregatorClassCB(typing.Protocol):
     def __call__(
         self,
         aggregator: Aggregator,
+        /,
     ) -> bool: ...
 
 class startAggregatorClassCB(typing.Protocol):
@@ -6538,6 +6548,7 @@ class startAggregatorClassCB(typing.Protocol):
     def __call__(
         self,
         aggregator: Aggregator,
+        /,
     ) -> bool: ...
 
 class get_next_timeAggregatorClassCB(typing.Protocol):
@@ -6549,6 +6560,7 @@ class get_next_timeAggregatorClassCB(typing.Protocol):
     def __call__(
         self,
         aggregator: Aggregator,
+        /,
     ) -> int: ...
 
 class create_new_padAggregatorClassCB(typing.Protocol):
@@ -6563,6 +6575,7 @@ class create_new_padAggregatorClassCB(typing.Protocol):
         templ: Gst.PadTemplate,
         req_name: str | None = None,
         caps: Gst.Caps | None = None,
+        /,
     ) -> AggregatorPad: ...
 
 class update_src_capsAggregatorClassCB(typing.Protocol):
@@ -6575,6 +6588,7 @@ class update_src_capsAggregatorClassCB(typing.Protocol):
         _callback,
         self: Aggregator,
         caps: Gst.Caps,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Caps | None]: ...
 
 class fixate_src_capsAggregatorClassCB(typing.Protocol):
@@ -6587,6 +6601,7 @@ class fixate_src_capsAggregatorClassCB(typing.Protocol):
         _callback,
         self: Aggregator,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class negotiated_src_capsAggregatorClassCB(typing.Protocol):
@@ -6599,6 +6614,7 @@ class negotiated_src_capsAggregatorClassCB(typing.Protocol):
         _callback,
         self: Aggregator,
         caps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class decide_allocationAggregatorClassCB(typing.Protocol):
@@ -6611,6 +6627,7 @@ class decide_allocationAggregatorClassCB(typing.Protocol):
         _callback,
         self: Aggregator,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class propose_allocationAggregatorClassCB(typing.Protocol):
@@ -6625,6 +6642,7 @@ class propose_allocationAggregatorClassCB(typing.Protocol):
         pad: AggregatorPad,
         decide_query: Gst.Query,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class negotiateAggregatorClassCB(typing.Protocol):
@@ -6636,6 +6654,7 @@ class negotiateAggregatorClassCB(typing.Protocol):
     def __call__(
         _callback,
         self: Aggregator,
+        /,
     ) -> bool: ...
 
 class sink_event_pre_queueAggregatorClassCB(typing.Protocol):
@@ -6649,6 +6668,7 @@ class sink_event_pre_queueAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
         event: Gst.Event,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class sink_query_pre_queueAggregatorClassCB(typing.Protocol):
@@ -6662,6 +6682,7 @@ class sink_query_pre_queueAggregatorClassCB(typing.Protocol):
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class finish_buffer_listAggregatorClassCB(typing.Protocol):
@@ -6674,6 +6695,7 @@ class finish_buffer_listAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         bufferlist: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class peek_next_sampleAggregatorClassCB(typing.Protocol):
@@ -6686,6 +6708,7 @@ class peek_next_sampleAggregatorClassCB(typing.Protocol):
         self,
         aggregator: Aggregator,
         aggregator_pad: AggregatorPad,
+        /,
     ) -> Gst.Sample | None: ...
 
 class flushAggregatorPadClassCB(typing.Protocol):
@@ -6698,6 +6721,7 @@ class flushAggregatorPadClassCB(typing.Protocol):
         self,
         aggpad: AggregatorPad,
         aggregator: Aggregator,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class skip_bufferAggregatorPadClassCB(typing.Protocol):
@@ -6711,6 +6735,7 @@ class skip_bufferAggregatorPadClassCB(typing.Protocol):
         aggpad: AggregatorPad,
         aggregator: Aggregator,
         buffer: Gst.Buffer,
+        /,
     ) -> bool: ...
 
 class startBaseParseClassCB(typing.Protocol):
@@ -6722,6 +6747,7 @@ class startBaseParseClassCB(typing.Protocol):
     def __call__(
         self,
         parse: BaseParse,
+        /,
     ) -> bool: ...
 
 class stopBaseParseClassCB(typing.Protocol):
@@ -6733,6 +6759,7 @@ class stopBaseParseClassCB(typing.Protocol):
     def __call__(
         self,
         parse: BaseParse,
+        /,
     ) -> bool: ...
 
 class set_sink_capsBaseParseClassCB(typing.Protocol):
@@ -6745,6 +6772,7 @@ class set_sink_capsBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         caps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class handle_frameBaseParseClassCB(typing.Protocol):
@@ -6757,6 +6785,7 @@ class handle_frameBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         frame: BaseParseFrame,
+        /,
     ) -> tuple[Gst.FlowReturn, int]: ...
 
 class pre_push_frameBaseParseClassCB(typing.Protocol):
@@ -6769,6 +6798,7 @@ class pre_push_frameBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         frame: BaseParseFrame,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class convertBaseParseClassCB(typing.Protocol):
@@ -6784,6 +6814,7 @@ class convertBaseParseClassCB(typing.Protocol):
         src_value: int,
         dest_format: Gst.Format,
         dest_value: int,
+        /,
     ) -> bool: ...
 
 class sink_eventBaseParseClassCB(typing.Protocol):
@@ -6796,6 +6827,7 @@ class sink_eventBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class src_eventBaseParseClassCB(typing.Protocol):
@@ -6808,6 +6840,7 @@ class src_eventBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class get_sink_capsBaseParseClassCB(typing.Protocol):
@@ -6820,6 +6853,7 @@ class get_sink_capsBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class detectBaseParseClassCB(typing.Protocol):
@@ -6832,6 +6866,7 @@ class detectBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class sink_queryBaseParseClassCB(typing.Protocol):
@@ -6844,6 +6879,7 @@ class sink_queryBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class src_queryBaseParseClassCB(typing.Protocol):
@@ -6856,6 +6892,7 @@ class src_queryBaseParseClassCB(typing.Protocol):
         self,
         parse: BaseParse,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class get_capsBaseSinkClassCB(typing.Protocol):
@@ -6868,6 +6905,7 @@ class get_capsBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         filter: Gst.Caps | None = None,
+        /,
     ) -> Gst.Caps: ...
 
 class set_capsBaseSinkClassCB(typing.Protocol):
@@ -6880,6 +6918,7 @@ class set_capsBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         caps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class fixateBaseSinkClassCB(typing.Protocol):
@@ -6892,6 +6931,7 @@ class fixateBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class activate_pullBaseSinkClassCB(typing.Protocol):
@@ -6904,6 +6944,7 @@ class activate_pullBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         active: bool,
+        /,
     ) -> bool: ...
 
 class get_timesBaseSinkClassCB(typing.Protocol):
@@ -6916,6 +6957,7 @@ class get_timesBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer: Gst.Buffer,
+        /,
     ) -> tuple[int, int]: ...
 
 class propose_allocationBaseSinkClassCB(typing.Protocol):
@@ -6928,6 +6970,7 @@ class propose_allocationBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class startBaseSinkClassCB(typing.Protocol):
@@ -6939,6 +6982,7 @@ class startBaseSinkClassCB(typing.Protocol):
     def __call__(
         self,
         sink: BaseSink,
+        /,
     ) -> bool: ...
 
 class stopBaseSinkClassCB(typing.Protocol):
@@ -6950,6 +6994,7 @@ class stopBaseSinkClassCB(typing.Protocol):
     def __call__(
         self,
         sink: BaseSink,
+        /,
     ) -> bool: ...
 
 class unlockBaseSinkClassCB(typing.Protocol):
@@ -6961,6 +7006,7 @@ class unlockBaseSinkClassCB(typing.Protocol):
     def __call__(
         self,
         sink: BaseSink,
+        /,
     ) -> bool: ...
 
 class unlock_stopBaseSinkClassCB(typing.Protocol):
@@ -6972,6 +7018,7 @@ class unlock_stopBaseSinkClassCB(typing.Protocol):
     def __call__(
         self,
         sink: BaseSink,
+        /,
     ) -> bool: ...
 
 class queryBaseSinkClassCB(typing.Protocol):
@@ -6984,6 +7031,7 @@ class queryBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class eventBaseSinkClassCB(typing.Protocol):
@@ -6996,6 +7044,7 @@ class eventBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class wait_eventBaseSinkClassCB(typing.Protocol):
@@ -7008,6 +7057,7 @@ class wait_eventBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         event: Gst.Event,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class prepareBaseSinkClassCB(typing.Protocol):
@@ -7020,6 +7070,7 @@ class prepareBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class prepare_listBaseSinkClassCB(typing.Protocol):
@@ -7032,6 +7083,7 @@ class prepare_listBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer_list: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class prerollBaseSinkClassCB(typing.Protocol):
@@ -7044,6 +7096,7 @@ class prerollBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class renderBaseSinkClassCB(typing.Protocol):
@@ -7056,6 +7109,7 @@ class renderBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class render_listBaseSinkClassCB(typing.Protocol):
@@ -7068,6 +7122,7 @@ class render_listBaseSinkClassCB(typing.Protocol):
         self,
         sink: BaseSink,
         buffer_list: Gst.BufferList,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class get_capsBaseSrcClassCB(typing.Protocol):
@@ -7080,6 +7135,7 @@ class get_capsBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         filter: Gst.Caps | None = None,
+        /,
     ) -> Gst.Caps: ...
 
 class negotiateBaseSrcClassCB(typing.Protocol):
@@ -7091,6 +7147,7 @@ class negotiateBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class fixateBaseSrcClassCB(typing.Protocol):
@@ -7103,6 +7160,7 @@ class fixateBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         caps: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class set_capsBaseSrcClassCB(typing.Protocol):
@@ -7115,6 +7173,7 @@ class set_capsBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         caps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class decide_allocationBaseSrcClassCB(typing.Protocol):
@@ -7127,6 +7186,7 @@ class decide_allocationBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class startBaseSrcClassCB(typing.Protocol):
@@ -7138,6 +7198,7 @@ class startBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class stopBaseSrcClassCB(typing.Protocol):
@@ -7149,6 +7210,7 @@ class stopBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class get_timesBaseSrcClassCB(typing.Protocol):
@@ -7161,6 +7223,7 @@ class get_timesBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         buffer: Gst.Buffer,
+        /,
     ) -> tuple[int, int]: ...
 
 class get_sizeBaseSrcClassCB(typing.Protocol):
@@ -7172,6 +7235,7 @@ class get_sizeBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> tuple[bool, int]: ...
 
 class is_seekableBaseSrcClassCB(typing.Protocol):
@@ -7183,6 +7247,7 @@ class is_seekableBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class prepare_seek_segmentBaseSrcClassCB(typing.Protocol):
@@ -7196,6 +7261,7 @@ class prepare_seek_segmentBaseSrcClassCB(typing.Protocol):
         src: BaseSrc,
         seek: Gst.Event,
         segment: Gst.Segment,
+        /,
     ) -> bool: ...
 
 class do_seekBaseSrcClassCB(typing.Protocol):
@@ -7208,6 +7274,7 @@ class do_seekBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         segment: Gst.Segment,
+        /,
     ) -> bool: ...
 
 class unlockBaseSrcClassCB(typing.Protocol):
@@ -7219,6 +7286,7 @@ class unlockBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class unlock_stopBaseSrcClassCB(typing.Protocol):
@@ -7230,6 +7298,7 @@ class unlock_stopBaseSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: BaseSrc,
+        /,
     ) -> bool: ...
 
 class queryBaseSrcClassCB(typing.Protocol):
@@ -7242,6 +7311,7 @@ class queryBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class eventBaseSrcClassCB(typing.Protocol):
@@ -7254,6 +7324,7 @@ class eventBaseSrcClassCB(typing.Protocol):
         self,
         src: BaseSrc,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class createBaseSrcClassCB(typing.Protocol):
@@ -7268,6 +7339,7 @@ class createBaseSrcClassCB(typing.Protocol):
         offset: int,
         size: int,
         buf: Gst.Buffer | None = None,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]: ...
 
 class allocBaseSrcClassCB(typing.Protocol):
@@ -7281,6 +7353,7 @@ class allocBaseSrcClassCB(typing.Protocol):
         src: BaseSrc,
         offset: int,
         size: int,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]: ...
 
 class fillBaseSrcClassCB(typing.Protocol):
@@ -7295,6 +7368,7 @@ class fillBaseSrcClassCB(typing.Protocol):
         offset: int,
         size: int,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class transform_capsBaseTransformClassCB(typing.Protocol):
@@ -7309,6 +7383,7 @@ class transform_capsBaseTransformClassCB(typing.Protocol):
         direction: Gst.PadDirection,
         caps: Gst.Caps,
         filter: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class fixate_capsBaseTransformClassCB(typing.Protocol):
@@ -7323,6 +7398,7 @@ class fixate_capsBaseTransformClassCB(typing.Protocol):
         direction: Gst.PadDirection,
         caps: Gst.Caps,
         othercaps: Gst.Caps,
+        /,
     ) -> Gst.Caps: ...
 
 class accept_capsBaseTransformClassCB(typing.Protocol):
@@ -7336,6 +7412,7 @@ class accept_capsBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         direction: Gst.PadDirection,
         caps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class set_capsBaseTransformClassCB(typing.Protocol):
@@ -7349,6 +7426,7 @@ class set_capsBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         incaps: Gst.Caps,
         outcaps: Gst.Caps,
+        /,
     ) -> bool: ...
 
 class queryBaseTransformClassCB(typing.Protocol):
@@ -7362,6 +7440,7 @@ class queryBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         direction: Gst.PadDirection,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class decide_allocationBaseTransformClassCB(typing.Protocol):
@@ -7374,6 +7453,7 @@ class decide_allocationBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class filter_metaBaseTransformClassCB(typing.Protocol):
@@ -7388,6 +7468,7 @@ class filter_metaBaseTransformClassCB(typing.Protocol):
         query: Gst.Query,
         api: GObject.GType,
         params: Gst.Structure,
+        /,
     ) -> bool: ...
 
 class propose_allocationBaseTransformClassCB(typing.Protocol):
@@ -7401,6 +7482,7 @@ class propose_allocationBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         decide_query: Gst.Query,
         query: Gst.Query,
+        /,
     ) -> bool: ...
 
 class transform_sizeBaseTransformClassCB(typing.Protocol):
@@ -7416,6 +7498,7 @@ class transform_sizeBaseTransformClassCB(typing.Protocol):
         caps: Gst.Caps,
         size: int,
         othercaps: Gst.Caps,
+        /,
     ) -> tuple[bool, int]: ...
 
 class get_unit_sizeBaseTransformClassCB(typing.Protocol):
@@ -7428,6 +7511,7 @@ class get_unit_sizeBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         caps: Gst.Caps,
+        /,
     ) -> tuple[bool, int]: ...
 
 class startBaseTransformClassCB(typing.Protocol):
@@ -7439,6 +7523,7 @@ class startBaseTransformClassCB(typing.Protocol):
     def __call__(
         self,
         trans: BaseTransform,
+        /,
     ) -> bool: ...
 
 class stopBaseTransformClassCB(typing.Protocol):
@@ -7450,6 +7535,7 @@ class stopBaseTransformClassCB(typing.Protocol):
     def __call__(
         self,
         trans: BaseTransform,
+        /,
     ) -> bool: ...
 
 class sink_eventBaseTransformClassCB(typing.Protocol):
@@ -7462,6 +7548,7 @@ class sink_eventBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class src_eventBaseTransformClassCB(typing.Protocol):
@@ -7474,6 +7561,7 @@ class src_eventBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         event: Gst.Event,
+        /,
     ) -> bool: ...
 
 class prepare_output_bufferBaseTransformClassCB(typing.Protocol):
@@ -7486,6 +7574,7 @@ class prepare_output_bufferBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         input: Gst.Buffer,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]: ...
 
 class copy_metadataBaseTransformClassCB(typing.Protocol):
@@ -7499,6 +7588,7 @@ class copy_metadataBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         input: Gst.Buffer,
         outbuf: Gst.Buffer,
+        /,
     ) -> bool: ...
 
 class transform_metaBaseTransformClassCB(typing.Protocol):
@@ -7513,6 +7603,7 @@ class transform_metaBaseTransformClassCB(typing.Protocol):
         outbuf: Gst.Buffer,
         meta: Gst.Meta,
         inbuf: Gst.Buffer,
+        /,
     ) -> bool: ...
 
 class before_transformBaseTransformClassCB(typing.Protocol):
@@ -7525,6 +7616,7 @@ class before_transformBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         buffer: Gst.Buffer,
+        /,
     ) -> None: ...
 
 class transformBaseTransformClassCB(typing.Protocol):
@@ -7538,6 +7630,7 @@ class transformBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         inbuf: Gst.Buffer,
         outbuf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class transform_ipBaseTransformClassCB(typing.Protocol):
@@ -7550,6 +7643,7 @@ class transform_ipBaseTransformClassCB(typing.Protocol):
         self,
         trans: BaseTransform,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class submit_input_bufferBaseTransformClassCB(typing.Protocol):
@@ -7563,6 +7657,7 @@ class submit_input_bufferBaseTransformClassCB(typing.Protocol):
         trans: BaseTransform,
         is_discont: bool,
         input: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class generate_outputBaseTransformClassCB(typing.Protocol):
@@ -7574,6 +7669,7 @@ class generate_outputBaseTransformClassCB(typing.Protocol):
     def __call__(
         self,
         trans: BaseTransform,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]: ...
 
 class CollectDataDestroyNotify(typing.Protocol):
@@ -7585,6 +7681,7 @@ class CollectDataDestroyNotify(typing.Protocol):
     def __call__(
         self,
         data: CollectData,
+        /,
     ) -> None: ...
 
 class CollectPadsBufferFunction(typing.Protocol):
@@ -7598,6 +7695,7 @@ class CollectPadsBufferFunction(typing.Protocol):
         pads: CollectPads,
         data: CollectData,
         buffer: Gst.Buffer,
+        /,
         *user_data: object | None,
     ) -> Gst.FlowReturn: ...
 
@@ -7612,6 +7710,7 @@ class CollectPadsClipFunction(typing.Protocol):
         pads: CollectPads,
         data: CollectData,
         inbuffer: Gst.Buffer,
+        /,
         *user_data: object | None,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]: ...
 
@@ -7628,6 +7727,7 @@ class CollectPadsCompareFunction(typing.Protocol):
         timestamp1: int,
         data2: CollectData,
         timestamp2: int,
+        /,
         *user_data: object | None,
     ) -> int: ...
 
@@ -7642,6 +7742,7 @@ class CollectPadsEventFunction(typing.Protocol):
         pads: CollectPads,
         pad: CollectData,
         event: Gst.Event,
+        /,
         *user_data: object | None,
     ) -> bool: ...
 
@@ -7654,6 +7755,7 @@ class CollectPadsFlushFunction(typing.Protocol):
     def __call__(
         self,
         pads: CollectPads,
+        /,
         *user_data: object | None,
     ) -> None: ...
 
@@ -7666,6 +7768,7 @@ class CollectPadsFunction(typing.Protocol):
     def __call__(
         self,
         pads: CollectPads,
+        /,
         *user_data: object | None,
     ) -> Gst.FlowReturn: ...
 
@@ -7680,6 +7783,7 @@ class CollectPadsQueryFunction(typing.Protocol):
         pads: CollectPads,
         pad: CollectData,
         query: Gst.Query,
+        /,
         *user_data: object | None,
     ) -> bool: ...
 
@@ -7692,6 +7796,7 @@ class emptyDataQueueClassCB(typing.Protocol):
     def __call__(
         self,
         queue: DataQueue,
+        /,
     ) -> None: ...
 
 class fullDataQueueClassCB(typing.Protocol):
@@ -7703,6 +7808,7 @@ class fullDataQueueClassCB(typing.Protocol):
     def __call__(
         self,
         queue: DataQueue,
+        /,
     ) -> None: ...
 
 class createPushSrcClassCB(typing.Protocol):
@@ -7715,6 +7821,7 @@ class createPushSrcClassCB(typing.Protocol):
         self,
         src: PushSrc,
         buf: Gst.Buffer | None = None,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]: ...
 
 class allocPushSrcClassCB(typing.Protocol):
@@ -7726,6 +7833,7 @@ class allocPushSrcClassCB(typing.Protocol):
     def __call__(
         self,
         src: PushSrc,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer | None]: ...
 
 class fillPushSrcClassCB(typing.Protocol):
@@ -7738,6 +7846,7 @@ class fillPushSrcClassCB(typing.Protocol):
         self,
         src: PushSrc,
         buf: Gst.Buffer,
+        /,
     ) -> Gst.FlowReturn: ...
 
 class TypeFindHelperGetRangeFunction(typing.Protocol):
@@ -7752,6 +7861,7 @@ class TypeFindHelperGetRangeFunction(typing.Protocol):
         parent: Gst.Object | None,
         offset: int,
         length: int,
+        /,
     ) -> tuple[Gst.FlowReturn, Gst.Buffer]: ...
 
 ###############################################################

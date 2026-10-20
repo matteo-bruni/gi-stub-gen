@@ -4,7 +4,7 @@ from gi_stub_gen.schema.builtin_function import (
     BuiltinFunctionSchema,
     TypeVarSchema,
 )
-from gi_stub_gen.schema.class_ import ClassSchema
+from gi_stub_gen.schema.class_ import ClassFieldSchema, ClassSchema
 
 
 CLASS_PROPERTY = ClassSchema(
@@ -20,7 +20,21 @@ CLASS_PROPERTY = ClassSchema(
     props=[],
     allow_synthetic_props=False,
     required_gi_import="typing",
-    fields=[],
+    fields=[
+        # A callable protocol avoids Pyright's property-setter synthesis losing ValueT.
+        ClassFieldSchema(
+            name="setter",
+            type_hint_name="_PropertySetter[ValueT]",
+            type_hint_namespace=None,
+            may_be_null=False,
+            line_comment=None,
+            is_deprecated=False,
+            deprecation_warnings=None,
+            docstring=None,
+            is_readable=True,
+            is_writable=True,
+        ),
+    ],
     methods=[],
     python_methods=[
         BuiltinFunctionSchema(
@@ -180,29 +194,6 @@ CLASS_PROPERTY = ClassSchema(
             ],
         ),
         BuiltinFunctionSchema(
-            name="setter",
-            namespace="GObject",
-            is_async=False,
-            is_from_class=True,
-            is_classmethod=False,
-            is_staticmethod=False,
-            docstring=None,
-            return_hint_name="Property[ValueT]",
-            return_hint_namespace="GObject",
-            return_is_optional=False,
-            params=[
-                BuiltinFunctionArgumentSchema(
-                    name="fset",
-                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
-                    type_hint_name="Callable[[typing.Any, ValueT], None]",
-                    type_hint_namespace="typing",
-                    is_optional=False,
-                    default_value=None,
-                    line_comment=None,
-                ),
-            ],
-        ),
-        BuiltinFunctionSchema(
             name="__get__",
             namespace="GObject",
             is_async=False,
@@ -294,6 +285,49 @@ CLASS_PROPERTY = ClassSchema(
                     kind=ArgKind.POSITIONAL_OR_KEYWORD,
                     type_hint_name="ValueT",
                     type_hint_namespace=None,
+                    is_optional=False,
+                    default_value=None,
+                    line_comment=None,
+                ),
+            ],
+        ),
+    ],
+    signals=[],
+    extra=[],
+    is_deprecated=False,
+)
+
+
+PROPERTY_SETTER = ClassSchema(
+    namespace="GObject",
+    name="_PropertySetter",
+    type_vars=[TypeVarSchema(name="ValueT")],
+    super=["typing.Protocol"],
+    docstring=None,
+    line_comment="Typing-only callable for Property.setter; not a runtime class.",
+    props=[],
+    allow_synthetic_props=False,
+    required_gi_import="typing",
+    fields=[],
+    methods=[],
+    python_methods=[
+        BuiltinFunctionSchema(
+            name="__call__",
+            namespace="GObject",
+            is_async=False,
+            is_from_class=True,
+            is_classmethod=False,
+            is_staticmethod=False,
+            docstring=None,
+            return_hint_name="Property[ValueT]",
+            return_hint_namespace="GObject",
+            return_is_optional=False,
+            params=[
+                BuiltinFunctionArgumentSchema(
+                    name="fset",
+                    kind=ArgKind.POSITIONAL_OR_KEYWORD,
+                    type_hint_name="Callable[[typing.Any, ValueT], None]",
+                    type_hint_namespace="typing",
                     is_optional=False,
                     default_value=None,
                     line_comment=None,

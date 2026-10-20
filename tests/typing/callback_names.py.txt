@@ -1,0 +1,31 @@
+from gi.repository import Gst
+
+
+def activate(pad: Gst.Pad, parent: Gst.Object, pad_mode: Gst.PadMode, active: bool) -> bool:
+    return True
+
+
+class Handler:
+    def activate(self, p: Gst.Pad, owner: Gst.Object, mode: Gst.PadMode, enabled: bool) -> bool:
+        return True
+
+
+def wrong_return(pad: Gst.Pad, parent: Gst.Object, mode: Gst.PadMode, active: bool) -> str:
+    return "wrong"
+
+
+def keyword_only(pad: Gst.Pad, parent: Gst.Object, *, mode: Gst.PadMode, active: bool) -> bool:
+    return True
+
+
+def check(pad: Gst.Pad, parent: Gst.Object, handler: Handler) -> None:
+    callback: Gst.PadActivateModeFunction = activate
+    bound: Gst.PadActivateModeFunction = handler.activate
+    callback(pad, parent, Gst.PadMode.PUSH, True)
+    bound(pad, parent, Gst.PadMode.PUSH, True)
+    pad.set_activatemode_function_full(activate)
+    pad.set_activatemode_function_full(handler.activate)
+    pad.set_activatemode_function_full(wrong_return)  # error
+    pad.set_activatemode_function_full(keyword_only)  # error
+    callback(pad, parent, "PUSH", True)  # error
+    callback(pad=pad, parent=parent, mode=Gst.PadMode.PUSH, active=True)  # error

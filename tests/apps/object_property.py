@@ -79,6 +79,7 @@ class PropertyTypingCases(GObject.Object):
         assert_type(self.direct, int)
         assert_type(self.empty, str)
         assert_type(self.assigned, float)
+        assert_type(self.chained, int)
         self.weight = 0.75
         consume_float(self.weight)
 
@@ -93,6 +94,10 @@ if TYPE_CHECKING:
 
 if __name__ == "__main__":
     obj = TestObject()
+    assert_type(obj.str_prop, str)
+    assert obj.str_prop == "Ciao Mondo"
+    obj.str_prop = "updated"
+    assert obj.str_prop == "updated"
     print(f"--- Test on object: {obj} ---")
     val_int = obj.get_property("int-prop")
     val_str = obj.get_property("str-prop")

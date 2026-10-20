@@ -58,11 +58,12 @@ not version gates; rerun runtime checks when dependencies change.
 | Gio.Task.return_value | GIR describes a GValue input, but `return_value(42)` followed by `propagate_value()` returns `(True, 42)`. Correct only the result argument to a marshalled Python payload. |
 | Gio.DBusConnection.__init__ | Verified with PyGObject 3.58.1 / GLib 2.80: `gi.overrides.Gio._warn_init` forwards arguments and warns against direct construction, but exposes only `*args, **kwargs`. Reuse the property constructor builder and retain the warning. Prefer `new_sync` / `new_for_address_sync` or their asynchronous counterparts for initialized connections. |
 | Gst.Structure.set_value | Installed gst-python annotates the Python override as `bool`; `set_value("answer", 42)` returns `None`. Correct only the return annotation. |
+| Gst.Element.register | PyGObject accepts Python element classes as well as native GType values. Widen only the input argument to `GObject.GType \| type[Element]`, preserving the native metadata and discovered signature. Runtime tests register both forms; a necessity test detects when normal parsing learns this conversion. |
 | GioUnix.InputStream/OutputStream.get_fd | PyGObject 3.58.1's bound wrappers return the native integer descriptor but lack return annotations. Preserve the bound signature and recover `int`; the interface's static entry point is unchanged. |
 | Atk.Object.get_name/get_description | Atk 2.52.0 returns `None` for unset values on NoOpObject, although GI declares a non-null string. Mark only these two returns nullable. |
 | Gtk.TreeViewColumn.set_cell_data_func | PyGObject 3.58.1's wrapper accepts one `func_data` and loses callback/return annotations. Preserve the parsed wrapper and docs; overload omitted data, typed data and callback removal with `None`. Renderer types use a bound, not a closed list of concrete GTK renderers. |
 | GEnum/GFlags and their metaclasses | Model `IntEnum`/`IntFlag` behavior, runtime value metadata and PyGObject's implicit acceptance of enum classes as GType arguments. `_GEnumMeta`/`_GFlagsMeta` are stub-only support classes, not public runtime exports. |
-| GObject.Property | Generic descriptor with overloads for class/instance access; this is static typing structure beyond the introspected runtime signature. |
+| GObject.Property | Generic descriptor with overloads for class/instance access; this is static typing structure beyond the introspected runtime signature. `_PropertySetter` models the bound setter callable: Pyright 1.1.414 otherwise synthesizes a built-in property setter and loses the generic getter type after `@prop.setter`. Installed consumers check reads and reject invalid writes/setters with both checkers. |
 | Required callbacks | ClosureMarshal, EqualFunc and EqualFuncFull are looked up through GIRepository when normal traversal has not found them; their signatures are parsed, not handwritten. |
 
 Public `gi.repository.GIRepository.CallableInfo` exposes `get_n_args`/`get_arg`,
@@ -77,6 +78,8 @@ the normal schemas/templates. Its C signatures are checked against PyGObject
 on upgrades, including integer tag results and Async's omitted-callback behavior.
 `callbacks.py` selects only the four verified call sites that use the precise
 `WithData` Protocol variants; other sites retain their original Protocol/fallback.
+Native callback Protocols declare positional arguments: their implementations
+can use different parameter names because GI invokes them positionally.
 `Gst.Bus.set_sync_handler` is checked with zero/multiple user-data values,
 bound/callable/partial handlers and callback removal. Its signature still comes
 from GI. Signal `connect` overloads correlate their extra arguments with the
