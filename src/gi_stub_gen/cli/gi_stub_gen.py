@@ -145,6 +145,9 @@ def main(
         module_name, gi_version = split_gi_name_version(n)
 
         logger.info(f"Preloading module {module_name} gi_version={gi_version}")
+        if module_name == "gi.repository.GES":
+            # GES can precede Gst in discovery, but requires Gst to be initialized first.
+            get_gi_module_from_name("gi.repository.Gst", "1.0").init(None)
         m = get_gi_module_from_name(module_name=module_name, gi_version=gi_version)
         # if later we want to use Repository we need to populate its
         # required modules, it is different from this scope
@@ -153,6 +156,9 @@ def main(
         if module_name.removeprefix("gi.repository.") == "Gst":
             # breakpoint()
             m.init(None)
+        elif module_name == "gi.repository.GES":
+            if not m.init():
+                raise RuntimeError("Could not initialize GES")
 
     from gi_stub_gen.package import create_stub_package
     from gi_stub_gen.parser.module import parse_module

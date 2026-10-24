@@ -607,8 +607,10 @@ def _property_to_init_argument(
                     if py_type_hint_namespace != namespace:
                         default_value_repr = f"{py_type_hint_namespace}.{default_value_repr}"
             except Exception:
-                # fallback: usiamo il valore numerico
-                default_value_repr = repr(prop_spec.get_default_value())
+                # GI enums can shadow Enum.name with a method; retain a typed numeric default.
+                default_value_repr = f"{py_type_hint_name}({int(default_value)})"
+                if py_type_hint_namespace and py_type_hint_namespace != namespace:
+                    default_value_repr = f"{py_type_hint_namespace}.{default_value_repr}"
         else:
             # regular type
             py_type_hint_name = get_py_type_name_repr(pytype)

@@ -1,0 +1,28 @@
+from typing import Literal, assert_type
+from gi.repository import GES, Gst
+
+
+def build_timeline() -> GES.Timeline:
+    Gst.init(None)
+    assert_type(GES.init(), bool)
+    timeline = GES.Timeline.new_audio_video()
+    assert_type(timeline, GES.Timeline)
+    element: Gst.Element = timeline
+    assert_type(element.get_state(0)[0], Gst.StateChangeReturn)
+    layer = timeline.append_layer()
+    assert_type(layer, GES.Layer)
+    clip = GES.TestClip.new()
+    assert_type(clip, GES.TestClip | None)
+    assert clip is not None
+    clip.props.duration = Gst.SECOND
+    assert_type(clip.props.duration, int)
+    assert_type(clip.get_layer(), GES.Layer | None)
+    assert_type(layer.add_clip(clip), bool)
+    assert_type(timeline.get_tracks(), list[GES.Track])
+    assert_type(GES.TrackType.UNKNOWN, Literal[GES.TrackType.UNKNOWN])
+    source = GES.AudioTestSource(track_type=GES.TrackType.AUDIO)
+    assert_type(source.props.track_type, GES.TrackType)
+
+    def clip_added(sender: GES.Layer, added: GES.Clip, label: str) -> None: ...
+    assert_type(layer.connect("clip-added", clip_added, "clip"), int)
+    return timeline

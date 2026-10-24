@@ -1,0 +1,9 @@
+from gi.repository import GES
+
+
+def invalid(timeline: GES.Timeline, layer: GES.Layer, clip: GES.TestClip) -> None:
+    layer.add_clip("wrong")  # error
+    clip.props.duration = "wrong"  # error
+    timeline.append_layer(42)  # error
+    clip.set_vpattern("wrong")  # error
+    timeline.props.duration = 42  # error

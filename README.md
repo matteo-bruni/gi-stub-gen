@@ -130,6 +130,7 @@ just build
 ```
 This will build all the stub packages and place them in the `stubs/` directory.
 (or you can build individual packages using `just build-base`, `just build-gst`, etc.).
+`just build-gst` also includes GStreamer Editing Services (`GES`) when its typelib is available.
 Each build command accept a `--debug` flag to enable verbose output in the stubs (_beware! it is really verbose_) that also disable the progress bar, useful for debugging with gdb.
 
 You can then install the generated packages in your current environment using:

@@ -13,6 +13,7 @@ import sys
 import textwrap
 import zipfile
 
+import gi
 import pytest
 
 
@@ -57,6 +58,12 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
         assert owners[marker].startswith("gi_base_stubs-")
 
     assert owners["gi-stubs/_gtktemplate.pyi"].startswith("gi_gtk_stubs-")
+    try:
+        gi.require_version("GES", "1.0")
+    except ValueError:
+        pass
+    else:
+        assert owners["gi-stubs/repository/GES.pyi"].startswith("gi_gst_stubs-")
 
     env = work / "venv"
     checked("uv", "venv", "--python", sys.executable, str(env))
@@ -96,9 +103,11 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 
 @pytest.mark.parametrize("checker", ["pyright", "ty-check"])
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
-    work, _, _ = installed
+    work, site, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "bus_callbacks", "bus_callbacks_invalid", "signals_exact", "property_setters", "callback_names", "gstreamer_typed_pipeline", "namespaces"):
+    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "bus_callbacks", "bus_callbacks_invalid", "signals_exact", "property_setters", "callback_names", "ges", "ges_invalid", "gstreamer_typed_pipeline", "namespaces"):
+        if fixture in ("ges", "ges_invalid") and not (site / "gi-stubs/repository/GES.pyi").exists():
+            continue
         source = work / f"{fixture}.py"
         if fixture == "namespaces":
             names = sorted({path.stem for path in (ROOT / "stubs").glob("*/src/gi-stubs/repository/*.pyi") if path.stem != "__init__"})
