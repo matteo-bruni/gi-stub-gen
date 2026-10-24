@@ -1,6 +1,6 @@
 # 📦 GI Stub Gen
 
-![Python Version](https://img.shields.io/badge/python-3.10-blue)
+![Python Version](https://img.shields.io/badge/python-3.12%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 A modern, modular type hint generator for GObject Introspection (GI) libraries (GStreamer, GTK, Gio, etc.).
@@ -45,9 +45,10 @@ The version is pinned in `justfile`; diagnostics remain visible and are not yet 
 
 ### Prerequisites
 
-This project relies on `PyGObject`, which requires system-level dependencies.
+For development, use the devcontainer described below, which provides the system dependencies.
+Outside the container, `PyGObject` requires system-level dependencies.
 
-**On Ubuntu/Debian:**
+**On Ubuntu/Debian, outside the devcontainer:**
 ```bash
 sudo apt install \
   build-essential \
@@ -66,21 +67,12 @@ This project uses `uv` for dependency management.
 # Clone the repository
 git clone https://github.com/matteo-bruni/gi-stub-gen.git
 cd gi-stub-gen
-
-# Sync dependencies and activate venv
-uv sync
 ```
 
-### !! Warning on Gstreamer.
-Until gstreamer start publishing gst-python wheels on pypi we need to install gst-python from the system packages and copy the overrides in the venv.
-Since i'm using ubuntu 25.10 i'm forced to use python 3.13 for the venv since the _gi_gst compiled library is distribuited via python3-gst-1.0 package only.
+### GStreamer Development Container
 
-in Ubuntu:
-```bash
-sudo apt install python3-gst-1.0 gstreamer1.0-python3-plugin-loader
-just sync-gst
-```
-(make sure you created the uv venv with the same python version of the system gst-python package)
+In VS Code, choose **Dev Containers: Reopen in Container** to use the configured image `ghcr.io/matteo-bruni/gstreamer:1.28.3-ubuntu.24.04-base-py-3.12`, published from [gstreamer-oci](https://github.com/matteo-bruni/gstreamer-oci).
+The setup hook installs project dependencies and the compatible gst-python wheel into `/opt/uv/venv`; select `/opt/uv/venv/bin/python` as the interpreter.
 
 ### Usage
 
@@ -102,7 +94,7 @@ uv run gi-stub-gen \
     --output ./stubs \
     --gir-folder /usr/share/gir-1.0
 ```
-This will generate stubs for GStreamer 1.26 in the `stubs/` folder. (because that is the version installed on my system).
+This generates stubs for the installed GStreamer version in the `stubs/` folder.
 The generated stubs have a dependency on `gi-base-stubs`, which contains common types like `GObject` and `GLib`.
 Providing the `--gir-folder` docstrings will be gathered from the corresponding `.gir` files and included in the stubs. If not provided, the stubs will be generated without docstrings. 
 
@@ -117,10 +109,10 @@ You can find the generated output in the `stubs/` folder as an example. I have c
 
 | Package | Versioning | Contents |
 | :--- | :--- | :--- |
-| **`gi-base-stubs`** | Follows **PyGObject** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, and the `gi` module. |
-| **`gi-graphics-core-stubs`** | Follows **PyGObject** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
-| **`gi-gtk-stubs`** | Follows **GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`. |
-| **`gi-gst-stubs`** | Follows **GStreamer** | **Multimedia (GStreamer).**<br>Includes `Gst`, `GstBase`, `GstVideo`, `GstAudio`, `GstApp`, `GstPbutils`, `GstRtp`, `GstRtsp`, `GstSdp`. |
+| **`gi-base-stubs`** | **PyGObject + GLib** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, `gi`, `gi._gi`, `gi.events`, and `gi._signalhelper`. |
+| **`gi-graphics-core-stubs`** | **PyGObject + GLib + cairo** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
+| **`gi-gtk-stubs`** | **PyGObject + GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`, and `gi._gtktemplate`. |
+| **`gi-gst-stubs`** | **GStreamer** | **Multimedia (GStreamer + GES).**<br>Includes `Gst`, `GES`, and available GStreamer extension namespaces (e.g. `GstApp`, `GstAudio`, `GstVideo`, `GstWebRTC`), discovered from importable typelibs. |
 
 
 To build all the stubs like `gi-base-stubs`, `gi-gtk-stubs`, `gi-graphics-core-stubs`, and `gi-gst-stubs`, you can run the provided shell scripts in the project root or use `just` commands:
