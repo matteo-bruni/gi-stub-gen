@@ -1,0 +1,30 @@
+name: Publish validated wheel index
+description: Rebuild the complete index and deploy static HTML only
+outputs:
+  page_url:
+    description: Published Pages URL
+    value: ${{ steps.deploy.outputs.page_url }}
+runs:
+  using: composite
+  steps:
+    - name: Test and generate index without native dependencies
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        python3 -m venv "$RUNNER_TEMP/index-venv"
+        "$RUNNER_TEMP/index-venv/bin/pip" install packaging tomlkit pytest
+        export PYTHONPATH="$GITHUB_WORKSPACE/src"
+        # Importing tests/ initializes GI; this standalone fixture also works on a plain runner.
+        cp tests/test_wheel_index.py "$RUNNER_TEMP/test_wheel_index.py"
+        "$RUNNER_TEMP/index-venv/bin/python" -m pytest --noconftest "$RUNNER_TEMP/test_wheel_index.py" -q
+        "$RUNNER_TEMP/index-venv/bin/python" -m gi_stub_gen.wheel_index \
+          --repository "$GITHUB_REPOSITORY" --output "$RUNNER_TEMP/wheel-index"
+    - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+    - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+      with:
+        # Only static index files go to Pages; wheels and internal reports never enter this artifact.
+        path: ${{ runner.temp }}/wheel-index
+    - id: deploy
+      uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -1,5 +1,6 @@
 from enum import StrEnum
 import inspect
+import textwrap
 
 from pydantic import BaseModel, Field
 
@@ -132,6 +133,8 @@ class BuiltinFunctionArgumentSchema(BaseModel):
 
 
 class BuiltinFunctionSchema(BaseSchema):
+    python_version_before: tuple[int, int] | None = None
+    """Render this verified Python API only for interpreters older than this version."""
     type_imports: set[str] = Field(default_factory=set)
     """Namespaces embedded in annotations recovered from bound native callables."""
     name: str
@@ -161,13 +164,17 @@ class BuiltinFunctionSchema(BaseSchema):
     def render_stub(self) -> str:
         """Return stub text as a string."""
         if self.overloads:
-            return "\n".join(
+            rendered = "\n".join(
                 TemplateManager.render_master("builtin_function.jinja", fun=variant.model_copy(update={
                     "is_overload": True, "docstring": self.docstring if i == 0 else None,
                 }))
                 for i, variant in enumerate(self.overloads)
             )
-        return TemplateManager.render_master("builtin_function.jinja", fun=self)
+        else:
+            rendered = TemplateManager.render_master("builtin_function.jinja", fun=self)
+        if self.python_version_before is not None:
+            return f"if sys.version_info < {self.python_version_before!r}:\n" + textwrap.indent(rendered, "    ")
+        return rendered
 
     def render_type_parameters(self) -> str | None:
         """Return stub text, or None when absent."""
@@ -220,6 +227,8 @@ class BuiltinFunctionSchema(BaseSchema):
     def required_imports(self) -> set[str]:
         """Collect required gi.repository imports based on type hints."""
         gi_imports: set[str] = set(self.type_imports)
+        if self.python_version_before is not None:
+            gi_imports.add("sys")
         if self.overloads:
             gi_imports.add("typing")
             for variant in self.overloads:

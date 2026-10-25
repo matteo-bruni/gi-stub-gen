@@ -23,5 +23,4 @@ echo "Generating UV bash completion"
 # ~/.cargo/bin/uv generate-shell-completion bash > ~/.local/share/bash-completion/completions/uv.bash
 uv generate-shell-completion bash > ~/.local/share/bash-completion/completions/uv.bash
 
-uv sync
-uv pip install /opt/wheel/gst_python_binding-*.whl
+uv sync --locked --inexact --group gst --python /opt/uv/venv/bin/python

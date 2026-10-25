@@ -1206,7 +1206,7 @@ def parse_class(
     except ImportError:
         annotation_globals = {}
 
-    for attribute_name, annotation in class_to_parse.__dict__.get("__annotations__", {}).items():
+    for attribute_name, annotation in inspect.get_annotations(class_to_parse, eval_str=False).items():
         if attribute_name.startswith("_"):
             continue
 

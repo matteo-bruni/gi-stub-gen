@@ -41,6 +41,21 @@ GLIB_VERSION=$(uv run python3 -c "import gi; from gi.repository import GLib; pri
 PKG_GI_BASE_STUBS_VERSION=${PYGOBJECT_VERSION}+glib${GLIB_VERSION}
 WHEEL_PACKAGE_NAME=${STUB_PACKAGE_NAME//-/_}
 
+# Recent GLib exposes Unix types through this namespace, including aliases in GLib.
+OPTIONAL_BASE_MODULES=()
+if uv run python3 - <<'PY'
+import gi
+import sys
+try:
+    gi.require_version("GLibUnix", "2.0")
+    __import__("gi.repository.GLibUnix", fromlist=["GLibUnix"])
+except (ImportError, ValueError):
+    sys.exit(1)
+PY
+then
+    OPTIONAL_BASE_MODULES+=(gi.repository.GLibUnix:2.0)
+fi
+
 # create the package
 uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GioUnix:2.0 \
@@ -49,6 +64,7 @@ uv run gi-stub-gen $(if [ "$ENABLE_DEBUG" = true ] ; then echo --debug ; fi) \
     gi.repository.GLib:2.0 \
     gi.repository.GIRepository:3.0 \
     gi.repository.GModule:2.0 \
+    "${OPTIONAL_BASE_MODULES[@]}" \
     gi \
     gi._gi \
     gi._signalhelper \

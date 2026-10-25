@@ -6,6 +6,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -42,9 +43,13 @@ def checked(*args: str) -> str:
 def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, list[Path]]:
     work = tmp_path_factory.mktemp("installed-stubs")
     wheels = work / "wheels"
-    for package in PACKAGES:
-        checked("uv", "build", "--wheel", str(ROOT / "stubs" / package), "--out-dir", str(wheels))
-    archives = sorted(wheels.glob("*.whl"))
+    supplied = os.environ.get("GI_STUB_WHEELS")
+    if supplied:
+        archives = sorted(Path(supplied).glob("*.whl"))
+    else:
+        for package in PACKAGES:
+            checked("uv", "build", "--wheel", str(ROOT / "stubs" / package), "--out-dir", str(wheels))
+        archives = sorted(wheels.glob("*.whl"))
     assert len(archives) == len(PACKAGES)
 
     owners: dict[str, str] = {}
@@ -105,7 +110,8 @@ def installed(tmp_path_factory: pytest.TempPathFactory) -> tuple[Path, Path, lis
 def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: str):
     work, site, _ = installed
     python = str(work / "venv/bin/python")
-    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "bus_callbacks", "bus_callbacks_invalid", "signals_exact", "property_setters", "callback_names", "ges", "ges_invalid", "gstreamer_typed_pipeline", "namespaces"):
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    for fixture in ("consumer", "invalid", "parity", "parity_invalid", "interfaces", "interfaces_invalid", "consumer_corrections", "consumer_corrections_invalid", "bus_callbacks", "bus_callbacks_invalid", "signals_exact", "property_setters", "callback_names", "ges", "ges_invalid", "gstreamer_typed_pipeline", "python_compatibility", "namespaces"):
         if fixture in ("ges", "ges_invalid") and not (site / "gi-stubs/repository/GES.pyi").exists():
             continue
         source = work / f"{fixture}.py"
@@ -119,12 +125,12 @@ def test_installed_consumers(installed: tuple[Path, Path, list[Path]], checker: 
             source.write_text(original.read_text())
         expected = [number for number, line in enumerate(source.read_text().splitlines(), 1) if "# error" in line and not (checker == "ty-check" and "ty-misses:" in line)]
         if checker == "pyright":
-            result = run("just", checker, "--pythonpath", python, "--outputjson", str(source))
+            result = run("just", checker, "--pythonpath", python, "--pythonversion", python_version, "--outputjson", str(source))
             diagnostics = json.loads(result.stdout)["generalDiagnostics"]
             assert all(item["severity"] == "error" and Path(item["file"]) == source for item in diagnostics)
             actual = [item["range"]["start"]["line"] + 1 for item in diagnostics]
         else:
-            result = run("just", checker, "--python", python, "--output-format", "gitlab", str(source))
+            result = run("just", checker, "--python", python, "--python-version", python_version, "--output-format", "gitlab", str(source))
             diagnostics = json.loads(result.stdout)
             assert all(item["severity"] == "major" and Path(item["location"]["path"]) == source for item in diagnostics)
             actual = [item["location"]["positions"]["begin"]["line"] for item in diagnostics]
@@ -147,3 +153,17 @@ def test_addon_removal_preserves_other_packages(installed: tuple[Path, Path, lis
     checked("uv", "pip", "install", "--python", python, "--no-deps", str(gst))
     assert stub_hashes(stub_dir) == before
     assert (stub_dir / "py.typed").read_text() == "partial\n"
+
+
+def test_repository_imports_are_distributed(installed: tuple[Path, Path, list[Path]]):
+    """The four-package release must include native namespaces used by its declarations."""
+    _, site, _ = installed
+    files = list((site / "gi-stubs/repository").glob("*.pyi"))
+    provided = {file.stem for file in files}
+    for file in files:
+        needed = {
+            alias.name for node in ast.parse(file.read_text()).body
+            if isinstance(node, ast.ImportFrom) and node.module == "gi.repository"
+            for alias in node.names
+        }
+        assert needed <= provided, f"{file.name} imports missing namespaces: {needed - provided}"

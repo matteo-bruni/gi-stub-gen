@@ -12,6 +12,7 @@ These tests ensure that:
 from pathlib import Path
 
 import gi
+import pytest
 
 gi.require_version("Gio", "2.0")
 gi.require_version("GstAudio", "1.0")
@@ -55,7 +56,10 @@ class TestGIFunctionDecorators:
         GObject.signal_set_va_marshaller references VaClosureMarshal, which is
         marked introspectable=0 in the GIR and should be skipped.
         """
-        assert parse_function(GObject.signal_set_va_marshaller, None) is None  # type: ignore
+        function = getattr(GObject, "signal_set_va_marshaller", None)
+        if function is None:
+            pytest.skip("This GObject typelib does not expose signal_set_va_marshaller")
+        assert parse_function(function, None) is None
 
     def test_class_static_method_has_decorator(self):
         """
@@ -324,7 +328,11 @@ class TestPythonFunctionDecorators:
             "GType",
         ]
 
-        signal_newv = parse_function(GObject.signal_newv, None)
+    def test_signal_newv_gtype_array(self):
+        function = getattr(GObject, "signal_newv", None)
+        if function is None:
+            pytest.skip("This GObject typelib does not expose signal_newv")
+        signal_newv = parse_function(function, None)
         assert signal_newv is not None
         param_types = next(arg for arg in signal_newv.input_args if arg.name == "param_types")
         assert param_types.render_type_annotation("GObject") == "list[GType] | None"

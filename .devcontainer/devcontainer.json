@@ -4,7 +4,7 @@
         "dockerfile": "Dockerfile",
         "args": {
             "BASE_IMAGE": "ghcr.io/matteo-bruni/gstreamer",
-            "BASE_IMAGE_TAG": "1.28.3-ubuntu.24.04-base-py-3.12",
+            "BASE_IMAGE_TAG": "1.28.8-ubuntu.26.04-base-py-3.14-non-free",
             "USER": "${localEnv:USER}",
             "UID": "${localEnv:UID}",
             "GID": "${localEnv:GID}"

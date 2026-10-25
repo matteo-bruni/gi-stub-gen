@@ -44,9 +44,7 @@ done
 
 # Prepare the virtual environment #########################
 
-# clear the virtual env so we will rebuild gobject
-# and all deps just for the project
-rm -rf "$VIRTUAL_ENV"
+# The image already provides bindings compiled against its native libraries.
 
 # instal pygobject build deps
 apt-get update && apt-get install -y --no-install-recommends \
@@ -59,11 +57,10 @@ apt-get update && apt-get install -y --no-install-recommends \
     util-linux
 
 # install stubs dependencies
-uv sync
+uv sync --group gst --locked --inexact --python /opt/uv/venv/bin/python
 
 # install the gstreamer python binding that are awailable in the system
 # to be able to use them in the venv
-uv pip install /opt/wheel/*.whl
 
 
 # utility to build as user and group id, so we can write to the host mounted volume

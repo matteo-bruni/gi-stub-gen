@@ -1,0 +1,88 @@
+name: Release GI stubs
+on:
+  workflow_dispatch:
+    inputs:
+      generator_version:
+        description: Published generator version, for example 0.1.0
+        required: true
+        type: string
+      gstreamer_version:
+        description: Native GStreamer X.Y.Z
+        default: '1.28.8'
+        required: true
+        type: string
+      image_revision:
+        description: gstreamer-oci image revision (1 = original, 2 = -r2)
+        default: '1'
+        required: true
+        type: string
+      revision:
+        description: Stub revision (0 = original, 1 = .post1)
+        default: '0'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: gi-stubs-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - name: Generate, verify and publish stub wheels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GENERATOR_VERSION: ${{ inputs.generator_version }}
+          GSTREAMER_VERSION: ${{ inputs.gstreamer_version }}
+          IMAGE_REVISION: ${{ inputs.image_revision }}
+          STUB_REVISION: ${{ inputs.revision }}
+        run: |
+          set -euo pipefail
+          python3 -m venv "$RUNNER_TEMP/release-venv"
+          "$RUNNER_TEMP/release-venv/bin/pip" install packaging tomlkit uv==0.13.5
+          export PATH="$RUNNER_TEMP/release-venv/bin:$PATH"
+          export PYTHONPATH="$GITHUB_WORKSPACE/src"
+          gh auth setup-git
+          python -m gi_stub_gen.publish stubs --generator-version "$GENERATOR_VERSION" \
+            --gstreamer-version "$GSTREAMER_VERSION" --image-revision "$IMAGE_REVISION" --revision "$STUB_REVISION"
+      - name: Retain prepared artifacts and verification logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: stub-release-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/gi-release/assets/
+            ${{ runner.temp }}/gi-release/**/.release-logs/
+          if-no-files-found: ignore
+          include-hidden-files: true
+          retention-days: 14
+  index:
+    # Rebuild the complete catalog explicitly after every successful release or verified retry.
+    needs: release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: gi-wheel-index-pages
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - id: pages
+        uses: ./.github/actions/publish-index

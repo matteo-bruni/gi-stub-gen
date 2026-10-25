@@ -75,6 +75,8 @@ def create_stub_package(
             return
 
     author_entry = f'{{ name = "{author_name}", email = "{author_email}" }}'
+    if "gi" in stubs:
+        dependencies = [*(dependencies or []), "typing-extensions>=4.12"]
     pyproject_template = f"""[project]
 name = "{name}"
 version = "{version}"

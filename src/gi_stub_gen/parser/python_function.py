@@ -1,5 +1,6 @@
 from __future__ import annotations
 import enum
+import ast
 import importlib
 from types import BuiltinFunctionType, FunctionType, MethodType
 
@@ -241,8 +242,20 @@ def parse_python_function(
         def_val = None
         if param.default is not inspect.Parameter.empty:
             def_val = _format_enum_default(param.default, t_name, t_ns, namespace)
+            if def_val is None and isinstance(param.default, type):
+                default_name, default_ns = _extract_annotation_type_info(param.default, namespace, type_imports)
+                if default_ns and default_ns != sanitize_gi_module_name(namespace):
+                    type_imports.add(default_ns)
+                    def_val = f"{default_ns}.{default_name}"
+                else:
+                    def_val = default_name
             if def_val is None:
                 def_val = get_redacted_stub_value(param.default)
+            try:
+                ast.parse(def_val, mode="eval")
+            except SyntaxError:
+                # Runtime objects with non-Python reprs still denote optional parameters.
+                def_val = "..."
 
         type_var_names = _collect_type_var_schemas(
             param.annotation,

@@ -57,6 +57,15 @@ def test_reset_works(fake_gir_file):
     assert GIRDocs().get_function_docstring("hello_world") is None
 
 
+def test_gir_availability_version_is_preserved(fake_gir_file, tmp_path):
+    text = fake_gir_file.read_text().replace('name="hello_world"', 'name="hello_world" version="2.84"')
+    path = tmp_path / "versioned.gir"
+    path.write_text(text)
+    docs = parse_gir_docs(path)
+    assert docs is not None
+    assert "Since: 2.84" in docs.functions["hello_world"].docstring
+
+
 def test_callable_c_type_metadata_is_extracted(tmp_path):
     gir_file = tmp_path / "TestLib-1.0.gir"
     gir_file.write_text(

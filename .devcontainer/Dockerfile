@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=ghcr.io/matteo-bruni/gstreamer
-ARG BASE_IMAGE_TAG=1.28.3-ubuntu.24.04-base-py-3.12
+ARG BASE_IMAGE_TAG=1.28.8-ubuntu.26.04-base-py-3.14-non-free
 
 FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
 
@@ -29,10 +29,7 @@ RUN apt-get update && \
     libatk1.0-dev libgtk-4-dev gir1.2-gtk-4.0 && \
     rm -rf /var/lib/apt/lists/* && \
     # make bubblewrap setuid so that it can be used by non-root users
-    chmod u+s /usr/bin/bwrap && \
-    # clear the venv so we start with a clean slate
-    # otherwise we can have some issues with compatibility in pygobject
-    rm -rf $VIRTUAL_ENV
+    chmod u+s /usr/bin/bwrap
 
 # create user with appropriate username / uid / gid / home path
 # and give user root privileges

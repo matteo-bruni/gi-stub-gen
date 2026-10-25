@@ -67,7 +67,10 @@ def _get_first_doc_text(
     """
     Helper to safely extract and clean the text of the first <doc> child tag.
     """
-    return element.findtext("core:doc", default="", namespaces=namespace) or ""
+    doc = element.findtext("core:doc", default="", namespaces=namespace) or ""
+    if version := element.get("version"):
+        doc = f"{doc}\n\nSince: {version}".strip()
+    return doc
 
 
 def _extract_function_docs(

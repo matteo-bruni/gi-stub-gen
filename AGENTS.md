@@ -97,6 +97,33 @@ property conflicts that must not be hidden by weakening types.
 
 ### Development loop
 
+The primary image is Ubuntu 26.04 / Python 3.14 with GStreamer 1.28.8.
+Keep Python 3.12 support and verify both interpreters on Ubuntu 24.04 and 26.04.
+Native dependencies come from the image's `/opt/wheel` flat index; retain its
+prepared venv and never substitute wheels from another Ubuntu image. The lock
+includes both Python ABIs; refresh it with both ABIs from the same Ubuntu build
+available to the resolver, then install only the matching image's wheels.
+
+Release packaging uses `just release-wheels`: native suffixes must describe the
+actual generation environment, and public versions are rebuilt through the
+backend from the verified recent stubs. Never rename a wheel to change its
+version or overwrite published files; use `.postN` for corrections. The Pages
+index validates release manifests and wheel metadata. The shared Pages action copies
+`test_wheel_index.py` outside `tests/` before running it without GI, avoiding the
+GI initialization in `tests/__init__.py`. Keep deployment separate from local
+validation.
+
+The two manual release workflows explicitly publish the shared index after a
+release; GITHUB_TOKEN release events do not trigger another workflow. Generator
+releases bump only project versions in pyproject.toml/uv.lock. Stub releases use
+the published generator wheel from the Pages index and its source tag. Reuse
+native wheels from /opt/wheel and use UV_NO_SYNC to avoid installing the
+checkout. Ubuntu preparation uses --no-install-recommends; record actual native
+versions after installation rather than requiring every OS package to remain frozen.
+Keep gst-python-binding in the local development group only, not in published
+dependencies or extras. Exercise release
+orchestration with mocked GitHub writes; never publish as part of local tests.
+
 1. Start with `git status --short` and preserve all pre-existing user changes.
 2. Locate the incorrect generated declaration under `stubs/`, then reproduce
    the generator behavior with a focused test under `tests/` when practical.
@@ -143,6 +170,9 @@ It does not reinstall packages into the development venv. Keep expected-invalid
 fixtures as `.py.txt` files so source checking does not treat them as regressions.
 Only base owns `gi-stubs/repository/__init__.pyi` and `gi-stubs/py.typed` with
 `partial`; addon wheels must not duplicate them.
+
+Set `GI_STUB_WHEELS` to a directory containing exactly four wheels to run the
+same installed consumers against an existing release build on another runtime.
 
 `justfile` pins the verified ty and Pyright versions. Revisit ty frequently,
 especially before releases or when investigating a checker limitation; the pin

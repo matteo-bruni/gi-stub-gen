@@ -12,13 +12,15 @@ from gi_stub_gen.schema.class_ import ClassSchema
 from gi_stub_gen.schema.module import ModuleSchema
 
 
-def _methods(owner: type | ModuleType, namespace: str, signatures: tuple[str, ...]) -> list[BuiltinFunctionSchema]:
+def _methods(owner: type | ModuleType, namespace: str, signatures: tuple[str, ...], *,
+             python_version_before: tuple[int, int] | None = None) -> list[BuiltinFunctionSchema]:
     methods = []
     for signature in signatures:
-        declared = parse_signature(signature, owner, namespace)
-        runtime = getattr(owner, declared.name)
-        parsed = parse_python_function(runtime, namespace, declared.name, owner if isinstance(owner, type) else None)
-        declared.docstring = parsed.docstring if parsed is not None else inspect.getdoc(runtime)
+        declared = parse_signature(signature, owner, namespace, python_version_before=python_version_before)
+        runtime = getattr(owner, declared.name, None)
+        if runtime is not None:
+            parsed = parse_python_function(runtime, namespace, declared.name, owner if isinstance(owner, type) else None)
+            declared.docstring = parsed.docstring if parsed is not None else inspect.getdoc(runtime)
         methods.append(declared)
     counts = Counter(method.name for method in methods)
     for method in methods:
@@ -65,14 +67,12 @@ def parse_python_helper(module: ModuleType) -> ModuleSchema:
         imports = {"asyncio", "typing", "types", "contextlib", "GLib"}
         base = "asyncio.ProactorEventLoop" if sys.platform == "win32" else "asyncio.SelectorEventLoop"
         loop = _class(module.GLibEventLoop, namespace, [base], declarations.EVENT_LOOP, imports)
-        policy_signatures = declarations.EVENT_POLICY
-        if hasattr(module.GLibEventLoopPolicy, "get_child_watcher"):
-            policy_signatures += (
+        policy = _class(module.GLibEventLoopPolicy, namespace, ["asyncio.AbstractEventLoopPolicy"], declarations.EVENT_POLICY, imports)
+        policy.python_methods.extend(_methods(module.GLibEventLoopPolicy, namespace, (
                 "get_child_watcher(cls) -> asyncio.ThreadedChildWatcher",
                 # The inherited Python method raises NotImplementedError, rather than being abstract at runtime.
                 "set_child_watcher(self, watcher: asyncio.AbstractChildWatcher | None) -> typing.Never",
-            )
-        policy = _class(module.GLibEventLoopPolicy, namespace, ["asyncio.AbstractEventLoopPolicy"], policy_signatures, imports)
+            ), python_version_before=(3, 14)))
         task = _class(module.GLibTask, namespace, ["asyncio.Task[T]"], declarations.EVENT_TASK, imports,
                       type_vars=[TypeVarSchema(name="T")])
         classes = [loop, policy, task]

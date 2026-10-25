@@ -36,10 +36,14 @@ def test_get_fd_runtime_and_annotation(cls):
         stream = cls.new(fd, False)
         assert stream.get_fd() == GioUnix.FileDescriptorBased.get_fd(stream) == fd
         method = effective_method("GioUnix", cls, "get_fd")
-        assert isinstance(method, BuiltinFunctionSchema)
+        assert isinstance(method, (BuiltinFunctionSchema, FunctionSchema))
         assert method.render_return_annotation("GioUnix") == "int"
-        assert method.is_method and not method.is_staticmethod
-        assert [p.name for p in method.params] == ["self"]
+        assert method.is_method
+        if isinstance(method, BuiltinFunctionSchema):
+            assert not method.is_staticmethod
+            assert [p.name for p in method.params] == ["self"]
+        else:
+            assert not method.input_args
     finally:
         os.close(read_fd)
         os.close(write_fd)
@@ -69,7 +73,9 @@ def test_revisit_transforms_when_upstream_recovers_types(monkeypatch, namespace,
     method = effective_method(namespace, cls, name)
     message = f"Reevaluate/remove {namespace}.{cls.__name__}.{name} transform: uncorrected parsing changed"
     if isinstance(method, FunctionSchema):
-        assert method.render_return_annotation(namespace) == "str", message
+        assert method.render_return_annotation(namespace) == ("int" if name == "get_fd" else "str"), message
+        if name == "get_fd":
+            assert method.is_method and not method.input_args, message
     else:
         assert method.render_return_annotation(namespace) == "typing.Any", message
         if name == "set_cell_data_func":

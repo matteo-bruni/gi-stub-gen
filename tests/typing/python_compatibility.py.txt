@@ -1,0 +1,22 @@
+import sys
+from typing import Literal, assert_type
+
+from gi import Repository, _gi
+from gi.repository import GioUnix, GObject
+
+assert_type(Repository.get_default(), Repository)
+assert_type(_gi.Repository.get_default(), _gi.Repository)
+
+with GObject.Object().freeze_notify() as frozen:
+    assert_type(frozen, None)
+
+
+def descriptor(stream: GioUnix.InputStream, output: GioUnix.OutputStream) -> None:
+    assert_type(stream.get_fd(), int)
+    assert_type(output.get_fd(), int)
+
+
+if sys.version_info < (3, 14):
+    from gi.events import GLibEventLoopPolicy
+
+    assert_type(GLibEventLoopPolicy().get_child_watcher().is_active(), Literal[True])

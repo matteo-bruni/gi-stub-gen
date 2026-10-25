@@ -1,16 +1,18 @@
 """Convert verified signatures into the same models used by runtime parsing."""
 import ast
+import sys
 from types import ModuleType
 
 from gi_stub_gen.schema.builtin_function import ArgKind, BuiltinFunctionArgumentSchema, BuiltinFunctionSchema, TypeVarSchema
 
 
-def parse_signature(signature: str, owner: object, namespace: str) -> BuiltinFunctionSchema:
+def parse_signature(signature: str, owner: object, namespace: str, *,
+                    python_version_before: tuple[int, int] | None = None) -> BuiltinFunctionSchema:
     """Parse one signature, checking the member exists without importing a module."""
     static = signature.startswith("@")
     node = ast.parse(f"def {signature.lstrip('@').strip()}: ...").body[0]
     assert isinstance(node, ast.FunctionDef)
-    if not hasattr(owner, node.name):
+    if not hasattr(owner, node.name) and (python_version_before is None or sys.version_info[:2] < python_version_before):
         raise RuntimeError(f"PyGObject API changed: {owner}.{node.name}")
     positional = node.args.posonlyargs + node.args.args
     defaults = [None] * (len(positional) - len(node.args.defaults)) + list(node.args.defaults)
@@ -27,6 +29,7 @@ def parse_signature(signature: str, owner: object, namespace: str) -> BuiltinFun
         is_optional=False, line_comment=None,
     ) for arg, kind, default in entries]
     return BuiltinFunctionSchema(
+        python_version_before=python_version_before,
         name=node.name, namespace=namespace, is_async=False, is_from_class=not isinstance(owner, ModuleType),
         is_classmethod=bool(positional and positional[0].arg == "cls" and not static), is_staticmethod=static,
         docstring=None, return_hint_name=ast.unparse(node.returns) if node.returns else "None",

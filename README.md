@@ -71,8 +71,9 @@ cd gi-stub-gen
 
 ### GStreamer Development Container
 
-In VS Code, choose **Dev Containers: Reopen in Container** to use the configured image `ghcr.io/matteo-bruni/gstreamer:1.28.3-ubuntu.24.04-base-py-3.12`, published from [gstreamer-oci](https://github.com/matteo-bruni/gstreamer-oci).
-The setup hook installs project dependencies and the compatible gst-python wheel into `/opt/uv/venv`; select `/opt/uv/venv/bin/python` as the interpreter.
+In VS Code, choose **Dev Containers: Reopen in Container** to use `ghcr.io/matteo-bruni/gstreamer:1.28.8-ubuntu.26.04-base-py-3.14-non-free`, published from [gstreamer-oci](https://github.com/matteo-bruni/gstreamer-oci).
+The setup preserves `/opt/uv/venv` and installs the image's native wheels from `/opt/wheel`; select `/opt/uv/venv/bin/python` as the interpreter.
+Outside the container, prepare compatible system libraries and bindings yourself; the [public binding indexes](https://matteo-bruni.github.io/gstreamer-oci/) require an explicit Ubuntu selection.
 
 ### Usage
 
@@ -102,6 +103,10 @@ Providing the `--gir-folder` docstrings will be gathered from the corresponding 
 
 ## Generated Stubs
 
+Stub wheels are `py3-none-any` for Python 3.12+; available APIs still depend on native libraries and typelibs.
+Public versions describe the verified recent API; suffixes such as `+glib2.80` identify a specific generation environment, not automatic GLib detection.
+After publishing the index, select an older build explicitly with `pip install --extra-index-url https://matteo-bruni.github.io/gi-stub-gen/simple/ 'gi-base-stubs==3.58.1+glib2.80'`; otherwise installers prefer the higher local version.
+
 You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
 
 > [!NOTE] 
@@ -109,7 +114,7 @@ You can find the generated output in the `stubs/` folder as an example. I have c
 
 | Package | Versioning | Contents |
 | :--- | :--- | :--- |
-| **`gi-base-stubs`** | **PyGObject + GLib** | **Core Infrastructure.**<br>Includes `GLib`, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, `gi`, `gi._gi`, `gi.events`, and `gi._signalhelper`. |
+| **`gi-base-stubs`** | **PyGObject + GLib** | **Core Infrastructure.**<br>Includes `GLib`, `GLibUnix` when available, `GObject`, `Gio`, `GioUnix`, `GModule`, `GIRepository`, `gi`, `gi._gi`, `gi.events`, and `gi._signalhelper`. |
 | **`gi-graphics-core-stubs`** | **PyGObject + GLib + cairo** | **Graphics & Text.**<br>Includes `cairo`, `Pango`, `PangoCairo`, `HarfBuzz`, `freetype2`, `Graphene`. |
 | **`gi-gtk-stubs`** | **PyGObject + GTK** | **UI Toolkit (GTK4).**<br>Includes `Gtk`, `Gdk`, `Gsk`, `GdkPixbuf`, `Atk`, and `gi._gtktemplate`. |
 | **`gi-gst-stubs`** | **GStreamer** | **Multimedia (GStreamer + GES).**<br>Includes `Gst`, `GES`, and available GStreamer extension namespaces (e.g. `GstApp`, `GstAudio`, `GstVideo`, `GstWebRTC`), discovered from importable typelibs. |
@@ -124,6 +129,14 @@ This will build all the stub packages and place them in the `stubs/` directory.
 (or you can build individual packages using `just build-base`, `just build-gst`, etc.).
 `just build-gst` also includes GStreamer Editing Services (`GES`) when its typelib is available.
 Each build command accept a `--debug` flag to enable verbose output in the stubs (_beware! it is really verbose_) that also disable the progress bar, useful for debugging with gdb.
+
+Package a verified build with `just release-wheels IMAGE@sha256:DIGEST --output dist/release --canonical`; omit `--canonical` for older environments and use `--revision N` for corrections.
+For publication, use **Actions → Release gi-stub-gen** with `version`, then **Release GI stubs** with `generator_version`, `gstreamer_version`, `image_revision` (default `1`) and `revision` (`0` initially, `1` for `.post1`). Both workflows publish a release and refresh the shared Pages index; set **Settings → Pages → Source → GitHub Actions** and allow the generator workflow to push its version commit to the default branch. Re-running a complete release only verifies it and refreshes the index.
+
+Stub builds install the selected published generator and use digest-pinned gstreamer-oci images for Ubuntu 24.04/26.04 and Python 3.12/3.14. Native builds retain their suffixes; recommended wheels come from Ubuntu 26.04. Published files are never replaced: use a new `.postN` revision for changed stubs.
+Before generation, the Ubuntu-specific `scripts/ubuntu-*/install_deps.sh` installs GIR dependencies with `--no-install-recommends`. Bindings come from `/opt/wheel`; stub builds install the exact generator version from our index. The generator release tests its newly built wheel directly, so the first release needs no existing index entry.
+
+The published generator does not depend on `gst-python-binding`. Supply compatible native libraries, typelibs and Python overrides through system packages, your own build, or the [gstreamer-oci indexes](https://matteo-bruni.github.io/gstreamer-oci/) (select Ubuntu and pin the binding version). The repository's `gst` dependency group and `/opt/wheel` sources are for development only; installed wheels do not inherit that uv configuration.
 
 You can then install the generated packages in your current environment using:
 

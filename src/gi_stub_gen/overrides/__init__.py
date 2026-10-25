@@ -51,6 +51,7 @@ from gi_stub_gen.overrides.class_.Gst.Element import transform_register
 from gi_stub_gen.overrides.class_.GioUnix.FileDescriptorBased import transform_get_fd
 from gi_stub_gen.overrides.class_.Atk.Object import transform_nullable_text
 from gi_stub_gen.overrides.class_.Gtk.TreeViewColumn import transform_set_cell_data_func
+from gi_stub_gen.overrides.class_.Repository import transform_get_default
 from gi_stub_gen.schema.builtin_function import BuiltinFunctionSchema
 from gi_stub_gen.schema.class_ import ClassFieldSchema
 from gi_stub_gen.schema.function import FunctionSchema
@@ -66,6 +67,12 @@ def get_super_override(namespace: str, class_name: str) -> list[str] | None:
 
 
 CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
+    "gi": {
+        "Repository": {"method_transforms": {"get_default": transform_get_default}},
+    },
+    "gi._gi": {
+        "Repository": {"method_transforms": {"get_default": transform_get_default}},
+    },
     "gi.repository.GioUnix": {
         "InputStream": {"method_transforms": {"get_fd": transform_get_fd}},
         "OutputStream": {"method_transforms": {"get_fd": transform_get_fd}},

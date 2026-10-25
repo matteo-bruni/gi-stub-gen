@@ -1,4 +1,5 @@
 import inspect
+import contextlib
 from types import UnionType
 import typing
 from typing import Any, get_args, get_origin
@@ -105,6 +106,11 @@ def _extract_annotation_type_info(
     if origin is not None:
         origin_name = get_py_type_name_repr(origin)
         origin_namespace = _normalize_namespace(get_py_type_namespace_repr(origin))
+        args = get_args(annotation)
+        if origin is contextlib.AbstractContextManager:
+            origin_name, origin_namespace = "ContextManager", "typing_extensions"
+            if len(args) == 1:
+                args = (*args, bool | None)
 
         arg_reprs = [
             _format_annotation_expr(
@@ -113,7 +119,7 @@ def _extract_annotation_type_info(
                 current_namespace=current_namespace,
                 required_imports=required_imports,
             )
-            for arg in get_args(annotation)
+            for arg in args
         ]
 
         return f"{origin_name}[{', '.join(arg_reprs)}]", origin_namespace

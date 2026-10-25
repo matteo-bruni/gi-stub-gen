@@ -64,7 +64,7 @@ build-gst-in-container *args:
         -e USER_ID=$(id -u) \
         -e USER_GROUP_ID=$(id -g) \
         --env-file .env \
-        ghcr.io/matteo-bruni/gstreamer:1.28.3-ubuntu.24.04-base-py-3.12 \
+        ghcr.io/matteo-bruni/gstreamer:1.28.8-ubuntu.26.04-base-py-3.14-non-free \
         bash ./build-gst-stubs-in-container.sh {{ args }}
 
     just diff-gst
@@ -96,7 +96,7 @@ install:
 
 # Install dependencies for local development.
 sync:
-    uv sync --dev
+    uv sync --dev --group gst --locked --inexact
 
 # Format code.
 format:
@@ -125,6 +125,17 @@ test:
 # Build and check real wheels in a temporary venv, without changing the development venv.
 test-installed-stubs:
     uv run --group gst --locked pytest -q tests/installed_stubs.py
+
+# Package existing generated stubs; use --canonical only for the verified recent build.
+release-wheels image *args:
+    uv run --group gst --locked python -m gi_stub_gen.release --image '{{image}}' {{args}}
+
+test-release-wheels:
+    uv run --group gst --locked pytest -q tests/release_wheels.py
+
+# Generate Pages locally; does not publish or upload anything.
+wheel-index repository output:
+    uv run --locked python -m gi_stub_gen.wheel_index --repository '{{repository}}' --output '{{output}}'
 
 pyright *args:
     uvx --with nodejs-wheel pyright=={{pyright_version}} {{args}}
