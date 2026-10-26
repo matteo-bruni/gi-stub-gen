@@ -288,7 +288,9 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
         cell = container(source, work, image, wheel, "stubs", revision)
         cells[image["ubuntu"], image["python"]] = cell
         if image["python"] == "3.14":
-            for artifact in (cell / ".release-output").iterdir():
+            release_output = cell / ".release-output"
+            # uv also writes .gitignore here; only wheels and build manifests are release assets.
+            for artifact in (*release_output.glob("*.whl"), *release_output.glob("stub-build-*.json")):
                 require(not (output / artifact.name).exists(), f"Duplicate artifact: {artifact.name}")
                 shutil.copy2(artifact, output / artifact.name)
     documentation_differences = {ubuntu: compare_python(cells[ubuntu, "3.12"], cells[ubuntu, "3.14"])

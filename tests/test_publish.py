@@ -220,6 +220,8 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
         (package / "__init__.pyi").write_text("value: int\n")
         output = cell / ".release-output"
         output.mkdir()
+        # uv build adds this file to each output directory, outside the release assets.
+        (output / ".gitignore").write_text("*\n")
         logs = cell / ".release-logs"
         logs.mkdir()
         (logs / "environment.json").write_text(json.dumps(dict(glib_runtime="2.80.5", gstreamer="1.28.8")))
@@ -249,6 +251,7 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
     assert calls.count(("consumer",)) == 8
     assert calls[-1] == ("published",)
     assert len(list((tmp_path / "assets").glob("*.whl"))) == 12
+    assert not (tmp_path / "assets/.gitignore").exists()
     verification = json.loads((tmp_path / "assets/verification.json").read_text())
     assert len(verification["environments"]) == 4
     assert all(value["glib_runtime"] == "2.80.5" for value in verification["environments"].values())

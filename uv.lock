@@ -146,7 +146,6 @@ dependencies = [
     { name = "typing-extensions" },
 ]
 wheels = [
-    { path = "/opt/wheel/gst_python_binding-1.28.8-cp312-cp312-linux_x86_64.whl" },
     { path = "/opt/wheel/gst_python_binding-1.28.8-cp314-cp314-linux_x86_64.whl" },
 ]
 
@@ -504,7 +503,6 @@ name = "pycairo"
 version = "1.29.2"
 source = { registry = "/opt/wheel" }
 wheels = [
-    { path = "/opt/wheel/pycairo-1.29.2-cp312-cp312-linux_x86_64.whl" },
     { path = "/opt/wheel/pycairo-1.29.2-cp314-cp314-linux_x86_64.whl" },
 ]
 
@@ -615,7 +613,6 @@ dependencies = [
     { name = "pycairo" },
 ]
 wheels = [
-    { path = "/opt/wheel/pygobject-3.58.1-cp312-cp312-linux_x86_64.whl" },
     { path = "/opt/wheel/pygobject-3.58.1-cp314-cp314-linux_x86_64.whl" },
 ]
 
