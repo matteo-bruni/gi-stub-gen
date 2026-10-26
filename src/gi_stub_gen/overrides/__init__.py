@@ -48,6 +48,7 @@ from gi_stub_gen.overrides.class_.Gst.Fraction import (
 from gi_stub_gen.overrides.class_.Gio.Task import transform_return_value
 from gi_stub_gen.overrides.class_.Gst.Structure import transform_set_value
 from gi_stub_gen.overrides.class_.Gst.Element import transform_register
+from gi_stub_gen.overrides.class_.GstAnalytics.Mtd import transform_iter_direct_related
 from gi_stub_gen.overrides.class_.GioUnix.FileDescriptorBased import transform_get_fd
 from gi_stub_gen.overrides.class_.Atk.Object import transform_nullable_text
 from gi_stub_gen.overrides.class_.Gtk.TreeViewColumn import transform_set_cell_data_func
@@ -76,6 +77,9 @@ CLASS_OVERRIDES: dict[str, dict[str, ClassOverride]] = {
     "gi.repository.GioUnix": {
         "InputStream": {"method_transforms": {"get_fd": transform_get_fd}},
         "OutputStream": {"method_transforms": {"get_fd": transform_get_fd}},
+    },
+    "gi.repository.GstAnalytics": {
+        "Mtd": {"method_transforms": {"iter_direct_related": transform_iter_direct_related}},
     },
     "gi.repository.Atk": {
         "Object": {"method_transforms": {

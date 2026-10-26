@@ -54,6 +54,9 @@ Prefer normal parsing, then a targeted transform, then a complete override only
 when necessary; follow `src/gi_stub_gen/overrides/README.md`. Preserve discovered
 docs/defaults, deep-copy registry models, avoid GI lookup at registry import, and
 retain tests that detect when upstream makes an override unnecessary.
+On gst-python upgrades, rerun `tests/test_analytics_override.py`: its runtime
+necessity check distinguishes a fixed public-Mtd call from a native sentinel
+default that still needs `...` in the stub. Review the versioned warning separately.
 
 For refactors, compare regenerated file inventories and contents against a fresh
 baseline in the same environment, including wheel payloads and package metadata.

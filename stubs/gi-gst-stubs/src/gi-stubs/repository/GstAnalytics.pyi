@@ -769,8 +769,11 @@ class Mtd(GObject.GPointer, metaclass=GObject.GType):
     def iter_direct_related(
         self,
         relation: typing.Any,
-        mtd_type: typing.Any = Mtd,
-    ) -> typing.Any: ...
+        mtd_type: typing.Any = ...,
+    ) -> typing.Any:
+        """
+        Stub note: the default is gst-python's internal native Mtd sentinel (all metadata types), represented here as ellipsis. Omit mtd_type to use it. With gst-python 1.28.8, explicitly passing the public GstAnalytics.Mtd class raises TypeError; concrete types such as GstAnalytics.ODMtd work.
+        """
     def relation_path(
         self,
         mtd: typing.Any,

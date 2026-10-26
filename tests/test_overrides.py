@@ -110,17 +110,20 @@ def test_registry_validation():
         )
 
 
-def test_runtime_override_members_exist():
+@pytest.mark.parametrize("namespace", CLASS_OVERRIDES)
+def test_runtime_override_members_exist(namespace):
     import importlib
 
-    for namespace, classes in CLASS_OVERRIDES.items():
+    if namespace == "gi.repository.GstAnalytics":
+        module = pytest.importorskip(namespace, exc_type=ImportError)
+    else:
         module = importlib.import_module(namespace)
-        for name, config in classes.items():
-            cls = getattr(module, name)
-            for method_name, replacement in config.get("methods", {}).items():
-                assert hasattr(cls, method_name) == (replacement is not None), (namespace, name, method_name)
-            for method_name in config.get("method_transforms", {}):
-                assert hasattr(cls, method_name), (namespace, name, method_name)
+    for name, config in CLASS_OVERRIDES[namespace].items():
+        cls = getattr(module, name)
+        for method_name, replacement in config.get("methods", {}).items():
+            assert hasattr(cls, method_name) == (replacement is not None), (namespace, name, method_name)
+        for method_name in config.get("method_transforms", {}):
+            assert hasattr(cls, method_name), (namespace, name, method_name)
     # Synthetic enum metaclasses and the generic Property descriptor are typing
     # models, not additional runtime members in CLASS_OVERRIDES.
 

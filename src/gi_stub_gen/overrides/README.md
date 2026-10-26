@@ -59,6 +59,7 @@ not version gates; rerun runtime checks when dependencies change.
 | Gio.DBusConnection.__init__ | Verified with PyGObject 3.58.1 / GLib 2.80: `gi.overrides.Gio._warn_init` forwards arguments and warns against direct construction, but exposes only `*args, **kwargs`. Reuse the property constructor builder and retain the warning. Prefer `new_sync` / `new_for_address_sync` or their asynchronous counterparts for initialized connections. |
 | Gst.Structure.set_value | Installed gst-python annotates the Python override as `bool`; `set_value("answer", 42)` returns `None`. Correct only the return annotation. |
 | Gst.Element.register | PyGObject accepts Python element classes as well as native GType values. Widen only the input argument to `GObject.GType \| type[Element]`, preserving the native metadata and discovered signature. Runtime tests register both forms; a necessity test detects when normal parsing learns this conversion. |
+| GstAnalytics.Mtd.iter_direct_related | gst-python 1.28.8 defaults to the native Mtd class, distinct from the public Python wrapper. Render only that default as `...`, retaining optionality, annotations and docs, and add a versioned runtime warning. The transform does nothing if the parsed default changes or the method becomes a native GI callable. |
 | GioUnix.InputStream/OutputStream.get_fd | PyGObject 3.58.1 wraps GLib < 2.86 without return annotations: recover `int`. With newer GLib, retain the already-correct native method; the interface's static entry point is unchanged. |
 | gi.Repository.get_default | PyGObject 3.58.1 exposes the internal Repository in both `gi` and `_gi`; Python 3.12 loses its C signature and 3.14 still lacks the return type. Preserve the class and its other members, correcting only the no-argument static factory and Repository return. |
 | Atk.Object.get_name/get_description | Atk 2.52.0 returns `None` for unset values on NoOpObject, although GI declares a non-null string. Mark only these two returns nullable. |
@@ -114,6 +115,13 @@ or changes, prompting review of the transform after dependency/parser upgrades.
 Keep the runtime behavior tests when removing a redundant transform, and remove
 its corresponding necessity test. These checks run against installed libraries;
 they do not monitor upstream releases automatically.
+
+`tests/test_analytics_override.py` checks the native Mtd sentinel, omitted/default
+and concrete-type calls, and the public-wrapper TypeError observed in gst-python
+1.28.8. Rerun it on gst-python upgrades: a fixed runtime requires reviewing the
+warning even if the native default still needs `...` in the stub. Changed parsed
+defaults bypass the transform without adding the warning; no general default
+formatting rule is changed.
 
 `tests/test_consumer_corrections.py` applies the same necessity checks to the
 GioUnix, Atk and TreeViewColumn transforms. Its GTK callback integration test
