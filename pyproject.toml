@@ -7,7 +7,7 @@ packages = ["src/gi_stub_gen"]
 
 [project]
 name = "gi-stub-gen"
-version = "0.0.1"
+version = "0.1.0"
 description = "A type hint/stub generator for GObject Introspection libraries"
 readme = "README.md"
 authors = [{ name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }]
