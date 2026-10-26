@@ -21,6 +21,7 @@ from packaging.version import Version
 from gi_stub_gen.release import PACKAGES, validate_native_labels
 
 INDEX_PACKAGES = (*PACKAGES, "gi-stub-gen")
+UBUNTU_VERSIONS = ("24.04", "26.04")
 
 
 def require(condition: bool, message: str) -> None:
@@ -79,12 +80,30 @@ def page(title: str, body: str) -> str:
             f'</head><body>\n{body}\n</body></html>\n')
 
 
+def _write_simple_index(output: Path, catalog: list[dict]) -> None:
+    """Write package links for one view of the already validated catalog."""
+    links = []
+    for name in INDEX_PACKAGES:
+        entries = sorted((entry for entry in catalog if entry["name"] == name),
+                         key=lambda entry: Version(entry["version"]), reverse=True)
+        target = output / "simple" / name
+        target.mkdir(parents=True)
+        body = "\n".join(
+            f'<a href="{html.escape(entry["url"], quote=True)}#sha256={entry["sha256"]}" '
+            f'data-requires-python="{html.escape(entry["requires_python"], quote=True)}">'
+            f'{html.escape(entry["filename"])}</a><br>' for entry in entries
+        )
+        (target / "index.html").write_text(page(name, body))
+        links.append(f'<a href="{name}/">{name}</a><br>')
+    (output / "simple/index.html").write_text(page("GI stub packages", "\n".join(links)))
+
+
 def write_index(repository: str, releases: list[dict], output: Path, download=fetch) -> list[dict]:
     """Adapt the gstreamer-oci index pattern; wheel assets remain on GitHub Releases."""
     require(re.fullmatch(r"[\w.-]+/[\w.-]+", repository) is not None, "Expected owner/repository")
     require(not output.exists(), f"Output already exists: {output}")
     catalog: list[dict] = []
-    seen: dict[str, str] = {}
+    seen: dict[str, dict] = {}
     for release in releases:
         if release.get("draft") or release.get("prerelease"):
             continue
@@ -110,6 +129,10 @@ def write_index(repository: str, releases: list[dict], output: Path, download=fe
                 require(re.fullmatch(r"[0-9a-f]{40}", manifest["source_commit"]) is not None, "Invalid source commit")
             else:
                 require("@sha256:" in native["image"], f"Image digest missing: {filename}")
+            ubuntu_versions = sorted({image["ubuntu"] for image in manifest.get("images", [])
+                                      if image["image"] == native.get("image")}) if not generator else []
+            require(generator or not manifest.get("images") or len(ubuntu_versions) == 1,
+                    f"Missing/ambiguous Ubuntu provenance: {filename}")
             for entry in manifest["wheels"]:
                 require((entry["name"] == "gi-stub-gen") == generator, f"Wrong manifest for {entry['name']}")
                 if not generator:
@@ -117,30 +140,39 @@ def write_index(repository: str, releases: list[dict], output: Path, download=fe
                 url, data = asset(entry["filename"])
                 validate_wheel(entry, data)
                 old = seen.get(entry["filename"])
-                require(old is None or old == entry["sha256"], f"Conflicting wheel: {entry['filename']}")
+                require(old is None or old["sha256"] == entry["sha256"], f"Conflicting wheel: {entry['filename']}")
                 if old is not None:
+                    old["ubuntu_versions"] = sorted(set(old["ubuntu_versions"]) | set(ubuntu_versions))
                     continue
-                seen[entry["filename"]] = entry["sha256"]
-                catalog.append({**entry, "url": url, "environment": native, "release": tag,
-                                "source_commit": manifest.get("source_commit")})
+                item = {**entry, "url": url, "environment": native, "release": tag,
+                        "source_commit": manifest.get("source_commit"), "ubuntu_versions": ubuntu_versions.copy()}
+                seen[entry["filename"]] = item
+                catalog.append(item)
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=output.parent) as directory:
         site = Path(directory) / "site"
         site.mkdir()
-        links = []
-        for name in INDEX_PACKAGES:
-            entries = sorted((entry for entry in catalog if entry["name"] == name),
-                             key=lambda entry: Version(entry["version"]), reverse=True)
-            target = site / "simple" / name
-            target.mkdir(parents=True)
-            body = "\n".join(
-                f'<a href="{html.escape(entry["url"], quote=True)}#sha256={entry["sha256"]}" '
-                f'data-requires-python="{html.escape(entry["requires_python"], quote=True)}">'
-                f'{html.escape(entry["filename"])}</a><br>' for entry in entries
-            )
-            (target / "index.html").write_text(page(name, body))
-            links.append(f'<a href="{name}/">{name}</a><br>')
-        (site / "simple/index.html").write_text(page("GI stub packages", "\n".join(links)))
+        _write_simple_index(site, catalog)
+        ubuntu_links = []
+        for ubuntu in UBUNTU_VERSIONS:
+            entries = [entry for entry in catalog if entry["name"] == "gi-stub-gen"
+                       or not entry["canonical"] and ubuntu in entry["ubuntu_versions"]]
+            target = site / "ubuntu" / ubuntu
+            _write_simple_index(target, entries)
+            owner, project = repository.split("/")
+            url = f"https://{owner}.github.io/{project}/ubuntu/{ubuntu}/simple/"
+            command = f"python -m pip install --index-url {url} gi-gst-stubs"
+            body = (f'<h1>Ubuntu {ubuntu} stub wheels</h1>'
+                    '<p>This index contains native stub builds generated on this Ubuntu release and the shared generator. '
+                    'It excludes recommended wheels without native suffixes and builds with unknown Ubuntu provenance. '
+                    'Wheels remain universal for Python 3.12+; runtime libraries and bindings must be installed separately.</p>'
+                    f'<pre><code>{html.escape(command)}</code></pre>'
+                    '<p>Select this index without also adding the general index. '
+                    'pip and uv do not detect your Ubuntu or native library versions.</p>'
+                    '<p><a href="simple/">Simple index</a> · <a href="../../">All builds</a></p>')
+            (target / "index.html").write_text(page(f"Ubuntu {ubuntu} GI stub wheels", body))
+            ubuntu_links.append(f'<a href="ubuntu/{ubuntu}/">Ubuntu {ubuntu}</a> '
+                                f'(<a href="ubuntu/{ubuntu}/simple/">Simple index</a>)')
         recommended = []
         for name in PACKAGES:
             entries = [entry for entry in catalog if entry["name"] == name and entry["canonical"]]
@@ -155,6 +187,7 @@ def write_index(repository: str, releases: list[dict], output: Path, download=fe
                 continue
             native = entry["environment"]
             values = [entry["name"], entry["version"], "Recommended" if entry["canonical"] else "Native build",
+                      ", ".join(entry["ubuntu_versions"]) or "Unknown",
                       native["glib"], native["gtk"], native["gstreamer"], native["python"]]
             cells = "".join(f"<td>{html.escape(value)}</td>" for value in values)
             rows.append(f'<tr>{cells}<td><a href="{html.escape(entry["url"], quote=True)}">Wheel</a></td></tr>')
@@ -176,6 +209,8 @@ def write_index(repository: str, releases: list[dict], output: Path, download=fe
                 'These packages do not install runtime bindings, native libraries or typelibs.</p>'
                 '<p>All wheels are <code>py3-none-any</code> for Python 3.12+; no separate Ubuntu or Python ABI build is needed. '
                 'The described APIs depend on the native libraries used during generation.</p>'
+                '<h2>Ubuntu indexes</h2><p>For consumer projects, choose the index matching the generation environment: '
+                + " · ".join(ubuntu_links) + '. These indexes contain native variants only; the general index remains complete.</p>'
                 '<h2>Install recommended wheels</h2><p>Run in your project virtual environment; keep only the packages you need. '
                 '<code>gi-base-stubs</code> covers core GI, <code>gi-graphics-core-stubs</code> graphics, '
                 '<code>gi-gst-stubs</code> GStreamer and GES, and <code>gi-gtk-stubs</code> GTK.</p>'
@@ -189,7 +224,7 @@ def write_index(repository: str, releases: list[dict], output: Path, download=fe
                 'The recommended commands use exact wheel URLs to avoid that ambiguity. '
                 'A <code>.postN</code> suffix denotes a revised stub build.</p>'
                 '<h2>Available wheels</h2>'
-                '<table><thead><tr><th>Package</th><th>Version</th><th>Build</th><th>GLib</th><th>GTK</th>'
+                '<table><thead><tr><th>Package</th><th>Version</th><th>Build</th><th>Ubuntu</th><th>GLib</th><th>GTK</th>'
                 '<th>GStreamer</th><th>Build Python</th><th>Download</th></tr></thead><tbody>'
                 + "\n".join(rows) + '</tbody></table>'
                 '<p>Pages hosts static HTML only; wheels remain in GitHub Releases. '

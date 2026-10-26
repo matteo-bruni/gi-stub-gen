@@ -107,6 +107,13 @@ Stub wheels are `py3-none-any` for Python 3.12+; available APIs still depend on 
 Public versions describe the verified recent API; suffixes such as `+glib2.80` identify a specific generation environment, not automatic GLib detection.
 After publishing the index, select an older build explicitly with `pip install --extra-index-url https://matteo-bruni.github.io/gi-stub-gen/simple/ 'gi-base-stubs==3.58.1+glib2.80'`; otherwise installers prefer the higher local version.
 
+For consumer projects, use the [Ubuntu 24.04 index](https://matteo-bruni.github.io/gi-stub-gen/ubuntu/24.04/simple/) or [Ubuntu 26.04 index](https://matteo-bruni.github.io/gi-stub-gen/ubuntu/26.04/simple/) to select native stub builds from that environment; the [general index](https://matteo-bruni.github.io/gi-stub-gen/simple/) keeps all builds.
+These views use manifest provenance, exclude unsuffixed stub wheels, and include the shared generator. Select one Ubuntu index without also adding the general index; native libraries and bindings are still installed separately.
+
+```bash
+pip install --index-url https://matteo-bruni.github.io/gi-stub-gen/ubuntu/24.04/simple/ gi-gst-stubs
+```
+
 You can find the generated output in the `stubs/` folder as an example. I have currently organized them into 4 packages based on an arbitrary grouping that seemed logical for dependency management.
 
 > [!NOTE] 

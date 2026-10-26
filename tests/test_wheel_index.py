@@ -30,12 +30,16 @@ def wheel(version="3.58.1+glib2.88", name="gi-base-stubs", requirements="") -> t
                 canonical=Version(version).local is None, sha256=hashlib.sha256(data).hexdigest()), data
 
 
-def release_assets(entries):
-    prefix = "https://github.com/example/stubs/releases/download/v1/"
+def release_assets(entries, *, tag="v1", ubuntu=None, glib="2.88"):
+    prefix = f"https://github.com/example/stubs/releases/download/{tag}/"
     native = dict(image="ghcr.io/example/image@sha256:" + "a" * 64, glib="2.88", gtk="4.22", gstreamer="1.28.8", python="3.14.9")
-    manifest = json.dumps(dict(format_version=1, environment=native, wheels=[entry for entry, _ in entries])).encode()
-    data = {prefix + "stub-build-glib2.88.json": manifest, **{prefix + entry["filename"]: blob for entry, blob in entries}}
-    releases = [dict(tag_name="v1", draft=False, prerelease=False,
+    native["glib"] = glib
+    manifest = dict(format_version=1, environment=native, wheels=[entry for entry, _ in entries])
+    if ubuntu is not None:
+        manifest["images"] = [dict(image=native["image"], ubuntu=ubuntu, python="3.14")]
+    data = {prefix + f"stub-build-glib{glib}.json": json.dumps(manifest).encode(),
+            **{prefix + entry["filename"]: blob for entry, blob in entries}}
+    releases = [dict(tag_name=tag, draft=False, prerelease=False,
                      assets=[dict(name=url.rsplit("/", 1)[-1], browser_download_url=url) for url in data])]
     return releases, data
 
@@ -68,6 +72,10 @@ def test_static_index_and_catalog(tmp_path):
     command = landing.split("<pre><code>")[1].split("</code></pre>")[0]
     assert "gi_base_stubs-3.58.1-py3-none-any.whl#sha256=" in command
     assert "+glib" not in command
+    for ubuntu in ("24.04", "26.04"):
+        # A GLib label alone does not establish which Ubuntu produced the wheel.
+        assert "#sha256=" not in (output / f"ubuntu/{ubuntu}/simple/gi-base-stubs/index.html").read_text()
+        assert f'ubuntu/{ubuntu}/simple/' in landing
     with pytest.raises(ValueError, match="already exists"):
         write_index("example/stubs", releases, output, data.__getitem__)
 
@@ -135,6 +143,67 @@ def test_mixed_generator_and_stub_index(tmp_path):
     assert len(write_index("example/stubs", releases, output, data.__getitem__)) == 2
     assert entry["filename"] in (output / "simple/gi-stub-gen/index.html").read_text()
     assert "gstreamer-oci binding indexes" in (output / "index.html").read_text()
+    for ubuntu in ("24.04", "26.04"):
+        assert entry["filename"] in (output / f"ubuntu/{ubuntu}/simple/gi-stub-gen/index.html").read_text()
+
+
+def test_ubuntu_indexes_select_native_builds_and_keep_general_index_complete(tmp_path):
+    releases, data = [], {}
+    for ubuntu, glib in (("24.04", "2.80"), ("26.04", "2.88")):
+        entries = []
+        for name in ("gi-base-stubs", "gi-graphics-core-stubs", "gi-gst-stubs", "gi-gtk-stubs"):
+            public = "1.28.8" if name == "gi-gst-stubs" else "3.58.1"
+            entries.extend([wheel(public + "+glib" + glib, name), wheel(public + ".post1+glib" + glib, name)])
+            if ubuntu == "26.04":
+                entries.append(wheel(public, name))
+        extra, blobs = release_assets(entries, tag="ubuntu-" + ubuntu, ubuntu=ubuntu, glib=glib)
+        releases.extend(extra)
+        data.update(blobs)
+    output = tmp_path / "site"
+    catalog = write_index("example/stubs", releases, output, data.__getitem__)
+    assert len(catalog) == 20
+    for entry in catalog:
+        assert entry["filename"] in (output / f'simple/{entry["name"]}/index.html').read_text()
+        for ubuntu in ("24.04", "26.04"):
+            text = (output / f'ubuntu/{ubuntu}/simple/{entry["name"]}/index.html').read_text()
+            expected = not entry["canonical"] and ubuntu in entry["ubuntu_versions"]
+            assert (entry["filename"] in text) == expected
+    for ubuntu in ("24.04", "26.04"):
+        text = (output / f"ubuntu/{ubuntu}/simple/gi-base-stubs/index.html").read_text()
+        assert text.index("3.58.1.post1+") < text.index("3.58.1+")
+        assert "#sha256=" in text and 'data-requires-python="&gt;=3.12"' in text
+        landing = (output / f"ubuntu/{ubuntu}/index.html").read_text()
+        assert f"--index-url https://example.github.io/stubs/ubuntu/{ubuntu}/simple/" in landing
+        assert 'href="../../"' in landing
+    assert not list(output.rglob("*.whl"))
+
+
+def test_same_published_wheel_can_belong_to_both_ubuntu_indexes(tmp_path):
+    releases, data = [], {}
+    for ubuntu in ("24.04", "26.04"):
+        extra, blobs = release_assets([wheel()], tag="ubuntu-" + ubuntu, ubuntu=ubuntu)
+        releases.extend(extra)
+        data.update(blobs)
+    output = tmp_path / "site"
+    catalog = write_index("example/stubs", releases, output, data.__getitem__)
+    assert len(catalog) == 1
+    assert catalog[0]["ubuntu_versions"] == ["24.04", "26.04"]
+    for ubuntu in catalog[0]["ubuntu_versions"]:
+        assert catalog[0]["filename"] in (output / f"ubuntu/{ubuntu}/simple/gi-base-stubs/index.html").read_text()
+
+
+@pytest.mark.parametrize("ambiguous", [False, True])
+def test_rejects_missing_or_ambiguous_ubuntu_image_provenance(tmp_path, ambiguous):
+    releases, data = release_assets([wheel()], ubuntu="26.04")
+    key = next(url for url in data if url.endswith(".json"))
+    manifest = json.loads(data[key])
+    if ambiguous:
+        manifest["images"].append(dict(manifest["images"][0], ubuntu="24.04"))
+    else:
+        manifest["images"][0]["image"] = "another-image"
+    data[key] = json.dumps(manifest).encode()
+    with pytest.raises(ValueError, match="Ubuntu provenance"):
+        write_index("example/stubs", releases, tmp_path / "site", data.__getitem__)
 
 
 @pytest.mark.parametrize("requirement", ["Requires-Dist: gst-python-binding\n", "Requires-Dist: GST.Python.Binding\n", "Requires-Dist: thing @ file:///opt/wheel/a.whl\n", "Provides-Extra: gst\n"])
