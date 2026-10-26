@@ -1,19 +1,20 @@
 [project]
 name = "gi-base-stubs"
-version = "3.58.1+glib2.80"
+version = "3.58.1+glib2.88"
 description = "Type stubs for GI libraries"
 readme = "README.md"
 authors = [
     { name = "Matteo Bruni", email = "matteo.bruni@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["typing-extensions>=4.12"]
 keywords = ["types", "stub", "gi", "gobject", "introspection"]
 classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Typing :: Typed",
 ]
 

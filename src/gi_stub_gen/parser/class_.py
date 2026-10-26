@@ -29,7 +29,6 @@ from gi_stub_gen.utils.gi_utils import (
     do_class_need_gtype_metaclass,
     MAP_GI_GTYPE_TO_TYPE,
     get_gi_type_info,
-    gi_type_to_py_type,
     is_class_field_nullable,
 )
 from gi_stub_gen.manager.gir_docs import GIRDocs
@@ -659,8 +658,6 @@ def parse_class(
     Returns:
         tuple[ClassSchema | None, list[CallbackSchema]]: parsed ClassSchema and list of CallbackSchema callbacks
     """
-    from gi_stub_gen.schema.class_ import ClassPropSchema
-
     # Check if it is a class
     if type(class_to_parse) not in (gi.types.GObjectMeta, gi.types.StructMeta, type):  # type: ignore
         return None, []

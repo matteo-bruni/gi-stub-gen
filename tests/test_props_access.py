@@ -49,6 +49,24 @@ def test_props_separate_accessor_types_and_inaccessible_properties():
     assert "inaccessible" not in text
 
 
+@pytest.mark.parametrize("docstring", [None, "Property documentation."])
+@pytest.mark.parametrize("deprecated", [False, True])
+def test_property_getter_body_has_only_docstring_or_ellipsis(monkeypatch, docstring, deprecated):
+    schema, _ = parse_class("gi.repository.Gio", Gio.DBusConnection)
+    assert schema is not None
+    prop = next(prop for prop in schema.props if prop.name == "closed")
+    schema.props = [prop.model_copy(update={"docstring": docstring, "is_deprecated": deprecated})]
+    monkeypatch.setattr(TemplateManager, "MODULE_NAME", "Gio")
+    tree = ast.parse(schema.render_props(), feature_version=(3, 12))
+    props = next(node for node in tree.body if isinstance(node, ast.ClassDef))
+    getter = next(node for node in props.body if isinstance(node, ast.FunctionDef) and node.name == "closed")
+    assert len(getter.body) == 1
+    if docstring or deprecated:
+        assert ast.get_docstring(getter) is not None
+    else:
+        assert ast.get_docstring(getter) is None
+
+
 def test_getter_metadata_supplies_nullability():
     schema, _ = parse_class("gi.repository.Gio", Gio.Application)
     assert schema is not None

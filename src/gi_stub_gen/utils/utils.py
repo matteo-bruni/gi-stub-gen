@@ -424,7 +424,7 @@ def format_stub_with_ruff(
     virtual_filename: str = "generated.pyi",
 ) -> str:
     """
-    Formats a string of code using 'ruff format' via stdin.
+    Remove unused stub imports, sort the remaining imports, then format via stdin.
 
     It uses pathlib to construct a virtual absolute path. This ensures that Ruff
     can correctly resolve the project configuration (pyproject.toml) by walking
@@ -452,11 +452,21 @@ def format_stub_with_ruff(
     virtual_path = Path.cwd() / virtual_filename
 
     try:
+        formatted_input = code_content.encode("utf-8")
+        if virtual_path.suffix == ".pyi":
+            # Explicit re-exports (import X as X) survive F401; no other lint fixes are applied.
+            sorted_imports = subprocess.run(
+                [ruff_path, "check", "--select", "I,F401", "--fix-only", "-", f"--stdin-filename={virtual_path}"],
+                input=formatted_input,
+                capture_output=True,
+                check=True,
+            )
+            formatted_input = sorted_imports.stdout
         # '-' tells ruff to read from standard input (stdin)
         # '--stdin-filename' gives context for config resolution and file type rules
         process = subprocess.run(
             [ruff_path, "format", "-", f"--stdin-filename={virtual_path}"],
-            input=code_content.encode("utf-8"),  # Send string as bytes
+            input=formatted_input,
             capture_output=True,  # Capture stdout and stderr
             check=True,  # Raise CalledProcessError on failure
         )

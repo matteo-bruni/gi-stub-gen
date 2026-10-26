@@ -13,5 +13,6 @@
         {{ fun.deprecation_warnings | trim | indent(8, blank=True) }}
     {%- endif %}
     """
-    {% endif %}
+    {% else %}
     ...
+    {% endif %}

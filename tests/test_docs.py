@@ -1,4 +1,3 @@
-from unittest.mock import Mock
 from gi_stub_gen.manager.gi_repo import GIRepo
 from gi_stub_gen.manager.gir_docs import GIRDocs
 from gi_stub_gen.parser.gir import parse_gir_docs

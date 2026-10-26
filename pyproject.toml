@@ -45,6 +45,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development :: Code Generators",
     "Topic :: Software Development :: Build Tools",
@@ -81,13 +82,22 @@ exclude = [
     "**/ignore",
     "**/.venv",
     ".venv",
+    # Gtk.pyi exceeds Pyright's complexity limit when analyzed as a project file.
+    "stubs/gi-gtk-stubs/src/gi-stubs/repository/Gtk.pyi",
 ]
-ignore = ["**/ignore", "**/.venv", ".venv"]
+ignore = [
+    "**/ignore", "**/.venv", ".venv",
+    "stubs/gi-gtk-stubs/src/gi-stubs/repository/Gtk.pyi",
+]
 # ignore missing source for modules like gi.repository
 reportMissingModuleSource = "none"
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint.per-file-ignores]
+# Generated documentation is intentional: IDEs show it in hover and completion.
+"stubs/**/*.pyi" = ["PYI021"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

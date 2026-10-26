@@ -39,6 +39,11 @@ def on_open(app: Gtk.Application, files: list[Gio.File], hint: str) -> None:
     assert_type(files, list[Gio.File])
 
 
+def gtk_button(button: Gtk.Button) -> None:
+    assert_type(button.get_label(), str | None)
+    button.set_label("Updated label")
+
+
 def consume(app: Gtk.Application, pad: Gst.Pad) -> None:
     assert_type(app.props.application_id, str | None)
     assert_type(pad.get_direction(), Gst.PadDirection)

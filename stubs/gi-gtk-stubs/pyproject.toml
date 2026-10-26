@@ -1,6 +1,6 @@
 [project]
 name = "gi-gtk-stubs"
-version = "3.58.1+gtk4.14"
+version = "3.58.1+gtk4.22"
 description = "GI Stubs for GTK"
 readme = "README.md"
 authors = [
@@ -14,6 +14,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Typing :: Typed",
 ]
 

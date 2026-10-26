@@ -1,10 +1,13 @@
 import ast
 
+import pytest
+
 from gi.repository import GLib, Gst
 
 from gi_stub_gen.manager.template import TemplateManager
 from gi_stub_gen.parser.function import parse_function
 from gi_stub_gen.parser.python_function import parse_python_function
+from gi_stub_gen.schema.class_ import ClassFieldSchema
 
 
 def test_callable_out_inout_and_hidden_length_parameters():
@@ -72,3 +75,44 @@ def test_parameter_named_cls_is_not_an_implicit_receiver():
     parsed = parse_python_function(Decorator.__call__, "Test", from_class=Decorator)
     assert parsed is not None
     assert parsed.render_parameter_list("Test") == ["self", "cls: type[int]"]
+
+
+@pytest.mark.parametrize("docstring", [None, "Documentation retained for IDE hover."])
+@pytest.mark.parametrize("debug", [False, True])
+def test_callable_body_has_only_docstring_or_ellipsis(monkeypatch, docstring, debug):
+    monkeypatch.setattr(TemplateManager, "MODULE_NAME", "Gst")
+    monkeypatch.setattr(TemplateManager, "DEBUG", debug)
+    gi_function = parse_function(Gst.version, None)
+    assert gi_function is not None
+
+    def example() -> int:
+        return 1
+
+    python_function = parse_python_function(example, "Gst")
+    assert python_function is not None
+    gi_function.docstring = python_function.docstring = docstring
+    for render in (gi_function.render_stub, gi_function.render_stub_compact, python_function.render_stub):
+        function = ast.parse(render(), feature_version=(3, 12)).body[0]
+        assert isinstance(function, ast.FunctionDef)
+        assert len(function.body) == 1
+        if docstring:
+            assert docstring in (ast.get_docstring(function) or "")
+        elif ast.get_docstring(function) is None:
+            assert isinstance(function.body[0], ast.Expr)
+            assert isinstance(function.body[0].value, ast.Constant)
+            assert function.body[0].value.value is Ellipsis
+
+
+@pytest.mark.parametrize("docstring", [None, "Readonly field documentation."])
+@pytest.mark.parametrize("deprecated", [False, True])
+def test_readonly_field_body_has_only_docstring_or_ellipsis(monkeypatch, docstring, deprecated):
+    monkeypatch.setattr(TemplateManager, "MODULE_NAME", "Test")
+    field = ClassFieldSchema(
+        name="value", type_hint_name="int", type_hint_namespace=None,
+        is_deprecated=deprecated, deprecation_warnings=None, docstring=docstring,
+        line_comment=None, may_be_null=False, is_readable=True, is_writable=False,
+    )
+    text = TemplateManager.render_master("class_fields.jinja", fields=[field])
+    getter = ast.parse(text, feature_version=(3, 12)).body[0]
+    assert isinstance(getter, ast.FunctionDef)
+    assert len(getter.body) == 1

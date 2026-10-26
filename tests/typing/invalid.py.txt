@@ -1,6 +1,10 @@
 from gi.repository import Gio, Gst, Gtk
 
 
+def invalid_gtk_button(button: Gtk.Button) -> None:
+    button.set_label(123)  # error
+
+
 def invalid(app: Gtk.Application, pad: Gst.Pad) -> None:
     Gst.ElementFactory.make(123)  # error
     pad.set_active("yes")  # error
