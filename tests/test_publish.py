@@ -1,6 +1,7 @@
 """Release preparation and GitHub mutations are tested with isolated files and fake APIs."""
 
 import hashlib
+import io
 import json
 from pathlib import Path
 import platform
@@ -12,6 +13,14 @@ import tomlkit
 
 from gi_stub_gen import publish
 from tests.test_wheel_index import wheel
+
+
+def replace_wheel_member(data: bytes, name: str, content: bytes) -> bytes:
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(data)) as source, zipfile.ZipFile(output, "w") as target:
+        for member in source.infolist():
+            target.writestr(member, content if member.filename == name else source.read(member.filename))
+    return output.getvalue()
 
 
 @pytest.mark.parametrize("value", ["1.0rc1", "1.0.dev1", "1.0+local", "v1.0", "1!1.0", "1.0;echo bad"])
@@ -124,6 +133,70 @@ def test_reuses_published_bytes_and_rejects_changed_payload(tmp_path):
         publish.reuse_wheels(tmp_path, [dict(entry, url="original")], lambda url: blob)
 
 
+def test_unselected_dependency_reuses_published_bytes_despite_backend_and_revision_changes():
+    candidate, data = wheel()
+    previous, original = wheel("3.58.1.post2+glib2.88")
+    previous.update(url="published", ubuntu_versions=["26.04"])
+    prefix = "gi_base_stubs-3.58.1+glib2.88.dist-info/"
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        data = replace_wheel_member(data, prefix + "WHEEL", archive.read(prefix + "WHEEL") + b"Generator: newer-hatchling\n")
+    candidate["sha256"] = hashlib.sha256(data).hexdigest()
+    entry, reused = publish.published_dependency(candidate, data, "26.04", [previous], lambda url: original)
+    assert entry == previous and reused == original
+    assert publish.wheel_contents(data) != publish.wheel_contents(original)
+
+
+def test_selected_package_still_rejects_changed_backend_metadata(tmp_path):
+    entry, original = wheel()
+    member = "gi_base_stubs-3.58.1+glib2.88.dist-info/WHEEL"
+    with zipfile.ZipFile(io.BytesIO(original)) as archive:
+        content = archive.read(member) + b"Generator: newer-hatchling\n"
+    changed = replace_wheel_member(original, member, content)
+    (tmp_path / entry["filename"]).write_bytes(changed)
+    (tmp_path / "stub-build-glib2.88.json").write_text(json.dumps(dict(wheels=[entry])))
+    with pytest.raises(ValueError, match="new revision"):
+        publish.reuse_wheels(tmp_path, [dict(entry, url="published")], lambda url: original)
+
+
+@pytest.mark.parametrize("change", ["stubs", "requires_python", "dependencies"])
+def test_unselected_dependency_rejects_stub_or_installation_changes(change):
+    candidate, data = wheel()
+    previous = dict(candidate, url="published", ubuntu_versions=["26.04"])
+    original = data
+    if change == "stubs":
+        member, content = "gi-stubs/__init__.pyi", b"changed: str\n"
+    else:
+        member = "gi_base_stubs-3.58.1+glib2.88.dist-info/METADATA"
+        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+            content = archive.read(member)
+        if change == "requires_python":
+            content = content.replace(b">=3.12", b">=3.13")
+            candidate["requires_python"] = ">=3.13"
+        else:
+            content += b"Requires-Dist: other-package>=2\n"
+    data = replace_wheel_member(data, member, content)
+    candidate["sha256"] = hashlib.sha256(data).hexdigest()
+    with pytest.raises(ValueError, match="Unselected package.*has changed"):
+        publish.published_dependency(candidate, data, "26.04", [previous], lambda url: original)
+
+
+@pytest.mark.parametrize("version,ubuntu", [("3.58.2+glib2.88", "26.04"), ("3.58.1+glib2.80", "26.04"),
+                                           ("3.58.1", "26.04"), ("3.58.1+glib2.88", "24.04")])
+def test_unselected_dependency_rejects_missing_version_or_wrong_environment(version, ubuntu):
+    candidate, data = wheel()
+    previous, _ = wheel(version)
+    previous.update(url="wrong", ubuntu_versions=[ubuntu])
+    with pytest.raises(ValueError, match="No published"):
+        publish.published_dependency(candidate, data, "26.04", [previous], lambda url: pytest.fail("Wrong wheel downloaded"))
+
+
+def test_unselected_dependency_validates_published_checksum():
+    candidate, data = wheel()
+    previous = dict(candidate, url="published", ubuntu_versions=["26.04"], sha256="bad")
+    with pytest.raises(ValueError, match="Checksum mismatch"):
+        publish.published_dependency(candidate, data, "26.04", [previous], lambda url: data)
+
+
 def test_publish_uploads_all_assets_before_publishing(monkeypatch, tmp_path):
     calls = []
     monkeypatch.setattr(publish, "run", lambda *args, **kwargs: calls.append(args))
@@ -146,8 +219,44 @@ def test_existing_stub_release_requires_all_wheels_and_same_inputs(monkeypatch):
     with pytest.raises(ValueError, match="different generator or images"):
         publish.verify_stub_release("example/stubs", release, [], generator, 1, lambda url: json.dumps(manifest).encode())
     entries.pop()
-    with pytest.raises(ValueError, match="twelve wheels"):
+    with pytest.raises(ValueError, match="three wheels per selected package"):
         publish.verify_stub_release("example/stubs", release, images, generator, 1, lambda url: json.dumps(manifest).encode())
+
+
+def test_existing_partial_release_verifies_scope_and_rejects_incomplete_assets(monkeypatch):
+    generator = dict(source_commit="a" * 40, wheels=[dict(version="0.1.0")])
+    images = [dict(image="digest")]
+    release = dict(draft=False, prerelease=False, assets=[
+        dict(name=f"stub-build-{number}.json", browser_download_url=str(number)) for number in (1, 2)
+    ])
+    entries = [dict(name="gi-gst-stubs", version=version) for version in ("1.28.9", "1.28.9+glib2.80", "1.28.9+glib2.88")]
+    monkeypatch.setattr(publish, "write_index", lambda *args: entries)
+    manifest = dict(source_commit="a" * 40, generator=generator["wheels"][0], images=images, packages=["gi-gst-stubs"])
+    download = lambda url: json.dumps(manifest).encode()
+    publish.verify_stub_release("example/stubs", release, images, generator, 0, download, packages=("gi-gst-stubs",))
+    manifest["packages"] = ["gi-base-stubs"]
+    with pytest.raises(ValueError, match="different packages"):
+        publish.verify_stub_release("example/stubs", release, images, generator, 0, download, packages=("gi-gst-stubs",))
+    entries.pop()
+    with pytest.raises(ValueError, match="three wheels per selected package"):
+        publish.verify_stub_release("example/stubs", release, images, generator, 0, download, packages=("gi-gst-stubs",))
+
+
+def test_existing_partial_release_skips_generation(monkeypatch, tmp_path):
+    monkeypatch.setattr(publish, "resolve_images", lambda *args: [])
+    monkeypatch.setattr(publish, "generator_release", lambda *args: (dict(source_commit="a" * 40), b"wheel"))
+    monkeypatch.setattr(publish, "api", lambda endpoint: dict(tag_name=endpoint.rsplit("/", 1)[-1]))
+    calls = []
+    monkeypatch.setattr(publish, "verify_stub_release", lambda *args, **kwargs: calls.append((args, kwargs)))
+    monkeypatch.setattr(publish, "run", lambda *args, **kwargs: pytest.fail("Existing release must not build or publish"))
+    publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.9", 1, 0, "gst")
+    assert calls[0][0][1]["tag_name"] == "stubs-gst1.28.9-gen0.1.0-gst-r0"
+    assert calls[0][1]["packages"] == ("gi-gst-stubs",)
+
+
+def test_unknown_package_group_fails_before_network_access(tmp_path):
+    with pytest.raises(ValueError, match="Unknown package group"):
+        publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.9", 1, 0, "unknown")
 
 
 @pytest.mark.parametrize("failure", [None, "branch", "push"])
@@ -200,7 +309,8 @@ def test_generator_orchestration_pushes_only_after_checks(monkeypatch, tmp_path,
     assert calls.index(("checked",)) < calls.index(push) < calls.index(("published",))
 
 
-def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monkeypatch, tmp_path):
+@pytest.mark.parametrize("group", publish.PACKAGE_GROUPS)
+def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monkeypatch, tmp_path, group):
     entry, blob = wheel("0.1.0", "gi-stub-gen")
     manifest = dict(source_commit="a" * 40, wheels=[entry])
     images = [dict(ubuntu=u, python=p, image=f"image-{u}-{p}") for u in ("24.04", "26.04") for p in ("3.12", "3.14")]
@@ -208,7 +318,22 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
     monkeypatch.setattr(publish, "resolve_images", lambda *args: images)
     monkeypatch.setattr(publish, "generator_release", lambda *args: (manifest, blob))
     monkeypatch.setattr(publish, "api", lambda *args: None)
-    monkeypatch.setattr(publish, "release_catalog", lambda *args: [])
+    catalog = []
+    blobs = {}
+    for ubuntu, glib in (("24.04", "2.80"), ("26.04", "2.88")):
+        for name in publish.PACKAGES:
+            public = "1.28.8" if name == "gi-gst-stubs" else "3.58.1"
+            for version in (public + "+glib" + glib, public):
+                if version == public and ubuntu != "26.04":
+                    continue
+                info, body = wheel(version, name)
+                url = "https://example.com/" + info["filename"]
+                blobs[url] = body
+                catalog.append(dict(info, url=url, ubuntu_versions=[ubuntu]))
+    catalog = [entry for entry in catalog if entry["name"] not in publish.PACKAGE_GROUPS[group]]
+    monkeypatch.setattr(publish, "release_catalog", lambda *args: catalog)
+    actual_dependency = publish.published_dependency
+    monkeypatch.setattr(publish, "published_dependency", lambda *args: actual_dependency(*args, download=blobs.__getitem__))
     monkeypatch.setattr(publish, "run", lambda *args, **kwargs: calls.append(args))
     monkeypatch.setattr(publish, "publish", lambda *args: calls.append(("published",)))
 
@@ -242,18 +367,28 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
     def fake_consumer(args, **kwargs):
         selected = Path(args[args.index("-v") + 1].split(":")[0]) / args[-1].removeprefix("/code/")
         assert len(list(selected.glob("*.whl"))) == 4
+        for archive in selected.glob("*.whl"):
+            if not any(archive.name.startswith(name.replace("-", "_") + "-") for name in publish.PACKAGE_GROUPS[group]):
+                assert archive.read_bytes() == blobs["https://example.com/" + archive.name]
         calls.append(("consumer",))
 
     monkeypatch.setattr(publish, "container", fake_container)
     monkeypatch.setattr(publish.subprocess, "run", fake_consumer)
-    publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.8", 1, 0)
+    publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.8", 1, 0, group)
     assert ("git", "checkout", "--detach", "a" * 40) in calls
     assert calls.count(("consumer",)) == 8
     assert calls[-1] == ("published",)
-    assert len(list((tmp_path / "assets").glob("*.whl"))) == 12
+    expected = publish.PACKAGE_GROUPS[group]
+    assert len(list((tmp_path / "assets").glob("*.whl"))) == 3 * len(expected)
     assert not (tmp_path / "assets/.gitignore").exists()
     verification = json.loads((tmp_path / "assets/verification.json").read_text())
     assert len(verification["environments"]) == 4
+    assert verification["packages"] == list(expected)
+    assert len(verification["reused_wheels"]) == 3 * (len(publish.PACKAGES) - len(expected))
+    for path in (tmp_path / "assets").glob("stub-build-*.json"):
+        assert {entry["name"] for entry in json.loads(path.read_text())["wheels"]} == set(expected)
+    tag = f"stubs-gst1.28.8-gen0.1.0{'-' + group if group != 'all' else ''}-r0"
+    assert ("git", "tag", tag, "a" * 40) in calls
     assert all(value["glib_runtime"] == "2.80.5" for value in verification["environments"].values())
 
 
@@ -279,6 +414,9 @@ def test_workflows_keep_native_bindings_optional():
     assert "gst" not in project["project"].get("optional-dependencies", {})
     assert project["dependency-groups"]["gst"] == ["gst-python-binding"]
     assert len(list((root / ".github/workflows").glob("*.yml"))) == 2
+    workflow = (root / ".github/workflows/release-stubs.yml").read_text()
+    assert "type: choice" in workflow and '--packages "$STUB_PACKAGES"' in workflow
+    assert all(f"          - {group}\n" in workflow for group in publish.PACKAGE_GROUPS)
 
 
 def test_dependency_script_rejects_wrong_ubuntu_without_installing():

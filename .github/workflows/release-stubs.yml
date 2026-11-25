@@ -21,6 +21,17 @@ on:
         default: '0'
         required: true
         type: string
+      packages:
+        description: Stub packages to publish (other packages are reused from existing releases)
+        default: all
+        required: true
+        type: choice
+        options:
+          - all
+          - gst
+          - base
+          - graphics
+          - gtk
 permissions:
   contents: read
 concurrency:
@@ -44,6 +55,7 @@ jobs:
           GSTREAMER_VERSION: ${{ inputs.gstreamer_version }}
           IMAGE_REVISION: ${{ inputs.image_revision }}
           STUB_REVISION: ${{ inputs.revision }}
+          STUB_PACKAGES: ${{ inputs.packages }}
         run: |
           set -euo pipefail
           python3 -m venv "$RUNNER_TEMP/release-venv"
@@ -52,7 +64,8 @@ jobs:
           export PYTHONPATH="$GITHUB_WORKSPACE/src"
           gh auth setup-git
           python -m gi_stub_gen.publish stubs --generator-version "$GENERATOR_VERSION" \
-            --gstreamer-version "$GSTREAMER_VERSION" --image-revision "$IMAGE_REVISION" --revision "$STUB_REVISION"
+            --gstreamer-version "$GSTREAMER_VERSION" --image-revision "$IMAGE_REVISION" --revision "$STUB_REVISION" \
+            --packages "$STUB_PACKAGES"
       - name: Retain prepared artifacts and verification logs
         if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

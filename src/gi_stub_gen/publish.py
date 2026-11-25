@@ -23,6 +23,13 @@ from gi_stub_gen.release import PACKAGES
 
 OCI_REPOSITORY = "matteo-bruni/gstreamer-oci"
 CURRENT_GSTREAMER = "1.28.8"
+PACKAGE_GROUPS = {
+    "all": PACKAGES,
+    "gst": ("gi-gst-stubs",),
+    "base": ("gi-base-stubs",),
+    "graphics": ("gi-graphics-core-stubs",),
+    "gtk": ("gi-gtk-stubs",),
+}
 
 
 def run(*args: str, cwd: Path | None = None) -> str:
@@ -170,19 +177,46 @@ def reuse_wheels(output: Path, catalog: list[dict], download=fetch) -> None:
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
 
 
+def _stub_payload(data: bytes) -> tuple[dict[str, tuple[int, bytes]], str, list[str]]:
+    """Compare exported stubs and installation requirements, independently of the build backend."""
+    contents = wheel_contents(data)
+    metadata = BytesParser().parsebytes(next(value[1] for name, value in contents.items()
+                                           if name.endswith(".dist-info/METADATA")))
+    return ({name: value for name, value in contents.items() if name.startswith("gi-stubs/")},
+            str(metadata["Requires-Python"]), sorted(metadata.get_all("Requires-Dist", [])))
+
+
+def published_dependency(candidate: dict, data: bytes, ubuntu: str, catalog: list[dict], download=fetch) -> tuple[dict, bytes]:
+    """Reuse an unchanged, matching published package without rebuilding or republishing it."""
+    expected = Version(candidate["version"])
+    matches = [entry for entry in catalog if entry["name"] == candidate["name"]
+               and Version(entry["version"]).base_version == expected.base_version
+               and Version(entry["version"]).local == expected.local
+               and ubuntu in entry.get("ubuntu_versions", [])]
+    require(bool(matches), f"No published {candidate['name']} matching {expected} on Ubuntu {ubuntu}; select all packages")
+    payload = _stub_payload(data)
+    for entry in sorted(matches, key=lambda entry: Version(entry["version"]), reverse=True):
+        previous = download(entry["url"])
+        validate_wheel(entry, previous)
+        if _stub_payload(previous) == payload:
+            return entry, previous
+    raise ValueError(f"Unselected package {candidate['name']} has changed; select all packages to publish it")
+
+
 def verify_stub_release(repository: str, release: dict, images: list[dict], generator: dict,
-                        revision: int, download=fetch) -> None:
+                        revision: int, download=fetch, *, packages: tuple[str, ...] = PACKAGES) -> None:
     """Allow an index-only retry only for a complete release made with the same inputs."""
     require(not release["draft"] and not release["prerelease"], "Existing release is incomplete")
     with tempfile.TemporaryDirectory() as directory:
         entries = write_index(repository, [release], Path(directory) / "index", download)
-    require(len(entries) == 12 and all(sum(e["name"] == name for e in entries) == 3 for name in PACKAGES),
-            "Existing stub release must contain all twelve wheels")
+    require(len(entries) == 3 * len(packages) and all(sum(e["name"] == name for e in entries) == 3 for name in packages),
+            "Existing stub release must contain exactly three wheels per selected package")
     require(all(Version(e["version"]).post == (revision or None) for e in entries), "Wrong stub revision")
     assets = [a for a in release["assets"] if a["name"].startswith("stub-build-") and a["name"].endswith(".json")]
     require(len(assets) == 2, "Expected two native build manifests")
     for asset in assets:
         manifest = json.loads(download(asset["browser_download_url"]))
+        require(tuple(manifest.get("packages", PACKAGES)) == packages, "Existing release uses different packages")
         require(manifest.get("source_commit") == generator["source_commit"] and manifest.get("generator") == generator["wheels"][0]
                 and manifest.get("images") == images, "Existing release uses different generator or images; use a new revision")
 
@@ -264,16 +298,20 @@ def generator(root: Path, work: Path, repository: str, value: str) -> None:
     publish(repository, tag, commit, output)
 
 
-def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_revision: int, revision: int) -> None:
+def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_revision: int, revision: int,
+          packages: str = "all") -> None:
     """Build native variants, test recommended wheels across the matrix, then publish once."""
     require(revision >= 0, "Stub revision must be non-negative")
+    require(packages in PACKAGE_GROUPS, "Unknown package group")
+    selected_packages = PACKAGE_GROUPS[packages]
     stable_version(gen)
     images = resolve_images(gst, image_revision)
     manifest, data = generator_release(repository, gen)
-    tag = f"stubs-gst{gst}-gen{gen}-r{revision}"
+    scope = "" if packages == "all" else f"-{packages}"
+    tag = f"stubs-gst{gst}-gen{gen}{scope}-r{revision}"
     existing = api(f"repos/{repository}/releases/tags/{tag}")
     if existing is not None:
-        verify_stub_release(repository, existing, images, manifest, revision)
+        verify_stub_release(repository, existing, images, manifest, revision, packages=selected_packages)
         return
     catalog = release_catalog(repository)
     source = work / "source"
@@ -289,10 +327,18 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
         cells[image["ubuntu"], image["python"]] = cell
         if image["python"] == "3.14":
             release_output = cell / ".release-output"
-            # uv also writes .gitignore here; only wheels and build manifests are release assets.
-            for artifact in (*release_output.glob("*.whl"), *release_output.glob("stub-build-*.json")):
-                require(not (output / artifact.name).exists(), f"Duplicate artifact: {artifact.name}")
-                shutil.copy2(artifact, output / artifact.name)
+            for path in release_output.glob("stub-build-*.json"):
+                info = json.loads(path.read_text())
+                info["wheels"] = [entry for entry in info["wheels"] if entry["name"] in selected_packages]
+                require({entry["name"] for entry in info["wheels"]} == set(selected_packages), "Missing selected packages")
+                info["packages"] = list(selected_packages)
+                # uv also writes .gitignore here; publish only selected wheels and their manifest.
+                for entry in info["wheels"]:
+                    target = output / entry["filename"]
+                    require(not target.exists(), f"Duplicate artifact: {target.name}")
+                    shutil.copy2(release_output / target.name, target)
+                require(not (output / path.name).exists(), f"Duplicate artifact: {path.name}")
+                (output / path.name).write_text(json.dumps(info, indent=2) + "\n")
     documentation_differences = {ubuntu: compare_python(cells[ubuntu, "3.12"], cells[ubuntu, "3.14"])
                                  for ubuntu in ("24.04", "26.04")}
     reuse_wheels(output, catalog)
@@ -301,20 +347,33 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
         info.update(source_commit=manifest["source_commit"], generator=manifest["wheels"][0], images=images)
         path.write_text(json.dumps(info, indent=2) + "\n")
     # Both native and recommended wheels must work in every corresponding runtime.
+    dependencies: dict[tuple[str, str], tuple[dict, bytes]] = {}
     for image in images:
         cell = cells[image["ubuntu"], image["python"]]
         sets = [cells[image["ubuntu"], "3.14"] / ".release-output", cells["26.04", "3.14"] / ".release-output"]
         for number, wheels in enumerate(sets):
             selected = cell / f".consumer-{number}"
             selected.mkdir()
-            for path in wheels.glob("*.whl"):
-                if ("+" in path.name) == (number == 0):
-                    shutil.copy2(output / path.name, selected / path.name)
+            for path in wheels.glob("stub-build-*.json"):
+                for entry in json.loads(path.read_text())["wheels"]:
+                    if entry["canonical"] != (number == 1):
+                        continue
+                    if entry["name"] in selected_packages:
+                        shutil.copy2(output / entry["filename"], selected / entry["filename"])
+                    else:
+                        ubuntu = image["ubuntu"] if number == 0 else "26.04"
+                        key = (ubuntu, entry["filename"])
+                        if key not in dependencies:
+                            dependencies[key] = published_dependency(entry, (wheels / entry["filename"]).read_bytes(), ubuntu, catalog)
+                        previous, dependency_data = dependencies[key]
+                        (selected / previous["filename"]).write_bytes(dependency_data)
             subprocess.run(["docker", "run", "--rm", "-v", f"{cell}:/code", "-w", "/code", image["image"],
                             "bash", "scripts/check-release.sh", "consumers", f"/code/.consumer-{number}"], check=True)
     environments = {f"{u}-{p}": json.loads((cell / ".release-logs/environment.json").read_text())
                     for (u, p), cell in cells.items()}
-    (output / "verification.json").write_text(json.dumps(dict(source_commit=manifest["source_commit"],
+    reused = {entry["filename"]: entry for entry, _ in dependencies.values()}
+    (output / "verification.json").write_text(json.dumps(dict(source_commit=manifest["source_commit"], packages=list(selected_packages),
+        reused_wheels=list(reused.values()),
         images=images, environments=environments, python_api_parity=True, documentation_differences=documentation_differences,
         consumer_combinations=8), indent=2) + "\n")
     run("git", "tag", tag, manifest["source_commit"], cwd=source)
@@ -331,6 +390,7 @@ def main() -> None:
     stub.add_argument("--gstreamer-version", required=True)
     stub.add_argument("--image-revision", type=int, default=1)
     stub.add_argument("--revision", type=int, default=0)
+    stub.add_argument("--packages", choices=PACKAGE_GROUPS, default="all", help="Publish all packages or one package group")
     args = parser.parse_args()
     repository = os.environ["GITHUB_REPOSITORY"]
     require(re.fullmatch(r"[\w.-]+/[\w.-]+", repository) is not None, "Invalid repository")
@@ -340,7 +400,7 @@ def main() -> None:
     if args.command == "generator":
         generator(root, work, repository, args.version)
     else:
-        stubs(root, work, repository, args.generator_version, args.gstreamer_version, args.image_revision, args.revision)
+        stubs(root, work, repository, args.generator_version, args.gstreamer_version, args.image_revision, args.revision, args.packages)
 
 
 if __name__ == "__main__":
