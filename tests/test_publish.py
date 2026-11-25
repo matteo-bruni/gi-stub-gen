@@ -208,6 +208,14 @@ def test_publish_uploads_all_assets_before_publishing(monkeypatch, tmp_path):
     assert calls[1] == ("gh", "release", "edit", "v0.1.0", "--repo", "example/stubs", "--draft=false")
 
 
+def test_stub_release_notes_distinguish_generator_and_workflow_commit(monkeypatch, tmp_path):
+    monkeypatch.setattr(publish, "run", lambda *args, **kwargs: "")
+    publish.publish("example/stubs", "stubs-gst1.28.9-gen0.1.0-gst-r0", "a" * 40, tmp_path, controller_commit="b" * 40)
+    notes = (tmp_path / "release-notes.md").read_text()
+    assert f"Generator source: {'a' * 40}" in notes
+    assert f"Release workflow: {'b' * 40}" in notes
+
+
 def test_existing_stub_release_requires_all_wheels_and_same_inputs(monkeypatch):
     generator = dict(source_commit="a" * 40, wheels=[dict(version="0.1.0")])
     images = [dict(image="digest")]
@@ -309,8 +317,8 @@ def test_generator_orchestration_pushes_only_after_checks(monkeypatch, tmp_path,
     assert calls.index(("checked",)) < calls.index(push) < calls.index(("published",))
 
 
-@pytest.mark.parametrize("group", publish.PACKAGE_GROUPS)
-def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monkeypatch, tmp_path, group):
+@pytest.mark.parametrize("group,branch_advanced", [(group, False) for group in publish.PACKAGE_GROUPS] + [("gst", True)])
+def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monkeypatch, tmp_path, group, branch_advanced):
     entry, blob = wheel("0.1.0", "gi-stub-gen")
     manifest = dict(source_commit="a" * 40, wheels=[entry])
     images = [dict(ubuntu=u, python=p, image=f"image-{u}-{p}") for u in ("24.04", "26.04") for p in ("3.12", "3.14")]
@@ -334,8 +342,26 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
     monkeypatch.setattr(publish, "release_catalog", lambda *args: catalog)
     actual_dependency = publish.published_dependency
     monkeypatch.setattr(publish, "published_dependency", lambda *args: actual_dependency(*args, download=blobs.__getitem__))
-    monkeypatch.setattr(publish, "run", lambda *args, **kwargs: calls.append(args))
-    monkeypatch.setattr(publish, "publish", lambda *args: calls.append(("published",)))
+
+    def fake_run(*args, **kwargs):
+        if args == ("git", "rev-parse", "HEAD"):
+            assert kwargs["cwd"] == tmp_path
+            return "b" * 40
+        calls.append(args)
+        return ""
+
+    branch_checks = 0
+
+    def repository_state(endpoint):
+        nonlocal branch_checks
+        if "/commits/" not in endpoint:
+            return dict(default_branch="main")
+        branch_checks += 1
+        return dict(sha="c" * 40 if branch_advanced and branch_checks > 1 else "b" * 40)
+
+    monkeypatch.setattr(publish, "run", fake_run)
+    monkeypatch.setattr(publish, "required_api", repository_state)
+    monkeypatch.setattr(publish, "publish", lambda *args, **kwargs: calls.append(("published",)))
 
     def fake_container(root, work, image, generator_wheel, stage, revision):
         assert generator_wheel.read_bytes() == blob
@@ -374,6 +400,12 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
 
     monkeypatch.setattr(publish, "container", fake_container)
     monkeypatch.setattr(publish.subprocess, "run", fake_consumer)
+    if branch_advanced:
+        with pytest.raises(ValueError, match="Default branch advanced"):
+            publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.8", 1, 0, group)
+        assert ("published",) not in calls
+        assert not any(call[:2] in (("git", "tag"), ("git", "push")) for call in calls)
+        return
     publish.stubs(tmp_path, tmp_path, "example/stubs", "0.1.0", "1.28.8", 1, 0, group)
     assert ("git", "checkout", "--detach", "a" * 40) in calls
     assert calls.count(("consumer",)) == 8
@@ -384,11 +416,17 @@ def test_stub_orchestration_uses_released_commit_and_checks_eight_consumers(monk
     verification = json.loads((tmp_path / "assets/verification.json").read_text())
     assert len(verification["environments"]) == 4
     assert verification["packages"] == list(expected)
+    assert verification["source_commit"] == "a" * 40
+    assert verification["controller_commit"] == "b" * 40
     assert len(verification["reused_wheels"]) == 3 * (len(publish.PACKAGES) - len(expected))
     for path in (tmp_path / "assets").glob("stub-build-*.json"):
-        assert {entry["name"] for entry in json.loads(path.read_text())["wheels"]} == set(expected)
+        info = json.loads(path.read_text())
+        assert {entry["name"] for entry in info["wheels"]} == set(expected)
+        assert info["source_commit"] == "a" * 40
+        assert info["controller_commit"] == "b" * 40
     tag = f"stubs-gst1.28.8-gen0.1.0{'-' + group if group != 'all' else ''}-r0"
-    assert ("git", "tag", tag, "a" * 40) in calls
+    assert ("git", "tag", tag, "b" * 40) in calls
+    assert ("git", "tag", tag, "a" * 40) not in calls
     assert all(value["glib_runtime"] == "2.80.5" for value in verification["environments"].values())
 
 

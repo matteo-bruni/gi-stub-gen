@@ -258,10 +258,12 @@ def compare_python(left: Path, right: Path) -> list[str]:
             != re.sub(r"(?m)^Date:\s*\d{4}-\d{2}-\d{2}\s*$", "Date: <NORMALIZED>", (right / path.relative_to(left)).read_text())]
 
 
-def publish(repository: str, tag: str, commit: str, output: Path) -> None:
+def publish(repository: str, tag: str, commit: str, output: Path, *, controller_commit: str | None = None) -> None:
     """Create a draft with all assets first, then publish it without replacing files."""
     notes = output / "release-notes.md"
-    notes.write_text(f"Source: {commit}\n\nUniversal Python 3.12+ wheels. See the JSON manifests for checksums and build provenance.\n")
+    provenance = (f"Generator source: {commit}\nRelease workflow: {controller_commit}" if controller_commit
+                  else f"Source: {commit}")
+    notes.write_text(f"{provenance}\n\nUniversal Python 3.12+ wheels. See the JSON manifests for checksums and build provenance.\n")
     run("gh", "release", "create", tag, "--repo", repository, "--verify-tag", "--draft", "--title", tag,
         "--notes-file", str(notes), *map(str, sorted(output.glob("*.whl"))), *map(str, sorted(output.glob("*.json"))))
     run("gh", "release", "edit", tag, "--repo", repository, "--draft=false")
@@ -313,6 +315,10 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
     if existing is not None:
         verify_stub_release(repository, existing, images, manifest, revision, packages=selected_packages)
         return
+    controller_commit = run("git", "rev-parse", "HEAD", cwd=root)
+    branch = required_api(f"repos/{repository}")["default_branch"]
+    require(required_api(f"repos/{repository}/commits/{quote(branch, safe='')}")["sha"] == controller_commit,
+            "Run from the current default branch")
     catalog = release_catalog(repository)
     source = work / "source"
     run("git", "clone", "--no-checkout", "--", f"https://github.com/{repository}.git", str(source))
@@ -344,7 +350,8 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
     reuse_wheels(output, catalog)
     for path in output.glob("stub-build-*.json"):
         info = json.loads(path.read_text())
-        info.update(source_commit=manifest["source_commit"], generator=manifest["wheels"][0], images=images)
+        info.update(source_commit=manifest["source_commit"], controller_commit=controller_commit,
+                    generator=manifest["wheels"][0], images=images)
         path.write_text(json.dumps(info, indent=2) + "\n")
     # Both native and recommended wheels must work in every corresponding runtime.
     dependencies: dict[tuple[str, str], tuple[dict, bytes]] = {}
@@ -372,13 +379,17 @@ def stubs(root: Path, work: Path, repository: str, gen: str, gst: str, image_rev
     environments = {f"{u}-{p}": json.loads((cell / ".release-logs/environment.json").read_text())
                     for (u, p), cell in cells.items()}
     reused = {entry["filename"]: entry for entry, _ in dependencies.values()}
-    (output / "verification.json").write_text(json.dumps(dict(source_commit=manifest["source_commit"], packages=list(selected_packages),
+    (output / "verification.json").write_text(json.dumps(dict(source_commit=manifest["source_commit"], controller_commit=controller_commit,
+        packages=list(selected_packages),
         reused_wheels=list(reused.values()),
         images=images, environments=environments, python_api_parity=True, documentation_differences=documentation_differences,
         consumer_combinations=8), indent=2) + "\n")
-    run("git", "tag", tag, manifest["source_commit"], cwd=source)
-    run("git", "push", "origin", f"refs/tags/{tag}", cwd=source)
-    publish(repository, tag, manifest["source_commit"], output)
+    require(required_api(f"repos/{repository}/commits/{quote(branch, safe='')}")["sha"] == controller_commit,
+            "Default branch advanced; rerun")
+    # GITHUB_TOKEN cannot tag an old workflow tree that differs from the default branch.
+    run("git", "tag", tag, controller_commit, cwd=root)
+    run("git", "push", "origin", f"refs/tags/{tag}", cwd=root)
+    publish(repository, tag, manifest["source_commit"], output, controller_commit=controller_commit)
 
 
 def main() -> None:
